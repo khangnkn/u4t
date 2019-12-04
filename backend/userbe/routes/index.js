@@ -1,9 +1,31 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+
+const router = express.Router();
+const publicRouter = require('./public');
+const { environment } = require('../utils/config');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+router.use('/', publicRouter);
+
+// eslint-disable-next-line no-unused-vars
+router.use((err, req, res, next) => {
+  res.status(err.status || 500);
+  const resp = {};
+
+  resp.code = err.code || -1;
+  resp.message = err.message || 'unexpected error occurred';
+
+  if (err.data) {
+    resp.data = err.data;
+  }
+  if (environment !== 'development') {
+    return res.json(resp);
+  }
+  if (err.extra) {
+    resp.extra = err.extra;
+  }
+  return res.json(resp);
 });
+
 
 module.exports = router;
