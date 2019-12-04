@@ -8,9 +8,8 @@ import {EmptyLayout, MainLayout, LayoutRoute} from './components/Layout';
 import DashboardPage from "./pages/Dashboard";
 import AuthPage from "./pages/AuthPage";
 
-import {checkCookie} from "./utils/cookies";
 import './styles/reduction.scss';
-import {STATE_LOGIN, STATE_SIGNUP} from "./components/AuthForm";
+import requireAuth from "./utils/requireAuth";
 
 class App extends React.Component {
     render() {
@@ -22,13 +21,11 @@ class App extends React.Component {
                         path="/login"
                         layout={EmptyLayout}
                         component={props => (
-                            <AuthPage {...props} authState={STATE_LOGIN} />
+                            <AuthPage {...props}/>
                         )}
                     />
                     <MainLayout breakpoint={this.props.breakpoint}>
-                        <PrivateRoute path='/' exact>
-                            <DashboardPage></DashboardPage>
-                        </PrivateRoute>
+                        <Route path="/" exact component={requireAuth(DashboardPage)}/>
                     </MainLayout>
                 </Switch>
             </Router>
@@ -37,30 +34,22 @@ class App extends React.Component {
 }
 
 
-function PrivateRoute({children, ...rest}) {
-    return (
-        <Route
-            {...rest}
-            render={({location}) =>
-                checkCookie() ? (children) :
-                    (<Redirect
-                        to={{
-                            pathname: "/login",
-                            state: {from: location}
-                        }}/>)
-            }
-        />
-    );
-}
-
-
-function PublicPage() {
-    return <h3>Public</h3>;
-}
-
-function ProtectedPage() {
-    return <h3>Protected</h3>;
-}
+// function PrivateRoute({children, ...rest}) {
+//     console.log({children, ...rest});
+//     return (
+//         <Route
+//             {...rest}
+//             render={({location}) =>
+//                 checkCookie() ? (children) :
+//                     (<Redirect
+//                         to={{
+//                             pathname: "/login",
+//                             state: {from: location}
+//                         }}/>)
+//             }
+//         />
+//     );
+// }
 
 const query = ({width}) => {
     if (width < 575) {
@@ -87,4 +76,4 @@ const query = ({width}) => {
 };
 
 export default componentQueries(query)(App);
-// export default App;
+

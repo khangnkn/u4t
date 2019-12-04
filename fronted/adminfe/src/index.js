@@ -1,13 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from "react-redux";
+import jwtDecode from 'jwt-decode';
+
 import App from "./App";
 
 import * as serviceWorker from './serviceWorker';
 import configureStore from "./store/configureStore"
+import setAuthorizationToken from "./utils/setAuthorizationToken";
+import {setCurrentUser} from "./actions/authentication";
 
 const store = configureStore();
 
+if (localStorage.jwtToken) {
+    setAuthorizationToken(localStorage.jwtToken);
+    const user = jwtDecode(localStorage.jwtToken);
+    console.log(user);
+    store.dispatch(setCurrentUser(user));
+}
 
 ReactDOM.render(
     <Provider store={store}>

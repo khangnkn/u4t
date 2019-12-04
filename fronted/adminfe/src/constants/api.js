@@ -1,0 +1,1 @@
+export const LOG_IN = 'http://localhost:8000/user/login'
