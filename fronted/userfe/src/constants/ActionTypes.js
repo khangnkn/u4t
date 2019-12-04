@@ -1,0 +1,16 @@
+// Login
+export const HANDLE_LOGIN_CHANGE = 'HANDLE_LOGIN_CHANGE'
+export const LOGIN_REQUEST = 'LOGIN_REQUEST'
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
+export const LOGIN_FAILURE = 'LOGIN_FAILURE'
+
+// Register
+export const HANDLE_REGISTER_CHANGE = 'HANDLE_REGISTER_CHANGE'
+export const REGISTER_REQUEST = 'REGISTER_REQUEST'
+export const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
+export const REGISTER_FAILURE = 'REGISTER_FAILURE'
+
+// Alert
+export const SUCCESS = 'SUCCESS'
+export const ERROR = 'ERROR'
+export const CLEAR = 'CLEAR'
