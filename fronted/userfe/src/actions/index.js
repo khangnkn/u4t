@@ -15,13 +15,12 @@ export const handleLoginChange = (name, value) => {
 
 export const login = (username, password) => {
     return dispatch => {
-        console.log("before request");
         dispatch(request({username}));
         userService.login(username,password).then(
             data => {
                 if (data.code === 1){
                     dispatch(success(data.user));
-                    history.push('/');
+                    history.push('/profile');
                 } else {
                     dispatch(failure(data.message));
                     dispatch(alertActions.error(data.message));
@@ -42,10 +41,10 @@ export const handleRegisterChange = (name,value)=>{
     }
 }
 
-export const register = (username,password) => {
+export const register = (user) => {
     return dispatch => {
         dispatch(request());
-        userService.register(username,password).then(
+        userService.register(user).then(
             data => {
                 if (data.code === 1){
                     dispatch(success(data.user));
@@ -60,4 +59,19 @@ export const register = (username,password) => {
     function request(user) {return {type: types.REGISTER_REQUEST,user}};
     function success(user) {return {type: types.REGISTER_SUCCESS,user}};
     function failure(error) {return {type: types.REGISTER_FAILURE,error}};
+}
+
+
+export const handleProfileChange = (name,value)=>{
+    return{
+        type:types.HANDLE_PROFILE_CHANGE,
+        name,
+        value
+    }
+}
+
+export const update = (user) => {
+    return{
+        type:types.HANDLE_UPDATE,
+    }
 }

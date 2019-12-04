@@ -39,7 +39,7 @@ function register(user){
     const requestOptions = {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(user)
+        body: JSON.stringify({user})
     }
     return fetch(`/user/register`,requestOptions)
             .then(handleLogOut).then(resp => resp.json()).then(data => {

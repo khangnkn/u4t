@@ -15,21 +15,21 @@ class Register extends React.Component {
     }
     handleChange(event) {
         const { name, value } = event.target;
-        console.log(name+":"+value);
         this.props.handleRegisterChange(name, value);
         // this.setState({[name]:value});
     }
     handleSubmit(event) {
         event.preventDefault();
-        const { username, password } = this.props.register;
+        
+        const { username, password,role } = this.props.register.user;
         if (username && password) {
-            this.props.registerUser(username, password);
+            var user = {username,password,role};
+            this.props.registerUser(user);
         }
     }
     render() {
         var alert = this.props.alert;
         var register = this.props.register;
-        console.log(register);
         var requestIcon = <img alt="processing" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />;
         var confimPasswordFeedback = (
             <Badge variant="danger">Password don't match.</Badge>);
@@ -82,7 +82,7 @@ class Register extends React.Component {
                             
                             <div className="offset-md-3 col-sm-9">
                             
-                                <Button type="submit" className="btn btn-default btn-auth" disabled={!register.isValid}>
+                                <Button type="submit" className="btn btn-default btn-auth">
                                     {register.requestRegister ? requestIcon : 'Sign Up'}
                                 </Button>
 
