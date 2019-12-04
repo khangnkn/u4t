@@ -17,6 +17,7 @@ var myReducer = (state = initialState, action) => {
         case types.HANDLE_REGISTER_CHANGE:
             switch (action.name) {
                 case 'username':
+                    
                     var username = action.value;
                     var isValid1 = username !== '' && state.confirmFlat && state.user.password !== '' && state.confirmPassword !== '' ? true : false;
                     var user1 = state.user;
@@ -30,10 +31,10 @@ var myReducer = (state = initialState, action) => {
                     user2.password = password;
                     return { ...state, user: user2, isValid: isValid2, confirmFlat: confirmFlat2 };
                 case 'confirmPassword':
+                        console.log(state);
                     var confirmPassword = action.value;
                     var confirmFlat3 = state.user.password !== '' && state.user.password === confirmPassword ? true : false;
                     var isValid3 = state.user.username !== '' && confirmFlat3 ? true : false;
-                    console.log(isValid3);
                     return { ...state, confirmPassword, confirmFlat: confirmFlat3, isValid: isValid3 };
                 case 'role':
                     var user4 = state.user;

@@ -10,6 +10,10 @@ export const REGISTER_REQUEST = 'REGISTER_REQUEST'
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
 export const REGISTER_FAILURE = 'REGISTER_FAILURE'
 
+// Profile
+export const HANDLE_PROFILE_CHANGE = 'HANDLE_PROFILE_CHANGE'
+export const HANDLE_UPDATE = 'HANDLE_UPDATE'
+
 // Alert
 export const SUCCESS = 'SUCCESS'
 export const ERROR = 'ERROR'
