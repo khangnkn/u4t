@@ -25,8 +25,6 @@ passport.use('local', new LocalStrategy((username, password, done) => {
   });
 }));
 
-console.log(config);
-
 passport.use('google', new GoogleStrategy({
   clientID: config.clientid,
   clientSecret: config.clientsecret,
