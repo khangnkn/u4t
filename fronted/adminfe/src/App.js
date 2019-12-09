@@ -5,11 +5,13 @@ import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom
 
 import {EmptyLayout, MainLayout, LayoutRoute} from './components/Layout';
 
-import DashboardPage from "./pages/Dashboard";
 import AuthPage from "./pages/AuthPage";
+import DashboardPage from "./pages/Dashboard";
+import UsersManagementPage from "./pages/UsersManagementPage";
 
 import './styles/reduction.scss';
 import requireAuth from "./utils/requireAuth";
+
 
 class App extends React.Component {
     render() {
@@ -25,7 +27,9 @@ class App extends React.Component {
                         )}
                     />
                     <MainLayout breakpoint={this.props.breakpoint}>
-                        <Route path="/" exact component={requireAuth(DashboardPage)}/>
+                        {/*<Route path="/" exact component={requireAuth(DashboardPage)}/>*/}
+                        <Route exact path="/" component={DashboardPage} />
+                        <Route exact path="/management" component={UsersManagementPage} />
                     </MainLayout>
                 </Switch>
             </Router>
