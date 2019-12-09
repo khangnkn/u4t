@@ -1,0 +1,226 @@
+// @mixin bg-translucent-dark($opacity) {
+//   background: rgba(0, 0, 0, $opacity);
+// }
+.auth-main {
+    position: fixed;
+    display: flex ;
+    align-items: center ;
+    display: -webkit-flex; /* Safari */
+    -webkit-align-items: center; /* Safari 7.0+ */
+    height: 100%;
+    width: 100%;
+    background-image: url("../images/back-ground.jpg");
+    background-attachment: fixed;
+}
+.auth-block {
+    width: 600px;
+    margin: 0 auto;
+    border-radius: 5px;
+    /*@include bg-translucent-dark(0.55);*/
+    background: rgba(241, 234, 234, 0.35);
+    color: #fff;
+    padding: 12px;
+    h1 {
+      font-weight: 300;
+      margin-bottom: 28px;
+      text-align: center;
+    }
+    p {
+      font-size: 16px;
+    }
+    a {
+      text-decoration: none;
+      outline: none;
+      transition: all 0.2s ease;
+      color: #209e91;
+      &:hover {
+        color: shade(#209e91, 15%);
+      }
+    }
+    .control-label {
+        font-size: 14px;
+        font-weight: 500;
+        padding-top: 11px;
+        color: #ffffff;
+        float: right !important;
+      }
+    
+      .form-group {
+        margin-bottom: 12px;
+      }
+}
+
+.auth-link {
+    display: block;
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: 33px;
+}
+.form-horizontal {
+    label {
+      line-height: 34px;
+      margin-bottom: 0;
+      padding-top: 0 !important;
+    }
+}
+.form-horizontal {
+    .radio, .checkbox, .radio-inline, .checkbox-inline {
+      padding-top: 0px;
+    }
+}
+.form-group {
+    label {
+      margin-bottom: 5px;
+      color: #666666;
+      font-weight: 400;
+      font-size: 13px;
+    }
+}
+
+.form-group .bootstrap-select.btn-group {
+    .dropdown-toggle:focus {
+      outline: none !important;
+    }
+  
+    button.btn.btn-default {
+      color: #ffffff;
+    }
+  
+    button.btn.btn-default:hover {
+      color: #666666;
+    }
+    .btn {
+      transition: none;
+    }
+}
+  
+  .form-group .bootstrap-select.btn-group.open {
+    button.btn.btn-default {
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+  
+    button.btn.btn-default:hover {
+      color: #ffffff;
+    }
+}
+.bootstrap-select {
+    .btn-default {
+      &:focus {
+        color: #666666;
+      }
+    }
+}
+.btn-auth {
+    background: #209e91;
+    color: #ffffff;
+    border-radius: 5px;
+    border-color: #209e91;
+    padding: 7px 12px;
+    transition: all 0.1s ease;
+    &:hover {
+      color: #ffffff;
+      background: #209e91;
+      border-color: #209e91;
+      transform: scale(1.2);
+    }
+}
+a.forgot-pass {
+    display: block;
+    text-align: right;
+    margin-bottom: -20px;
+    float: right;
+    z-index: 2;
+    position: relative;
+}
+
+
+.auth-sep {
+    margin-top: 36px;
+    margin-bottom: 24px;
+    line-height: 20px;
+    font-size: 16px;
+    text-align: center;
+    display: block;
+    position: relative;
+    & > span {
+      display: table-cell;
+      width: 30%;
+      white-space: nowrap;
+      padding: 0 24px;
+      color: #ffffff;
+      & > span {
+        margin-top: -12px;
+        display: block;
+      }
+    }
+    &:before, &:after {
+      border-top: solid 1px #ffffff;
+      content: "";
+      height: 1px;
+      width: 35%;
+      display: table-cell;
+    }
+}
+.al-share {
+    margin: -6px 0 0 12px;
+    padding: 0;
+    list-style: none;
+    float: left;
+    li {
+      list-style: none;
+      float: left;
+      margin-left: 16px;
+      i {
+        cursor: pointer;
+        transition: all 0.1s ease;
+        color: #ffffff;
+        padding: 6px;
+        box-sizing: content-box;
+        font-size: 16px;
+        &:hover {
+          transform: scale(1.2);
+        }
+      }
+      i.fa-facebook-square {
+        color: #3b5998;
+      }
+      i.fa-google-plus-g {
+        color: #dd4b39;
+      }
+    }
+}
+.al-share-auth {
+    text-align: center;
+    .al-share {
+      float: none;
+      margin: 0;
+      padding: 0;
+      display: inline-block;
+      li {
+        margin-left: 24px;
+        &:first-child {
+          margin-left: 0;
+        }
+        i {
+          font-size: 24px;
+        }
+      }
+    }
+}
+.alert-app{
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.label-confirmPassword {
+  font-family: Raleway-Regular;
+  font-size: 14px;
+  color: red;
+  line-height: 1.4;
+
+  display: block;
+  position: relative;
+  padding-left: 10px;
+  margin-bottom: 12px;
+  cursor: pointer;
+}

@@ -12,7 +12,6 @@ import UsersManagementPage from "./pages/UsersManagementPage";
 import './styles/reduction.scss';
 import requireAuth from "./utils/requireAuth";
 
-
 class App extends React.Component {
     render() {
         return (
