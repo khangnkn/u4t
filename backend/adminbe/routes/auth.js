@@ -6,7 +6,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 
-const UserModel = require('../models/user');
+const UserModel = require('../models/Admin');
 
 /* POST login. */
 router.post('/login', function (req, res, next) {

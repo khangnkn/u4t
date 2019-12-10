@@ -8,7 +8,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const JWTStrategy = passportJWT.Strategy;
 
 const mongoose = require('mongoose');
-const UserModel = require('./models/user');
+const UserModel = require('./models/Admin');
 const bcrypt = require('bcryptjs');
 
 passport.use(new LocalStrategy({
