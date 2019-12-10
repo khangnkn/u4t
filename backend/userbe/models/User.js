@@ -12,14 +12,45 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
+  email: {
+    type: String,
+    required: false,
+  },
   fullname: {
     type: String,
     required: false,
   },
-  account_type: {
+  avatar: {
+    type: String,
+    required: false,
+  },
+  address: {
+    type: String,
+    required: false,
+  },
+  is_active: {
+    type: Boolean,
+    required: true,
+    default: true,
+  },
+  role: {
     type: Number,
     required: false,
     default: 0,
+  },
+  data: {
+    skills: {
+      type: Array,
+      required: false,
+    },
+    intro: {
+      type: String,
+      required: false,
+    },
+    price: {
+      type: Number,
+      required: false,
+    },
   },
   created_at: {
     type: Date,
