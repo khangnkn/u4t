@@ -1,0 +1,108 @@
+#myFooter{
+    flex: 0 0 auto;
+    -webkit-flex: 0 0 auto;
+    /* position: absolute; */
+    bottom: 0 ;
+    width: 100%;
+ }
+
+#myFooter {
+    background-color: #3a3f46;
+    color: white;
+}
+
+#myFooter .row {
+    margin-bottom: 0px;
+}
+
+#myFooter .info{
+    text-align: justify; 
+    color: #afb0b1;
+}
+
+#myFooter ul {
+    list-style-type: none;
+    padding-left: 0;
+    line-height: 1.7;
+}
+
+#myFooter h5 {
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+#myFooter .logo{
+    margin-top: 0px;
+}
+
+#myFooter .second-bar .logo a{
+    color:white;
+    font-size: 28px;
+    float: left;
+    font-weight: bold;
+    line-height: 68px;
+    margin: 0;
+    padding: 0;
+}
+
+#myFooter a {
+    color: #d2d1d1;
+    text-decoration: none;
+}
+
+#myFooter a:hover,
+#myFooter a:focus {
+    text-decoration: none;
+    color: white;
+}
+
+#myFooter .second-bar {
+    text-align: center;
+    background-color: #33373e;
+    text-align: center;
+}
+
+#myFooter .second-bar a {
+    font-size: 22px;
+    color: #9fa3a9;
+    padding: 10px;
+    transition: 0.2s;
+    line-height: 68px;
+}
+
+#myFooter .second-bar a:hover {
+    text-decoration: none;
+}
+
+/* @media screen and (max-width: 767px) {
+    #myFooter {
+        text-align: center;
+    }
+
+    #myFooter .info{
+        text-align: center;
+    }
+} */
+
+.custom-option{
+    background-color: white;
+}
+
+.cus1 {
+    box-sizing: border-box; border-width: 1px; padding: 13px 19px; margin: 0px; height: 169.967px;
+}
+
+.nv-brand{
+    font-size: 30px;
+    font-weight: 500;
+    color: purple;
+}
+
+.avatarPicture{
+    border-radius: 50%;
+    border: 1px solid lightgray;
+    width: 200px;
+    height: 200px;
+}
