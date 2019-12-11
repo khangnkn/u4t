@@ -1,7 +1,10 @@
+import { resolve } from "dns";
+
 export const userService = {
     login,
     register,
-    logOut
+    logOut,
+    update
 }
 
 function handleLogOut(resp){
@@ -45,4 +48,36 @@ function register(user){
             .then(handleLogOut).then(resp => resp.json()).then(data => {
                 return data;
             })
+}
+
+function update(user){
+    let header = new Headers();
+    var userCookie = JSON.parse(localStorage.getItem('user'));
+    header.append("Content-Type",'application/json');
+    header.append("Authorization",userCookie ? 'Bearer' + userCookie.token : '');
+    let fd = new FormData();
+    let {id,infor,avatar,data} = user;
+    
+    fd.append('id',JSON.stringify(id));
+    fd.append('infor',JSON.stringify(infor));
+
+    if (avatar != null) fd.append('avatar',avatar);
+    fd.append('data',JSON.stringify(data));
+
+    let req = new Request('/update',{
+        method: 'POST',
+        headers: header,
+        mode: 'no-cors',
+        body: fd
+    })
+
+    return fetch(req).then(handleLogOut).then(resp => resp.json()).then(data => {
+        if (data.ok)  {
+            var user = data.user;
+            localStorage.setItem('user',JSON.stringify(user));
+            return data;
+        } else {
+            return data;
+        }
+    })
 }
