@@ -1,44 +1,17 @@
 const express = require('express');
 const SC = require('http-status-codes');
 const passport = require('passport');
-const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const Error = require('../../utils/error');
 
 const router = express.Router();
-const secret = require('../../utils/secret');
-const User = require('../../models/User');
+const { User } = require('../../models');
 const { salt } = require('../../utils/config');
 const validation = require('../../utils/validation/register');
+const { login } = require('../../controllers/auth.controller');
 
 /* GET users listing. */
-router.post('/login', (req, res, next) => {
-  passport.authenticate('local', (err, user) => {
-    if (err != null) {
-      return next({
-        code: Error.UnknownError,
-        message: err,
-      });
-    }
-    if (user === false) {
-      return next({
-        status: SC.UNAUTHORIZED,
-        code: Error.AuthenticationFailed,
-        message: 'username or password not correct',
-      });
-    }
-    const token = jwt.sign({ user }, secret, { expiresIn: 86400 });
-    return next({
-      status: SC.OK,
-      code: Error.Success,
-      message: 'success',
-      data: {
-        user,
-        token,
-      },
-    });
-  })(req, res, next);
-});
+router.post('/login', login);
 
 router.get('/google', passport.authenticate('google', {
   scope: ['https://www.googleapis.com/auth/userinfo.profile'],

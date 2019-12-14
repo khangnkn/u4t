@@ -6,6 +6,7 @@ const { Schema } = mongoose;
 const ConversationSchema = new Schema({
   created_at: {
     type: Date,
+    default: new Date(),
   },
   teacher: {
     type: Schema.Types.ObjectId,

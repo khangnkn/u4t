@@ -1,6 +1,4 @@
 module.exports = {
-  Success: 1,
-  UnknownError: -1,
   AuthenticationFailed: -2,
   TokenIsRequired: -21,
   TokenExpired: -22,

@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const SC = require('http-status-codes');
 const Error = require('../utils/error');
 const secret = require('../utils/secret');
-const User = require('../models/User');
+const { User } = require('../models');
 
 const AuthorizationMiddleware = (req, res, next) => {
   const { authorization } = req.headers;

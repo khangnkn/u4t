@@ -2,7 +2,7 @@ const express = require('express');
 const multer = require('multer');
 const SC = require('http-status-codes');
 const Error = require('../../utils/error');
-const User = require('../../models/User');
+const { User } = require('../../models');
 
 const router = express.Router();
 

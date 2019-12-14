@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const routesLogger = require('./utils/routes-listing');
 
 require('./utils/database');
 require('./middlewares/passport-strategies');
@@ -18,5 +19,7 @@ app.use(cookieParser());
 app.use('/api', indexRouter);
 
 app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'build/index.html')));
+
+routesLogger(app);
 
 module.exports = app;
