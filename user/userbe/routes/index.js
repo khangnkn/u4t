@@ -1,14 +1,16 @@
-const express = require('express');
-
-const router = express.Router();
+const router = require('express').Router();
 const publicRouter = require('./public');
 const privateRouter = require('./private');
 const authMdw = require('../middlewares/bearer-auth');
 const { environment } = require('../utils/config');
+const { CreateNotFound } = require('../controllers/error.controller');
 
 /* GET home page. */
 router.use('/', publicRouter);
 router.use('/p', authMdw, privateRouter);
+
+router.use(CreateNotFound);
+
 // eslint-disable-next-line no-unused-vars
 router.use((err, req, res, next) => {
   res.status(err.status || 500);

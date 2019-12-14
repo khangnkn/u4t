@@ -1,8 +1,8 @@
 const router = require('express').Router();
-const { get, create } = require('../../controllers/conversations.controller');
+const { GetConversation, CreateConversation } = require('../../controllers/conversations.controller');
 
-router.get('/conversation', get);
-router.post('/conversation', create);
+router.get('/conversation', GetConversation);
+router.post('/conversation', CreateConversation);
 
 
 module.exports = router;

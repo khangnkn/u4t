@@ -10,7 +10,7 @@ function parseMessage(params) {
   });
 }
 
-const create = (req, res, next) => {
+const CreateMessage = (req, res, next) => {
   const { body } = req;
   const err = EnsureMessage(body);
   if (err) {
@@ -34,4 +34,4 @@ const create = (req, res, next) => {
   }));
 };
 
-module.exports = { create };
+module.exports = { CreateMessage };

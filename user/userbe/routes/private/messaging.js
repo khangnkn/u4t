@@ -1,6 +1,6 @@
 const router = require('express').Router();
-const { create } = require('../../controllers/messages.controller');
+const { CreateMessage } = require('../../controllers/messages.controller');
 
-router.post('/message', create);
+router.post('/message', CreateMessage);
 
 module.exports = router;

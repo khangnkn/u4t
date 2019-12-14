@@ -3,7 +3,7 @@ const { Conversation } = require('../models');
 const Error = require('../utils/error');
 const { EnsureGetConversation, EnsureCreateConversation } = require('../utils/validation/conversation');
 
-const get = (req, res, next) => {
+const GetConversation = (req, res, next) => {
   const { params } = req;
   const validation = EnsureGetConversation(params);
   if (!validation.valid) {
@@ -31,7 +31,7 @@ const get = (req, res, next) => {
   });
 };
 
-const create = (req, res, next) => {
+const CreateConversation = (req, res, next) => {
   const { body } = req;
   const validation = EnsureCreateConversation(body);
   if (!validation.valid) {
@@ -63,4 +63,4 @@ const create = (req, res, next) => {
   });
 };
 
-module.exports = { get, create };
+module.exports = { GetConversation, CreateConversation };
