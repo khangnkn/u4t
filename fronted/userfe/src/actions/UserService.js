@@ -23,7 +23,7 @@ function logOut(){
 function login(username,password){
     const requestOptions = {
         method: 'POST',
-        header: {'Content-Type': 'application/json'},
+        headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({username,password})
     }
 
@@ -42,8 +42,9 @@ function register(user){
     const requestOptions = {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({user})
+        body: JSON.stringify({username: user.username,password: user.password,role: user.role})
     }
+    console.log(requestOptions);
     return fetch(`/user/register`,requestOptions)
             .then(handleLogOut).then(resp => resp.json()).then(data => {
                 return data;
@@ -62,7 +63,11 @@ function update(user){
     fd.append('infor',JSON.stringify(infor));
 
     if (avatar != null) fd.append('avatar',avatar);
-    fd.append('data',JSON.stringify(data));
+    if (infor.role === 0){
+        fd.append('data',JSON.stringify({}));
+    } else {
+        fd.append('data',JSON.stringify(data));
+    }
 
     let req = new Request('/update',{
         method: 'POST',

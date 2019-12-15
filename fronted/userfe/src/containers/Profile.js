@@ -22,6 +22,7 @@ class Profile extends React.Component {
         this.handleInforChange = this.handleInforChange.bind(this);
         this.handleDataChange = this.handleDataChange.bind(this);
         this.handleAvatarChange = this.handleAvatarChange.bind(this);
+        this.handleSkillsChange = this.handleSkillsChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleStepChange = this.handleStepChange.bind(this);
         this.handleBack = this.handleBack.bind(this);
@@ -38,6 +39,10 @@ class Profile extends React.Component {
     handleDataChange(event) {
         const { name, value } = event.target;
         this.props.handleProfileDataChange(name, value);
+    }
+    handleSkillsChange(event){
+        const {name,value,checked} = event.target;
+        this.props.handleProfileSkillChange(name,value,checked);
     }
     handleAvatarChange(event) {
         const imgFile = event.target.files[0];
@@ -290,9 +295,9 @@ class Profile extends React.Component {
                             Vui lòng chọn ít nhất một kỹ năng.
                         </p>
                         <div className="row" >
-                            <div className="checkbox col-md-6" data-qa="category-531770282593251330">
+                            <div className="checkbox col-md-6" >
                                 <Form.Label>
-                                    <Form.Control type="checkbox" onChange={this.handleDataChange} name="trinhDo"/>
+                                    <Form.Control type="checkbox" onChange={this.handleSkillsChange} name="kyNang" value="1"/>
                                     <span className="checkbox-replacement-helper">
                                         <span aria-hidden="true" className="glyphicon ">
                                             <i className="fas fa-check"></i>
@@ -301,47 +306,57 @@ class Profile extends React.Component {
                                     A/B Testing
                                 </Form.Label>
                             </div>
-                            <div className="checkbox col-md-6" data-qa="category-531770282593251330">
+                            <div className="checkbox col-md-6" >
                                 <Form.Label>
-                                    <Form.Control type="checkbox" name="checkbox" />
+                                    <Form.Control type="checkbox" name="checkbox" onChange={this.handleSkillsChange} name="kyNang" value="3"/>
                                     <span className="checkbox-replacement-helper">
-                                        <span aria-hidden="true" className="glyphicon air-icon-check"></span>
+                                        <span aria-hidden="true" className="glyphicon">
+                                            <i className="fas fa-check"></i>
+                                        </span>
                                     </span>
                                     A/B Testing
                             </Form.Label>
                             </div>
-                            <div className="checkbox col-md-6" data-qa="category-531770282593251330">
+                            <div className="checkbox col-md-6" >
                                 <Form.Label>
-                                    <Form.Control type="checkbox" name="checkbox" />
+                                    <Form.Control type="checkbox" name="checkbox" onChange={this.handleSkillsChange} name="kyNang" value="4"/>
                                     <span className="checkbox-replacement-helper">
-                                        <span aria-hidden="true" className="glyphicon air-icon-check"></span>
+                                        <span aria-hidden="true" className="glyphicon">
+                                            <i className="fas fa-check"></i>
+                                        </span>
                                     </span>
                                     A/B Testing
                             </Form.Label>
                             </div>
-                            <div className="checkbox col-md-6" data-qa="category-531770282593251330">
+                            <div className="checkbox col-md-6" >
                                 <Form.Label>
-                                    <Form.Control type="checkbox" name="checkbox" />
+                                    <Form.Control type="checkbox" name="checkbox" onChange={this.handleSkillsChange} name="kyNang" value="5"/>
                                     <span className="checkbox-replacement-helper">
-                                        <span aria-hidden="true" className="glyphicon air-icon-check"></span>
+                                        <span aria-hidden="true" className="glyphicon">
+                                            <i className="fas fa-check"></i>
+                                        </span>
                                     </span>
                                     A/B Testing
                             </Form.Label>
                             </div>
-                            <div className="checkbox col-md-6" data-qa="category-531770282593251330">
+                            <div className="checkbox col-md-6" >
                                 <Form.Label>
                                     <Form.Control type="checkbox" name="checkbox" />
                                     <span className="checkbox-replacement-helper">
-                                        <span aria-hidden="true" className="glyphicon air-icon-check"></span>
+                                        <span aria-hidden="true" className="glyphicon">
+                                            <i className="fas fa-check"></i>
+                                        </span>
                                     </span>
                                     A/B Testing
                             </Form.Label>
                             </div>
-                            <div className="checkbox col-md-6" data-qa="category-531770282593251330">
+                            <div className="checkbox col-md-6" >
                                 <Form.Label>
                                     <Form.Control type="checkbox" name="checkbox" />
                                     <span className="checkbox-replacement-helper">
-                                        <span aria-hidden="true" className="glyphicon air-icon-check"></span>
+                                        <span aria-hidden="true" className="glyphicon">
+                                            <i className="fas fa-check"></i>
+                                        </span>
                                     </span>
                                     A/B Testing
                              </Form.Label>
@@ -506,6 +521,9 @@ const mapDispatchToProps = (dispatch, props) => {
         },
         handleNext: ()=>{
             dispatch(actions.handleProfileStepNext());
+        },
+        handleProfileSkillChange: (name,value,checked)=>{
+            dispatch(actions.handleProfileSkillChange(name,value,checked));
         }
     }
 }

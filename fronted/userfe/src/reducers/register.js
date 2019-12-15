@@ -4,7 +4,7 @@ var initialState = {
     user: {
         username: '',
         password: '',
-        role: ''
+        role: 0
     },
     confirmPassword: '',
     confirmFlat: true,
@@ -31,14 +31,14 @@ var myReducer = (state = initialState, action) => {
                     user2.password = password;
                     return { ...state, user: user2, isValid: isValid2, confirmFlat: confirmFlat2 };
                 case 'confirmPassword':
-                        console.log(state);
                     var confirmPassword = action.value;
                     var confirmFlat3 = state.user.password !== '' && state.user.password === confirmPassword ? true : false;
                     var isValid3 = state.user.username !== '' && confirmFlat3 ? true : false;
                     return { ...state, confirmPassword, confirmFlat: confirmFlat3, isValid: isValid3 };
                 case 'role':
+                    console.log(state);
                     var user4 = state.user;
-                    user4.role = action.value;
+                    user4.role = parseInt(action.value);
                     return {...state,user: user4};
                 default:
                     return state;
