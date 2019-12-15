@@ -1,4 +1,4 @@
-const SkillModel = require('../models/Skill');
+const SkillModel = require('../shared/models/skill.model');
 
 module.exports = {
 };

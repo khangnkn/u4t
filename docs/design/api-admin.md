@@ -6,17 +6,17 @@
 
 |Status| Name | Method | Path | Type | Description
 |---| -----| -----| ----| ----| -|
-|| Login | Post | /admin/login | body/json |
-|| Add admin | Post | /admin | body/json |
-|| User list| Get | /users/:userType/:page/:usersPerPage|
-|| User profile| Get| /users/:userName/detail|
-|| Lock user| Put| /users/lock-account| body/json
-|| Unlock user| Put| /users/unlock-account| body/json
-|| Skill list| Get| /skills/:page/:skillsPerPage|
+|Basic| Login | Post | /admin/login | body/json |
+|Basic| Add admin | Post | /admin | body/json |
+|Basic| User list| Get | /users/:role/:page/:limit||role: 0: leaner, 1: tutor, 2: admin, 3: root|
+|Basic| User profile| Get| /users/:userName/detail|
+|Basic| Lock user| Put| /users/lock/:userName|
+|Basic| Unlock user| Put| /users/unlock/:userName|
+|| SkillModel list| Get| /skills/:page/:skillsPerPage|
 || Delete skills| Delete| /skills/delelte|body/json
 || Update skills| Put| /skills|body/json
-|| Contract list| Get| /contracts/:page/:contractsPerPage|
-|| Complain list| Get| /complains/:page/:complainsPerPage|
+|| ContractModel list| Get| /contracts/:page/:contractsPerPage|
+|| ComplainModel list| Get| /complains/:page/:complainsPerPage|
 || Get revenu| Get| /revenues/:type|
 || Top sales | Get | /revenues/:orderBy/:scope|
 ||
