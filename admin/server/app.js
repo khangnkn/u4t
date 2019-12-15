@@ -23,7 +23,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(router);
 
 
-mongoose.connect(uri, {userNewUrlParser: true, userCreateIndex: true})
+mongoose.connect(uri, {
+    userNewUrlParser: true,
+    userCreateIndex: true,
+    useFindAndModify: false
+});
 
 const connection = mongoose.connection;
 connection.once('open',

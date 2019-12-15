@@ -4,6 +4,6 @@ const Schema = mongoose.Schema;
 const RevenueSchema = new Schema({}
 );
 
-const Revenue = mongoose.model('Revenue', RevenueSchema);
+const RevenueModel = mongoose.model('Revenue', RevenueSchema);
 
-module.exports = Revenue;
+module.exports = RevenueModel;

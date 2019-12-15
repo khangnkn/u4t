@@ -1,4 +1,4 @@
-const RevenueModel = require('../models/Revenue');
+const RevenueModel = require('../shared/models/revenue.model');
 
 module.exports = {
 };

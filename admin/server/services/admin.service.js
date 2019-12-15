@@ -1,3 +1,5 @@
+const RES_CONSTANT = require('../shared/constant/response_code');
+
 const AdminRepository = require('../repository/admin.repository');
 
 
@@ -6,27 +8,34 @@ const addNew = async (admin) => {
         const _isAdminExisted = await AdminRepository.findByUsername(admin.username);
         if (_isAdminExisted.err) {
             return {
-                err: _isAdminExisted.err,
+                err: RES_CONSTANT.DB_ERROR,
                 res: null
             }
         } else if (_isAdminExisted.res) {
             return {
-                err: true,
-                res: null,
-                info: 'Username existed.'
+                err: RES_CONSTANT.USERNAME_EXISTED,
+                res: null
             }
-        }
-        else {
+        } else {
             const res = await AdminRepository.save(admin);
+            if (res.err) {
+                return {
+                    err: RES_CONSTANT.DB_ERROR,
+                    res: null
+                }
+            }
             return {
                 err: false,
-                res: res
+                res: RES_CONSTANT.ADD_ADMIN_SUCCESS,
             }
         }
     } catch (e) {
         return {
-            err: e,
-            res: null
+            err: true,
+            res: {
+                code: 'UK0',
+                message: e.message()
+            }
         }
     }
 };

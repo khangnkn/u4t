@@ -1,4 +1,4 @@
-const ContractModel = require('../models/Contract');
+const ContractModel = require('../shared/models/contract.model');
 
 module.exports = {
 };

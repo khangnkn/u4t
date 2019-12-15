@@ -8,22 +8,23 @@ const LocalStrategy = require('passport-local').Strategy;
 const JWTStrategy = passportJWT.Strategy;
 
 const mongoose = require('mongoose');
-const AdminModel = require('./models/Admin');
+const AdminModel = require('./shared/models/admin.model');
 const bcrypt = require('bcryptjs');
 
-passport.use(new LocalStrategy(
-    (username, password, done) => {
-        AdminModel.findOne({username}, (err, admin) => {
+const RES_CONSTANT = require('./shared/constant/response_code');
+
+passport.use(new LocalStrategy((username, password, done) => {
+        AdminModel.findOne({username: username}, (err, admin) => {
             if (err) {
-                return done(err);
+                return done(err, false, RES_CONSTANT.DB_ERROR);
             }
             if (!admin) {
-                return done(null, false);
+                return done(null, false, RES_CONSTANT.USERNAME_NOT_EXIST);
             }
-            if (!admin.password === password){
-                return done(null, false);
+            if (!admin.password === password) {
+                return done(null, false, RES_CONSTANT.PASSWORD_INCORRECT);
             }
-            return done(null, admin)
+            return done(null, admin, RES_CONSTANT.LOG_IN_SUCCESS)
         })
     }
 ));
@@ -35,7 +36,7 @@ passport.use(new JWTStrategy({
     function (jwtPayload, cb) {
 
         //find the user in db if needed. This functionality may be omitted if you store everything you'll need in JWT payload.
-        return UserModel.findById(jwtPayload.id)
+        return AdminModel.findById(jwtPayload.id)
             .then(user => {
                 return cb(null, user);
             })

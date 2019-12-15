@@ -1,4 +1,4 @@
-const AdminModel = require('../models/Admin');
+const AdminModel = require('../shared/models/admin.model');
 
 const save = async (adminPayload) => {
     try {
@@ -10,7 +10,7 @@ const save = async (adminPayload) => {
             fullname: adminPayload.fullname,
             avatar: adminPayload.avatar,
             is_active: adminPayload.is_active,
-            role: adminPayload.role``
+            role: adminPayload.role
         });
 
         const res = await admin.save()
@@ -41,7 +41,36 @@ const findByUsername = async (username) => {
     }
 };
 
+
+const getAdminList = async (type, page, limit) => {
+    try {
+        const _query = {
+            role: type
+        };
+
+        const _option = {
+            page: page,
+            limit: limit
+        };
+
+        const res = await AdminModel.paginate(_query, _option);
+
+        return {
+            err: false,
+            res: res
+        }
+
+    } catch (e) {
+        return {
+            err: e,
+            res: null
+        }
+    }
+};
+
+
 module.exports = {
     save,
-    findByUsername
+    findByUsername,
+    getAdminList
 };

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const { Schema } = mongoose;
 
@@ -81,6 +82,8 @@ UserSchema.set('toJSON', {
     return r;
   },
 });
+
+UserSchema.plugin(mongoosePaginate);
 
 const User = mongoose.model('Users', UserSchema);
 

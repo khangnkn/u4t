@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const mongoosePaginate = require('mongoose-paginate-v2');
+
 
 const AdminSchema = new Schema({
         username: {
@@ -33,9 +35,9 @@ const AdminSchema = new Schema({
             default: true
         },
         role: {
-            type: String,
+            type: Number,
             required: true,
-            default: 'Admin'
+            default: 2
         }
     },
     {
@@ -43,6 +45,8 @@ const AdminSchema = new Schema({
     }
 );
 
-const Admin = mongoose.model('Admin', AdminSchema);
+AdminSchema.plugin(mongoosePaginate);
 
-module.exports = Admin;
+const AdminModel = mongoose.model('Admin', AdminSchema);
+
+module.exports = AdminModel;
