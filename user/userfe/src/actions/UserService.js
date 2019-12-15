@@ -27,7 +27,7 @@ function login(username,password){
         body: JSON.stringify({username,password})
     }
 
-    return fetch(`/api/auth/login`,requestOptions)
+    return fetch(`/user/login`,requestOptions)
             .then(resp => resp.json()).then(data=>{
                 if (data.code !== 1){
                     return data;
@@ -42,9 +42,10 @@ function register(user){
     const requestOptions = {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({user})
+        body: JSON.stringify({username: user.username,password: user.password,role: user.role})
     }
-    return fetch(`/api/auth/register`,requestOptions)
+    console.log(requestOptions);
+    return fetch(`/user/register`,requestOptions)
             .then(handleLogOut).then(resp => resp.json()).then(data => {
                 return data;
             })
@@ -55,7 +56,6 @@ function update(user){
     var userCookie = JSON.parse(localStorage.getItem('user'));
     header.append("Content-Type",'application/json');
     header.append("Authorization",userCookie ? 'Bearer' + userCookie.token : '');
-    console.log(header, userCookie);
     let fd = new FormData();
     let {id,infor,avatar,data} = user;
     
@@ -63,9 +63,13 @@ function update(user){
     fd.append('infor',JSON.stringify(infor));
 
     if (avatar != null) fd.append('avatar',avatar);
-    fd.append('data',JSON.stringify(data));
+    if (infor.role === 0){
+        fd.append('data',JSON.stringify({}));
+    } else {
+        fd.append('data',JSON.stringify(data));
+    }
 
-    let req = new Request('/api/p/users/info',{
+    let req = new Request('/update',{
         method: 'POST',
         headers: header,
         mode: 'no-cors',

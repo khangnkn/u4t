@@ -4,6 +4,8 @@ import Login from './Login'
 import Register from './Register'
 import Profile from './Profile'
 import Search from './Search';
+import Home from './Home';
+import TeacherProfile from './TeacherProfile';
 
 import {Route} from 'react-router-dom';
 import {Router} from 'react-router-dom';
@@ -15,7 +17,7 @@ class App extends React.Component{
         var userCookie = localStorage.getItem('user');
         return(
             <Router history = {history}>
-                <Route path='/' exact component={Login}></Route>
+                <Route path='/' exact component={TeacherProfile}></Route>
                 <Route path='/login' component={Login}></Route>
                 <Route path='/register' component={Register}></Route>
                 {true ? <Route path='/profile' component={Profile}></Route>:null}

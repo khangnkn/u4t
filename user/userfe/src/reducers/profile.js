@@ -41,11 +41,15 @@ var initialState = {
             sdt: "",
             diaChi: "",
             ttp: "",
-            role: 0,
+            role: 1,
         },
         avatar: null,
         data: {
-
+            trinhDo: 0,
+            kyNang: [],
+            giaTien: 0,
+            tieuDe: "J",
+            tongQuan: ""
         }
     },
     step: 1,
@@ -67,6 +71,19 @@ var myReducer = (state = initialState, action) => {
             let user2 = state.user;
             user2.data[name2] = value2;
             return { ...state, user: user2 };
+        case types.HANDLE_PROFILE_SKILLS_CHANGE:
+            console.log(state.user);
+            let skill = parseInt(action.value);
+            console.log(skill);
+            let user4 = state.user;
+            if (action.checked) {
+                user4.data.kyNang.push(skill);
+                return { ...state, user: user4 }
+            }
+            var index = user4.data.kyNang.indexOf(skill);
+            if (index !== -1)
+                user4.data.kyNang.splice(index, 1);
+            return { ...state, user: user4 };
         case types.HANDLE_PROFILE_AVATAR_CHANGE:
             let { imgFile } = action;
             let url = URL.createObjectURL(imgFile);
@@ -82,13 +99,13 @@ var myReducer = (state = initialState, action) => {
             return { ...state, requestUpdate: false }
         case types.PROFILE_FAILURE:
             return { ...state, requestUpdate: false }
-        case types.HANDLE_PROFILE_STEP_BACK: 
+        case types.HANDLE_PROFILE_STEP_BACK:
             state.step--;
-            return {...state}
+            return { ...state }
         case types.HANDLE_PROFILE_STEP_NEXT:
             state.step++;
             if (state.step > state.currStep) state.currStep++;
-            return {...state};
+            return { ...state };
         default:
             return state;
     }

@@ -102,6 +102,13 @@ export const handleProfiledDataChange = (name,value)=>{
     }
 }
 
+export const handleProfileSkillChange = (name,value,checked) =>{
+    return {
+        type: types.HANDLE_PROFILE_SKILLS_CHANGE,
+        name,value,checked
+    }
+}
+
 export const handleProfileAvatarChange = (imgFile) => {
     return {
         type: types.HANDLE_PROFILE_AVATAR_CHANGE,
