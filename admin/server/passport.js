@@ -8,36 +8,23 @@ const LocalStrategy = require('passport-local').Strategy;
 const JWTStrategy = passportJWT.Strategy;
 
 const mongoose = require('mongoose');
-const UserModel = require('./models/Admin');
+const AdminModel = require('./models/Admin');
 const bcrypt = require('bcryptjs');
 
-passport.use(new LocalStrategy({
-        usernameField: 'email',
-        passwordField: 'password'
-    },
-    function (email, password, cb) {
-        //this one is typically a DB call. Assume that the returned user object is pre-formatted and ready for storing in JWT
-        return UserModel.findOne({email})
-            .then(user => {
-                console.log(user)
-                if (!user) {
-                    return cb(null, false, {message: 'Incorrect email'});
-                }
-                bcrypt.compare(password, user.password)
-                    .then(isMath => {
-                            if (isMath) {
-                                const payload = {
-                                    id: user._id,
-                                    email: user.email
-                                };
-                                return cb(null, payload, {message: 'Logged In Successfully'});
-                            }else {
-                                return cb(null, false, {message: 'Incorrect password.'});
-                            }
-                        }
-                    );
-            })
-            .catch(err => cb(err));
+passport.use(new LocalStrategy(
+    (username, password, done) => {
+        AdminModel.findOne({username}, (err, admin) => {
+            if (err) {
+                return done(err);
+            }
+            if (!admin) {
+                return done(null, false);
+            }
+            if (!admin.password === password){
+                return done(null, false);
+            }
+            return done(null, admin)
+        })
     }
 ));
 

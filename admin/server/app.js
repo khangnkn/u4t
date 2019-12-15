@@ -6,8 +6,7 @@ const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const passport = require('passport')
 
-const auth = require('./routes/auth');
-const user = require('./routes/users');
+const router = require('./routes')
 
 require('dotenv').config();
 require('./passport');
@@ -21,9 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/auth', auth);
-app.use('/user', passport.authenticate('jwt', {session: false}), user);
+app.use(router);
 
 
 mongoose.connect(uri, {userNewUrlParser: true, userCreateIndex: true})
