@@ -1,17 +1,12 @@
-const express = require('express');
+const router = require('express').Router();
 const SC = require('http-status-codes');
 const passport = require('passport');
-const bcrypt = require('bcryptjs');
-const Error = require('../../utils/error');
 
-const router = express.Router();
-const { User } = require('../../models');
-const { salt } = require('../../utils/config');
-const validation = require('../../utils/validation/register');
-const { login } = require('../../controllers/auth.controller');
+const Error = require('../../utils/error');
+const { LoginHandler, RegisterHandler } = require('../../controllers/auth.controller');
 
 /* GET users listing. */
-router.post('/login', login);
+router.post('/login', LoginHandler);
 
 router.get('/google', passport.authenticate('google', {
   scope: ['https://www.googleapis.com/auth/userinfo.profile'],
@@ -35,58 +30,6 @@ router.get('/google/callback', (req, res, next) => {
   })(req, res, next);
 });
 
-router.post('/register', (req, res, next) => {
-  const { body } = req;
-  const validatingResult = validation(body);
-  if (!validatingResult.valid) {
-    return next({
-      status: SC.BAD_REQUEST,
-      code: validatingResult.error,
-      message: validatingResult.message,
-    });
-  }
-  User.findOneAndRemove({ username: body.username })
-    .then((user) => {
-      if (user) {
-        return next({
-          status: SC.BAD_REQUEST,
-          code: Error.AccountExisted,
-          message: 'account existed',
-        });
-      }
-      return false;
-    })
-    .catch((err) => next({
-      status: SC.INTERNAL_SERVER_ERROR,
-      code: Error.UnknownError,
-      message: `database error: ${err}`,
-    }));
-
-  return bcrypt.hash(body.password, salt, (err, hash) => {
-    if (err) {
-      return next({
-        code: Error.UnknownError,
-        message: 'cannot create password',
-        extra: `root cause: ${err}`,
-      });
-    }
-    const user = new User({
-      username: body.username,
-      password: hash,
-      account_type: parseInt(body.role, 10),
-    });
-    return user.save().then(() => {
-      next({
-        status: SC.OK,
-        code: Error.Success,
-        message: 'user created',
-      });
-    }).catch((error) => next({
-      status: SC.INTERNAL_SERVER_ERROR,
-      code: Error.UnknownError,
-      message: `unexpected error occurred: ${error}`,
-    }));
-  });
-});
+router.post('/register', RegisterHandler);
 
 module.exports = router;
