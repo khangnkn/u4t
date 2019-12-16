@@ -3,21 +3,19 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 // Create Schema User
-const MessageSchema = new Schema({
+const ReviewSchema = new Schema({
   timestamp: {
     type: Date,
     required: true,
     default: Date.now,
   },
+  rating: {
+    type: Number,
+  },
   content: {
     type: String,
     required: true,
     default: '',
-  },
-  seen: {
-    type: Boolean,
-    required: true,
-    default: false,
   },
   sender: {
     type: Schema.Types.ObjectId,
@@ -25,7 +23,7 @@ const MessageSchema = new Schema({
   },
 });
 
-const Message = mongoose.model('Messages', MessageSchema);
+const Review = mongoose.model('Review', ReviewSchema);
 
 
-module.exports = Message;
+module.exports = Review;

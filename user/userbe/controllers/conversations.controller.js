@@ -13,22 +13,25 @@ const GetConversation = (req, res, next) => {
       message: validation.error.message,
     });
   }
-  return Conversation.findById(params.id, (error, conversation) => {
-    if (error) {
+  return Conversation
+    .findById(params.id)
+    .populate('messages')
+    .exec((error, conversation) => {
+      if (error) {
+        return next({
+          status: SC.INTERNAL_SERVER_ERROR,
+          code: Error.UnknownError,
+          message: 'cannot get conversation',
+          extra: error,
+        });
+      }
       return next({
-        status: SC.INTERNAL_SERVER_ERROR,
-        code: Error.UnknownError,
-        message: 'cannot get conversation',
-        extra: error,
+        status: SC.OK,
+        code: Error.Success,
+        message: 'success',
+        data: conversation,
       });
-    }
-    return next({
-      status: SC.OK,
-      code: Error.Success,
-      message: 'success',
-      data: conversation,
     });
-  });
 };
 
 const CreateConversation = (req, res, next) => {
@@ -42,7 +45,7 @@ const CreateConversation = (req, res, next) => {
     });
   }
   const Conv = new Conversation({
-    teacher: body.teacher,
+    totur: body.tutor,
     learner: body.learner,
   });
   return Conv.save((error, conversation) => {

@@ -1,6 +1,7 @@
 const SC = require('http-status-codes');
 const { User } = require('../models');
 const Error = require('../utils/error');
+const UserRepository = require('../repository/user.repository');
 
 const parseUser = (body) => {
   const result = {
@@ -47,6 +48,11 @@ const UpdateUserInfo = (req, res, next) => {
       },
     });
   });
+};
+
+const GetInfoHandler = async (req, res, next) => {
+  const id = res.locals.user._id;
+  const user = await UserRepository.GetById(id);
 };
 
 module.exports = {

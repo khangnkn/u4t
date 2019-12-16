@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const { Schema } = mongoose;
 
@@ -48,7 +49,8 @@ const UserSchema = new Schema({
       required: false,
     },
     skills: {
-      type: Array,
+      type: Schema.Types.ObjectId,
+      ref: 'Skills',
       required: false,
     },
     intro: {
@@ -82,7 +84,9 @@ UserSchema.set('toJSON', {
   },
 });
 
-const User = mongoose.model('Users', UserSchema);
+UserSchema.plugin(mongoosePaginate);
+
+const User = mongoose.model('User', UserSchema);
 
 User.filter = (user) => ({
   username: user.username,

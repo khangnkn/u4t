@@ -17,7 +17,7 @@ const EnsureGetConversation = (params) => {
 };
 
 const EnsureCreateConversation = (body) => {
-  if (!body.teacher) {
+  if (!body.tutor) {
     return {
       valid: false,
       error: {
