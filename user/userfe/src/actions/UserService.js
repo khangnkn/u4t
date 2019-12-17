@@ -1,10 +1,9 @@
-import { resolve } from "dns";
-
 export const userService = {
     login,
     register,
     logOut,
-    update
+    update,
+    loadTop5
 }
 
 function handleLogOut(resp){
@@ -27,7 +26,7 @@ function login(username,password){
         body: JSON.stringify({username,password})
     }
 
-    return fetch(`/user/login`,requestOptions)
+    return fetch(`/api/auth/login`,requestOptions)
             .then(resp => resp.json()).then(data=>{
                 if (data.code !== 1){
                     return data;
@@ -44,8 +43,7 @@ function register(user){
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({username: user.username,password: user.password,role: user.role})
     }
-    console.log(requestOptions);
-    return fetch(`/user/register`,requestOptions)
+    return fetch(`/api/auth/register`,requestOptions)
             .then(handleLogOut).then(resp => resp.json()).then(data => {
                 return data;
             })
@@ -84,5 +82,16 @@ function update(user){
         } else {
             return data;
         }
+    })
+}
+
+function loadTop5(){
+    const requestOptions = {
+        method: 'GET',
+        headers: {'Content-Type': 'application/json'}
+    } 
+
+    return fetch(`/api/top5`,requestOptions).then(resp => resp.json()).then(data => {
+        return data.data;
     })
 }

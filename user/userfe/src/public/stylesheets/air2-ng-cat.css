@@ -167,13 +167,13 @@ button, input, select, textarea {
 }
 
 a {
-    color: #37a000;
+    color: purple;
     text-decoration: none;
     font-weight: 500
 }
 
 a:active, a:focus, a:hover {
-    color: #008329;
+    color: purple;
     text-decoration: underline
 }
 
@@ -1719,7 +1719,7 @@ small {
 }
 
 .text-primary {
-    color: #37a000
+    color: purple
 }
 
 a.text-primary:hover {
@@ -1727,7 +1727,7 @@ a.text-primary:hover {
 }
 
 .text-success {
-    color: #008329
+    color: purple
 }
 
 a.text-success:hover {
@@ -1735,7 +1735,7 @@ a.text-success:hover {
 }
 
 .text-info {
-    color: #008329
+    color: purple
 }
 
 a.text-info:hover {
@@ -1950,7 +1950,7 @@ address {
 
 .btn-primary {
     color: #fff;
-    background-color: #37a000;
+    background-color: purple;
     border-color: transparent
 }
 
@@ -1968,11 +1968,11 @@ address {
 
 .btn-primary.active, .btn-primary:active, .btn-primary:focus, .btn-primary:hover {
     color: #fff;
-    background-color: #008329
+    background-color: purple
 }
 
 .btn-danger, .btn-default, .btn-info, .btn-success, .btn-warning {
-    color: #37a000;
+    color: purple;
     background-color: #fff;
     border-color: transparent
 }
@@ -1990,17 +1990,17 @@ address {
 }
 
 .btn-danger>.caret, .btn-default>.caret, .btn-info>.caret, .btn-success>.caret, .btn-warning>.caret {
-    color: #008329
+    color: purple
 }
 
 .btn-danger.active, .btn-danger:active, .btn-danger:focus, .btn-danger:hover, .btn-default.active, .btn-default:active, .btn-default:focus, .btn-default:hover, .btn-info.active, .btn-info:active, .btn-info:focus, .btn-info:hover, .btn-success.active, .btn-success:active, .btn-success:focus, .btn-success:hover, .btn-warning.active, .btn-warning:active, .btn-warning:focus, .btn-warning:hover {
-    color: #008329;
+    color: purple;
     background-color: #fff;
     border-color: transparent
 }
 
 .btn-link {
-    color: #37a000;
+    color: purple;
     text-transform: none;
     font-weight: 500;
     padding-left: 18px;
@@ -2013,7 +2013,7 @@ address {
 }
 
 .btn-link.active, .btn-link:active, .btn-link:focus, .btn-link:hover {
-    color: #008329;
+    color: purple;
     text-decoration: underline
 }
 
@@ -2165,21 +2165,21 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
 }
 
 .eo-button-box:active, .eo-button-box:focus, .eo-button-box:hover {
-    color: #008329;
+    color: purple;
     box-shadow: 0 2px 10px 1px rgba(57, 73, 76, .4), 0 1px 2px rgba(57, 73, 76, .25)
 }
 
 .eo-button-box:active .glyphicon, .eo-button-box:active h3, .eo-button-box:active h4, .eo-button-box:active p, .eo-button-box:active ul, .eo-button-box:focus .glyphicon, .eo-button-box:focus h3, .eo-button-box:focus h4, .eo-button-box:focus p, .eo-button-box:focus ul, .eo-button-box:hover .glyphicon, .eo-button-box:hover h3, .eo-button-box:hover h4, .eo-button-box:hover p, .eo-button-box:hover ul {
-    color: #008329
+    color: purple
 }
 
 .eo-button-box.active {
-    color: #37a000
+    color: purple
 }
 
 .eo-button-box.active:after {
     content: " ";
-    border-bottom: 4px solid #37a000;
+    border-bottom: 4px solid purple;
     display: block;
     position: absolute;
     left: 0;
@@ -2188,7 +2188,7 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
 }
 
 .eo-button-box.active .glyphicon, .eo-button-box.active h3, .eo-button-box.active h4, .eo-button-box.active p, .eo-button-box.active ul {
-    color: #37a000
+    color: purple
 }
 
 .form-group .eo-button-box {
@@ -2250,17 +2250,17 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
     }
     50% {
         transform: scale(.8);
-        fill: #37a000
+        fill: purple
     }
     to {
         transform: scale(1);
-        fill: #37a000
+        fill: purple
     }
 }
 
 .eo-button-save.active, .eo-button-save:hover {
     border-color: transparent;
-    color: #008329
+    color: purple
 }
 
 .eo-button-save.active {
@@ -2294,7 +2294,7 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
 }
 
 .btn-toggler.on {
-    background-color: #37a000
+    background-color: purple
 }
 
 .btn-toggler.on .toggler-bar {
@@ -2302,7 +2302,7 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
 }
 
 .btn-toggler.on:focus {
-    background-color: #008329
+    background-color: purple
 }
 
 .btn-toggler.animation, .btn-toggler.animation .toggler-bar {
@@ -2499,11 +2499,11 @@ section.air-card-hover:focus, section.air-card-hover:hover {
 }
 
 section.air-card-hover:hover h3 a, section.air-card-hover:hover h4 a, section.air-card-hover:hover p a {
-    color: #37a000
+    color: purple
 }
 
 section.air-card-hover:hover h3 a:hover, section.air-card-hover:hover h4 a:hover, section.air-card-hover:hover p a:hover {
-    color: #008329
+    color: purple
 }
 
 section.air-card-hover .user-presence-indicator-inverse {
@@ -2531,12 +2531,12 @@ section.air-card-hover:focus .progress-bar span, section.air-card-hover:focus h3
 }
 
 section.air-card-hover:hover:focus h3 a, section.air-card-hover:hover:focus h4 a, section.air-card-hover:hover:focus p a, section.air-card-visited:hover h3 a, section.air-card-visited:hover h4 a, section.air-card-visited:hover p a {
-    color: #37a000;
+    color: purple;
     font-weight: 500
 }
 
 section.air-card-hover:hover:focus h3 a:hover, section.air-card-hover:hover:focus h4 a:hover, section.air-card-hover:hover:focus p a:hover, section.air-card-visited:hover h3 a:hover, section.air-card-visited:hover h4 a:hover, section.air-card-visited:hover p a:hover {
-    color: #008329
+    color: purple
 }
 
 section.air-card-hover:hover:focus .progress-bar span, section.air-card-hover:hover:focus strong, section.air-card-visited:hover .progress-bar span, section.air-card-visited:hover strong {
@@ -2811,7 +2811,7 @@ select::-ms-expand {
 
 .select2-search input:focus, .select2-search input:hover, input.form-control:focus, input.form-control:hover, textarea.form-control:focus, textarea.form-control:hover {
     box-shadow: inset 0 0 5px rgba(0, 0, 0, .3);
-    border-color: #008329
+    border-color: purple
 }
 
 .select2-search input:focus, input.form-control:focus, textarea.form-control:focus {
@@ -2837,11 +2837,11 @@ select::-ms-expand {
     height: 15px;
     line-height: 15px;
     font-size: 15px;
-    color: #37a000;
+    color: purple;
     position: relative;
     top: 3px;
     background-color: #fff;
-    border: 1px solid #37a000;
+    border: 1px solid purple;
     margin-right: 10px
 }
 
@@ -2860,7 +2860,7 @@ select::-ms-expand {
 }
 
 .btn.active .checkbox-replacement-helper, .checkbox-inline [type=checkbox]:checked+.checkbox-replacement-helper, .checkbox [type=checkbox]:checked+.checkbox-replacement-helper {
-    background-color: #37a000
+    background-color: purple
 }
 
 .btn.active .checkbox-replacement-helper .glyphicon, .checkbox-inline [type=checkbox]:checked+.checkbox-replacement-helper .glyphicon, .checkbox [type=checkbox]:checked+.checkbox-replacement-helper .glyphicon {
@@ -3035,18 +3035,18 @@ textarea.form-control.input-lg {
 }
 
 .checkbox-inline label:hover, .checkbox label:hover, .radio-inline label:hover, .radio label:hover {
-    color: #008329
+    color: purple
 }
 
 .checkbox-inline label:hover [type=checkbox]+.checkbox-replacement-helper, .checkbox-inline label:hover [type=radio]+.checkbox-replacement-helper, .checkbox label:hover [type=checkbox]+.checkbox-replacement-helper, .checkbox label:hover [type=radio]+.checkbox-replacement-helper, .radio-inline label:hover [type=checkbox]+.checkbox-replacement-helper, .radio-inline label:hover [type=radio]+.checkbox-replacement-helper, .radio label:hover [type=checkbox]+.checkbox-replacement-helper, .radio label:hover [type=radio]+.checkbox-replacement-helper {
-    color: #008329;
-    border-color: #008329;
-    box-shadow: 0 0 0 1px #008329;
+    color: purple;
+    border-color: purple;
+    box-shadow: 0 0 0 1px purple;
     transition: transform .3s, box-shadow .3s
 }
 
 .checkbox-inline label:hover [type=checkbox]:checked+.checkbox-replacement-helper, .checkbox-inline label:hover [type=checkbox]:checked+.checkbox-replacement-helper:before, .checkbox-inline label:hover [type=radio]:checked+.checkbox-replacement-helper, .checkbox-inline label:hover [type=radio]:checked+.checkbox-replacement-helper:before, .checkbox label:hover [type=checkbox]:checked+.checkbox-replacement-helper, .checkbox label:hover [type=checkbox]:checked+.checkbox-replacement-helper:before, .checkbox label:hover [type=radio]:checked+.checkbox-replacement-helper, .checkbox label:hover [type=radio]:checked+.checkbox-replacement-helper:before, .radio-inline label:hover [type=checkbox]:checked+.checkbox-replacement-helper, .radio-inline label:hover [type=checkbox]:checked+.checkbox-replacement-helper:before, .radio-inline label:hover [type=radio]:checked+.checkbox-replacement-helper, .radio-inline label:hover [type=radio]:checked+.checkbox-replacement-helper:before, .radio label:hover [type=checkbox]:checked+.checkbox-replacement-helper, .radio label:hover [type=checkbox]:checked+.checkbox-replacement-helper:before, .radio label:hover [type=radio]:checked+.checkbox-replacement-helper, .radio label:hover [type=radio]:checked+.checkbox-replacement-helper:before {
-    background-color: #008329
+    background-color: purple
 }
 
 .checkbox-inline label:hover [type=radio]+.checkbox-replacement-helper, .checkbox label:hover [type=radio]+.checkbox-replacement-helper, .radio-inline label:hover [type=radio]+.checkbox-replacement-helper, .radio label:hover [type=radio]+.checkbox-replacement-helper {
@@ -3083,7 +3083,7 @@ textarea.form-control.input-lg {
 }
 
 .checkbox-inline [type=checkbox]:checked+.checkbox-replacement-helper, .checkbox [type=checkbox]:checked+.checkbox-replacement-helper {
-    border-color: #37a000
+    border-color: purple
 }
 
 .radio-inline [type=radio]+.checkbox-replacement-helper, .radio [type=radio]+.checkbox-replacement-helper {
@@ -3091,7 +3091,7 @@ textarea.form-control.input-lg {
 }
 
 .radio-inline [type=radio]:checked+.checkbox-replacement-helper, .radio [type=radio]:checked+.checkbox-replacement-helper {
-    border-color: #37a000
+    border-color: purple
 }
 
 .radio-inline [type=radio]:checked+.checkbox-replacement-helper:before, .radio [type=radio]:checked+.checkbox-replacement-helper:before {
@@ -3104,7 +3104,7 @@ textarea.form-control.input-lg {
     position: absolute;
     top: 2px;
     left: 2px;
-    background-color: #37a000;
+    background-color: purple;
     border-radius: 50%
 }
 
@@ -3436,7 +3436,7 @@ th {
     left: 0;
     top: 0;
     bottom: 0;
-    background: #37a000
+    background: purple
 }
 
 .table>tbody+tbody {
@@ -3688,8 +3688,8 @@ a.list-group-item:focus, a.list-group-item:hover {
 a.list-group-item.active, a.list-group-item.active:focus, a.list-group-item.active:hover {
     z-index: 2;
     color: #fff;
-    background-color: #37a000;
-    border-color: #37a000
+    background-color: purple;
+    border-color: purple
 }
 
 a.list-group-item.active .list-group-item-heading, a.list-group-item.active:focus .list-group-item-heading, a.list-group-item.active:hover .list-group-item-heading {
@@ -3748,12 +3748,12 @@ a.list-group-item.active .list-group-item-text, a.list-group-item.active:focus .
 }
 
 .progress-list>li:first-child>a, .progress-list>li:first-child>span:not(.glyphicon) {
-    color: #37a000!important
+    color: purple!important
 }
 
 .progress-list>li:first-child:before {
-    border-color: #37a000;
-    color: #37a000;
+    border-color: purple;
+    color: purple;
     background-color: #fff
 }
 
@@ -3763,14 +3763,14 @@ a.list-group-item.active .list-group-item-text, a.list-group-item.active:focus .
 
 .progress-list>li.is-done .glyphicon {
     margin-right: 0;
-    border-color: #37a000;
+    border-color: purple;
     color: #fff;
-    background-color: #37a000
+    background-color: purple
 }
 
 .progress-list>li.is-done+li:not(.is-done) .glyphicon, .progress-list>li.is-done+li:not(.is-done):before {
-    border-color: #37a000;
-    color: #37a000;
+    border-color: purple;
+    color: purple;
     background-color: #fff
 }
 
@@ -3882,17 +3882,17 @@ a.list-group-item.active .list-group-item-text, a.list-group-item.active:focus .
 }
 
 .progress-list-horizontal>li.is-done:after {
-    background: #37a000
+    background: purple
 }
 
 @media (min-width:768px) {
     .progress-list-horizontal>li.is-done:after {
-        border-color: #37a000
+        border-color: purple
     }
 }
 
 .progress-list-horizontal>li.is-done+li>a, .progress-list-horizontal>li.is-done+li>h4, .progress-list-horizontal>li.is-done+li>span {
-    color: #37a000
+    color: purple
 }
 
 @media (max-width:767px) {
@@ -4035,7 +4035,7 @@ a.list-group-item.active .list-group-item-text, a.list-group-item.active:focus .
 }
 
 .navbar-nav>li.active>a {
-    color: #37a000
+    color: purple
 }
 
 .navbar-nav>li>a {
@@ -4065,7 +4065,7 @@ a.list-group-item.active .list-group-item-text, a.list-group-item.active:focus .
 
 @media (min-width:992px) {
     .navbar-nav>li>a:focus, .navbar-nav>li>a:hover {
-        color: #37a000
+        color: purple
     }
 }
 
@@ -4261,7 +4261,7 @@ a.list-group-item.active .list-group-item-text, a.list-group-item.active:focus .
         overflow: visible
     }
     .search-is-open .navbar-search-mobile .glyphicon {
-        color: #37a000!important
+        color: purple!important
     }
     .search-is-open .navbar-search-mobile .navbar-search-close {
         opacity: 1
@@ -4585,7 +4585,7 @@ body, html {
 .caret.glyphicon {
     border: none;
     margin: 0;
-    color: #37a000
+    color: purple
 }
 
 .dropdown-menu, .eo-dropdown-menu {
@@ -4645,7 +4645,7 @@ body, html {
 
 .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover, .eo-dropdown-menu>li>a:focus, .eo-dropdown-menu>li>a:hover {
     background-color: #f9f9f9;
-    color: #008329
+    color: purple
 }
 
 .dropdown-menu .form-group, .eo-dropdown-menu .form-group {
@@ -4665,18 +4665,18 @@ body, html {
     left: 0;
     width: 4px;
     height: 100%;
-    background: #37a000
+    background: purple
 }
 
 .dropdown-menu .active:not(.btn)>a, .dropdown-menu .active:not(.btn)>a:focus, .dropdown-menu .active:not(.btn)>a:hover, .eo-dropdown-menu .active:not(.btn)>a, .eo-dropdown-menu .active:not(.btn)>a:focus, .eo-dropdown-menu .active:not(.btn)>a:hover {
     background-color: #fff;
-    color: #37a000
+    color: purple
 }
 
 @media (hover:hover) {
     .dropdown-menu>li>a.focus, .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover, .eo-dropdown-menu>li>a.focus, .eo-dropdown-menu>li>a:focus, .eo-dropdown-menu>li>a:hover {
         background-color: #f9f9f9;
-        color: #008329;
+        color: purple;
         text-decoration: none
     }
 }
@@ -4873,24 +4873,24 @@ body>.dropdown-menu, body>.eo-dropdown-menu {
 
 @media (max-width:767px) {
     .dropdown-menu-multilevel>li.has-children>a .glyphicon {
-        color: #37a000;
+        color: purple;
         margin-top: 2px;
         font-size: 14px
     }
 }
 
 .dropdown-menu-multilevel>li.has-children>a.pseudo-hover .glyphicon {
-    color: #008329
+    color: purple
 }
 
 .dropdown-menu-multilevel>li>.pseudo-hover, .dropdown-menu-multilevel>li>.pseudo-hover:focus, .dropdown-menu-multilevel>li>.pseudo-hover:hover {
-    color: #008329;
+    color: purple;
     background-color: #f9f9f9;
     position: relative
 }
 
 .dropdown-menu-multilevel>li.active>.pseudo-hover, .dropdown-menu-multilevel>li.active>.pseudo-hover:focus, .dropdown-menu-multilevel>li.active>.pseudo-hover:hover {
-    border-left: 4px solid #37a000!important;
+    border-left: 4px solid purple!important;
     padding-left: 16px!important
 }
 
@@ -4937,7 +4937,7 @@ body>.dropdown-menu, body>.eo-dropdown-menu {
 }
 
 .dropdown-menu-multilevel .dropdown-submenu-back-link>a {
-    color: #37a000
+    color: purple
 }
 
 .dropdown-menu-multilevel .dropdown-submenu-back-link>a>.glyphicon {
@@ -4957,14 +4957,14 @@ body>.dropdown-menu, body>.eo-dropdown-menu {
 }
 
 .dropdown:not(.dropdown-secondary)>.btn:not(.dropdown-toggle) {
-    color: #37a000;
+    color: purple;
     padding-left: 20px;
     padding-right: 20px;
     font-weight: 500
 }
 
 .dropdown:not(.dropdown-secondary)>.btn:not(.dropdown-toggle):focus, .dropdown:not(.dropdown-secondary)>.btn:not(.dropdown-toggle):hover {
-    color: #008329
+    color: purple
 }
 
 .dropdown:not(.dropdown-secondary) .dropdown-toggle.btn {
@@ -5021,7 +5021,7 @@ body>.dropdown-menu, body>.eo-dropdown-menu {
 .dropdown.open .dropdown-toggle.btn {
     border-color: transparent;
     background-color: #fff;
-    color: #37a000;
+    color: purple;
     box-shadow: 0 1px 6px rgba(57, 73, 76, .35)
 }
 
@@ -5031,7 +5031,7 @@ body>.dropdown-menu, body>.eo-dropdown-menu {
 }
 
 .dropdown .caret.glyphicon:hover {
-    color: #008329
+    color: purple
 }
 
 .dropdown .air-icon-close {
@@ -5039,7 +5039,7 @@ body>.dropdown-menu, body>.eo-dropdown-menu {
 }
 
 .dropdown mark {
-    color: #37a000;
+    color: purple;
     background-color: transparent
 }
 
@@ -5053,7 +5053,7 @@ body>.dropdown-menu, body>.eo-dropdown-menu {
 .dismissable .close {
     display: none;
     margin: 0 -20px 0 0;
-    color: #37a000;
+    color: purple;
     text-shadow: none
 }
 
@@ -5066,7 +5066,7 @@ body>.dropdown-menu, body>.eo-dropdown-menu {
 }
 
 .dismissable:hover mark {
-    color: #008329
+    color: purple
 }
 
 .text-right .btn-group.open .btn, .text-right .btn-group.open .dropdown-toggle.btn, .text-right .dropdown:not(.dropdown-secondary).open .btn, .text-right .dropdown:not(.dropdown-secondary).open .dropdown-toggle.btn {
@@ -5242,7 +5242,7 @@ body>.dropdown-menu, body>.eo-dropdown-menu {
 
 .btn-group-sm .dropdown-secondary up-c-dropdown-toggle>.btn+ul>li>a:focus, .btn-group-sm .dropdown-secondary up-c-dropdown-toggle>.btn+ul>li>a:hover, .dropdown-secondary .btn-group-sm>.btn+ul>li>a:focus, .dropdown-secondary .btn-group-sm>.btn+ul>li>a:hover, .dropdown-secondary .btn-group-sm up-c-dropdown-toggle>.btn+ul>li>a:focus, .dropdown-secondary .btn-group-sm up-c-dropdown-toggle>.btn+ul>li>a:hover, .dropdown-secondary .btn-sm+ul>li>a:focus, .dropdown-secondary .btn-sm+ul>li>a:hover {
     background-color: #f9f9f9;
-    color: #008329
+    color: purple
 }
 
 .btn-group-sm .dropdown-secondary up-c-dropdown-toggle>.btn+ul .form-group, .dropdown-secondary .btn-group-sm>.btn+ul .form-group, .dropdown-secondary .btn-group-sm up-c-dropdown-toggle>.btn+ul .form-group, .dropdown-secondary .btn-sm+ul .form-group {
@@ -5262,12 +5262,12 @@ body>.dropdown-menu, body>.eo-dropdown-menu {
     left: 0;
     width: 4px;
     height: 100%;
-    background: #37a000
+    background: purple
 }
 
 .btn-group-sm .dropdown-secondary up-c-dropdown-toggle>.btn+ul .active:not(.btn)>a, .btn-group-sm .dropdown-secondary up-c-dropdown-toggle>.btn+ul .active:not(.btn)>a:focus, .btn-group-sm .dropdown-secondary up-c-dropdown-toggle>.btn+ul .active:not(.btn)>a:hover, .dropdown-secondary .btn-group-sm>.btn+ul .active:not(.btn)>a, .dropdown-secondary .btn-group-sm>.btn+ul .active:not(.btn)>a:focus, .dropdown-secondary .btn-group-sm>.btn+ul .active:not(.btn)>a:hover, .dropdown-secondary .btn-group-sm up-c-dropdown-toggle>.btn+ul .active:not(.btn)>a, .dropdown-secondary .btn-group-sm up-c-dropdown-toggle>.btn+ul .active:not(.btn)>a:focus, .dropdown-secondary .btn-group-sm up-c-dropdown-toggle>.btn+ul .active:not(.btn)>a:hover, .dropdown-secondary .btn-sm+ul .active:not(.btn)>a, .dropdown-secondary .btn-sm+ul .active:not(.btn)>a:focus, .dropdown-secondary .btn-sm+ul .active:not(.btn)>a:hover {
     background-color: #fff;
-    color: #37a000
+    color: purple
 }
 
 .btn-group-sm .dropdown-secondary up-c-dropdown-toggle>.btn+ul>li.divider, .dropdown-secondary .btn-group-sm>.btn+ul>li.divider, .dropdown-secondary .btn-group-sm up-c-dropdown-toggle>.btn+ul>li.divider, .dropdown-secondary .btn-sm+ul>li.divider {
@@ -5348,7 +5348,7 @@ body>.dropdown-menu, body>.eo-dropdown-menu {
 @media (max-width:991px) {
     .dropdown-icon.glyphicon {
         margin-left: auto;
-        color: #37a000
+        color: purple
     }
 }
 
@@ -5468,7 +5468,7 @@ body>.dropdown-menu, body>.eo-dropdown-menu {
 
 .dropdown-list>li>a:focus, .dropdown-list>li>a:hover {
     background-color: #f9f9f9;
-    color: #008329
+    color: purple
 }
 
 .dropdown-list .form-group {
@@ -5488,12 +5488,12 @@ body>.dropdown-menu, body>.eo-dropdown-menu {
     left: 0;
     width: 4px;
     height: 100%;
-    background: #37a000
+    background: purple
 }
 
 .dropdown-list .active:not(.btn)>a, .dropdown-list .active:not(.btn)>a:focus, .dropdown-list .active:not(.btn)>a:hover {
     background-color: #fff;
-    color: #37a000
+    color: purple
 }
 
 @media (min-width:992px) {
@@ -5593,7 +5593,7 @@ body>.dropdown-menu, body>.eo-dropdown-menu {
 
 .btn-group>.btn-default.active, .btn-group>.btn-default:active, .btn-group>.btn-primary.active, .btn-group>.btn-primary:active, .btn-group>.btn.active, .btn-group>.btn:active {
     color: #fff;
-    background-color: #37a000
+    background-color: purple
 }
 
 .btn-group .btn+.btn {
@@ -5671,7 +5671,7 @@ body>.dropdown-menu, body>.eo-dropdown-menu {
 }
 
 .btn-group>.btn:hover, .btn-group up-c-dropdown-toggle>.btn:hover {
-    background-color: #008329;
+    background-color: purple;
     color: #fff;
     box-shadow: none
 }
@@ -5799,7 +5799,7 @@ body>.dropdown-menu, body>.eo-dropdown-menu {
 
 .btn-group-sm ul>li>a:focus, .btn-group-sm ul>li>a:hover {
     background-color: #f9f9f9;
-    color: #008329
+    color: purple
 }
 
 .btn-group-sm ul .form-group {
@@ -5819,12 +5819,12 @@ body>.dropdown-menu, body>.eo-dropdown-menu {
     left: 0;
     width: 4px;
     height: 100%;
-    background: #37a000
+    background: purple
 }
 
 .btn-group-sm ul .active:not(.btn)>a, .btn-group-sm ul .active:not(.btn)>a:focus, .btn-group-sm ul .active:not(.btn)>a:hover {
     background-color: #fff;
-    color: #37a000
+    color: purple
 }
 
 @media (min-width:768px) {
@@ -5943,7 +5943,7 @@ body>.dropdown-menu, body>.eo-dropdown-menu {
     opacity: 1;
     display: inline-block;
     font-size: 14px;
-    color: #37a000;
+    color: purple;
     text-align: center
 }
 
@@ -5976,7 +5976,7 @@ body>.dropdown-menu, body>.eo-dropdown-menu {
 .carousel-indicators .active {
     width: 10px;
     height: 10px;
-    background-color: #37a000
+    background-color: purple
 }
 
 .carousel-caption {
@@ -6074,7 +6074,7 @@ body>.dropdown-menu, body>.eo-dropdown-menu {
 
 .input-group.input-group-search .input-group-btn>.btn-primary {
     color: #fff;
-    background-color: #37a000;
+    background-color: purple;
     padding-left: 10px;
     padding-right: 10px;
     margin-right: 0;
@@ -6085,7 +6085,7 @@ body>.dropdown-menu, body>.eo-dropdown-menu {
 
 .input-group.input-group-search .input-group-btn>.btn-primary:focus, .input-group.input-group-search .input-group-btn>.btn-primary:hover {
     text-decoration: none;
-    background-color: #008329;
+    background-color: purple;
     color: #fff
 }
 
@@ -6117,7 +6117,7 @@ body>.dropdown-menu, body>.eo-dropdown-menu {
 }
 
 .input-group.input-group-search .input-group-addon:first-of-type .glyphicon {
-    color: #37a000
+    color: purple
 }
 
 .input-group.input-group-search .input-group-addon+.form-control {
@@ -6197,7 +6197,7 @@ body>.dropdown-menu, body>.eo-dropdown-menu {
 
 .input-group-outside .input-group-addon:first-child .glyphicon {
     height: 30px;
-    color: #37a000;
+    color: purple;
     line-height: 30px;
     vertical-align: middle;
     padding-top: 2px;
@@ -6256,7 +6256,7 @@ body>.dropdown-menu, body>.eo-dropdown-menu {
     margin: 0;
     background-color: transparent;
     box-shadow: none;
-    color: #37a000
+    color: purple
 }
 
 .input-group-btn>.btn+.btn {
@@ -6327,7 +6327,7 @@ body>.dropdown-menu, body>.eo-dropdown-menu {
 
 .input-group-sm ul>li>a:focus, .input-group-sm ul>li>a:hover {
     background-color: #f9f9f9;
-    color: #008329
+    color: purple
 }
 
 .input-group-sm ul .form-group {
@@ -6347,12 +6347,12 @@ body>.dropdown-menu, body>.eo-dropdown-menu {
     left: 0;
     width: 4px;
     height: 100%;
-    background: #37a000
+    background: purple
 }
 
 .input-group-sm ul .active:not(.btn)>a, .input-group-sm ul .active:not(.btn)>a:focus, .input-group-sm ul .active:not(.btn)>a:hover {
     background-color: #fff;
-    color: #37a000
+    color: purple
 }
 
 .input-group-sm ul>li>a {
@@ -6433,7 +6433,7 @@ body>.dropdown-menu, body>.eo-dropdown-menu {
         margin-bottom: 0
     }
     .pagination>li>a {
-        color: #37a000
+        color: purple
     }
     .pagination>.pagination-summary>a {
         color: #222;
@@ -6442,15 +6442,15 @@ body>.dropdown-menu, body>.eo-dropdown-menu {
 }
 
 .pagination>li>a:focus, .pagination>li>a:hover, .pagination>li>span:focus, .pagination>li>span:hover {
-    color: #008329;
+    color: purple;
     text-decoration: underline
 }
 
 .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
     z-index: 2;
     padding-bottom: 4px;
-    border-bottom: 4px solid #37a000;
-    color: #37a000;
+    border-bottom: 4px solid purple;
+    color: purple;
     cursor: default;
     text-decoration: none
 }
@@ -6580,7 +6580,7 @@ body>.dropdown-menu, body>.eo-dropdown-menu {
 .popover .popover-inner>.close {
     margin: 10px 10px 10px 0;
     padding: 10px;
-    color: #37a000;
+    color: purple;
     cursor: pointer;
     line-height: .5;
     z-index: 5010;
@@ -6862,7 +6862,7 @@ body>.dropdown-menu, body>.eo-dropdown-menu {
     font-size: 10px;
     line-height: 18px;
     color: #222;
-    background-color: #37a000;
+    background-color: purple;
     box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .15)
 }
 
@@ -7042,7 +7042,7 @@ body>.dropdown-menu, body>.eo-dropdown-menu {
 
 .nav .open>a, .nav .open>a:focus, .nav .open>a:hover {
     background-color: #f2f2f2;
-    border-color: #37a000
+    border-color: purple
 }
 
 .nav-tabs {
@@ -7072,14 +7072,14 @@ body>.dropdown-menu, body>.eo-dropdown-menu {
 }
 
 .nav-tabs>li>a:active, .nav-tabs>li>a:focus, .nav-tabs>li>a:hover {
-    color: #008329;
+    color: purple;
     background-color: transparent
 }
 
 .nav-tabs>li.active>a, .nav-tabs>li.active>a:active, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
-    color: #37a000;
+    color: purple;
     border: none;
-    border-bottom: 4px solid #37a000;
+    border-bottom: 4px solid purple;
     background-color: transparent;
     cursor: default
 }
@@ -7120,7 +7120,7 @@ body>.dropdown-menu, body>.eo-dropdown-menu {
 
 .nav-tabs.nav-justified>li.active>a, .nav-tabs.nav-justified>li.active>a:hover {
     border: none;
-    border-bottom: 3px solid #37a000
+    border-bottom: 3px solid purple
 }
 
 .nav-tabs .dropdown-menu, .nav-tabs .eo-dropdown-menu {
@@ -7143,7 +7143,7 @@ body>.dropdown-menu, body>.eo-dropdown-menu {
 
 .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
     color: #fff;
-    background-color: #37a000
+    background-color: purple
 }
 
 .nav-stacked>li {
@@ -7161,13 +7161,13 @@ body>.dropdown-menu, body>.eo-dropdown-menu {
 }
 
 .nav-stacked>li>a:focus, .nav-stacked>li>a:hover {
-    color: #008329;
+    color: purple;
     background-color: #f9f9f9;
     text-decoration: underline
 }
 
 .nav-stacked>li>a:active {
-    color: #008329
+    color: purple
 }
 
 .nav-stacked>li>a .glyphicon {
@@ -7183,7 +7183,7 @@ body>.dropdown-menu, body>.eo-dropdown-menu {
 .nav-stacked>li.active>a, .nav-stacked>li.active a:active, .nav-stacked>li.active a:focus, .nav-stacked>li.active a:hover {
     background-color: #f9f9f9;
     border-left-width: 0!important;
-    color: #37a000;
+    color: purple;
     padding: 9px 20px;
     text-decoration: none;
     font-weight: 700
@@ -7192,7 +7192,7 @@ body>.dropdown-menu, body>.eo-dropdown-menu {
 .nav-stacked>li.active>a:after, .nav-stacked>li.active a:active:after, .nav-stacked>li.active a:focus:after, .nav-stacked>li.active a:hover:after {
     content: " ";
     position: absolute;
-    border-left: 4px solid #37a000;
+    border-left: 4px solid purple;
     left: 0;
     right: auto;
     bottom: 0;
@@ -7272,10 +7272,10 @@ body>.dropdown-menu, body>.eo-dropdown-menu {
 .nav-tabs-card>li.active>a, .nav-tabs-card>li.active>a:active, .nav-tabs-card>li.active>a:focus, .nav-tabs-card>li.active>a:hover {
     background-color: #fff;
     border-radius: 0;
-    border-color: #37a000 #e0e0e0 transparent;
+    border-color: purple #e0e0e0 transparent;
     border-style: solid;
     border-width: 1px;
-    box-shadow: inset 0 3px 0 #37a000
+    box-shadow: inset 0 3px 0 purple
 }
 
 .nav-tabs-card+.tab-content {
@@ -7482,7 +7482,7 @@ body>.dropdown-menu, body>.eo-dropdown-menu {
 }
 
 .active.o-tag-certified, .active.o-tag-skill, .active.o-tag-tested, .o-tag-certified:active, .o-tag-certified:focus, .o-tag-certified:hover, .o-tag-skill:active, .o-tag-skill:focus, .o-tag-skill:hover, .o-tag-tested:active, .o-tag-tested:focus, .o-tag-tested:hover, .o-tag.active, .o-tag:active, .o-tag:focus, .o-tag:hover, .tokenizer-wrapper>.tokenizer-token-list .active.tokenizer-token, .tokenizer-wrapper>.tokenizer-token-list .tokenizer-token:active, .tokenizer-wrapper>.tokenizer-token-list .tokenizer-token:focus, .tokenizer-wrapper>.tokenizer-token-list .tokenizer-token:hover {
-    background-color: #008329;
+    background-color: purple;
     color: #fff
 }
 
@@ -7504,7 +7504,7 @@ body>.dropdown-menu, body>.eo-dropdown-menu {
 
 .o-tag-skill:focus {
     outline: 0;
-    background-color: #37a000
+    background-color: purple
 }
 
 .thumbnail {
@@ -7751,7 +7751,7 @@ up-c-modal .btn+.btn:not(.btn-link) {
 .modal-header .close {
     padding: 10px;
     text-shadow: 0 1px 0 #fff;
-    color: #37a000;
+    color: purple;
     text-align: center;
     margin: -10px -10px -10px auto
 }
@@ -8104,8 +8104,8 @@ header .container {
 }
 
 .alert-success .glyphicon:not(.air-icon-close) {
-    border-color: #37a000;
-    background-color: #37a000
+    border-color: purple;
+    background-color: purple
 }
 
 .alert-warning .glyphicon:not(.air-icon-close) {
@@ -8175,9 +8175,9 @@ header .container {
 .alert-notification {
     color: #fff;
     text-align: center;
-    border-color: #37a000;
+    border-color: purple;
     border-radius: 0;
-    background-color: #37a000;
+    background-color: purple;
     padding: 6px 60px;
     font-weight: 500;
     margin-left: 0;
@@ -8544,7 +8544,7 @@ header .container {
     font-size: 10px;
     line-height: 1;
     color: #fff;
-    background-color: #37a000;
+    background-color: purple;
     padding: 5px 7px;
     border-radius: 2px;
     font-weight: 400;
@@ -8569,7 +8569,7 @@ header .container {
     position: absolute;
     bottom: -2px;
     left: 5px;
-    color: #37a000
+    color: purple
 }
 
 .badge-ellipsis {
@@ -8611,7 +8611,7 @@ header .container {
 }
 
 .badge-presence.status-online, .badge-presence.user-presence-indicator-online, .user-presence-indicator.status-online, .user-presence-indicator.user-presence-indicator-online {
-    background-color: #37a000
+    background-color: purple
 }
 
 .badge-presence.status-away, .badge-presence.user-presence-indicator-away, .user-presence-indicator.status-away, .user-presence-indicator.user-presence-indicator-away {
@@ -8724,7 +8724,7 @@ header .container {
 
 .datepicker .day.active {
     color: #fff;
-    background-color: #37a000
+    background-color: purple
 }
 
 .datepicker .day.active:after {
@@ -8830,7 +8830,7 @@ header .container {
     left: 50%;
     transform: translate(-50%, -50%);
     -webkit-transform: translate(-50%, -50%);
-    color: #37a000;
+    color: purple;
     font-weight: 700;
     font-size: 15px;
     padding: 8px 20px 8px 16px;
@@ -8993,7 +8993,7 @@ header .container {
 
 .multiselector .multiselect-container>div>.row.selected {
     border-top-color: transparent;
-    background-color: #37a000
+    background-color: purple
 }
 
 .multiselector .multiselect-container>div>.row.selected .content .o-support-info {
@@ -9077,11 +9077,11 @@ header .container {
 
 .tokenizer-wrapper:hover {
     box-shadow: inset 0 0 5px rgba(0, 0, 0, .3);
-    border-color: #008329
+    border-color: purple
 }
 
 .tokenizer-wrapper.active, .tokenizer-wrapper:focus {
-    border-color: #37a000
+    border-color: purple
 }
 
 .tokenizer-wrapper input, .tokenizer-wrapper input:hover {
@@ -9190,7 +9190,7 @@ header .container {
 }
 
 .form-success.form-message {
-    color: #008329
+    color: purple
 }
 
 .dropdown .dropdown-toggle.btn-default.ng-dirty.ng-invalid .caret, .dropdown .dropdown-toggle.btn-default.ng-dirty.ng-invalid:focus .caret, .dropdown .dropdown-toggle.btn-default.ng-dirty.ng-invalid:hover .caret, .dropdown .dropdown-toggle.btn.ng-dirty.ng-invalid .caret, .dropdown .dropdown-toggle.btn.ng-dirty.ng-invalid:focus .caret, .dropdown .dropdown-toggle.btn.ng-dirty.ng-invalid:hover .caret, .has-error .dropdown .dropdown-toggle.btn-default .caret, .has-error .dropdown .dropdown-toggle.btn-default:focus .caret, .has-error .dropdown .dropdown-toggle.btn-default:hover .caret, .has-error .dropdown .dropdown-toggle.btn .caret, .has-error .dropdown .dropdown-toggle.btn:focus .caret, .has-error .dropdown .dropdown-toggle.btn:hover .caret {
@@ -9225,12 +9225,12 @@ header .container {
 }
 
 .has-feedback.has-success .form-control:focus, .has-feedback.has-success .form-control:hover {
-    border-color: #008329;
+    border-color: purple;
     box-shadow: inset 0 0 5px rgba(0, 0, 0, .3)
 }
 
 .has-feedback.has-success .form-control-feedback {
-    color: #008329
+    color: purple
 }
 
 .has-feedback .form-control {
@@ -9342,7 +9342,7 @@ header .container {
 }
 
 .eo-tabset .nav-tabs.nav-justified li.active {
-    border-top: 3px solid #37a000
+    border-top: 3px solid purple
 }
 
 .eo-tabset .nav-tabs.nav-justified li.active>a, .eo-tabset .nav-tabs.nav-justified li.active a:focus, .eo-tabset .nav-tabs.nav-justified li.active a:hover {
@@ -9359,7 +9359,7 @@ header .container {
     font-size: 16px;
     text-transform: none;
     text-align: left;
-    color: #37a000;
+    color: purple;
     background-color: inherit;
     padding-left: 20px!important
 }
@@ -9416,7 +9416,7 @@ header .container {
 }
 
 .eo-profile-image-upload .column-wrapper-left .drop-box.dragover {
-    border: 2px dashed #37a000
+    border: 2px dashed purple
 }
 
 .eo-profile-image-upload .column-wrapper-left .crop-area-container {
@@ -9544,7 +9544,7 @@ img-crop canvas {
 }
 
 .eo-sortable-cursor.list-group-item {
-    border-color: #008329
+    border-color: purple
 }
 
 .eo-sortable-moving {
@@ -9637,7 +9637,7 @@ img-crop canvas {
     margin: 0;
     width: 14px;
     height: 14px;
-    color: #37a000;
+    color: purple;
     background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNCIgaGVpZ2h0PSIxNCI+PHBhdGggZmlsbD0iIzM3YTAwMCIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNNyAxMmw3LTcuNDMzTDEyLjUyNCAzIDcgOC44NjYgMS40NzYgMyAwIDQuNTY3eiIvPjwvc3ZnPg==");
     background-repeat: no-repeat;
     background-size: 14px
@@ -9758,7 +9758,7 @@ img-crop canvas {
     position: absolute;
     content: "";
     top: 14px;
-    color: #37a000;
+    color: purple;
     margin-left: 15px;
     width: 14px;
     height: 14px;
@@ -9830,7 +9830,7 @@ img-crop canvas {
 }
 
 .select2-results li li:active, .select2-results li li:focus, .select2-results li li:hover {
-    color: #008329;
+    color: purple;
     background-color: #f9f9f9
 }
 
@@ -9863,9 +9863,9 @@ img-crop canvas {
 }
 
 .select2-results .select2-highlighted {
-    border-left: 4px solid #37a000;
+    border-left: 4px solid purple;
     padding-left: 16px;
-    color: #37a000
+    color: purple
 }
 
 .select2-results .select2-highlighted em {
@@ -9879,7 +9879,7 @@ img-crop canvas {
 
 .select2-results .select2-highlighted:hover {
     background: #fff;
-    color: #37a000
+    color: purple
 }
 
 .select2-results .select2-no-results, .select2-results .select2-searching, .select2-results .select2-selection-limit {
@@ -10016,7 +10016,7 @@ img-crop canvas {
 }
 
 .select2-default {
-    color: #37a000!important
+    color: purple!important
 }
 
 .select2-search-choice-close {
@@ -10204,13 +10204,13 @@ body>.ui-select-bootstrap.open {
 .eo-image-drop.drop-box {
     background: none repeat scroll 0 0 #f9f9f9;
     color: #656565;
-    border: 2px dashed #37a000;
+    border: 2px dashed purple;
     min-height: 80px;
     padding: 10px 0 0 10px
 }
 
 .eo-image-drop.drop-box.dragover {
-    border-color: #008329
+    border-color: purple
 }
 
 .eo-image-drop.drop-box.dragover * {
@@ -10234,7 +10234,7 @@ body>.ui-select-bootstrap.open {
     height: 100%;
     text-align: center;
     line-height: 65px;
-    color: #37a000;
+    color: purple;
     margin: 0
 }
 
@@ -10242,7 +10242,7 @@ body>.ui-select-bootstrap.open {
     background-color: hsla(0, 0%, 97.6%, .9);
     opacity: 1;
     text-decoration: none;
-    color: #37a000
+    color: purple
 }
 
 .eo-image-drop.drop-box .eo-image-drop-preview img {
@@ -10270,7 +10270,7 @@ body>.ui-select-bootstrap.open {
 }
 
 .eo-image-drop .message a {
-    color: #37a000;
+    color: purple;
     font-weight: 400
 }
 
@@ -13866,8 +13866,8 @@ body>.ui-select-bootstrap.open {
 
 :root {
     --white: #fff;
-    --brand-primary: #37a000;
-    --brand-success: #008329;
+    --brand-primary: purple;
+    --brand-success: purple;
     --text-inverse: var(--white)
 }
 
@@ -14522,12 +14522,12 @@ body>.ui-select-bootstrap.open {
 
 .vs-btn-chip.active {
     color: #fff;
-    background-color: #37a000
+    background-color: purple
 }
 
 .vs-btn-chip:active, .vs-btn-chip:hover {
     color: #fff;
-    background-color: #008329
+    background-color: purple
 }
 
 .vs-dash {
@@ -14548,7 +14548,7 @@ body>.ui-select-bootstrap.open {
 
 @media (min-width:768px) {
     body.no-touch .vs-link-text:hover {
-        color: #008329;
+        color: purple;
         text-decoration: underline
     }
 }
@@ -14587,7 +14587,7 @@ a.no-style p {
 }
 
 .vs-bg-avocado {
-    background: #37a000
+    background: purple
 }
 
 .vs-bg-midnight-blue {
@@ -14635,7 +14635,7 @@ a.no-style p {
 }
 
 .vs-color-avocado {
-    color: #37a000
+    color: purple
 }
 
 .vs-color-midnight-blue {

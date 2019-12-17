@@ -23,7 +23,7 @@ class TeacherProfile extends React.Component {
                                                 <div className="ng-isolate-scope">
                                                     <div
                                                         className="up-active-container ng-isolate-scope">
-                                                        <img className="avatar avatar-md cfe-avatar m-0 ng-scope"
+                                                        <img className="avatar avatar-md cfe-avatar m-0 ng-scope" alt='avatar'
                                                             src="Ma.%20Jericca%20C.%20-%20Web%20Research,%20Data%20Entry,%20Lead%20Generation%20Expert%20-%20Upwork%20Freelancer%20from%20Cagayan%20Valley,%20Philippines_files/c19yU5qVwk5YXuJpxLGqz4X570l626FIgippe_8k4aINo6fUU2W9-vTB3pS.jpeg" />
                                                     </div>
                                                 </div>

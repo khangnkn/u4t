@@ -14,9 +14,7 @@ class Search extends React.Component {
             <nav className="navbar navbar-fixed-top" aria-label="Navigation bar">
                 <div className="container-visitor">
                     <div className="navbar-header" style={{ marginRight: '10px' }}><a
-                        className="nv-brand" href="https://www.upwork.com/" > U4T </a>
-                        <div className="d-lg-none navbar-search navbar-search-mobile">
-                        </div>
+                        className="nv-brand" href="/" > U4T </a>
                     </div>
                     <div className="navbar-collapse d-none d-lg-flex ">
                         <div className="navbar-form">
@@ -31,30 +29,15 @@ class Search extends React.Component {
                                                     <span className="sr-only">Submit
                                                     search</span>
                                                 </button>
-                                            </div><input type="hidden" name="nbs" value="1"
-                                                autocomplete="off" /><input className="form-control" type="search"
-                                                    name="q" tabindex="0"
-                                                    placeholder="Find Freelancers &amp; Agencies" />
+                                            </div>
+                                                <input className="form-control" type="search" name="q" tabindex="0"
+                                                    placeholder="Tìm kiếm người dạy" />
                                         </div>
                                     </form>
                                 </div>
                             </div>
                         </div>
-                        <ul className="navbar-nav navbar-lg navbar-subnav navbar-right" role="menubar">
-                            {/* <li role="none"
-                                className="solutions-dropdown-menu-container dropdown dropdown-secondary align-start ">
-                                <a className="dropdown-toggle" role="menuitem" > Skills </a>
-                                <ul className="dropdown-menu" role="menu">
-                                    <li role="none" className="p-md-left p-sm-top p-xs-bottom"><b><small>BUSINESSSIZE</small></b></li>
-                                    <li role="none"><a href="https://www.upwork.com/solutions/startups/"
-                                        target="_self" className="p-xs-top-bottom p-md-left " role="menuitem"
-                                        track="" track-event="click" track-sublocation="primary_nav_bar"
-                                        track-label="solutions"
-                                        track-data="{\&quot;solutions_slug\&quot;:\&quot;startups\&quot;,\&quot;solutions_nav_click\&quot;:\&quot;startups\&quot;}"
-                                        event-registered="true"><small>10-100 Employees</small></a></li>
-                                    <li className="vs-dash m-xs-top"></li>
-                                </ul>
-                            </li> */}
+                        <ul className="navbar-nav navbar-lg navbar-subnav navbar-right">
                             <li role="none"><a href="/login"> Log In</a></li>
                             <li role="none"><a href="/register"> Sign up</a></li>
 
@@ -86,7 +69,7 @@ class Search extends React.Component {
                 </div>
                 <div className="second-bar">
                     <div className="container">
-                        <h2 className="logo"><a href="#"> U4T </a></h2>
+                        <h2 className="logo"><a href="/"> U4T </a></h2>
                         <div className="social-icons">
                             {/* <a href="#" className="twitter"><i className="fa fa-twitter"></i></a>
                     <a href="#" className="facebook"><i className="fa fa-facebook"></i></a>
@@ -120,7 +103,7 @@ class Search extends React.Component {
                                 <div className="d-flex flex-grow-1">
                                     <div className="flex-grow-1 overflow-hidden">
                                         <h4 className="m-0-top-bottom display-inline-block ng-isolate-scope">
-                                            <a className="freelancer-tile-name" title="Jamie R." href="/o/profiles/users/_~011e44ef04ca098710?s=1110580755107926016">
+                                            <a className="freelancer-tile-name" title="Jamie R." href="/">
                                                 <span className="ng-binding ng-scope">Jamie R.</span>
                                             </a>
                                         </h4>
@@ -139,7 +122,7 @@ class Search extends React.Component {
                                     <div className="col-md-3 p-0-right">
                                         <div className="ng-isolate-scope">
                                             <span style={{marginRight: '6px'}}>
-                                                <i class="fas fa-dollar-sign"></i>  
+                                                <i className="fas fa-dollar-sign"></i>  
                                             </span>
                                             <strong className="ng-binding">50.00</strong>
                                             <span className="ext-muted ng-scope">
@@ -150,7 +133,7 @@ class Search extends React.Component {
                                     <div className="col-md-3 p-0-right">
                                         <div className="ng-scope ng-isolate-scope">
                                             <span style={{marginRight: '6px'}}>
-                                                <i class="fas fa-bars"></i>
+                                                <i className="fas fa-bars"></i>
                                             </span>
                                             <span className="d-none d-lg-inline">
                                                 <strong className="ng-binding">$300k+</strong>
@@ -162,7 +145,7 @@ class Search extends React.Component {
                                     <div className="col-md-3">
                                         <div className="row m-xs-bottom ng-scope">
                                             <div className="col-md-1 m-xs-right p-0-left">
-                                                <i class="fas fa-feather-alt"></i>
+                                                <i className="fas fa-feather-alt"></i>
                                             </div>
                                             <div className="col-md-10 p-0 ng-scope">
                                                 <div className="clearfix ng-isolate-scope">
@@ -203,7 +186,7 @@ class Search extends React.Component {
                                         <div className="ng-isolate-scope">
                                             <div className="text-muted p-sm-top ng-binding ng-scope">
                                                 <span aria-hidden="true" className="glyphicon m-0-left m-xs-right">
-                                                    <i class="fas fa-graduation-cap"></i>
+                                                    <i className="fas fa-graduation-cap"></i>
                                                 </span>
                                                 Trình độ: Thạc sĩ
                                         </div>
@@ -328,7 +311,7 @@ class Search extends React.Component {
     render() {
         return (
             <div className="off-canvas-content navbar-fixed-subnav">
-                {this.renderNav()}
+                {/* {this.renderNav()} */}
                 <div id="layout">
                     <div id="main" role="main">
                         <div className="container responsive-container ng-scope">
@@ -345,6 +328,8 @@ class Search extends React.Component {
                                     <div className="row ng-scope" >
                                         <div className="col-xs-12 ng-isolate-scope">
                                             {this.renderResultItem()}
+                                            {this.renderResultItem()}
+                                            {this.renderResultItem()}
                                             {this.renderResultFooter()}
                                         </div>
                                     </div>
@@ -353,7 +338,7 @@ class Search extends React.Component {
                         </div>
                     </div>
                 </div>
-                {this.renderFooter()}
+                {/* {this.renderFooter()} */}
             </div>
         );
     }
