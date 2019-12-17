@@ -39,7 +39,7 @@ class Register extends React.Component {
                     <h1>Sign Up</h1>
                     <a href="/login" className="auth-link">You have an account?Sign in!</a>
                     {alert.message &&
-                        <div className={`alert ${alert.type} alert-app`}>{alert.message}</div>
+                        <div className={`alert ${alert.type} auth-alert-app`}>{alert.message}</div>
                     }
                     <Form className="form-horizontal" onSubmit={this.handleSubmit}>
                         <div className="form-group row">

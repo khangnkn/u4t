@@ -19,7 +19,7 @@ export const login = (username, password) => {
         userService.login(username,password).then(
             data => {
                 if (data.code === 1){
-                    dispatch(success(data.user));
+                    dispatch(success(data.data));
                     history.push('/profile');
                 } else {
                     dispatch(failure(data.message));

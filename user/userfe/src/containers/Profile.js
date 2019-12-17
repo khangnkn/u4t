@@ -4,7 +4,7 @@ import * as actions from '../actions/index';
 
 import { Button } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
-import { Navbar } from 'react-bootstrap';
+// import { Navbar } from 'react-bootstrap';
 import './../public/stylesheets/air2.css';
 import './../public/stylesheets/air2_1.css';
 import './../public/stylesheets/footer.css';
@@ -73,9 +73,8 @@ class Profile extends React.Component {
                             <p className="m-0-bottom">
                                 <span>Logged in as {this.props.profile.user.username}</span>
                                 <br />
-                                <a href="" className="navbar-link">Log out</a>
+                                <a href={this.props.logout()} className="navbar-link">Log out</a>
                             </p>
-                            <a method="post" action="/ab/account-security/logout"></a>
                         </div>
                     </div>
                 </div>

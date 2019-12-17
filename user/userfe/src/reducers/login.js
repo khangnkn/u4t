@@ -15,7 +15,6 @@ var myReducer = (state = initialState,action) => {
         case types.LOGIN_FAILURE:
             return {...state,requestLogin:false};
         case types.HANDLE_LOGIN_CHANGE:
-            
             return {...state,[action.name]: action.value};
         default:
             return state;

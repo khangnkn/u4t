@@ -36,9 +36,11 @@
 #myFooter .logo{
     margin-top: 0px;
 }
-
+#myFooter.second-bar{
+    background-color: #3a3f46 !important;
+}
 #myFooter .second-bar .logo a{
-    color:white;
+    color:#3a3f46;
     font-size: 28px;
     float: left;
     font-weight: bold;
@@ -55,7 +57,7 @@
 #myFooter a:hover,
 #myFooter a:focus {
     text-decoration: none;
-    color: white;
+    color: purple;
 }
 
 #myFooter .second-bar {
@@ -87,7 +89,7 @@
 } */
 
 .custom-option{
-    background-color: white;
+    background-color: #3a3f46;
 }
 
 .cus1 {

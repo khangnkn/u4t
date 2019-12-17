@@ -282,7 +282,7 @@
     .menu-list li>a:focus,
     .menu-list li>a:hover {
         background-color: #f9f9f9;
-        color: #008329;
+        color: purple;
         text-decoration: none
     }
 }

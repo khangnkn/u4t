@@ -1,6 +1,4 @@
 import * as types from '../constants/ActionTypes'
-import { stat } from 'fs';
-
 // function loadAvatarPreviewUrl() {
 //     var userCookie = JSON.parse(localStorage.getItem('user'));
 //     return userCookie ? userCookie.avatar : "";

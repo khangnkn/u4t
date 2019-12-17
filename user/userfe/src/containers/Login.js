@@ -35,7 +35,7 @@ class Login extends React.Component {
                     <h1>Sign In</h1>
                     <a href="/register" className="auth-link">New To Us?Sign up!</a>
                     {alert.message &&
-                            <div className={`alert ${alert.type} alert-app`}>{alert.message}</div>
+                            <div className={`alert ${alert.type} auth-alert-app`}>{alert.message}</div>
                     }
                     <Form className="form-horizontal" onSubmit={this.handleSubmit}>
                         <div className="form-group row">
