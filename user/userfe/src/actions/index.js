@@ -134,3 +134,73 @@ export const handleProfileStepNext = () => {
         type: types.HANDLE_PROFILE_STEP_NEXT
     }
 }
+
+export const handleCreateContractDataChange = (name,value) => {
+    return {
+        type: types.HANDLE_CREATE_CONTRACT_DATA_CHANGE,
+        name,value
+    }
+}
+export const handleCreateContractSkillChange = (name,value,checked) => {
+    return{
+        type: types.HANDLE_CREATE_CONTRACT_SKILL_CHANGE,
+        name,value,checked
+    }
+}
+export const handleCreateContractDateStartChange = (date) =>{
+    return {
+        type: types.HANDLE_CREATE_CONTRACT_DATE_START_CHANGE,
+        date
+    }
+}
+
+export const handleCreateContractDateEndChange = (date) =>{
+    return {
+        type: types.HANDLE_CREATE_CONTRACT_DATE_END_CHANGE,
+        date
+    }
+}
+
+export const handleCreateContractSetIdUser = (idSt,idTutor) => {
+    return{
+        type: types.HANDLE_CREATE_CONTRACT_SET_ID_USER,
+        idSt,idTutor
+    }
+}
+export const handleCreateContractSubmit = (contract) => {
+    return dispatch => {
+        dispatch(request());
+        try {
+            userService.createContract(contract).then(
+                data => {
+                    if (data.code === 1) {
+                        dispatch(success(data.message));
+                        dispatch(alertActions.success(data.message));
+                    } else {
+                        dispatch(failure(data.message));
+                        dispatch(alertActions.error(data.message));
+                    }
+                }
+            )
+        } catch (ex) {
+            console.log("looix ne");
+        }
+    }
+
+    function request() {return {type: types.CREATE_CONTRACT_REQUEST}};
+    function success(message) {return {type: types.CREATE_CONTRACT_SUCCESS,message}};
+    function failure(error) {return {type: types.CREATE_CONTRACT_FAILURE,error}}; 
+}
+
+export const handleReloadChatRoom = (room) => {
+    return {
+        type: types.HANDLE_RELOAD_CHAT_ROOM,
+        room
+    }
+}
+export const handleMessageChatRoom = (mess) => {
+    return {
+        type: types.HANDLE_MESSAGE_CHAT_ROOM,
+        mess
+    }
+}

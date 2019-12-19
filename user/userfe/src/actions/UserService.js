@@ -3,7 +3,7 @@ export const userService = {
     register,
     logOut,
     update,
-    loadTop5
+    loadTop4
 }
 
 function handleLogOut(resp){
@@ -85,13 +85,37 @@ function update(user){
     })
 }
 
-function loadTop5(){
+function loadTop4(){
     const requestOptions = {
         method: 'GET',
         headers: {'Content-Type': 'application/json'}
     } 
 
-    return fetch(`/api/top5`,requestOptions).then(resp => resp.json()).then(data => {
+    return fetch(`/api/top4`,requestOptions).then(resp => resp.json()).then(data => {
         return data.data;
+    })
+}
+
+function createContract(contract){
+    let header = new Headers();
+
+    var userCookie = JSON.parse(localStorage.getItem('user'));
+
+    header.append('Content-Type','application/json');
+    header.append('Authorization',userCookie ? 'Bearer' + userCookie.token : 'Bearer');
+    
+    let fd = new FormData();
+    
+    fd.append('contract',JSON.stringify(contract));
+
+    let req = new Request('/api/contract/create',{
+        method: 'POST',
+        headers: header,
+        mode: 'no-cors',
+        body: fd
+    })
+
+    return fetch(req).then(handleLogOut).then(resp => resp.json()).then(data => {
+        return data;
     })
 }

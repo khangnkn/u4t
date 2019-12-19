@@ -15,15 +15,16 @@ import Footer from './Footer';
 import { Route } from 'react-router-dom';
 import { Router } from 'react-router-dom';
 import { history } from '../helpers/HistoryHelper';
+import { Nav } from 'react-bootstrap';
 // import './../public/stylesheets/air2-ng-homepage.css';
 
 class App extends React.Component {
     render() {
         var userCookie = localStorage.getItem('user');
         return (
-            <div style={{overflow: 'auto'}}>
-                <NavBar></NavBar>
-                <div className="off-canvas-content navbar-fixed-subnav">
+            <div>
+                {/* <NavBar></NavBar> */}
+                <div className="">
                     <Router history={history}>
                         <Route path='/' exact component={Home}></Route>
                         <Route path='/tutorprofile' component={TeacherProfile}></Route>
@@ -35,7 +36,7 @@ class App extends React.Component {
                         <Route path='/search' component={Search}></Route>
                     </Router>
                 </div>
-                <Footer></Footer>
+                {/* <Footer></Footer> */}
             </div>
         );
     }

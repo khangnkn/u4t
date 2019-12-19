@@ -1,4 +1,11 @@
 import React from 'react';
+import DatePicker from "react-datepicker";
+import { Form } from 'react-bootstrap';
+import { connect } from 'react-redux';
+
+import * as actions from './../actions/index';
+
+import "react-datepicker/dist/react-datepicker.css";
 
 class CreateContract extends React.Component {
     constructor(props) {
@@ -6,7 +13,45 @@ class CreateContract extends React.Component {
         this.renderContractDetails = this.renderContractDetails.bind(this);
         this.renderWorkDescription = this.renderWorkDescription.bind(this);
         this.renderContractFooter = this.renderContractFooter.bind(this);
+        this.renderSkill = this.renderSkill.bind(this);
         this.renderWarning = this.renderWarning.bind(this);
+        this.handleDataChange = this.handleDataChange.bind(this);
+        this.handleSkillsChange = this.handleSkillsChange.bind(this);
+        this.handleDateStartChange = this.handleDateStartChange.bind(this);
+        this.handleDateEndChange = this.handleDateEndChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.state = {
+            inforTutor: null
+        }
+    }
+    componentDidMount(){
+        var idSt = 'cmt8';
+        var idTutor = 'cmt10';
+        var tutor = {};
+        this.setState({inforTutor: tutor});
+        this.props.setId(idSt,idTutor);
+    }
+    handleSubmit(event){
+        event.preventDefault();
+        this.handleCreateContractSubmit(this.props.createContract.contract);
+    }
+    handleDataChange(event) {
+        var { name, value } = event.target;
+        this.props.handleCreateContractDataChange(name, value);
+    }
+    handleSkillsChange(event) {
+        const { name, value, checked } = event.target;
+        this.props.handleCreateContractSkillChange(name, value, checked);
+    }
+    handleDateStartChange(date){
+        var moment = require('moment');
+        var d = moment(date).format('MM/DD/YYYY');
+        this.props.handleCreateContractDateStartChange(d);
+    }
+    handleDateEndChange(date){
+        var moment = require('moment');
+        var d = moment(date).format('MM/DD/YYYY');
+        this.props.handleCreateContractDateEndChange(d);
     }
     renderContractDetails() {
         return (
@@ -15,7 +60,7 @@ class CreateContract extends React.Component {
                     <header>
                         <h2 className="m-0-bottom">
                             <img alt="avatar"
-                                className="avatar avatar-60 m-0-top-bottom m-0-left m-sm-right d-none d-lg-inline"
+                                className="avatar avatar-60 m-0-top-bottom m-0-left m-sm-right d-none d-block d-lg-inline"
                                 src="./Contract_files/c1PoXrydUGYA9LO6ofPHVhDT-C1Jbbt7cP0neDqE2SWOYzmrC4knZuD69ImVgyUNfu" />
                             <span className="vertical-align-middle">
                                 Abhinav Sogga, Matrix Infologics® Pvt. Ltd.
@@ -24,9 +69,9 @@ class CreateContract extends React.Component {
                     </header>
                     <section>
                         <div className="form-group m-0-bottom">
-                            <label className="control-label" for="title">Contract Title</label>
+                            <label className="control-label" htmlFor="title">Tiêu đề hợp đồng</label>
                             <div className="width-lg">
-                                <input type="text" id="title" name="title"
+                                <input type="text" id="title" name="tieuDe" onChange={this.handleDataChange}
                                     className="form-control ng-pristine ng-valid ng-not-empty ng-touched" />
                             </div>
                         </div>
@@ -35,105 +80,91 @@ class CreateContract extends React.Component {
                 <div className="air-card m-0-top m-0-right-md m-0-right-xl p-0-top-bottom">
                     <header className="d-flex align-items-center flex-justify-content-between">
                         <h2 className="m-0-bottom">
-                            Terms
+                            Kỳ hạn hợp đồng
                     </h2>
                     </header>
 
                     <section>
                         <div>
-                            <div className="form-group" data-ng-show="flagIndex.hourly"
-                                id="rowHourlyRate" >
-                                <label className="control-label">Hourly Rate</label>
+                            <div className="form-group" id="rowHourlyRate" >
+                                <label className="control-label">Mức tiền lương</label>
                                 <div className="d-xs-block d-sm-inline-block ng-hide">
                                 </div>
                                 <div className="d-flex align-items-center">
                                     <div className="has-feedback">
-                                        <input
+                                        <input onChange={this.handleDataChange}
                                             className="form-control text-right p-sm-right width-xs ng-valid ng-not-empty ng-dirty ng-valid-number ng-valid-hr-constraintrequired ng-valid-hr-constraintfloat ng-valid-hr-constraintmin ng-valid-hr-constraintmax ng-touched"
-                                            id="hourlyRate" type="number" name="hourlyRate"
+                                            type="number" name="giaTien"
                                             placeholder="0.00" />
                                         <span
                                             className="glyphicon glyphicon-md air-icon-payment text-primary form-control-feedback"
                                             aria-hidden="true">
                                         </span>
                                     </div>
-                                    <span className="m-sm-left">/hr</span>
+                                    <span className="m-sm-left">/giờ</span>
 
                                 </div>
                                 <div className="clearfix">
                                     <div className="text-muted p-sm-top">
-                                        Abhinav Sogga's profile rate is $15.00 /hr
+                                        Mức lương đề xuất của Abhinav Sogga là $15.00 / giờ
                                 </div>
                                 </div>
                             </div>
-                            <div className="form-group" id="rowWeeklyLimit">
-                                <label for="hourlyWeeklyLimit">Weekly Limit</label>
+                            <div className="form-group">
+                                <label htmlFor="hourlyWeeklyLimit">Giới hạn giờ/tuần</label>
                                 <div className="row">
-                                    <weekly-limit name="weekly-limit"
+                                    <div name="weekly-limit"
                                         className="ng-pristine ng-untouched ng-valid col-lg-4 col-md-5 col-sm-5 col-xs-12 py-0 ng-not-empty ng-valid-hr-constraintinteger ng-valid-hr-constraintmin ng-valid-hr-constraintmax"
-                                        >
-                                        <input
+                                    >
+                                        <input name='ghGio' onChange={this.handleDataChange}
                                             className="qa-wm-contract-proposal-form-limit-custom ng-pristine ng-untouched ng-valid width-sm form-control ng-empty ng-hide"
-                                            placeholder="Enter the weekly limit"
-                                            id="weekly-limit-custom" />
-                                    </weekly-limit>
+                                            placeholder="Nhập giới hạn" />
+                                    </div>
                                     <div className="display-inline-block text-muted col-lg-8 col-md-7 col-sm-7 col-xs-12 pl-15 pl-sm-0">
                                         <div className="pl-0 pl-sm-10 py-0 py-sm-10 pt-10">
                                             <span
                                                 className="d-none d-md-inline pl-md-20">=</span>
-                                            <span>$250.00 max/week</span>
+                                            <span>$250.00 tối đa/tuần</span>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                            <div className='row'>
+                                <div className='col'>
                                     <div className="form-group row full-width m-0-left">
                                         <label className="control-label border-0-bottom">
-                                            <span className="nowrap">Start Date</span>
-                                            <wm-utc-label data-is-air-2="true"><span
-                                                className="nowrap">
-                                                <span className="text-muted">UTC</span>
-                                            </span>
-                                            </wm-utc-label>
+                                            <span className="nowrap">Ngày bắt đầu</span>
                                         </label>
-                                        <hr-datepicker
-                                            data-timezone="UTC"
-                                            className="ng-pristine ng-untouched ng-valid ng-empty col-lg-4 col-md-5 col-sm-5 col-xs-12 p-0 ng-valid-date-range">
-                                            <div className="eo-datepicker-emulated input-group">
-                                                <input
-                                                    className="add-border-radius form-control ng-valid-date"
-                                                    id="hourlyStartDate" type="text" />
-                                                <span className="input-group-btn"><button
-                                                    className="btn btn-default" type="button"
-                                                ><span
-                                                    aria-hidden="true"
-                                                    className="glyphicon air-icon-calendar-under1month"></span></button></span>
-                                            </div>
-                                        </hr-datepicker>
+                                        <div className="ng-pristine ng-untouched ng-valid ng-empty col-lg-4 col-md-5 col-sm-5 col-xs-12 p-0 ng-valid-date-range">
+                                            <DatePicker onChange={this.handleDateStartChange} name=' ngayBatDau' />
+                                        </div>
                                     </div>
+                                </div>
+                                <div className='col'>
                                     <div className="form-group row full-width m-0-left">
-                                        <label className="control-label border-0-bottom"
-                                            for="hourlyStartDate">
-                                            <span className="nowrap">Start Date</span>
-                                            <wm-utc-label data-is-air-2="true"><span
-                                                className="nowrap">
-                                                <span className="text-muted"
-                                                    data-ng-if="data.label">UTC</span>
-                                            </span>
-                                            </wm-utc-label>
+                                        <label className="control-label border-0-bottom">
+                                            <span className="nowrap">Ngày kết thúc</span>
                                         </label>
-                                        <hr-datepicker
-                                            data-timezone="UTC"
-                                            className="ng-pristine ng-untouched ng-valid ng-empty col-lg-4 col-md-5 col-sm-5 col-xs-12 p-0 ng-valid-date-range">
-                                            <div className="eo-datepicker-emulated input-group">
-                                                <input
-                                                    className="add-border-radius form-control ng-valid-date"
-                                                    id="hourlyStartDate" type="text" />
-                                                <span className="input-group-btn"><button
-                                                    className="btn btn-default" type="button"
-                                                ><span
-                                                    aria-hidden="true"
-                                                    className="glyphicon air-icon-calendar-under1month"></span></button></span>
-                                            </div>
-                                        </hr-datepicker>
+                                        <div className="ng-pristine ng-untouched ng-valid ng-empty col-lg-4 col-md-5 col-sm-5 col-xs-12 p-0 ng-valid-date-range">
+                                            <DatePicker onChange={this.handleDateEndChange} name='ngayKetThuc' />
+                                        </div>
                                     </div>
+                                </div>
+                            </div>
+                            <div className="form-group row full-width m-0-left">
+                                <label className="control-label border-0-bottom">
+                                    <span className="nowrap">Tổng dự kiến</span>
+                                </label>
+                                <div className="ng-pristine ng-untouched ng-valid ng-empty col-lg-4 col-md-5 col-sm-5 col-xs-12 p-0 ng-valid-date-range">
+                                    <span>2 000 000</span>
+                                </div>
+                            </div>
+                            <div className="form-group row full-width m-0-left">
+                                <label className="control-label border-0-bottom">
+                                    <span className="nowrap">Tổng tiền muốn trả</span>
+                                </label>
+                                <div className="ng-pristine ng-untouched ng-valid ng-empty col-lg-4 col-md-5 col-sm-5 col-xs-12 p-0 ng-valid-date-range">
+                                    <input name='tongTien' onChange={this.handleDataChange} className="qa-wm-contract-proposal-form-limit-custom ng-pristine ng-untouched ng-valid width-sm form-control ng-empty ng-hide" />
                                 </div>
                             </div>
                         </div>
@@ -149,24 +180,76 @@ class CreateContract extends React.Component {
                     <div className="air-card m-0-top m-0-right-md m-0-right-xl p-0-top-bottom">
                         <header>
                             <h2 className="m-0-bottom">
-                                Work Description
+                                Mô tả công việc
+                        </h2>
+                        </header>
+                        <section>
+                            <div id="rowHourlyInstruction"
+                                className="" >
+                                <div> 
+                                    <textarea name='moTa' onChange={this.handleDataChange}
+                                        className="form-control ng-pristine ng-untouched ng-valid ng-not-empty"
+                                        autoComplete="off"
+                                        placeholder="Hãy mô tả về công việc để người dạy có thể hiểu rõ hơn."
+                                        rows="8"></textarea>
+                                    {/* <span className="form-message form-error form-error-bottom">
+                                            <span>Báo lỗi</span>
+                                        </span> */}
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+    renderSkill() {
+        return (
+            <div>
+                <div role="form" className="ng-pristine ng-valid ng-valid-uploading-file">
+                    <div className="air-card m-0-top m-0-right-md m-0-right-xl p-0-top-bottom">
+                        <header>
+                            <h2 className="m-0-bottom">
+                                Kỹ năng giảng dạy liên quan
                         </h2>
                         </header>
                         <section>
                             <div data-ng-show="flagIndex.hourly" id="rowHourlyInstruction"
                                 className="" >
-                                <div>
-                                    <textarea
-                                        className="form-control ng-pristine ng-untouched ng-valid ng-not-empty"
-                                        autocomplete="off"
-                                        placeholder="Get started on the right foot by setting clear expectations"
-                                        rows="8"></textarea>
-                                    <hr-error>
-                                        <span
-                                            className="form-message  form-error form-error-bottom hidden">
-                                            <span></span>
-                                        </span>
-                                    </hr-error>
+                                <div className="row" >
+                                    <div className="checkbox col-md-6" >
+                                        <Form.Label>
+                                            <Form.Control type="checkbox" onChange={this.handleSkillsChange} name="kyNang" value="1" />
+                                            <span className="checkbox-replacement-helper">
+                                                <span aria-hidden="true" className="glyphicon ">
+                                                    <i className="fas fa-check"></i>
+                                                </span>
+                                            </span>
+                                            A/B Testing
+                                        </Form.Label>
+                                    </div>
+                                    <div className="checkbox col-md-6" >
+                                        <Form.Label>
+                                            <Form.Control type="checkbox" onChange={this.handleSkillsChange} name="kyNang" value="3" />
+                                            <span className="checkbox-replacement-helper">
+                                                <span aria-hidden="true" className="glyphicon">
+                                                    <i className="fas fa-check"></i>
+                                                </span>
+                                            </span>
+                                            A/B Testing
+                                        </Form.Label>
+                                    </div>
+                                    <div className="checkbox col-md-6" >
+                                        <Form.Label>
+                                            <Form.Control type="checkbox" onChange={this.handleSkillsChange} name="kyNang" value="4" />
+                                            <span className="checkbox-replacement-helper">
+                                                <span aria-hidden="true" className="glyphicon">
+                                                    <i className="fas fa-check"></i>
+                                                </span>
+                                            </span>
+                                            A/B Testing
+                                            </Form.Label>
+                                    </div>
                                 </div>
                             </div>
                         </section>
@@ -182,8 +265,8 @@ class CreateContract extends React.Component {
                     role="form">
                     <div>
                         <div className="d-none d-lg-block">
-                            <input type="button" value="Hire Abhinav Sogga"
-                                className="btn btn-primary" />
+                            <button type="submit" onClick={this.handleSubmit}
+                                className="btn btn-primary">Xác nhận</button>
                             <button className="btn btn-link m-lg-left">
                                 Cancel
                             </button>
@@ -196,13 +279,9 @@ class CreateContract extends React.Component {
     renderWarning() {
         return (
             <div>
-                <strong>How do hourly contracts work?</strong>
+                <strong>Hãy kiểm tra cẩn thận trước khi gửi hợp đồng</strong>
                 <p>
-                    Before work begins, you and your freelancer agree to a certain hourly
-                    rate and weekly limit (if appropriate).
-                As your freelancer works, the captures snapshots of their screen
-        every 10 minutes, helping to verify that
-        work has been completed as invoiced.
+                    U4T sẽ luôn bảo vệ lợi ích của cả người học và người dạy.
             </p>
             </div>
         );
@@ -216,12 +295,13 @@ class CreateContract extends React.Component {
                             <div className="edit_offer_area">
                                 <div>
                                     <h1 className="d-none-mobile-app m-lg-top-bottom">
-                                        Hire
+                                        Tạo hợp đồng
                                 </h1>
                                     <div className="hr-form-container row">
                                         <div className="col-md-9 p-0-top">
                                             {this.renderContractDetails()}
                                             {this.renderWorkDescription()}
+                                            {this.renderSkill()}
                                             {this.renderContractFooter()}
                                         </div>
                                         <div className="col-md-3 d-none d-md-block p-xs-top p-xs-left">
@@ -238,4 +318,31 @@ class CreateContract extends React.Component {
     }
 }
 
-export default CreateContract;
+const mapStateToProps = (state) => {
+    const { alert, createContract } = state;
+    return { alert, createContract };
+}
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+        handleCreateContractDataChange: (name, value) => {
+            dispatch(actions.handleCreateContractDataChange(name, value));
+        },
+        handleCreateContractSkillChange: (name, value, checked) => {
+            dispatch(actions.handleCreateContractSkillChange(name, value, checked));
+        },
+        handleCreateContractDateStartChange: (date) => {
+            dispatch(actions.handleCreateContractDateStartChange(date));
+        },
+        handleCreateContractDateEndChange: (date) => {
+            dispatch(actions.handleCreateContractDateEndChange(date));
+        },
+        setId: (idSt,idTutor) => {
+            dispatch(actions.handleCreateContractSetIdUser(idSt,idTutor));
+        },
+        handleCreateContractSubmit: (contract) => {
+            dispatch(actions.handleCreateContractSubmit(contract));
+        }
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(CreateContract);

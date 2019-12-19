@@ -1,28 +1,36 @@
 import React from 'react'
-
+import { userService } from '../actions/UserService';
 class ContractDetail extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            contract: null
+        }
+    }
+    componentDidMount() {
+        var id = 'cmt8';
+        userService.getContractDetail(id).then(data => {
+            this.setState({ contract: data.contract });
+        })
+    }
 
     renderContract() {
         return (
             <div className="content col-lg-9">
                 <header>
-                    <h2 className="m-0-bottom" data-ng-non-bindable="">Web developer/ designer needed
-                </h2>
+                    <h2 className="m-0-bottom" data-ng-non-bindable="">{this.state.contract.tieuDe}</h2>
                 </header>
                 <section className="air-card-divider-sm">
                     <div className="job-description break">
-                        I am need of a web developer to assist me with intergrating a search
-                        listing
-                        This job was posted from a mobile device, so please pardon any typos or
-                        any missing details.
-                </div>
+                        {this.state.contract.moTa}
+                    </div>
                 </section>
                 <section className="air-card-divider-sm">
                     <ul className="job-features p-0">
                         <li>
                             <i className="glyphicon air-icon-clock-hourly jobdetails-tier-level-icon"></i>
                             <strong>Mức lương/Giờ</strong>
-                            <small className="text-muted">15</small>
+                            <small className="text-muted">{this.state.contract.giaTien}</small>
                         </li>
                         <li>
                             <i className="glyphicon air-icon-calendar-under1month-alt jobdetails-tier-level-icon"></i>
@@ -30,7 +38,8 @@ class ContractDetail extends React.Component {
                                 <span className="d-none d-lg-inline">Thời gian</span>
                             </strong>
                             <small className="text-muted">
-                                <span className="d-none d-lg-inline">Jan 2018 - May 2019</span>
+                                <span className="d-none d-lg-inline">{this.state.contract.ngayBatDau} - {this.state.contract.ngayKetThuc}</span>
+                                <span className="d-none d-lg-inline">{this.state.contract.ghGio} giờ/tuần</span>
                             </small>
                         </li>
 
@@ -38,12 +47,12 @@ class ContractDetail extends React.Component {
                             <i className="jobdetails-tier-level-icon">$</i>
                             <strong>
                                 <span className="d-none d-lg-inline">Tổng tiền</span>
-                                <span className="d-lg-none">$</span>
+                                {/* <span className="d-lg-none">$</span> */}
                             </strong>
                             <small className="text-muted">
                                 <span className="d-none d-lg-inline">
-                                    900 000
-                            </span>
+                                    {this.state.contract.tongTien}
+                                </span>
                             </small>
                         </li>
                     </ul>
@@ -54,12 +63,10 @@ class ContractDetail extends React.Component {
                     <div className="sands-groups">
                         <div className="row">
                             <div className="col-sm-6 m-md-bottom">
-                                <a className="o-tag m-0-left m-0-top m-xs-bottom"
-                                    href="">CSS</a>
-
-                                <a className="o-tag m-0-left m-0-top m-xs-bottom"
-                                    href="">HTML</a>
-
+                                {this.state.contract.kyNang.map((e, i) => {
+                                    return (<a className="o-tag m-0-left m-0-top m-xs-bottom" key={i}
+                                        href="#" disabled>CSS</a>);
+                                })}
                             </div>
 
                         </div>
@@ -88,7 +95,7 @@ class ContractDetail extends React.Component {
                         <div className="rating m-md-bottom text-muted justify-xs-md">
                             <span
                                 className="work-rating vertical-align-middle primary ng-pristine ng-untouched ng-valid ng-isolate-scope ng-not-empty">
-                                <div className="stars" style={{visibility: 'visible'}}>
+                                <div className="stars" style={{ visibility: 'visible' }}>
                                     <canvas className="star ng-scope" height="16" width="80"></canvas>
                                 </div>
                             </span>
@@ -111,7 +118,7 @@ class ContractDetail extends React.Component {
                                     Người dạy
                             </strong>
                                 <div className="text-muted">
-                                    <a href="">Nguyen Cong Hung</a>
+                                    <a href="#">Nguyen Cong Hung</a>
                                 </div>
                             </li>
 
@@ -120,7 +127,7 @@ class ContractDetail extends React.Component {
                                     Người học
                             </strong>
                                 <div className="text-muted">
-                                    <a href="">Nguyen Hung</a>
+                                    <a href="#">Nguyen Hung</a>
                                 </div>
                             </li>
                         </ul>
@@ -137,39 +144,40 @@ class ContractDetail extends React.Component {
                         <span className="primary ng-binding">Đánh giá</span>
                     </h2>
                 </header>
-                <section className="">
-                    <div className="row m-md-bottom ng-scope">
-                        <div className="header col-xs-12 m-xs-bottom">
-                            <h4 className="m-0-bottom">
-                                <span className="ng-scope">
-                                    <strong className="ng-binding ng-scope">Điểm đánh giá: 4</strong>
-                                </span>
-                            </h4>
-                            <div className="m-xs-top ng-scope">
-                                <span className="ng-scope">
-                                    <span className="work-rating vertical-align-middle ng-pristine ng-untouched ng-valid ng-isolate-scope ng-not-empty">
-                                    </span>
-                                    <div className="ng-isolate-scope">
-                                        Keana is great to work
-                                        with. Extremely communiKeana is great to work with.
-                                            Extremely communicative &amp; swift in making payments.
-                                        Looking to work with her again :)
+                {this.state.contract.danhGia.map((e, i) => {
+                    return (
+                        <section className="">
+                            <div className="row m-md-bottom ng-scope">
+                                <div className="header col-xs-12 m-xs-bottom">
+                                    <h4 className="m-0-bottom">
+                                        <span className="ng-scope">
+                                            <strong className="ng-binding ng-scope">Điểm đánh giá: {e.diemDanhGia}</strong>
+                                        </span>
+                                    </h4>
+                                    <div className="m-xs-top ng-scope">
+                                        <span className="ng-scope">
+                                            <span className="work-rating vertical-align-middle ng-pristine ng-untouched ng-valid ng-isolate-scope ng-not-empty">
+                                            </span>
+                                            <div className="ng-isolate-scope">
+                                                {e.moTa}
                                     </div>
-                                </span>
-                            </div>
-                        </div>
-                        <div className="stats col-xs-12 m-xs-bottom">
-                            <span className="ng-binding"> 23h40 17/03/2019</span>
-                        </div>
-                        <div className="m-xs-top">
-                            <span className="ng-scope">
-                                <strong className="ng-binding">
-                                    Nguyen Hung
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className="stats col-xs-12 m-xs-bottom">
+                                    <span className="ng-binding"> {e.thoiGian}</span>
+                                </div>
+                                <div className="m-xs-top">
+                                    <span className="ng-scope">
+                                        <strong className="ng-binding">
+                                            {e.by.fullName}
                                 </strong>
-                            </span>
-                        </div>
-                    </div>
-                </section>
+                                    </span>
+                                </div>
+                            </div>
+                        </section>);
+                })}
+
             </client-work-history>
         );
     }

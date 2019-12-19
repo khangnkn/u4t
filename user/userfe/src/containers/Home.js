@@ -1,6 +1,9 @@
 import React from 'react';
 import './../public/stylesheets/air2-ng-cat.css';
-import {userService} from './../actions/UserService';
+import NavBar from './NavBar';
+import Footer from './Footer';
+
+import { userService } from './../actions/UserService';
 
 class Home extends React.Component {
     constructor(props) {
@@ -14,9 +17,9 @@ class Home extends React.Component {
             data: [],
         }
     }
-    componentDidMount(){
-        userService.loadTop5().then(data=>{
-            this.setState({data: data});
+    componentDidMount() {
+        userService.loadTop4().then(data => {
+            this.setState({ data: data });
         });
     }
     renderBanner() {
@@ -73,9 +76,9 @@ class Home extends React.Component {
         );
     }
 
-    renderTopTeacherItem(avatar, giaTien, fullName, tieuDe, thanhPho, skills) {
+    renderTopTeacherItem(i, avatar, giaTien, fullName, tieuDe, thanhPho, skills) {
         return (
-            <div className="fl-tile col-xl-3 col-md-5 col-sm-12 p-xs-top" >
+            <div key={i} className="fl-tile col-xl-3 col-md-5 col-sm-12 p-xs-top" >
                 <div className="vs-shadow-dark p-md-top p-lg-bottom p-sm-left-right text-left ng-scope">
                     <div className="d-flex">
                         <div className="text-center">
@@ -105,7 +108,7 @@ class Home extends React.Component {
                     <hr className="m-sm-top-bottom" />
                     <div className="skills-list-container m-xs-bottom m-0-bottom-xs" >
                         {skills.map((e, i) => {
-                            return (<div><span className="vs-full-word-cut-text o-tag-skill m-xs-right pull-left m-xs-bottom vs-o-tag-no-hover d-block vs-color-text">{e}</span></div>);
+                            return (<div key={i} ><span className="vs-full-word-cut-text o-tag-skill m-xs-right pull-left m-xs-bottom vs-o-tag-no-hover d-block vs-color-text">{e}</span></div>);
                         })}
                     </div>
                     <a href="/user/detail" className="btn btn-primary btn-sm btn-block-sm m-0-bottom m-md-top tile-cta-button">Thông tin chi tiết</a>
@@ -132,7 +135,7 @@ class Home extends React.Component {
                                     <div className="item text-center ng-scope ng-isolate-scope active">
                                         <div className="d-flex p-xs-left-right p-sm-bottom row ng-scope">
                                             {test.map((e, i) => {
-                                                return this.renderTopTeacherItem(e.avatar, e.giaTien, e.fullName, e.tieuDe, e.thanhPho,e.skills);
+                                                return this.renderTopTeacherItem(i, e.avatar, e.giaTien, e.fullName, e.tieuDe, e.thanhPho, e.skills);
                                             })}
                                         </div>
                                     </div>
@@ -191,16 +194,20 @@ class Home extends React.Component {
 
     render() {
         return (
-            <div className="off-canvas-content navbar-fixed-subnav">
-                <div id="layout">
-                    <div id="main" role="main" style={{ overflow: 'auto' }}>
-                        {this.renderBanner()}
-                        {this.renderOverview()}
-                        {this.renderTopTeacher()}
-                        {this.renderSeach()}
-                        {this.renderTinyInfor()}
+            <div> 
+                <NavBar/>
+                <div className="off-canvas-content navbar-fixed-subnav">
+                    <div id="layout">
+                        <div id="main" role="main" style={{ overflow: 'auto' }}>
+                            {this.renderBanner()}
+                            {this.renderOverview()}
+                            {this.renderTopTeacher()}
+                            {this.renderSeach()}
+                            {this.renderTinyInfor()}
+                        </div>
                     </div>
                 </div>
+                <Footer/>
             </div>
         );
     }
