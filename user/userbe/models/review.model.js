@@ -19,7 +19,7 @@ const ReviewSchema = new Schema({
   },
   sender: {
     type: Schema.Types.ObjectId,
-    ref: 'Users',
+    ref: 'User',
   },
 });
 

@@ -7,7 +7,7 @@ import Search from './Search';
 import Home from './Home';
 import TeacherProfile from './TeacherProfile';
 import CreateContract from './CreateContract';
-import RoomChat from './RoomChat';
+// import RoomChat from './RoomChat';
 
 import NavBar from './NavBar';
 import Footer from './Footer';
@@ -29,7 +29,7 @@ class App extends React.Component {
                         <Route path='/' exact component={Home}></Route>
                         <Route path='/tutorprofile' component={TeacherProfile}></Route>
                         <Route path='/contract/create' component={CreateContract}></Route>
-                        <Route path='/chat' component={RoomChat}></Route>
+                        {/* <Route path='/chat' component={RoomChat}></Route> */}
                         <Route path='/login' component={Login}></Route>
                         <Route path='/register' component={Register}></Route>
                         {true ? <Route path='/profile' component={Profile}></Route> : null}

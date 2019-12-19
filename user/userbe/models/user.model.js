@@ -31,6 +31,7 @@ const UserSchema = new Schema({
   },
   city: {
     type: Schema.Types.ObjectId,
+    ref: 'City',
     required: false,
   },
   is_active: {
@@ -50,7 +51,7 @@ const UserSchema = new Schema({
     },
     skills: {
       type: Schema.Types.ObjectId,
-      ref: 'Skills',
+      ref: 'Skill',
       required: false,
     },
     intro: {

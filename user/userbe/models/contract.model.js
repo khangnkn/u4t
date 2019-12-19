@@ -5,11 +5,11 @@ const { Schema } = mongoose;
 const ContractSchema = new Schema({
   tutor: {
     type: Schema.Types.ObjectId,
-    ref: 'Users',
+    ref: 'User',
   },
   learner: {
     type: Schema.Types.ObjectId,
-    ref: 'Users',
+    ref: 'User',
   },
   title: {
     type: String,
@@ -42,6 +42,6 @@ const ContractSchema = new Schema({
   }],
 });
 
-const Contract = mongoose.model('Contracts', ContractSchema);
+const Contract = mongoose.model('Contract', ContractSchema);
 
 module.exports = Contract;
