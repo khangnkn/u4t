@@ -1,7 +1,22 @@
 import React from 'react';
 import './../public/stylesheets/app_odesk_air2.css';
 
+import * as actions from '../actions/index';
+
+import {userService} from './../actions/UserService';
 class RoomChat extends React.Component {
+    constructor(props){
+        super(props);
+        this.reloadChatRoom=this.reloadChatRoom.bind(this);
+    }
+    componentDidMount(){
+        var internal = setInterval(this.reloadChatRoom,5000);
+    }
+    reloadRoomUserList(){
+        userService.reloadChatRoom().then(data => {
+            this.props.reloadChatRoom(data);
+        })
+    }   
     renderListChat() {
         return (
             <div className="room-nav-body">
@@ -33,7 +48,7 @@ class RoomChat extends React.Component {
                 </div>
             </div>
         );
-    }
+    } 
     renderRoomName() {
         return (
             <header style={{display: 'flex',margin:'0',alignItems:'center'}} className="room-nav-header">
@@ -148,7 +163,7 @@ class RoomChat extends React.Component {
                                                                     <div className="story-panel">
                                                                         <div className="room-story-list">
                                                                             <div className="eo-scroll-continuum-container">
-                                                                                <div className="viewport" tabindex="0">
+                                                                                <div className="viewport" tabIndex="0">
                                                                                     <div className="content minimal-content">                                                                                        
                                                                                         {this.renderListMessage()}
                                                                                     </div>
@@ -159,7 +174,7 @@ class RoomChat extends React.Component {
                                                                         </div>
                                                                     </div>
                                                                     <div className="composer-panel" style={{height: '79px'}}>
-                                                                        <div autofocus="">
+                                                                        <div autoFocus="">
                                                                         {this.renderSendForm()}
                                                                         </div>
                                                                     </div>
@@ -180,5 +195,18 @@ class RoomChat extends React.Component {
         );
     }
 }
-
+const mapStateToProps = (state)=>{
+    const {chat} = state;
+    return chat;
+}
+const mapDispatchToProps = (dispatch,props) => {
+    return {
+        reloadChatRoom: (room) => {
+            dispatch(actions.handleReloadChatRoom(room));
+        },
+        reloadHandleMessage: (mess) => {
+            dispatch(actions.handleMessage(mess));
+        }
+    }
+}
 export default RoomChat

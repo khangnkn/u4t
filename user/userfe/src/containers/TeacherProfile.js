@@ -1,5 +1,7 @@
 import React from 'react';
-
+import NavBar from './NavBar';
+import Footer from './Footer';
+import { userService } from './../actions/UserService';
 class TeacherProfile extends React.Component {
     constructor(props) {
         super(props);
@@ -7,8 +9,19 @@ class TeacherProfile extends React.Component {
         this.renderSkills = this.renderSkills.bind(this);
         this.renderHistory = this.renderHistory.bind(this);
         this.renderContact = this.renderContact.bind(this);
+        // this.state = {
+        //     tutor: null
+        // }
     }
+    // componentDidMount(){
+    //     userService.loadTutorInfor(this.props.idTutor).then(data => {
+    //         this.setState({
+    //             tutor: data
+    //         })
+    //     });
+    // }
     renderDetail() {
+        var tutor = this.state.tutor;
         return (
             <div className="ng-scope ng-isolate-scope">
                 <div className="m-0 p-0">
@@ -32,8 +45,8 @@ class TeacherProfile extends React.Component {
                                         <div className="media-body">
                                             <h2 className="m-xs-bottom">
                                                 <span itemprop="name" className="ng-binding">
-                                                    Ma. Jericca C.
-                                            </span>
+                                                    {tutor.hoTen}
+                                                </span>
                                                 <span
                                                     className="idv-verified badge badge-verified ng-scope">
                                                     <span aria-hidden="true"
@@ -53,11 +66,10 @@ class TeacherProfile extends React.Component {
                                                                     <span
                                                                         className="ng-binding ng-scope">
                                                                         <span
-                                                                            className="text-capitalize ng-binding">cagayan
-                                                                        valley</span>,
+                                                                            className="text-capitalize ng-binding">{tutor.diaChi}</span>,
                                                                 </span>
                                                                     <span
-                                                                        className="ng-binding ng-scope">Philippines</span>
+                                                                        className="ng-binding ng-scope">{tutor.thanhPho}</span>
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -76,25 +88,22 @@ class TeacherProfile extends React.Component {
                                                     <div className="progress-sm"
                                                         ng-className="{ 'hide-progress-bar': !showJSS }">
                                                         <div className="progress-bar progress-bar-complimentary"
-                                                            style={{width: '96%'}}>
-                                                            <span className="ng-binding">98%
+                                                            style={{ width: '96%' }}>
+                                                            <span className="ng-binding">{tutor.tiLe}
                                                             <span
                                                                     className="progress-bar-text">Job
                                                                 Success</span></span>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <small className="text-muted nowrap">
-                                                    Job Success
-                                            </small>
                                             </div>
                                         </div>
-                                        <div className="m-xs-top ng-scope">
+                                        {/* <div className="m-xs-top ng-scope">
                                             <span className="badge badge-top-rated ng-scope">
                                                 <span aria-hidden="true" className="glyphicon air-icon-top-rated"></span>
                                                 Top rated
                                                 </span>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                             </div>
@@ -103,7 +112,7 @@ class TeacherProfile extends React.Component {
                                     <h1>Profile</h1>
                                     <h3 className="m-0-top m-sm-bottom ng-scope">
                                         <span className="up-active-context up-active-context-title fe-job-title inline-block m-lg-right">
-                                            <span className="ng-binding">Title</span>
+                                            <span className="ng-binding">{tutor.data.tieuDe}</span>
 
                                         </span>
                                     </h3>
@@ -115,17 +124,7 @@ class TeacherProfile extends React.Component {
                                         <div>
                                             <p
                                                 className="break up-active-context m-0-bottom m-lg-right ng-isolate-scope">
-                                                <span>Hi! I have a
-                                                    bachelor's degree in
-                                                    Information Technology, and
-                                                    I also have pre-medical
-                                                    units. I am seeking position
-                                                    using my extensive knowledge
-                                                    and successful experience in
-                                                    Lead Generation, Web
-                                                    Research, Data Entry,
-                                                    Analyzing Data, and other
-                                                    administrative tasks.
+                                                <span>{tutor.data.tongQuan}
                                             </span></p>
                                         </div>
                                     </div>
@@ -141,24 +140,23 @@ class TeacherProfile extends React.Component {
                                                         className="vertical-align-text-bottom ng-isolate-scope">
                                                         <span className="up-active-context">
                                                             <span className="ng-binding">
-                                                                $4.38
+                                                                ${tutor.data.giaTien}
                                                         </span>
                                                         </span>
                                                     </div>
                                                 </h3>
                                             </div>
                                         </div>
-                                        <div className="text-muted ng-binding">Hourly
-                                        rate</div>
+                                        <div className="text-muted ng-binding">Tiền lương trên giờ</div>
                                     </li>
-                                    <li className="ng-scope">
+                                    {/* <li className="ng-scope">
                                         <h3 className="m-xs-bottom">
                                             <span className="ng-binding">
                                                 $70k+
                                         </span>
                                         </h3>
                                         <div className="text-muted ng-binding">
-                                            Total earned
+                                            Tổng kiếm
                                     </div>
                                     </li>
                                     <li className="ng-scope">
@@ -175,7 +173,7 @@ class TeacherProfile extends React.Component {
                                     </h3>
                                         <div className="text-muted ng-binding">Hours
                                         worked</div>
-                                    </li>
+                                    </li> */}
                                 </ul>
                             </div>
                             <hr className="m-0-bottom d-block d-lg-none" />
@@ -202,7 +200,7 @@ class TeacherProfile extends React.Component {
                             </div>
                         </header>
                         <div className="in" aria-expanded="true" aria-hidden="false"
-                            style={{height: 'auto'}}>
+                            style={{ height: 'auto' }}>
                             <section
                                 className="p-lg-top responsive assigment-list-content ng-scope">
                                 <div>
@@ -245,7 +243,7 @@ class TeacherProfile extends React.Component {
                                                                                         <div
                                                                                             className="ng-pristine ng-untouched ng-valid ng-isolate-scope ng-not-empty">
                                                                                             <div className="stars"
-                                                                                                style={{visibility: 'visible'}}>
+                                                                                                style={{ visibility: 'visible' }}>
                                                                                                 <canvas
                                                                                                     className="star ng-scope"
                                                                                                     height="12"
@@ -355,6 +353,7 @@ class TeacherProfile extends React.Component {
         );
     }
     renderSkills() {
+        var tutor = this.state.tutor;
         return (
             <div className="ng-isolate-scop">
                 <div className="ng-scope">
@@ -364,14 +363,13 @@ class TeacherProfile extends React.Component {
                                 Skills
                         </h2>
                         </header>
-                        <div className="in" aria-expanded="true" aria-hidden="false" style={{height: 'auto'}}>
+                        <div className="in" aria-expanded="true" aria-hidden="false" style={{ height: 'auto' }}>
                             <section>
                                 <div>
                                     <div className="ng-scope ng-isolate-scope">
                                         <div className="o-profile-skills m-sm-top ng-scope">
-                                            <a className="o-tag-skill ng-binding ng-scope" href="https://www.upwork.com/hire/microsoft-excel-experts/">
-                                                Microsoft Excel
-                                        </a>
+                                            {tutor.data.kyNang.map((e,i)=>{
+                                            return(<a key={i} className="o-tag-skill ng-binding ng-scope" href="#" disable>{e.moTa}</a>)})}
                                         </div>
                                     </div>
                                 </div>
@@ -391,17 +389,15 @@ class TeacherProfile extends React.Component {
                             <div className="ng-scope">
                                 <div className="text-center">
                                     <h3 className="title ">
-                                        To discuss your project with Ma. Jericca,
-                                        sign up.
+                                        Bạn muốn thuê người này.
                                 </h3>
                                     <p className="subtitle ">
-                                        We’ll connect you two when your job is
-                                        posted.
+                                        Hãy bấm vào nút dưới đây để bắt đầu đề nghị hợp đồng
                                 </p>
                                 </div>
-                                <form className="ng-pristine ng-valid ng-valid-email">
+                                <div className="ng-pristine ng-valid ng-valid-email">
                                     <div className="ng-scope">
-                                        <div className="form-group m-0-bottom p-sm-bottom">
+                                        {/* <div className="form-group m-0-bottom p-sm-bottom">
                                             <input type="text" className="form-control ng-pristine ng-valid ng-empty ng-touched" placeholder="First name" />
                                             <div className="ng-isolate-scope">
                                             </div>
@@ -415,10 +411,10 @@ class TeacherProfile extends React.Component {
                                             <input type="email" className="form-control ng-pristine ng-valid ng-empty ng-valid-email ng-touched" placeholder="Work email address" />
                                             <div className="ng-isolate-scope">
                                             </div>
-                                        </div>
-                                        <div> <button className="btn btn-primary m-0-top-bottom m-0-left-right" >Contact</button></div>
+                                        </div> */}
+                                        <div> <a className="btn btn-primary m-0-top-bottom m-0-left-right" href='/createcontract' >Contact</a></div>
                                     </div>
-                                </form>
+                                </div>
                             </div>
                         </section>
                     </div>
@@ -428,25 +424,33 @@ class TeacherProfile extends React.Component {
     }
     render() {
         return (
-            <div className="container-visitor">
-                <div lass="ng-scope">
-                    <div className="ng-scope ng-isolate-scope">
-                        <div className="fe-ui-application responsive">
-                            <div className="fe-ui-application cfe-ui-application">
-                                <div className="row eo-block-none o-profile">
-                                    <div className="cfe-main p-0-left-right-xs col-xs-12 col-lg-9">
-                                        {this.renderDetail()}
-                                        {this.renderSkills()}
-                                        {this.renderHistory()}
-                                    </div>
-                                    <div className="col-lg-3 cfe-sidebar d-none d-lg-block ng-scope">
-                                        {this.renderContact()}
+            <div>
+                <NavBar />
+                <div className="off-canvas-content navbar-fixed-subnav">
+                    <div id='layout'>
+                        <div className="container-visitor">
+                            <div lass="ng-scope">
+                                <div className="ng-scope ng-isolate-scope">
+                                    <div className="fe-ui-application responsive">
+                                        <div className="fe-ui-application cfe-ui-application">
+                                            <div className="row eo-block-none o-profile">
+                                                <div className="cfe-main p-0-left-right-xs col-xs-12 col-lg-9">
+                                                    {this.renderDetail()}
+                                                    {this.renderSkills()}
+                                                    {this.renderHistory()}
+                                                </div>
+                                                <div className="col-lg-3 cfe-sidebar d-none d-lg-block ng-scope">
+                                                    {this.renderContact()}
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <Footer />
             </div>
         );
     }

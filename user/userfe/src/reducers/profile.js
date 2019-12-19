@@ -70,9 +70,7 @@ var myReducer = (state = initialState, action) => {
             user2.data[name2] = value2;
             return { ...state, user: user2 };
         case types.HANDLE_PROFILE_SKILLS_CHANGE:
-            console.log(state.user);
             let skill = parseInt(action.value);
-            console.log(skill);
             let user4 = state.user;
             if (action.checked) {
                 user4.data.kyNang.push(skill);
