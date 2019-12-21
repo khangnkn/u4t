@@ -18,7 +18,7 @@ app.use(cookieParser());
 
 app.use('/api', indexRouter);
 
-app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'build/index.html')));
+app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'build', 'index.html')));
 
 routesLogger(app);
 
