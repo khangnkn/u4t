@@ -11,6 +11,10 @@ import UsersManagementPage from "./pages/UsersManagementPage";
 
 import './styles/reduction.scss';
 import requireAuth from "./utils/requireAuth";
+import SkillsManagementPage from './pages/SkillManagementPage';
+import ContractManagementPage from './pages/ContractManagementPage';
+import ComplainManagementPage from './pages/ComplainManagementPage';
+import RevenueManagementPage from './pages/RevenueManagementPage';
 
 class App extends React.Component {
     render() {
@@ -28,7 +32,12 @@ class App extends React.Component {
                     <MainLayout breakpoint={this.props.breakpoint}>
                         {/*<Route path="/" exact component={requireAuth(DashboardPage)}/>*/}
                         <Route exact path="/" component={DashboardPage} />
-                        <Route exact path="/management" component={UsersManagementPage} />
+                        <Route exact path="/management-user" component={UsersManagementPage} />
+                        <Route exact path="/management-skill" component={SkillsManagementPage} />
+                        <Route exact path="/management-contract" component={ContractManagementPage} />
+                        <Route exact path="/management-complain" component={ComplainManagementPage} />
+                        <Route exact path="/management-revenue" component={RevenueManagementPage} />
+                        
                     </MainLayout>
                 </Switch>
             </Router>

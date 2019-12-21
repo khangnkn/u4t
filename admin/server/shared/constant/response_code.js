@@ -58,6 +58,66 @@ const SERVICE_ERROR = {
     message: 'Error when excu service'
 };
 
+const GET_ITEMS_LIST = {
+    code: "GT10",
+    message: 'Get items list successful.'
+};
+
+const GET_ITEMS_LIST_FAIL = {
+    code: "GT00",
+    message: 'Get items list fail.'
+};
+
+const GET_ITEM = {
+    code: "GT11",
+    message: 'Get item successful.'
+};
+
+const GET_ITEM_FAIL = {
+    code: "GT01",
+    message: 'Get item fail.'
+};
+
+const ADD_ITEM_SUCCESS = {
+    code: 'AD10',
+    message: 'Add new item successful.'
+};
+
+const ADD_ITEM_FAIL = {
+    code: 'AD01',
+    message: 'Add new item fail.'
+};
+
+const UPDATE_ITEM_SUCCESS = {
+    code: 'UD10',
+    message: 'Update item successful.'
+};
+
+const UPDATE_ITEM_FAIL = {
+    code: 'UD01',
+    message: 'Update item fail.'
+};
+
+const DELETE_ITEM_SUCCESS = {
+    code: 'DL10',
+    message: 'Delete item successful.'
+};
+
+const DELETE_ITEM_FAIL = {
+    code: 'DL01',
+    message: 'Delete item fail.'
+};
+
+const ITEM_EXISTED = {
+    code: 'NE10',
+    message: 'Item existed'
+};
+
+const ITEM_NOT_EXISTED = {
+    code: 'NE00',
+    message: 'Item not existed'
+};
+
 module.exports = {
     LOG_IN_SUCCESS,
     ADD_ADMIN_SUCCESS,
@@ -70,7 +130,19 @@ module.exports = {
     UNLOCK_USER_SUCCESS,
     PASSWORD_INCORRECT,
     DB_ERROR,
-    SERVICE_ERROR
+    SERVICE_ERROR,
+    GET_ITEM,
+    GET_ITEM_FAIL,
+    GET_ITEMS_LIST,
+    GET_ITEMS_LIST_FAIL,
+    ADD_ITEM_SUCCESS,
+    ADD_ITEM_FAIL,
+    UPDATE_ITEM_SUCCESS,
+    UPDATE_ITEM_FAIL,
+    DELETE_ITEM_SUCCESS,
+    DELETE_ITEM_FAIL,
+    ITEM_EXISTED,
+    ITEM_NOT_EXISTED
 };
 
 
