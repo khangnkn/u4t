@@ -1,206 +1,180 @@
-import * as types from './../constants/ActionTypes';
+import * as types from '../constants/ActionTypes';
 
-import { userService } from './UserService';
-import {alertActions} from './alert';
-import {history} from '../helpers/HistoryHelper';
+import userService from './UserService';
+import { alertActions } from './alert';
+import history from '../helpers/HistoryHelper';
 
 
-export const handleLoginChange = (name, value) => {
-    return {
-        type: types.HANDLE_LOGIN_CHANGE,
-        name,
-        value
-    }
-}
+export const handleLoginChange = (name, value) => ({
+  type: types.HANDLE_LOGIN_CHANGE,
+  name,
+  value,
+});
 
 export const login = (username, password) => {
-    return dispatch => {
-        dispatch(request({username}));
-        userService.login(username,password).then(
-            data => {
-                if (data.code === 1){
-                    dispatch(success(data.data));
-                    history.push('/profile');
-                } else {
-                    dispatch(failure(data.message));
-                    dispatch(alertActions.error(data.message));
-                }
-            }
-        )
-    }
-    function request(user) {return {type: types.LOGIN_REQUEST,user}};
-    function success(user) {return {type: types.LOGIN_SUCCESS,user}};
-    function failure(error) {return {type: types.LOGIN_FAILURE,error}};
-}
+  return (dispatch) => {
+    dispatch(request({ username }));
+    userService.login(username, password).then(
+      (data) => {
+        if (data.code === 1) {
+          dispatch(success(data.data));
+          history.push('/profile');
+        } else {
+          dispatch(failure(data.message));
+          dispatch(alertActions.error(data.message));
+        }
+      },
+    );
+  };
+  function request(user) { return { type: types.LOGIN_REQUEST, user }; }
+  function success(user) { return { type: types.LOGIN_SUCCESS, user }; }
+  function failure(error) { return { type: types.LOGIN_FAILURE, error }; }
+};
 
-export const handleRegisterChange = (name,value)=>{
-    return{
-        type:types.HANDLE_REGISTER_CHANGE,
-        name,
-        value
-    }
-}
+export const handleRegisterChange = (name, value) => ({
+  type: types.HANDLE_REGISTER_CHANGE,
+  name,
+  value,
+});
 
 export const register = (user) => {
-    return dispatch => {
-        dispatch(request());
-        userService.register(user).then(
-            data => {
-                if (data.code === 1){
-                    dispatch(success(data.user));
-                    history.push('/login');
-                } else {
-                    dispatch(failure(data.message));
-                    dispatch(alertActions.error(data.message));
-                }
-            } 
-        );
-    }
-    function request(user) {return {type: types.REGISTER_REQUEST,user}};
-    function success(user) {return {type: types.REGISTER_SUCCESS,user}};
-    function failure(error) {return {type: types.REGISTER_FAILURE,error}};
-}
+  return (dispatch) => {
+    dispatch(request());
+    userService.register(user).then(
+      (data) => {
+        if (data.code === 1) {
+          dispatch(success(data.user));
+          history.push('/login');
+        } else {
+          dispatch(failure(data.message));
+          dispatch(alertActions.error(data.message));
+        }
+      },
+    );
+  };
+  function request(user) { return { type: types.REGISTER_REQUEST, user }; }
+  function success(user) { return { type: types.REGISTER_SUCCESS, user }; }
+  function failure(error) { return { type: types.REGISTER_FAILURE, error }; }
+};
 
 export const update = (user) => {
-    return dispatch => {
-        dispatch(request());
-        try {
-            userService.update(user).then(
-                data => {
-                    if (data.code === 1) {
-                        dispatch(success(data.data.user));
-                        dispatch(alertActions.success(data.message));
-                    } else {
-                        dispatch(failure(data.message));
-                        dispatch(alertActions.error(data.message));
-                    }
-                }
-            )
-        } catch (ex) {
-            console.log("looix ne");
-        }
+  return (dispatch) => {
+    dispatch(request());
+    try {
+      userService.update(user).then(
+        (data) => {
+          if (data.code === 1) {
+            dispatch(success(data.data.user));
+            dispatch(alertActions.success(data.message));
+          } else {
+            dispatch(failure(data.message));
+            dispatch(alertActions.error(data.message));
+          }
+        },
+      );
+    } catch (ex) {
+      console.log('looix ne');
     }
+  };
 
-    function request() {return {type: types.PROFILE_REQUEST}};
-    function success(user) {return {type: types.PROFILE_SUCCESS,user}};
-    function failure(error) {return {type: types.PROFILE_FAILURE,error}}; 
-}
+  function request() { return { type: types.PROFILE_REQUEST }; }
+  function success(user) { return { type: types.PROFILE_SUCCESS, user }; }
+  function failure(error) { return { type: types.PROFILE_FAILURE, error }; }
+};
 
-export const handleProfileInforChange = (name,value)=>{
-    return{
-        type:types.HANDLE_PROFILE_INFOR_CHANGE,
-        name,
-        value
-    }
-}
+export const handleProfileInforChange = (name, value) => ({
+  type: types.HANDLE_PROFILE_INFOR_CHANGE,
+  name,
+  value,
+});
 
-export const handleProfiledDataChange = (name,value)=>{
-    return{
-        type:types.HANDLE_PROFILE_DATA_CHANGE,
-        name,
-        value
-    }
-}
+export const handleProfiledDataChange = (name, value) => ({
+  type: types.HANDLE_PROFILE_DATA_CHANGE,
+  name,
+  value,
+});
 
-export const handleProfileSkillChange = (name,value,checked) =>{
-    return {
-        type: types.HANDLE_PROFILE_SKILLS_CHANGE,
-        name,value,checked
-    }
-}
+export const handleProfileSkillChange = (name, value, checked) => ({
+  type: types.HANDLE_PROFILE_SKILLS_CHANGE,
+  name,
+  value,
+  checked,
+});
 
-export const handleProfileAvatarChange = (imgFile) => {
-    return {
-        type: types.HANDLE_PROFILE_AVATAR_CHANGE,
-        imgFile
-    }
-}
+export const handleProfileAvatarChange = (imgFile) => ({
+  type: types.HANDLE_PROFILE_AVATAR_CHANGE,
+  imgFile,
+});
 
-export const handleProfileStepChange = (step) => {
-    return {
-        type: types.HANDLE_PROFILE_STEP_CHANGE,
-        step
-    }
-}
+export const handleProfileStepChange = (step) => ({
+  type: types.HANDLE_PROFILE_STEP_CHANGE,
+  step,
+});
 
-export const handleProfileStepBack = () => {
-    return {
-        type: types.HANDLE_PROFILE_STEP_BACK
-    }
-}
+export const handleProfileStepBack = () => ({
+  type: types.HANDLE_PROFILE_STEP_BACK,
+});
 
-export const handleProfileStepNext = () => {
-    return {
-        type: types.HANDLE_PROFILE_STEP_NEXT
-    }
-}
+export const handleProfileStepNext = () => ({
+  type: types.HANDLE_PROFILE_STEP_NEXT,
+});
 
-export const handleCreateContractDataChange = (name,value) => {
-    return {
-        type: types.HANDLE_CREATE_CONTRACT_DATA_CHANGE,
-        name,value
-    }
-}
-export const handleCreateContractSkillChange = (name,value,checked) => {
-    return{
-        type: types.HANDLE_CREATE_CONTRACT_SKILL_CHANGE,
-        name,value,checked
-    }
-}
-export const handleCreateContractDateStartChange = (date) =>{
-    return {
-        type: types.HANDLE_CREATE_CONTRACT_DATE_START_CHANGE,
-        date
-    }
-}
+export const handleCreateContractDataChange = (name, value) => ({
+  type: types.HANDLE_CREATE_CONTRACT_DATA_CHANGE,
+  name,
+  value,
+});
+export const handleCreateContractSkillChange = (name, value, checked) => ({
+  type: types.HANDLE_CREATE_CONTRACT_SKILL_CHANGE,
+  name,
+  value,
+  checked,
+});
+export const handleCreateContractDateStartChange = (date) => ({
+  type: types.HANDLE_CREATE_CONTRACT_DATE_START_CHANGE,
+  date,
+});
 
-export const handleCreateContractDateEndChange = (date) =>{
-    return {
-        type: types.HANDLE_CREATE_CONTRACT_DATE_END_CHANGE,
-        date
-    }
-}
+export const handleCreateContractDateEndChange = (date) => ({
+  type: types.HANDLE_CREATE_CONTRACT_DATE_END_CHANGE,
+  date,
+});
 
-export const handleCreateContractSetIdUser = (idSt,idTutor) => {
-    return{
-        type: types.HANDLE_CREATE_CONTRACT_SET_ID_USER,
-        idSt,idTutor
-    }
-}
+export const handleCreateContractSetIdUser = (idSt, idTutor) => ({
+  type: types.HANDLE_CREATE_CONTRACT_SET_ID_USER,
+  idSt,
+  idTutor,
+});
 export const handleCreateContractSubmit = (contract) => {
-    return dispatch => {
-        dispatch(request());
-        try {
-            userService.createContract(contract).then(
-                data => {
-                    if (data.code === 1) {
-                        dispatch(success(data.message));
-                        dispatch(alertActions.success(data.message));
-                    } else {
-                        dispatch(failure(data.message));
-                        dispatch(alertActions.error(data.message));
-                    }
-                }
-            )
-        } catch (ex) {
-            console.log("looix ne");
-        }
+  return (dispatch) => {
+    dispatch(request());
+    try {
+      userService.createContract(contract).then(
+        (data) => {
+          if (data.code === 1) {
+            dispatch(success(data.message));
+            dispatch(alertActions.success(data.message));
+          } else {
+            dispatch(failure(data.message));
+            dispatch(alertActions.error(data.message));
+          }
+        },
+      );
+    } catch (ex) {
+      console.log('looix ne');
     }
+  };
 
-    function request() {return {type: types.CREATE_CONTRACT_REQUEST}};
-    function success(message) {return {type: types.CREATE_CONTRACT_SUCCESS,message}};
-    function failure(error) {return {type: types.CREATE_CONTRACT_FAILURE,error}}; 
-}
+  function request() { return { type: types.CREATE_CONTRACT_REQUEST }; }
+  function success(message) { return { type: types.CREATE_CONTRACT_SUCCESS, message }; }
+  function failure(error) { return { type: types.CREATE_CONTRACT_FAILURE, error }; }
+};
 
-export const handleReloadChatRoom = (room) => {
-    return {
-        type: types.HANDLE_RELOAD_CHAT_ROOM,
-        room
-    }
-}
-export const handleMessageChatRoom = (mess) => {
-    return {
-        type: types.HANDLE_MESSAGE_CHAT_ROOM,
-        mess
-    }
-}
+export const handleReloadChatRoom = (room) => ({
+  type: types.HANDLE_RELOAD_CHAT_ROOM,
+  room,
+});
+export const handleMessageChatRoom = (mess) => ({
+  type: types.HANDLE_MESSAGE_CHAT_ROOM,
+  mess,
+});

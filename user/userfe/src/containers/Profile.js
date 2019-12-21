@@ -5,6 +5,8 @@ import * as actions from '../actions/index';
 import { Button } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
 // import { Navbar } from 'react-bootstrap';
+import {helperService} from '../actions/HelperService';
+
 import './../public/stylesheets/air2.css';
 import './../public/stylesheets/air2_1.css';
 import './../public/stylesheets/footer.css';
@@ -28,6 +30,18 @@ class Profile extends React.Component {
         this.handleBack = this.handleBack.bind(this);
         this.handleNext = this.handleNext.bind(this);
     }
+
+    componentDidMount() {
+        helperService.loadSkills().then(skills => {
+            this.setState(skills);
+        })
+        helperService.loadLevels().then(levels => {
+            this.setState(levels);
+        })
+        helperService.loadCities().then(cities => {
+            this.setState(cities);
+        })
+    }
     handleStepChange(step) {
         this.props.handleProfileStep(step);
     }
@@ -40,9 +54,9 @@ class Profile extends React.Component {
         const { name, value } = event.target;
         this.props.handleProfileDataChange(name, value);
     }
-    handleSkillsChange(event){
-        const {name,value,checked} = event.target;
-        this.props.handleProfileSkillChange(name,value,checked);
+    handleSkillsChange(event) {
+        const { name, value, checked } = event.target;
+        this.props.handleProfileSkillChange(name, value, checked);
     }
     handleAvatarChange(event) {
         const imgFile = event.target.files[0];
@@ -53,11 +67,11 @@ class Profile extends React.Component {
         const { user } = this.props.profile;
         this.props.update(user);
     }
-    handleBack(event){
+    handleBack(event) {
         // event.preventDefault();
         this.props.handleBack();
     }
-    handleNext(event){
+    handleNext(event) {
         event.preventDefault();
         this.props.handleNext();
     }
@@ -83,8 +97,8 @@ class Profile extends React.Component {
     }
     renderSideBar() {
         var w100 = { width: '100%' };
-        var {step,currStep} = this.props.profile;
-        var {role} = this.props.profile.user.infor;
+        var { step, currStep } = this.props.profile;
+        var { role } = this.props.profile.user.infor;
         var ttct = () => {
             return (
                 <li className={step === 1 ? "active" : ""} style={w100}>
@@ -156,14 +170,14 @@ class Profile extends React.Component {
         let title;
         var profile = this.props.profile;
         var role = profile.user.infor.role;
-        if (profile.step === 1){
+        if (profile.step === 1) {
             title = 'Thông tin chi tiết';
-        } else if (profile.step === 2){
+        } else if (profile.step === 2) {
             title = 'Thông tin công việc'
         } else {
             title = 'Thông tin tổng quát'
         }
-        var st =  role === 1 ? 3 : 1;
+        var st = role === 1 ? 3 : 1;
         return (
             <div className="modal-header d-flex align-items-center d-none-mobile-app">
                 <div>
@@ -177,12 +191,12 @@ class Profile extends React.Component {
         var role = this.props.profile.user.infor.role;
         var step = this.props.profile.step;
         var backBtn = () => {
-            return(
+            return (
                 <Button className="btn pull-left btn-primary" onClick={this.handleBack}>Trở về</Button>
             );
         }
-        var nextBtn = ()=>{
-            return(
+        var nextBtn = () => {
+            return (
                 <Button className="btn pull-right btn-primary" onClick={this.handleNext}>Tiếp</Button>
             );
         }
@@ -223,7 +237,7 @@ class Profile extends React.Component {
                     <div className="col-sm-6 m-lg-bottom">
                         <div className="form-group">
                             <Form.Label className="">Họ tên</Form.Label>
-                            <Form.Control type="text" onChange={this.handleInforChange} name="hoTen"className="form-control sessioncamexclude" />
+                            <Form.Control type="text" onChange={this.handleInforChange} name="hoTen" className="form-control sessioncamexclude" />
                         </div>
                     </div>
                     <div className="col-sm-6 m-lg-bottom">
@@ -261,8 +275,9 @@ class Profile extends React.Component {
                         <div className="form-group">
                             <Form.Label className="">Tỉnh/Thành phố</Form.Label>
                             <Form.Control as="select" className="form-control sessioncamexclude" onChange={this.handleInforChange} name="ttp">
-                                <option value="1">Hồ Chí Minh</option>
-                                <option value='2'>Bình Dương</option>
+                                {this.state.cities.map((e, i) => {
+                                    return (<option value={e._id} key={i}>e.name</option>);
+                                })}
                             </Form.Control>
                         </div>
                     </div>
@@ -279,11 +294,9 @@ class Profile extends React.Component {
                         <Form.Label className="">Trình độ</Form.Label>
                         <div className="dropdown width-lg fe-cat-height dropdown-block">
                             <Form.Control as='select' className="custom-select" onChange={this.handleDataChange} name="trinhDo">
-                                <option value='Chưa Đại học'>Chưa Đại học</option>
-                                <option value='Đại học'>Đại học</option>
-                                <option value='Thạc sĩ'>Thạc sĩ</option>
-                                <option value='Tiến sĩ'>Tiến sĩ</option>
-                                <option value='Giáo sư'>Giáo sư</option>
+                                {this.state.levels.map((e, i) => {
+                                    return (<option value={e._id} key={i}>{e.name}</option>);
+                                })}
                             </Form.Control>
                         </div>
                     </div>
@@ -294,72 +307,22 @@ class Profile extends React.Component {
                             Vui lòng chọn ít nhất một kỹ năng.
                         </p>
                         <div className="row" >
-                            <div className="checkbox col-md-6" >
-                                <Form.Label>
-                                    <Form.Control type="checkbox" onChange={this.handleSkillsChange} name="kyNang" value="1"/>
-                                    <span className="checkbox-replacement-helper">
-                                        <span aria-hidden="true" className="glyphicon ">
-                                            <i className="fas fa-check"></i>
-                                        </span>
-                                    </span>
-                                    A/B Testing
-                                </Form.Label>
-                            </div>
-                            <div className="checkbox col-md-6" >
-                                <Form.Label>
-                                    <Form.Control type="checkbox" name="checkbox" onChange={this.handleSkillsChange} name="kyNang" value="3"/>
-                                    <span className="checkbox-replacement-helper">
-                                        <span aria-hidden="true" className="glyphicon">
-                                            <i className="fas fa-check"></i>
-                                        </span>
-                                    </span>
-                                    A/B Testing
-                            </Form.Label>
-                            </div>
-                            <div className="checkbox col-md-6" >
-                                <Form.Label>
-                                    <Form.Control type="checkbox" name="checkbox" onChange={this.handleSkillsChange} name="kyNang" value="4"/>
-                                    <span className="checkbox-replacement-helper">
-                                        <span aria-hidden="true" className="glyphicon">
-                                            <i className="fas fa-check"></i>
-                                        </span>
-                                    </span>
-                                    A/B Testing
-                            </Form.Label>
-                            </div>
-                            <div className="checkbox col-md-6" >
-                                <Form.Label>
-                                    <Form.Control type="checkbox" name="checkbox" onChange={this.handleSkillsChange} name="kyNang" value="5"/>
-                                    <span className="checkbox-replacement-helper">
-                                        <span aria-hidden="true" className="glyphicon">
-                                            <i className="fas fa-check"></i>
-                                        </span>
-                                    </span>
-                                    A/B Testing
-                            </Form.Label>
-                            </div>
-                            <div className="checkbox col-md-6" >
-                                <Form.Label>
-                                    <Form.Control type="checkbox" name="checkbox" />
-                                    <span className="checkbox-replacement-helper">
-                                        <span aria-hidden="true" className="glyphicon">
-                                            <i className="fas fa-check"></i>
-                                        </span>
-                                    </span>
-                                    A/B Testing
-                            </Form.Label>
-                            </div>
-                            <div className="checkbox col-md-6" >
-                                <Form.Label>
-                                    <Form.Control type="checkbox" name="checkbox" />
-                                    <span className="checkbox-replacement-helper">
-                                        <span aria-hidden="true" className="glyphicon">
-                                            <i className="fas fa-check"></i>
-                                        </span>
-                                    </span>
-                                    A/B Testing
-                             </Form.Label>
-                            </div>
+                            {this.states.skills.map((e, i) => {
+                                return (
+                                    <div className="checkbox col-md-6" key={i}>
+                                        <Form.Label>
+                                            <Form.Control type="checkbox" onChange={this.handleSkillsChange} name="kyNang" value={e._id} />
+                                            <span className="checkbox-replacement-helper">
+                                                <span aria-hidden="true" className="glyphicon ">
+                                                    <i className="fas fa-check"></i>
+                                                </span>
+                                            </span>
+                                            {e.name}
+                                        </Form.Label>
+                                    </div>
+                                );
+                            })}
+
                         </div>
                     </div>
 
@@ -374,7 +337,7 @@ class Profile extends React.Component {
                             <div className="col-md-5 col-sm-7 col-xs-8">
                                 <div className="d-flex align-items-center">
                                     <div className="has-feedback width-auto">
-                                        <Form.Control placeholder="" type="tel" className="form-control width-xs text-right p-sm-right" value="0.00" onChange={this.handleDataChange} name="giaTien"/>
+                                        <Form.Control placeholder="" type="tel" className="form-control width-xs text-right p-sm-right" value="0.00" onChange={this.handleDataChange} name="giaTien" />
                                         <span aria-hidden="true" className="glyphicon glyphicon-md air-icon-payment text-primary form-control-feedback"></span>
                                         <span id="input-el" className="sr-only"></span>
                                     </div>
@@ -399,7 +362,7 @@ class Profile extends React.Component {
                             <span className="glyphicon air-icon-question-circle"></span>
                         </a>
                     </div>
-                    <Form.Control type="text" placeholder="Ví dụ: Admin Support,Java Developer" className="form-control" onChange={this.handleDataChange} name="tieuDe"/>
+                    <Form.Control type="text" placeholder="Ví dụ: Admin Support,Java Developer" className="form-control" onChange={this.handleDataChange} name="tieuDe" />
                 </div>
                 <div className="form-group overview-box">
                     <Form.Label className="label-width-auto">Professional Overview</Form.Label>
@@ -515,14 +478,14 @@ const mapDispatchToProps = (dispatch, props) => {
         handleStepChange: (step) => {
             dispatch(actions.handleProfileStepChange(step));
         },
-        handleBack: () =>{
+        handleBack: () => {
             dispatch(actions.handleProfileStepBack());
         },
-        handleNext: ()=>{
+        handleNext: () => {
             dispatch(actions.handleProfileStepNext());
         },
-        handleProfileSkillChange: (name,value,checked)=>{
-            dispatch(actions.handleProfileSkillChange(name,value,checked));
+        handleProfileSkillChange: (name, value, checked) => {
+            dispatch(actions.handleProfileSkillChange(name, value, checked));
         }
     }
 }
