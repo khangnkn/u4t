@@ -1,3 +1,4 @@
+const host = 'http://localhost:8080';
 function handleLogOut(resp) {
   if (resp.code !== 1) {
     if (resp.code === 401) {
@@ -19,7 +20,7 @@ function login(username, password) {
     body: JSON.stringify({ username, password }),
   };
 
-  return fetch('/api/auth/login', requestOptions)
+  return fetch(`${host}/api/auth/login`, requestOptions)
     .then((resp) => resp.json()).then((data) => {
       if (data.code !== 1) {
         return data;
@@ -36,7 +37,7 @@ function register(user) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ username: user.username, password: user.password, role: user.role }),
   };
-  return fetch('/api/auth/register', requestOptions)
+  return fetch(`${host}/api/auth/register`, requestOptions)
     .then(handleLogOut).then((resp) => resp.json()).then((data) => data);
 }
 
@@ -63,7 +64,7 @@ function update(user) {
   const req = new Request('/update', {
     method: 'POST',
     headers: header,
-    mode: 'no-cors',
+    mode: 'cors',
     body: fd,
   });
 
@@ -83,7 +84,7 @@ function loadTop4() {
     headers: { 'Content-Type': 'application/json' },
   };
 
-  return fetch('/api/tutors/top', requestOptions).then((resp) => resp.json()).then((data) => data.data);
+  return fetch(`${host}/api/tutors/top`, requestOptions).then((resp) => resp.json()).then((data) => data.data);
 }
 
 function createContract(contract) {
