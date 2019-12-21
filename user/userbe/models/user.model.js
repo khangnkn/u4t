@@ -49,9 +49,14 @@ const UserSchema = new Schema({
       type: String,
       required: false,
     },
-    skills: {
+    skills: [{
       type: Schema.Types.ObjectId,
       ref: 'Skill',
+      required: false,
+      default: [],
+    }],
+    title: {
+      type: String,
       required: false,
     },
     intro: {

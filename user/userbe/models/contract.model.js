@@ -29,6 +29,9 @@ const ContractSchema = new Schema({
     type: Date,
     default: new Date(),
   },
+  start_date: {
+    type: Date,
+  },
   end_date: {
     type: Date,
   },

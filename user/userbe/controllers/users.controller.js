@@ -51,10 +51,29 @@ const UpdateUserInfo = (req, res, next) => {
 };
 
 const GetInfoHandler = async (req, res, next) => {
-  const id = res.locals.user._id;
-  const user = await UserRepository.GetById(id);
+  try {
+    console.log(res.locals.user);
+    // eslint-disable-next-line no-underscore-dangle
+    const id = res.locals.user._id;
+    const user = await UserRepository.GetById(id);
+    console.log(user);
+    return next({
+      status: SC.OK,
+      code: Error.Success,
+      message: 'success',
+      data: user,
+    });
+  } catch (error) {
+    return next({
+      status: SC.BAD_REQUEST,
+      code: Error.UnknownError,
+      message: 'unexpected error occured',
+      extra: error,
+    });
+  }
 };
 
 module.exports = {
   UpdateUserInfo,
+  GetInfoHandler,
 };

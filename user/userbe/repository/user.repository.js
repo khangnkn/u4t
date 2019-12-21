@@ -3,16 +3,11 @@ const { User, Contract } = require('../models');
 
 const GetById = async (id) => {
   try {
-    const res = await User.findById(id);
-    return {
-      error: null,
-      user: res,
-    };
+    const res = await User.findById(id).populate('city').exec();
+    return res;
   } catch (error) {
-    return {
-      error,
-      user: null,
-    };
+    console.log(`[ERROR] ${error}`);
+    return error;
   }
 };
 
