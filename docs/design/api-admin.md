@@ -12,14 +12,15 @@
 |Basic| User profile| Get| /users/:userName/detail|
 |Basic| Lock user| Put| /users/lock/:userName|
 |Basic| Unlock user| Put| /users/unlock/:userName|
-|| SkillModel list| Get| /skills/:page/:skillsPerPage|
-|| Delete skills| Delete| /skills/delelte|body/json
+|| Skill list| Get| /skills/:page/:skillsPerPage|
+|| Add skills| Post| /skills|body/json
+|| Delete skills| Delete| /skills|body/json
 || Update skills| Put| /skills|body/json
-|| ContractModel list| Get| /contracts/:page/:contractsPerPage|
-|| ComplainModel list| Get| /complains/:page/:complainsPerPage|
+|| Contract list| Get| /contracts/:page/:contractsPerPage|
+|| Complain list| Get| /complains/:page/:complainsPerPage|
 || Get revenu| Get| /revenues/:type|
-|| Top sales | Get | /revenues/:orderBy/:scope|
-||
+|| Top sales by user | Get | /revenues/:userName/:scope|
+|| Top sales by skill | Get | /revenues/:skillId/:scope|
 
 ### Samples:
 1. Login

@@ -16,7 +16,12 @@ const sidebarBackground = {
 
 const navItems = [
     {to: '/', name: 'dashboard', exact: true, Icon: MdDashboard},
-    {to: '/management', name: 'users management', exact: false, Icon: MdRadioButtonChecked},
+    {to: '/management-user', name: 'users management', exact: false, Icon: MdRadioButtonChecked},
+    {to: '/management-skill', name: 'skill management', exact: false, Icon: MdRadioButtonChecked},
+    {to: '/management-contract', name: 'contract management', exact: false, Icon: MdRadioButtonChecked},
+    {to: '/management-complain', name: 'complain management', exact: false, Icon: MdRadioButtonChecked},
+    {to: '/management-revenue', name: 'revenue management', exact: false, Icon: MdRadioButtonChecked},
+    
 ];
 
 // const navManagements = [

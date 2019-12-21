@@ -1,10 +1,14 @@
 import React from 'react';
 import Page from '../components/Page';
-import UsersManagementTabs from "../components/Tab/UsersManagementTabs";
-import PaginationUser from '../components/Paginattion/PaginationUser';
-import { Container, Row, Col, Card, CardBody } from 'reactstrap';
+import Row from 'reactstrap/lib/Row';
+import Card from 'reactstrap/lib/Card';
+import CardBody from 'reactstrap/lib/CardBody';
+import Col from 'reactstrap/lib/Col';
+import ContractsTable from '../components/Table/ContractTable';
+import PaginationContract from '../components/Paginattion/PaginationContract';
 
-class UsersManagementPage extends React.Component {
+
+class ContractManagementPage extends React.Component {
     componentDidMount() {
         // this is needed, because InfiniteCalendar forces window scroll
         window.scrollTo(0, 0);
@@ -12,28 +16,27 @@ class UsersManagementPage extends React.Component {
     render() {
         return (
             <Page
-                className="UserManagementPage"
-                title="User"
-                breadcrumbs={[{ name: 'Management', active: true }]}
+                className="SkillsManagementPage"
+                title="Skill"
+                breadcrumbs={[{ name: 'Skill', active: true }]}
             >
                 <Row>
                     <Col>
                         <Card>
                             <CardBody>
-                                <UsersManagementTabs></UsersManagementTabs>
+                                <ContractsTable></ContractsTable>
                             </CardBody>
                         </Card>
                     </Col>
                 </Row>
                 <Row>
                     <Col className="d-flex justify-content-center align-items-center flex-column">
-                        <PaginationUser></PaginationUser>
+                        <PaginationContract></PaginationContract>
                     </Col>
                 </Row>
-
             </Page>
         );
     }
 }
 
-export default UsersManagementPage;
+export default ContractManagementPage;
