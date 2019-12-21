@@ -8,12 +8,6 @@ import * as actions from '../actions/index';
 import '../public/stylesheets/auth.scss';
 
 const Login = (props) => {
-//   constructor(props) {
-  // super(props);
-  // this.handleChange = this.handleChange.bind(this);
-  // this.handleSubmit = this.handleSubmit.bind(this);
-//   }
-
   const handleChange = (event) => {
     const { name, value } = event.target;
     props.handleLoginChange(name, value);
@@ -80,10 +74,6 @@ const Login = (props) => {
       </div>
     </div>
   );
-};
-
-Login.propTypes = {
-  name: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => {
