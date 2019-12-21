@@ -10,6 +10,7 @@ function handleLogOut(resp) {
 
 function logOut() {
   localStorage.removeItem('user');
+  window.location.reload(true);
 }
 function login(username, password) {
   const requestOptions = {
@@ -114,4 +115,5 @@ export default {
   logOut,
   update,
   loadTop4,
+
 };

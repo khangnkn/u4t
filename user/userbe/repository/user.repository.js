@@ -24,7 +24,7 @@ const GetTopTutors = async () => {
         },
       },
     ];
-    const users = User.find({ role: 1 }).limit(4);
+    const users = User.find({ role: 1 }).limit(4).populate('city').exec();
     return users;
   } catch (error) {
     return error;

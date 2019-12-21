@@ -16,11 +16,13 @@ class Home extends React.Component {
     this.state = {
       data: [],
     };
+    console.log(this.state);
   }
 
   componentDidMount() {
     userService.loadTop4().then((data) => {
       this.setState({ data });
+      console.log(this.state);
     });
   }
 
@@ -91,7 +93,7 @@ U4T hỗ trợ quản lý thống kê lịch sử hợp đồng
     return this.overview;
   }
 
-  renderTopTeacherItem(i, avatar, giaTien, fullName, tieuDe, thanhPho, skills) {
+  renderTopTeacherItem(i, avatar, price, fullname, title, city, skills) {
     this.topTeacherItem = (
       <div key={i} className="fl-tile col-xl-3 col-md-5 col-sm-12 p-xs-top">
         <div className="vs-shadow-dark p-md-top p-lg-bottom p-sm-left-right text-left ng-scope">
@@ -106,7 +108,7 @@ U4T hỗ trợ quản lý thống kê lịch sử hợp đồng
                 <strong className="font-14">
                   {' '}
 $
-                  {giaTien}
+                  {price}
                 </strong>
                 <small>/giờ</small>
               </p>
@@ -114,16 +116,16 @@ $
             <div className="p-sm-left tile-text-part">
               <p className="d-block ellipsis fl-name">
                 <small>
-                  <strong>{fullName}</strong>
+                  <strong>{fullname}</strong>
                 </small>
               </p>
-              <p className="m-sm-bottom tile-title vs-full-word-cut-text">{tieuDe}</p>
+              <p className="m-sm-bottom tile-title vs-full-word-cut-text">{title}</p>
               <span className="d-block badge badge-top-rated top-rated-badge-height">
                 <span aria-hidden="true" className="glyphicon air-icon-top-rated" />
                                 Top rated
               </span>
               <small className="d-block m-xs-top vs-color-gray ellipsis p-xs-top p-0-top-xs">
-                {thanhPho}
+                {city}
 ,Viet Nam
               </small>
             </div>
@@ -140,18 +142,8 @@ $
   }
 
   renderTopTeacher() {
-    const test = [{
-      avatar: '', giaTien: 20, fullName: 'Nguyen Hungw', tieuDe: 'La mot giao vien tieu bieu nhat he mat troi', thanhPho: 'Ho Chi Minh', skills: ['Toan', 'Ly', 'Hoa'],
-    },
-    {
-      avatar: '', giaTien: 20, fullName: 'Nguyen Hungw', tieuDe: 'La mot giao vien tieu bieu nhat he mat troi', thanhPho: 'Ho Chi Minh', skills: ['Toan', 'Ly', 'Hoa'],
-    },
-    {
-      avatar: '', giaTien: 20, fullName: 'Nguyen Hungw', tieuDe: 'La mot giao vien tieu bieu nhat he mat troi', thanhPho: 'Ho Chi Minh', skills: ['Toan', 'Ly', 'Hoa'],
-    },
-    {
-      avatar: '', giaTien: 20, fullName: 'Nguyen Hungw', tieuDe: 'La mot giao vien tieu bieu nhat he mat troi', thanhPho: 'Ho Chi Minh', skills: ['Toan', 'Ly', 'Hoa'],
-    }];
+    console.log(this.state);
+    const { data } = this.state;
 
     this.topTeacher = (
       <section className="fl-carousel-section  ng-scope">
@@ -162,9 +154,9 @@ $
             <div className="container-visitor">
               <div className="d-none d-xl-block carousel-comp carousel ng-isolate-scope">
                 <div className="carousel-inner">
-                  <div className="item text-center ng-scope ng-isolate-scope active">
+                  <div className="item text-center ng-scope ng-isolate-scope active" style={{ height: '400px' }}>
                     <div className="d-flex p-xs-left-right p-sm-bottom row ng-scope">
-                      {test.map((e, i) => this.renderTopTeacherItem(i, e.avatar, e.giaTien, e.fullName, e.tieuDe, e.thanhPho, e.skills))}
+                      {data.map((e, i) => this.renderTopTeacherItem(i, e.avatar, e.data.price, e.fullname, e.data.title, e.city.name, e.data.skills))}
                     </div>
                   </div>
                 </div>
