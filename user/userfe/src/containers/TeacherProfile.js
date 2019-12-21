@@ -9,19 +9,19 @@ class TeacherProfile extends React.Component {
         this.renderSkills = this.renderSkills.bind(this);
         this.renderHistory = this.renderHistory.bind(this);
         this.renderContact = this.renderContact.bind(this);
-        // this.state = {
-        //     tutor: null
-        // }
+        this.state = {
+            tutor: null
+        }
     }
-    // componentDidMount(){
-    //     userService.loadTutorInfor(this.props.idTutor).then(data => {
-    //         this.setState({
-    //             tutor: data
-    //         })
-    //     });
-    // }
-    renderDetail() {
-        var tutor = this.state.tutor;
+    componentDidMount(){
+        var idTutor = this.props.match.params.id;
+        userService.loadTutorInfor(idTutor).then(data => {
+            this.setState({
+                tutor: data
+            })
+        });
+    }
+    renderDetail(tutor) {
         return (
             <div className="ng-scope ng-isolate-scope">
                 <div className="m-0 p-0">
@@ -45,7 +45,7 @@ class TeacherProfile extends React.Component {
                                         <div className="media-body">
                                             <h2 className="m-xs-bottom">
                                                 <span itemprop="name" className="ng-binding">
-                                                    {tutor.hoTen}
+                                                    {tutor.fullName}
                                                 </span>
                                                 <span
                                                     className="idv-verified badge badge-verified ng-scope">
@@ -66,10 +66,10 @@ class TeacherProfile extends React.Component {
                                                                     <span
                                                                         className="ng-binding ng-scope">
                                                                         <span
-                                                                            className="text-capitalize ng-binding">{tutor.diaChi}</span>,
+                                                                            className="text-capitalize ng-binding">{tutor.address}</span>,
                                                                 </span>
                                                                     <span
-                                                                        className="ng-binding ng-scope">{tutor.thanhPho}</span>
+                                                                        className="ng-binding ng-scope">{tutor.city.name}</span>
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -89,8 +89,8 @@ class TeacherProfile extends React.Component {
                                                         ng-className="{ 'hide-progress-bar': !showJSS }">
                                                         <div className="progress-bar progress-bar-complimentary"
                                                             style={{ width: '96%' }}>
-                                                            <span className="ng-binding">{tutor.tiLe}
-                                                            <span
+                                                            <span className="ng-binding">{tutor.data.ratingAve}
+                                                                <span
                                                                     className="progress-bar-text">Job
                                                                 Success</span></span>
                                                         </div>
@@ -112,7 +112,7 @@ class TeacherProfile extends React.Component {
                                     <h1>Profile</h1>
                                     <h3 className="m-0-top m-sm-bottom ng-scope">
                                         <span className="up-active-context up-active-context-title fe-job-title inline-block m-lg-right">
-                                            <span className="ng-binding">{tutor.data.tieuDe}</span>
+                                            <span className="ng-binding">{tutor.data.title}</span>
 
                                         </span>
                                     </h3>
@@ -124,8 +124,8 @@ class TeacherProfile extends React.Component {
                                         <div>
                                             <p
                                                 className="break up-active-context m-0-bottom m-lg-right ng-isolate-scope">
-                                                <span>{tutor.data.tongQuan}
-                                            </span></p>
+                                                <span>{tutor.data.intro}
+                                                </span></p>
                                         </div>
                                     </div>
                                 </div>
@@ -140,14 +140,31 @@ class TeacherProfile extends React.Component {
                                                         className="vertical-align-text-bottom ng-isolate-scope">
                                                         <span className="up-active-context">
                                                             <span className="ng-binding">
-                                                                ${tutor.data.giaTien}
-                                                        </span>
+                                                                ${tutor.data.price}
+                                                            </span>
                                                         </span>
                                                     </div>
                                                 </h3>
                                             </div>
                                         </div>
                                         <div className="text-muted ng-binding">Tiền lương trên giờ</div>
+                                    </li>
+                                    <li>
+                                        <div className="up-active-container ng-scope">
+                                            <div className="ng-scope">
+                                                <h3 className="m-xs-bottom ng-scope">
+                                                    <div
+                                                        className="vertical-align-text-bottom ng-isolate-scope">
+                                                        <span className="up-active-context">
+                                                            <span className="ng-binding">
+                                                                ${tutor.history.length}
+                                                            </span>
+                                                        </span>
+                                                    </div>
+                                                </h3>
+                                            </div>
+                                        </div>
+                                        <div className="text-muted ng-binding">Tổng số hợp đồng</div>
                                     </li>
                                     {/* <li className="ng-scope">
                                         <h3 className="m-xs-bottom">
@@ -183,7 +200,140 @@ class TeacherProfile extends React.Component {
             </div>
         );
     }
-    renderHistory() {
+    renderHistoryItem(contract,i) {
+        return (
+            <div key={i}>
+                <div className="m-sm-bottom ng-scope">
+                    <div className="ng-scope">
+                        <div className="ng-scope">
+                            <div className="ng-scope">
+                                <ul className="list-unstyled ng-scope">
+                                    <li className="ng-scope">
+                                        <div className="ng-scope">
+                                            <div className="row ng-scope">
+                                                <div className="col-sm-12">
+                                                    <div className="row">
+                                                        <div
+                                                            className="col-sm-6">
+                                                            <h4
+                                                                className="m-0-top m-xs-bottom">
+                                                                <strong
+                                                                    className="ng-binding ng-scope">
+                                                                    {contract.title}
+                                                                </strong>
+                                                            </h4>
+                                                            <ul
+                                                                className="list-inline m-0-left">
+                                                                <li
+                                                                    className="m-xs-bottom p-0-left ng-scope">
+                                                                    <div
+                                                                        className="ng-pristine ng-untouched ng-valid ng-isolate-scope ng-not-empty">
+                                                                        <div className="stars"
+                                                                            style={{ visibility: 'visible' }}>
+                                                                            <canvas
+                                                                                className="star ng-scope"
+                                                                                height="12"
+                                                                                width="60"></canvas>
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                                <li
+                                                                    className="m-xs-bottom p-0-left ng-scope">
+                                                                    <strong
+                                                                        className="ng-binding">5.00</strong>
+                                                                </li>
+                                                                <li
+                                                                    className="m-xs-bottom p-0-left">
+                                                                    <small
+                                                                        className="text-muted ng-binding">Oct
+                                                                        2019
+                                                                        -
+                                                                        Nov
+                                                            2019</small>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div
+                                                            className="col-sm-6 text-right cfe-assignment-stats">
+                                                            <div
+                                                                className="d-block d-sm-none text-left">
+                                                                <div
+                                                                    className="row">
+
+                                                                    <div
+                                                                        className="col-xs-4 m-xs-bottom ng-scope">
+                                                                        <strong
+                                                                            className="ng-binding">$54.67</strong>
+                                                                    </div>
+                                                                    <div
+                                                                        className="col-xs-4 ng-scope">
+                                                                        <small
+                                                                            className="text-muted nowrap ng-binding">${contract.price}/giờ</small>
+                                                                    </div>
+                                                                    {/* <div
+                                                                        className="col-xs-4 ng-scope">
+                                                                        <small
+                                                                            className="text-muted nowrap">
+                                                                            <div
+                                                                                className="ng-binding ng-scope">
+                                                                                14
+                                                                                hours
+                                                                </div>
+                                                                        </small>
+                                                                    </div> */}
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                className="d-none d-sm-block">
+                                                                <div
+                                                                    className="m-xs-bottom ng-scope">
+                                                                    <strong
+                                                                        className="ng-binding">$54.67</strong>
+                                                                </div>
+                                                                <div
+                                                                    className="m-xs-bottom ng-scope">
+                                                                    <small
+                                                                        className="text-muted ng-binding">$4.00/hr</small>
+                                                                </div>
+                                                                <div
+                                                                    className="m-xs-bottom ng-scope">
+                                                                    <div
+                                                                        className="ng-binding ng-scope">
+                                                                        14
+                                                                        hours
+                                                        </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            className="ng-scope">
+                                                            <em
+                                                                className=" ng-binding ng-scope">Completed
+                                                                the work
+                                                                on
+                                                                time,asked
+                                                                clarification
+                                                                questions,
+                                                                and was
+                                                                great to
+                                                                work
+                                                    with.</em>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr className="cfe-assignment-hr m-xs-top m-0-bottom ng-scope" />
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+    renderHistory(history) {
         return (
             <div className="m-0-right ng-scope">
                 <div className="ng-scope ng-isolate-scope">
@@ -201,150 +351,10 @@ class TeacherProfile extends React.Component {
                         </header>
                         <div className="in" aria-expanded="true" aria-hidden="false"
                             style={{ height: 'auto' }}>
-                            <section
-                                className="p-lg-top responsive assigment-list-content ng-scope">
-                                <div>
-                                    <div className="m-sm-bottom ng-scope">
-                                        <div className="ng-scope">
-                                            <div className="ng-scope">
-                                                <div className="ng-scope">
-                                                    <ul className="list-unstyled ng-scope">
-                                                        <li className="ng-scope">
-                                                            <div className="ng-scope">
-                                                                <div className="row ng-scope">
-                                                                    <div className="col-sm-12">
-                                                                        <div className="row">
-                                                                            <div
-                                                                                className="col-sm-6">
-                                                                                <h4
-                                                                                    className="m-0-top m-xs-bottom">
-                                                                                    <strong
-                                                                                        className="ng-binding ng-scope">
-                                                                                        Research
-                                                                                        and
-                                                                                        compile
-                                                                                        a
-                                                                                        list
-                                                                                        of
-                                                                                        rules
-                                                                                        for
-                                                                                        Canadian
-                                                                                        Cannabis
-                                                                                        Retailers
-                                                                                        for
-                                                                                        different
-                                                                                        municipalities
-                                                                                </strong>
-                                                                                </h4>
-                                                                                <ul
-                                                                                    className="list-inline m-0-left">
-                                                                                    <li
-                                                                                        className="m-xs-bottom p-0-left ng-scope">
-                                                                                        <div
-                                                                                            className="ng-pristine ng-untouched ng-valid ng-isolate-scope ng-not-empty">
-                                                                                            <div className="stars"
-                                                                                                style={{ visibility: 'visible' }}>
-                                                                                                <canvas
-                                                                                                    className="star ng-scope"
-                                                                                                    height="12"
-                                                                                                    width="60"></canvas>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </li>
-                                                                                    <li
-                                                                                        className="m-xs-bottom p-0-left ng-scope">
-                                                                                        <strong
-                                                                                            className="ng-binding">5.00</strong>
-                                                                                    </li>
-                                                                                    <li
-                                                                                        className="m-xs-bottom p-0-left">
-                                                                                        <small
-                                                                                            className="text-muted ng-binding">Oct
-                                                                                            2019
-                                                                                            -
-                                                                                            Nov
-                                                                                        2019</small>
-                                                                                    </li>
-                                                                                </ul>
-                                                                            </div>
-                                                                            <div
-                                                                                className="col-sm-6 text-right cfe-assignment-stats">
-                                                                                <div
-                                                                                    className="d-block d-sm-none text-left">
-                                                                                    <div
-                                                                                        className="row">
-
-                                                                                        <div
-                                                                                            className="col-xs-4 m-xs-bottom ng-scope">
-                                                                                            <strong
-                                                                                                className="ng-binding">$54.67</strong>
-                                                                                        </div>
-                                                                                        <div
-                                                                                            className="col-xs-4 ng-scope">
-                                                                                            <small
-                                                                                                className="text-muted nowrap ng-binding">$4.00/hr</small>
-                                                                                        </div>
-                                                                                        <div
-                                                                                            className="col-xs-4 ng-scope">
-                                                                                            <small
-                                                                                                className="text-muted nowrap">
-                                                                                                <div
-                                                                                                    className="ng-binding ng-scope">
-                                                                                                    14
-                                                                                                    hours
-                                                                                            </div>
-                                                                                            </small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div
-                                                                                    className="d-none d-sm-block">
-                                                                                    <div
-                                                                                        className="m-xs-bottom ng-scope">
-                                                                                        <strong
-                                                                                            className="ng-binding">$54.67</strong>
-                                                                                    </div>
-                                                                                    <div
-                                                                                        className="m-xs-bottom ng-scope">
-                                                                                        <small
-                                                                                            className="text-muted ng-binding">$4.00/hr</small>
-                                                                                    </div>
-                                                                                    <div
-                                                                                        className="m-xs-bottom ng-scope">
-                                                                                        <div
-                                                                                            className="ng-binding ng-scope">
-                                                                                            14
-                                                                                            hours
-                                                                                    </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div
-                                                                                className="ng-scope">
-                                                                                <em
-                                                                                    className=" ng-binding ng-scope">Completed
-                                                                                    the work
-                                                                                    on
-                                                                                    time,asked
-                                                                                    clarification
-                                                                                    questions,
-                                                                                    and was
-                                                                                    great to
-                                                                                    work
-                                                                                with.</em>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <hr className="cfe-assignment-hr m-xs-top m-0-bottom ng-scope" />
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <section className="p-lg-top responsive assigment-list-content ng-scope">
+                                {history.map((e,i)=>{
+                                    return this.renderHistoryItem(e,i);
+                                })}
                             </section>
                         </div>
                     </div>
@@ -352,8 +362,7 @@ class TeacherProfile extends React.Component {
             </div>
         );
     }
-    renderSkills() {
-        var tutor = this.state.tutor;
+    renderSkills(skills) {
         return (
             <div className="ng-isolate-scop">
                 <div className="ng-scope">
@@ -368,8 +377,9 @@ class TeacherProfile extends React.Component {
                                 <div>
                                     <div className="ng-scope ng-isolate-scope">
                                         <div className="o-profile-skills m-sm-top ng-scope">
-                                            {tutor.data.kyNang.map((e,i)=>{
-                                            return(<a key={i} className="o-tag-skill ng-binding ng-scope" href="#" disable>{e.moTa}</a>)})}
+                                            {skills.map((e, i) => {
+                                                return (<a key={i} className="o-tag-skill ng-binding ng-scope" href="#" disable>{e.moTa}</a>)
+                                            })}
                                         </div>
                                     </div>
                                 </div>
@@ -380,7 +390,7 @@ class TeacherProfile extends React.Component {
             </div>
         );
     }
-    renderContact() {
+    renderContact(_id) {
         return (
             <section className="m-lg-bottom ng-scope">
                 <div className="ng-scope">
@@ -412,7 +422,7 @@ class TeacherProfile extends React.Component {
                                             <div className="ng-isolate-scope">
                                             </div>
                                         </div> */}
-                                        <div> <a className="btn btn-primary m-0-top-bottom m-0-left-right" href='/createcontract' >Contact</a></div>
+                                        <div> <a className="btn btn-primary m-0-top-bottom m-0-left-right" href={'/contract/create?tutor=' + _id} >Tạo hợp đồng</a></div>
                                     </div>
                                 </div>
                             </div>
@@ -423,6 +433,7 @@ class TeacherProfile extends React.Component {
         );
     }
     render() {
+        var tutor = this.state.tutor;
         return (
             <div>
                 <NavBar />
@@ -435,12 +446,12 @@ class TeacherProfile extends React.Component {
                                         <div className="fe-ui-application cfe-ui-application">
                                             <div className="row eo-block-none o-profile">
                                                 <div className="cfe-main p-0-left-right-xs col-xs-12 col-lg-9">
-                                                    {this.renderDetail()}
-                                                    {this.renderSkills()}
-                                                    {this.renderHistory()}
+                                                    {this.renderDetail(tutor)}
+                                                    {this.renderSkills(tutor.data.skills)}
+                                                    {this.renderHistory(tutor.history)}
                                                 </div>
                                                 <div className="col-lg-3 cfe-sidebar d-none d-lg-block ng-scope">
-                                                    {this.renderContact()}
+                                                    {this.renderContact(tutor._id)}
                                                 </div>
                                             </div>
                                         </div>

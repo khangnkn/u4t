@@ -27,7 +27,7 @@ class App extends React.Component {
                 <div className="">
                     <Router history={history}>
                         <Route path='/' exact component={Home}></Route>
-                        <Route path='/tutorprofile' component={TeacherProfile}></Route>
+                        <Route path='/tutorprofile/:id' component={TeacherProfile}></Route>
                         <Route path='/contract/create' component={CreateContract}></Route>
                         <Route path='/chat' component={RoomChat}></Route>
                         <Route path='/login' component={Login}></Route>
