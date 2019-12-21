@@ -1,10 +1,24 @@
 const SC = require('http-status-codes');
-const { User } = require('../models');
+const { GetTopTutors } = require('../repository/user.repository');
 const Error = require('../utils/error');
 
-const top = (req, res, next) => 
-{
-    User.
-});
+const TopTutor = async (req, res, next) => {
+  try {
+    const users = await GetTopTutors();
+    next({
+      status: SC.OK,
+      code: Error.Success,
+      message: 'success',
+      data: users,
+    });
+  } catch (error) {
+    next({
+      status: SC.INTERNAL_SERVER_ERROR,
+      code: Error.ErrorInDatabase,
+      message: 'error when call repository',
+      extra: error,
+    });
+  }
+};
 
-module.exports = { top };
+module.exports = { TopTutor };

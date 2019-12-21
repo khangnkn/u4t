@@ -217,7 +217,7 @@ Tìm kiếm ngay
             <div className="col-xs-12">
               <div className="text-center p-md-top-bottom payroll-link">
                 <small className="vs-color-gray-light">
-                                    Website Uber For Teacher đươc xây dựng để đem đến cho người dạy và người học những trải nghiệm tuyệt vời
+                  Website Uber For Teacher đươc xây dựng để đem đến cho người dạy và người học những trải nghiệm tuyệt vời
                 </small>
               </div>
             </div>

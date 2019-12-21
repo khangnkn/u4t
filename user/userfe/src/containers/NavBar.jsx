@@ -2,7 +2,7 @@ import React from 'react';
 
 const NavBar = () => {
   const renderForLoggedIn = () => {
-    var user = JSON.parse(localStorage.getItem(user));
+    const storage = JSON.parse(localStorage.getItem('user'));
     return (
       <div className="navbar-collapse d-none d-lg-flex">
         <div className="navbar-form">
@@ -36,9 +36,7 @@ const NavBar = () => {
         <div className="navbar-text navbar-right">
           <p className="m-0-bottom">
             <span>
-Logged in as
-              {' '}
-              {user.data.username}
+              {storage ? `Logged as ${storage.user.fullname}` : 'Hi, there!'}
             </span>
             <br />
             <a href="" className="navbar-link">Log out</a>

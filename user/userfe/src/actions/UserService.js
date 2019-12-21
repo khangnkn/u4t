@@ -82,7 +82,7 @@ function loadTop4() {
     headers: { 'Content-Type': 'application/json' },
   };
 
-  return fetch('/api/top4', requestOptions).then((resp) => resp.json()).then((data) => data.data);
+  return fetch('/api/tutors/top', requestOptions).then((resp) => resp.json()).then((data) => data.data);
 }
 
 function createContract(contract) {
