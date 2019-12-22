@@ -103,11 +103,18 @@ function createContract(contract) {
     method: 'POST',
     headers: header,
     mode: 'no-cors',
-    body: fd,
   });
 
   return fetch(req).then(handleLogOut).then((resp) => resp.json()).then((data) => data);
 }
+
+const LoadTutorDetail = (id) => {
+  const req = new Request(`${host}/api/tutors/${id}`, {
+    method: 'GET',
+
+  });
+  return fetch(req).then((resp) => resp.json()).then((data) => data);
+};
 
 
 export default {
@@ -116,5 +123,5 @@ export default {
   logOut,
   update,
   loadTop4,
-
+  LoadTutorDetail,
 };
