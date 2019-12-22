@@ -11,10 +11,13 @@ const ContractSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
   },
+<<<<<<< HEAD
   skill: {
     type: Schema.Types.ObjectId,
     ref: 'Skill',
   },
+=======
+>>>>>>> update user detail
   title: {
     type: String,
   },
@@ -25,15 +28,19 @@ const ContractSchema = new Schema({
     type: Number,
     default: 0,
   },
+<<<<<<< HEAD
   hpw: {
     type: Number,
     default: 0,
   },
+=======
+>>>>>>> update user detail
   total: {
     type: Number,
     default: 0,
   },
   issuing_time: {
+<<<<<<< HEAD
     type: Number,
     default: +new Date(),
   },
@@ -42,6 +49,16 @@ const ContractSchema = new Schema({
   },
   end_date: {
     type: Number,
+=======
+    type: Date,
+    default: new Date(),
+  },
+  start_date: {
+    type: Date,
+  },
+  end_date: {
+    type: Date,
+>>>>>>> update user detail
   },
   rating: {
     type: Number,

@@ -36,4 +36,6 @@ connection.once('open',
     }
 );
 
+require('./shared/models')
+
 module.exports = app;

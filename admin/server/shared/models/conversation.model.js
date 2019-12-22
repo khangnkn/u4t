@@ -8,20 +8,20 @@ const ConversationSchema = new Schema({
     type: Date,
     default: new Date(),
   },
-  teacher: {
+  tutor: {
     type: Schema.Types.ObjectId,
-    ref: 'Users',
+    ref: 'User',
   },
   learner: {
     type: Schema.Types.ObjectId,
-    ref: 'Users',
+    ref: 'User',
   },
   messages: [{
     type: Schema.Types.ObjectId,
-    ref: 'Messages',
+    ref: 'Message',
   }],
 });
 
-const Conversation = mongoose.model('Conversations', ConversationSchema);
+const Conversation = mongoose.model('Conversation', ConversationSchema);
 
 module.exports = Conversation;

@@ -30,7 +30,8 @@ const getUserDetailByUsername = async (username) => {
     try {
         const res = await UserModel
             .findOne({username: username})
-            .populate(['city', 'data.skills']);
+            .populate(['city', 'data.skills'])
+            .exec();
         return {
             err: false,
             res: res
