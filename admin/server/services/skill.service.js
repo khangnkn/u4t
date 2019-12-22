@@ -18,7 +18,7 @@ const addNewSkill = async (payload) => {
                     data: _isExited.res
                 }
             } else {
-                let result = await SkillRepository.addSkill(payload);
+                let result = await SkillRepository.addSkill(payload.name);
                 if (result.err) {
                     return {
                         err: RES_CONSTANT.DB_ERROR,
@@ -44,8 +44,6 @@ const addNewSkill = async (payload) => {
         }
     }
 };
-
-
 
 const getSkillList = async (payload) => {
     try {
@@ -75,5 +73,6 @@ const getSkillList = async (payload) => {
 };
 
 module.exports = {
-    getSkillList
+    getSkillList,
+    addNewSkill
 };

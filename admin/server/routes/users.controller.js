@@ -35,7 +35,7 @@ router.get('/:role/:page/:limit', async (req, res) => {
 });
 
 // Get user detail
-router.get('/:userName/detail', async (req, res) => {
+router.get('/detail/:userName', async (req, res) => {
     try {
         const _payload = {
             username: req.params.userName
@@ -60,7 +60,7 @@ router.get('/:userName/detail', async (req, res) => {
 });
 
 // Lock user
-router.put('/lock/:userName', async (req, res) => {
+router.put('/lock/:username', async (req, res) => {
     try {
         const _payload = {
             isActive: false,
@@ -86,7 +86,7 @@ router.put('/lock/:userName', async (req, res) => {
 });
 
 // Unlock user
-router.put('/unlock/:userName', async (req, res) => {
+router.put('/unlock/:username', async (req, res) => {
     try {
         const _payload = {
             isActive: true,

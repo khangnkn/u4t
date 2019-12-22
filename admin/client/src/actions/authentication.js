@@ -2,7 +2,7 @@ import axios from 'axios'
 import jwtDecode from 'jwt-decode'
 
 import setAuthorizationToken from "../utils/setAuthorizationToken";
-import {LOG_IN} from "../constants/api";
+import {LOG_IN} from "../constants/apis";
 import * as types from "../constants/actionTypes";
 
 

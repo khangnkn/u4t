@@ -51,7 +51,6 @@ export default (state = initialState, action = {}) => {
                 role: action.role,
                 detail: {},
                 paginationAdmin: action.paginationAdmin
-
             };
         case types.SET_ROOT_LIST:
             return {
@@ -61,10 +60,17 @@ export default (state = initialState, action = {}) => {
                 paginationRoot: action.paginationRoot
 
             };
-        case types.SET_DETAIL_STUDENT:
-        case types.SET_DETAIL_TEACHER:
-        case types.SET_DETAIL_ADMIN:
-            return {};
+        case types.SET_DETAIL_ACCOUNT:
+            return {
+                ...state, ...{detail: action.payload}
+            };
+        case types.SET_LOCK_ACCOUNT:
+            let datas = state.datas.map(item =>
+                (item._id === action.payload._id)
+                    ? {...{}, ...action.payload}
+                    : item
+            );
+            return {...state, ...{datas: datas}};
         default:
             return state
     }
