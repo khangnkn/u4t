@@ -1,6 +1,42 @@
 import React from 'react';
+import {
+  Dropdown,
+  Button,
+  ButtonGroup,
+  Navbar,
+  Nav,
+  NavDropdown,
+  Form,
+  FormControl,
+} from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import UserService from '../actions/UserService';
 
-const NavBar = () => {
+const NavBar = (props) => {
+  const nav = (
+    <Navbar bg="light" expand="lg">
+      <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav">
+        <Nav className="mr-auto">
+          <Nav.Link href="#home">Home</Nav.Link>
+          <Nav.Link href="#link">Link</Nav.Link>
+          <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+            <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+            <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
+            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+            <NavDropdown.Divider />
+            <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+          </NavDropdown>
+        </Nav>
+        <Form inline>
+          <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+          <Button variant="outline-success">Search</Button>
+        </Form>
+      </Navbar.Collapse>
+    </Navbar>
+  );
+  return nav;
   const renderForLoggedIn = () => {
     const storage = JSON.parse(localStorage.getItem('user'));
     return (
@@ -33,15 +69,17 @@ const NavBar = () => {
             </div>
           </div>
         </div>
-        <div className="navbar-text navbar-right">
-          <p className="m-0-bottom">
-            <span>
-              {storage ? `Logged as ${storage.user.fullname}` : 'Hi, there!'}
-            </span>
-            <br />
-            <a href="" className="navbar-link">Log out</a>
-          </p>
-        </div>
+        {/* <div className="navbar-text navbar-right"> */}
+        <Dropdown as={ButtonGroup}>
+          <Button>{storage && storage.user.fullname ? `Xin chào, ${storage.user.fullname}` : 'Xin chào!'}</Button>
+          <Dropdown.Toggle variant="success" id="dropdown-user">
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            <Dropdown.Item href="/">Profile</Dropdown.Item>
+            <Dropdown.Item onClick={UserService.logOut}>Sign Out</Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+        {/* </div> */}
       </div>
     );
   };
@@ -76,10 +114,14 @@ const NavBar = () => {
           </div>
         </div>
       </div>
-      <ul className="navbar-nav navbar-lg navbar-subnav navbar-right">
-        <li role="none"><a href="/login"> Log In</a></li>
-        <li role="none"><a href="/register"> Sign up</a></li>
-      </ul>
+      {/* <ul className="navbar-nav navbar-lg navbar-subnav navbar-right"> */}
+      <Link to="/login">
+        <Button>Log In</Button>
+      </Link>
+      <Link to="/register">
+        <Button>Sign up</Button>
+      </Link>
+      {/* </ul> */}
     </div>
   );
 
