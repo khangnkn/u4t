@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const CitySchema = new Schema({
-  city_name: {
+  name: {
     type: String,
     required: true,
   },
 });
-const City = mongoose.model('Cities', CitySchema);
+const City = mongoose.model('City', CitySchema);
 
 module.exports = City;

@@ -46,7 +46,7 @@ const getUserDetail = async (payload) => {
         if (result.err) {
             return {
                 err: RES_CONSTANT.DB_ERROR,
-                res: null
+                res: result.err
             }
         } else if (!result.res) {
             return {
