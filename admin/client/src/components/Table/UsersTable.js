@@ -1,9 +1,11 @@
 import React from 'react';
-import { Button, Modal, ModalBody, ModalFooter, ModalHeader, Table } from 'reactstrap';
+import {connect} from "react-redux";
+import {Button, Table} from 'reactstrap';
 import Avatar from "../Avatar";
 
 import UserDetail from '../Modal/UserDetail'
 import UserLock from '../Modal/UserLock';
+import {getDetailUser} from "../../actions/user.actions";
 
 class UsersTable extends React.Component {
     constructor(props) {
@@ -11,20 +13,26 @@ class UsersTable extends React.Component {
         this.state = {
             modal_active: false,
             modal_detail: false,
+            userChoosed: {}
         }
     }
 
-    toggle = (modalType) => () => {
+    toggle = (modalType, payload) => async () => {
         switch (modalType) {
             case 'active':
                 this.setState({
-                    modal_active: !this.state.modal_active
-                })
+                    modal_active: !this.state.modal_active,
+                    userChoosed: payload
+                });
                 break;
             case 'detail':
                 this.setState({
-                    modal_detail: !this.state.modal_detail
-                })
+                    modal_detail: !this.state.modal_detail,
+                    userChoosed: payload
+                });
+                if (!this.state.modal_detail) {
+                    await this.props.getDetailUser(payload)
+                }
                 break;
             default:
                 break;
@@ -32,43 +40,77 @@ class UsersTable extends React.Component {
     };
 
     render() {
+        let header = <tr>
+            <th>Avatar</th>
+            <th>Full name</th>
+            <th>Username</th>
+            <th>Created at</th>
+            <th>Updated at</th>
+            <th>Deleted at</th>
+            <th>Status</th>
+            <th>Operation</th>
+        </tr>;
+
+        let items = this.props.datas.map((data, index) => {
+            return (
+                <tr>
+                    <th scope="row">
+                        <Avatar className="mb-2" src={data.avatar}/>
+                    </th>
+                    <td>{data.fullname}</td>
+                    <td>{data.username}</td>
+                    <td>{data.created_at}</td>
+                    <td>{data.updated_at}</td>
+                    <td>{data.deleted_at}</td>
+                    <td>{data.is_active ? 'Active' : 'Locked'}</td>
+                    <td>
+                        <Button onClick={this.toggle('active', {
+                                username: data.username,
+                                active: data.is_active
+                            }
+                        )}>
+                            {data.is_active ? 'Lock' : 'Unlock'}
+                        </Button>
+                    </td>
+                    <td>
+                        <Button onClick={this.toggle('detail', {username: data.username})}>Detail</Button>
+                    </td>
+                </tr>
+            )
+        });
+
         return (
             <div>
                 <Table hover>
                     <thead>
-                        <tr>
-                            <th>Avatar</th>
-                            <th>Full name</th>
-                            <th>Phone</th>
-                            <th>Birthday</th>
-                            <th>Email</th>
-                            <th>Status</th>
-                            <th>Operation</th>
-                        </tr>
+                    {header}
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">
-                                <Avatar className="mb-2" />
-                            </th>
-                            <td>Mark</td>
-                            <td>+84 123456789</td>
-                            <td>01-01-1990</td>
-                            <td>abc@gmail.com</td>
-                            <td>
-                                <Button onClick={this.toggle('active')}>Active</Button>
-                            </td>
-                            <td>
-                                <Button onClick={this.toggle('detail')}>Detail</Button>
-                            </td>
-                        </tr>
+                    {items}
                     </tbody>
                 </Table>
-                <UserLock open={this.state.modal_active} toggle={this.toggle('active')}></UserLock>
-                <UserDetail open={this.state.modal_detail} toggle={this.toggle('detail')}></UserDetail>
+                <UserLock open={this.state.modal_active} toggle={this.toggle('active', {})}
+                          user={this.state.userChoosed}
+                />
+                <UserDetail open={this.state.modal_detail} toggle={this.toggle('detail', {})}
+                            user={this.state.userChoosed}
+                />
             </div>
         );
     }
+}
+
+const mapDispatchToProps = {
+    getDetailUser
 };
 
-export default UsersTable;
+function mapStateToProps(state) {
+    const {user} = state;
+    return {
+        datas: user.datas,
+        type: user.type,
+        detail: user.detail
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UsersTable);

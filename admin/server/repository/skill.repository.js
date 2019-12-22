@@ -1,13 +1,13 @@
 const SkillModel = require('../shared/models/skill.model');
 
-const findSkillByName = async (name) =>{
+const findSkillByName = async (name) => {
     try {
-       const res = await SkillModel.findOne({name: name});
+        const res = await SkillModel.findOne({name: name});
         return {
             err: false,
             res: res
         }
-    }catch (e) {
+    } catch (e) {
         return {
             err: e,
             res: null
@@ -15,9 +15,12 @@ const findSkillByName = async (name) =>{
     }
 }
 
-const addSkill = async (skill) => {
+const addSkill = async (name) => {
     try {
-        const res = await SkillModel.save(skill);
+        const skill = new SkillModel({
+            name: name
+        });
+        const res = await skill.save(skill);
         return {
             err: false,
             res: res

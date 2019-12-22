@@ -8,10 +8,6 @@ const SkillSchema = new Schema(
             type: String,
             require: true,
             unique: true
-        },
-        description: {
-            type: String,
-            require: true
         }
     },
     {

@@ -28,7 +28,9 @@ const getUserList = async (type, page, limit) => {
 
 const getUserDetailByUsername = async (username) => {
     try {
-        const res = await UserModel.findOne({username: username})
+        const res = await UserModel
+            .findOne({username: username})
+            .populate(['city', 'data.skills']);
         return {
             err: false,
             res: res
