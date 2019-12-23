@@ -1,68 +1,80 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux'
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 
 class PaginationContract extends React.Component {
   constructor() {
-
     super();
-
-    // create data set of random length
-    this.dataSet = [...Array(Math.ceil(500 + Math.random() * 500))].map(
-      (a, i) => "Record " + (i + 1)
-    );
-
-    this.pageSize = 50;
-    this.pagesCount = Math.ceil(this.dataSet.length / this.pageSize);
-
-    this.state = {
-      currentPage: 0
-    };
   }
 
   handleClick(e, index) {
+    try {
+      e.preventDefault();
+      let _payload = {
+        page: index,
+        limit: this.props.limit
+      };
+    } catch (e) {
 
-    e.preventDefault();
+    }
+    finally {
 
-    this.setState({
-      currentPage: index
-    });
-
+    }
   }
 
   render() {
 
-    const { currentPage } = this.state;
+    const paginate = {
+      page: this.props.page,
+      totalPages: this.props.totalPages
+    };
+
+    let items = [...Array(paginate.totalPages)].map((page, i) => {
+      return (
+        <PaginationItem active={i === paginate.page - 1} key={i}>
+          <PaginationLink onClick={e => this.handleClick(e, i + 1)} href="#">
+            {i + 1}
+          </PaginationLink>
+        </PaginationItem>)
+    });
 
     return (
-        <div className="pagination-wrapper">
-          <Pagination aria-label="Page navigation example">
-            <PaginationItem disabled={currentPage <= 0}>
-              <PaginationLink
-                onClick={e => this.handleClick(e, currentPage - 1)}
-                previous
-                href="#"
-              />
-            </PaginationItem>
+      <div className="pagination-wrapper">
+        <Pagination aria-label="Page navigation example">
+          <PaginationItem disabled={paginate.page <= 1}>
+            <PaginationLink
+              onClick={e => this.handleClick(e, paginate.page - 1)}
+              previous
+              href="#"
+            />
+          </PaginationItem>
 
-            {[...Array(this.pagesCount)].map((page, i) =>
-              <PaginationItem active={i === currentPage} key={i}>
-                <PaginationLink onClick={e => this.handleClick(e, i)} href="#">
-                  {i + 1}
-                </PaginationLink>
-              </PaginationItem>
-            )}
+          {items}
 
-            <PaginationItem disabled={currentPage >= this.pagesCount - 1}>
-              <PaginationLink
-                onClick={e => this.handleClick(e, currentPage + 1)}
-                next
-                href="#"
-              />
-            </PaginationItem>
-          </Pagination>
-        </div>
+          <PaginationItem disabled={paginate.page >= paginate.totalPages}>
+            <PaginationLink
+              onClick={e => this.handleClick(e, paginate.page + 1)}
+              next
+              href="#"
+            />
+          </PaginationItem>
+        </Pagination>
+      </div>
     );
   }
 }
 
-export default PaginationContract;
+function mapStateToProps(state) {
+  const { contract } = state;
+  return {
+    page: contract.page,
+    totalPages: contract.totalPages,
+    limit: contract.limit,
+  }
+}
+
+const mapDispatchToProps = {
+
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PaginationContract);

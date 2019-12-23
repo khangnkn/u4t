@@ -1,18 +1,29 @@
 import React from 'react';
-import {Modal, ModalFooter, Button, ModalHeader} from 'reactstrap';
+import { Button, Modal, ModalFooter, ModalHeader, Form, Row, Label } from 'reactstrap';
+import { connect } from "react-redux";
+import ModalBody from 'reactstrap/lib/ModalBody';
+import Col from 'reactstrap/lib/Col';
+import Input from 'reactstrap/lib/Input';
+import FormGroup from 'reactstrap/lib/FormGroup';
 
 class SkillDelete extends React.Component {
   constructor(props) {
     super(props);
   }
 
-  onSubmit = () => () => {
-    console.log('submit...')
-    this.props.toggle();
-  }
+  onSubmit = () => async () => {
+    try {
 
-  render(){
-    return(
+    } catch (e) {
+      console.log(e);
+    } finally {
+      console.log('done.');
+      this.props.toggle();
+    }
+  };
+
+  render() {
+    return (
       <Modal returnFocusAfterClose isOpen={this.props.open} >
         <ModalHeader>Bạn có chắc muốn xóa skill này ?</ModalHeader>
         <ModalFooter>
@@ -24,4 +35,12 @@ class SkillDelete extends React.Component {
   }
 }
 
-export default SkillDelete;
+function mapStateToProps(state) {
+  return {}
+}
+
+const mapDispatchToProps = {
+
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SkillDelete);

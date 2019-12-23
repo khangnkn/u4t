@@ -6,8 +6,24 @@ import SkillsTable from '../components/Table/SkillsTable';
 import CardBody from 'reactstrap/lib/CardBody';
 import Col from 'reactstrap/lib/Col';
 import PaginationSkill from '../components/Paginattion/PaginationSkill';
+import SkillAddNew from '../components/Modal/SkillAddNew';
+import Button from 'reactstrap/lib/Button';
 
 class SkillsManagementPage extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isModalAddSkill: false
+        }
+    }
+
+    toggle = () => () => {
+        const isOpen = this.state.isModalAddSkill;
+        this.setState({
+            isModalAddSkill: !isOpen
+        })
+    }
+
     componentDidMount() {
         // this is needed, because InfiniteCalendar forces window scroll
         window.scrollTo(0, 0);
@@ -19,6 +35,12 @@ class SkillsManagementPage extends React.Component {
                 title="Skill"
                 breadcrumbs={[{ name: 'Skill', active: true }]}
             >
+                <Row>
+                    <Col>
+                        <Button onClick={this.toggle()}>Add new skill</Button>
+                        <SkillAddNew open={this.state.isModalAddSkill} toggle={this.toggle()}></SkillAddNew>
+                    </Col>
+                </Row>
                 <Row>
                     <Col>
                         <Card>
