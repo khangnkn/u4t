@@ -1,18 +1,26 @@
 import React from 'react';
-import {Modal, ModalFooter, Button, ModalHeader} from 'reactstrap';
+import { connect } from "react-redux";
+import { Modal, ModalFooter, Button, ModalHeader } from 'reactstrap';
 
 class ContractDelete extends React.Component {
   constructor(props) {
     super(props);
   }
 
-  onSubmit = () => () => {
-    console.log('submit...')
-    this.props.toggle();
-  }
+  onSubmit = () => async () => {
+    try {
 
-  render(){
-    return(
+    } catch (e) {
+      console.log(e);
+    } finally {
+      console.log('done.');
+      this.props.toggle();
+    }
+  };
+
+
+  render() {
+    return (
       <Modal returnFocusAfterClose isOpen={this.props.open} >
         <ModalHeader>Bạn có chắc muốn xóa này ?</ModalHeader>
         <ModalFooter>
@@ -24,4 +32,12 @@ class ContractDelete extends React.Component {
   }
 }
 
-export default ContractDelete;
+function mapStateToProps(state) {
+  return {}
+}
+
+const mapDispatchToProps = {
+
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContractDelete);

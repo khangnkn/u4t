@@ -85,7 +85,6 @@ class UsersManagementTabs extends React.Component {
                     <TabPane tabId={roles.student.role}>
                         <Row>
                             <Col sm="12">
-                                <h4>Tab 1 Contents</h4>
                                 <UsersTable/>
                             </Col>
                         </Row>
@@ -93,7 +92,6 @@ class UsersManagementTabs extends React.Component {
                     <TabPane tabId={roles.teacher.role}>
                         <Row>
                             <Col sm="12">
-                                <h4>Tab 2 Contents</h4>
                                 <UsersTable/>
                             </Col>
                         </Row>
@@ -101,7 +99,6 @@ class UsersManagementTabs extends React.Component {
                     <TabPane tabId={roles.admin.role}>
                         <Row>
                             <Col sm="12">
-                                <h4>Tab 3 Contents</h4>
                                 <UsersTable/>
                             </Col>
                         </Row>
@@ -109,7 +106,6 @@ class UsersManagementTabs extends React.Component {
                     <TabPane tabId={roles.root.role}>
                         <Row>
                             <Col sm="12">
-                                <h4>Tab 4 Contents</h4>
                                 <UsersTable/>
                             </Col>
                         </Row>

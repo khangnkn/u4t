@@ -1,7 +1,7 @@
 import React from 'react';
-import {Pagination, PaginationItem, PaginationLink} from 'reactstrap';
-import {connect} from 'react-redux'
-import {getUserList} from "../../actions/user.actions";
+import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
+import { connect } from 'react-redux'
+import { getUserList } from "../../actions/user.actions";
 
 class PaginationUser extends React.Component {
     constructor(props) {
@@ -29,13 +29,13 @@ class PaginationUser extends React.Component {
         };
 
         let items = [...Array(paginate.totalPages)].map((page, i) => {
-                return (
-                    <PaginationItem active={i === paginate.page - 1} key={i}>
-                        <PaginationLink onClick={e => this.handleClick(e, i + 1)} href="#">
-                            {i + 1}
-                        </PaginationLink>
-                    </PaginationItem>)
-            }
+            return (
+                <PaginationItem active={i === paginate.page - 1} key={i}>
+                    <PaginationLink onClick={e => this.handleClick(e, i + 1)} href="#">
+                        {i + 1}
+                    </PaginationLink>
+                </PaginationItem>)
+        }
         );
 
         return (
@@ -65,7 +65,7 @@ class PaginationUser extends React.Component {
 }
 
 function mapStateToProps(state) {
-    const {user} = state;
+    const { user } = state;
     let pagination = {};
     switch (user.role) {
         case '0':
