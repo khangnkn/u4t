@@ -142,7 +142,6 @@ $
   }
 
   renderTopTeacher() {
-    console.log(this.state);
     const { data } = this.state;
 
     this.topTeacher = (

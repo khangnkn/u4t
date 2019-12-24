@@ -36,10 +36,22 @@ const search = (data) => {
   return fetch(`${host}/api/search?${qs}`).then((data) => data.json()).then((ret) => ret);
 };
 
+
+function loadContract(id) {
+  const requestOptions = {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json','_id' : id}
+  }
+  return fetch(`/api/contracts/${id}`,requestOptions).then(resp => resp.json()).then(data => {
+      return data;
+  });
+}
+
 const helperService = {
   loadSkills,
   loadCities,
   loadLevels,
+  loadContract,
   search,
 };
 

@@ -142,6 +142,68 @@ function desicionContractAccept(id, value) {
   return fetch(req).then(handleLogOut).then((resp) => resp.json()).then((data) => data);
 }
 
+function submitReviewContract(_id,review){
+  const headers = new Headers();
+  const userCookie = JSON.parse(localStorage.getItem('user'));
+
+  headers.append('Content-Type', 'application/json');
+  headers.append('Authorization', userCookie ? `Bearer${userCookie.token}` : 'Bearer');
+
+  const fd = new FormData();
+  fd.append('_id',JSON.stringify(_id));
+  fd.append('review',JSON.stringify(review));
+
+  const req = new Request('/api/contracts/addreview', {
+    method: 'POST',
+    headers: headers,
+    mode: 'no-cors',
+    body: fd,
+  });
+  
+  return fetch(req).then(handleLogOut).then((resp)=> resp.json()).then((data)=>{return data;});
+}
+
+function submitComplainContract(_id,complain){
+  const headers = new Headers();
+  const userCookie = JSON.parse(localStorage.getItem('user'));
+
+  headers.append('Content-Type', 'application/json');
+  headers.append('Authorization', userCookie ? `Bearer${userCookie.token}` : 'Bearer');
+
+  const fd = new FormData();
+  fd.append('_id',JSON.stringify(_id));
+  fd.append('complain',JSON.stringify(complain));
+
+  const req = new Request('/api/contracts/addcomplain', {
+    method: 'POST',
+    headers: headers,
+    mode: 'no-cors',
+    body: fd,
+  });
+  
+  return fetch(req).then(handleLogOut).then((resp)=> resp.json()).then((data)=>{return data;});
+}
+
+function submitCompleteContract(_id){
+  const headers = new Headers();
+  const userCookie = JSON.parse(localStorage.getItem('user'));
+
+  headers.append('Content-Type', 'application/json');
+  headers.append('Authorization', userCookie ? `Bearer${userCookie.token}` : 'Bearer');
+
+  const fd = new FormData();
+  fd.append('_id',JSON.stringify(_id));
+
+  const req = new Request('/api/contracts/complete', {
+    method: 'POST',
+    headers: headers,
+    mode: 'no-cors',
+    body: fd,
+  });
+  
+  return fetch(req).then(handleLogOut).then((resp)=> resp.json()).then((data)=>{return data;});
+}
+
 export default {
   login,
   register,
@@ -151,4 +213,7 @@ export default {
   loadAllContract,
   createContract,
   desicionContractAccept,
+  submitReviewContract,
+  submitComplainContract,
+  submitCompleteContract
 };

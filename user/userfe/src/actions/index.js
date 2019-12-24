@@ -1,3 +1,4 @@
+/* eslint-disable no-sequences */
 import { dispatch } from 'rxjs/internal/observable/pairs';
 import * as types from '../constants/ActionTypes';
 
@@ -211,3 +212,72 @@ export const handleSearch = (name, skill, city, price) => {
     });
   };
 };
+
+export const handleControllerSelectContractManagement = (value) => ({
+  type: types.HANDLE_CONTROLLER_SELECT_CONTRACT_MANAGEMENT,
+  value,
+});
+export const handleLoadListContractManagement = (data) => ({
+  type: types.HANDLE_LOAD_LIST_CONTRACT_MANAGEMENT,
+  data,
+});
+
+//
+export const handleComplainDataChange = (name, value) => ({
+  type: types.HANDLE_COMPLAIN_DATA_CHANGE,
+  name,
+  value,
+});
+
+export const handleReviewDataChange = (name, value) => ({
+  type: types.HANDLE_REVIEW_DATA_CHANGE,
+  name,
+  value,
+});
+
+export const handleReviewContractSubmit = (_id, review) => (dispatch) => {
+  try {
+    userService.submitReviewContract(_id, review).then((data) => {
+      if (data.code === 1) {
+        dispatch(alertActions.success(data.message));
+      } else {
+        dispatch(alertActions.error(data.message));
+      }
+    });
+  } catch (ex) {
+    console.log(ex);
+  }
+};
+
+export const handleComplainContractSubmit = (_id, complain) => (dispatch) => {
+  try {
+    userService.submitComplainContract(_id, complain).then((data) => {
+      if (data.code === 1) {
+        dispatch(alertActions.success(data.message));
+      } else {
+        dispatch(alertActions.error(data.message));
+      }
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const handleCompleteContractSubmit = (_id) => (dispatch) => {
+  try {
+    userService.submitCompleteContract(_id).then((data) => {
+      if (data.code === 1) {
+        dispatch(alertActions.success(data.message));
+      } else {
+        dispatch(alertActions.error(data.message));
+      }
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const handleContractControllerSelect = (selected) => ({
+  type: types.HANDLE_CONTRACT_CONTROLLER_SELECT,
+  selected,
+});
