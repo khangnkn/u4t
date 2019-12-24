@@ -22,7 +22,7 @@ class Profile extends React.Component {
         // this.renderFooter = this.renderFooter.bind(this);
         this.renderInforForm = this.renderInforForm.bind(this);
         this.renderOverviewForm = this.renderOverviewForm.bind(this);
-
+        this.renderFooterForm = this.renderFooterForm.bind(this);
         this.handleInforChange = this.handleInforChange.bind(this);
         this.handleDataChange = this.handleDataChange.bind(this);
         this.handleAvatarChange = this.handleAvatarChange.bind(this);
@@ -283,7 +283,7 @@ class Profile extends React.Component {
                     <Form.Label className="">Trình độ</Form.Label>
                     <div className="dropdown width-lg fe-cat-height dropdown-block">
                         <Form.Control as="select" className="custom-select" value={data.trinhDo} onChange={this.handleDataChange} name="trinhDo">
-                            {/* {this.state.levels.map((e, i) => (<option value={e._id} key={i}>{e.name}</option>))} */}
+                            {this.state.levels.map((e, i) => (<option value={e._id} key={i}>{e.name}</option>))}
                         </Form.Control>
                     </div>
                 </div>
@@ -294,9 +294,9 @@ class Profile extends React.Component {
                         Vui lòng chọn ít nhất một kỹ năng.
                     </p>
                     <div className="row">
-                        {/* {this.states.skills.map((e, i) => {
+                        {this.states.skills.map((e, i) => {
                             var flat = false;
-                            data.forEach(element => {
+                            data.skills.forEach(element => {
                                 if (element === e._id)
                                     {flat = true;break;}
                             });
@@ -313,7 +313,7 @@ class Profile extends React.Component {
                                 </Form.Label>
                             </div>
                             );
-                        })} */}
+                        })}
 
                     </div>
                 </div>
@@ -330,7 +330,7 @@ class Profile extends React.Component {
                             <div className="d-flex align-items-center">
                                 <div className="has-feedback width-auto">
                                     <Form.Control placeholder="" type="text" className="form-control width-xs text-right p-sm-right" value="0.00" onChange={this.handleDataChange} name="giaTien" />
-                                    {this.validator.message('fullname', this.props.profile.user.datal.giaTien, 'required|integer')}
+                                    {this.validator.message('fullname', this.props.profile.user.data.giaTien, 'required|integer')}
                                     <span aria-hidden="true" className="glyphicon glyphicon-md air-icon-payment text-primary form-control-feedback" />
                                     <span id="input-el" className="sr-only" />
                                 </div>
