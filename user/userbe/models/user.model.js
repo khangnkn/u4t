@@ -21,6 +21,12 @@ const UserSchema = new Schema({
     type: String,
     required: false,
   },
+  gender: {
+    type: Boolean,
+  },
+  phone: {
+    type: String,
+  },
   avatar: {
     type: String,
     required: false,

@@ -1,3 +1,4 @@
+const host = 'http://localhost:8080';
 function handleLogOut(resp) {
   if (resp.code !== 1) {
     if (resp.code === 401) {
@@ -19,7 +20,7 @@ function login(username, password) {
     body: JSON.stringify({ username, password }),
   };
 
-  return fetch('/api/auth/login', requestOptions)
+  return fetch(`${host}/api/auth/login`, requestOptions)
     .then((resp) => resp.json()).then((data) => {
       if (data.code !== 1) {
         return data;
@@ -36,7 +37,7 @@ function register(user) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ username: user.username, password: user.password, role: user.role }),
   };
-  return fetch('/api/auth/register', requestOptions)
+  return fetch(`${host}/api/auth/register`, requestOptions)
     .then(handleLogOut).then((resp) => resp.json()).then((data) => data);
 }
 
@@ -142,7 +143,7 @@ function desicionContractAccept(id, value) {
   return fetch(req).then(handleLogOut).then((resp) => resp.json()).then((data) => data);
 }
 
-function submitReviewContract(_id,review){
+function submitReviewContract(_id, review) {
   const headers = new Headers();
   const userCookie = JSON.parse(localStorage.getItem('user'));
 
@@ -150,20 +151,20 @@ function submitReviewContract(_id,review){
   headers.append('Authorization', userCookie ? `Bearer${userCookie.token}` : 'Bearer');
 
   const fd = new FormData();
-  fd.append('_id',JSON.stringify(_id));
-  fd.append('review',JSON.stringify(review));
+  fd.append('_id', JSON.stringify(_id));
+  fd.append('review', JSON.stringify(review));
 
   const req = new Request('/api/contracts/addreview', {
     method: 'POST',
-    headers: headers,
+    headers,
     mode: 'no-cors',
     body: fd,
   });
-  
-  return fetch(req).then(handleLogOut).then((resp)=> resp.json()).then((data)=>{return data;});
+
+  return fetch(req).then(handleLogOut).then((resp) => resp.json()).then((data) => data);
 }
 
-function submitComplainContract(_id,complain){
+function submitComplainContract(_id, complain) {
   const headers = new Headers();
   const userCookie = JSON.parse(localStorage.getItem('user'));
 
@@ -171,20 +172,20 @@ function submitComplainContract(_id,complain){
   headers.append('Authorization', userCookie ? `Bearer${userCookie.token}` : 'Bearer');
 
   const fd = new FormData();
-  fd.append('_id',JSON.stringify(_id));
-  fd.append('complain',JSON.stringify(complain));
+  fd.append('_id', JSON.stringify(_id));
+  fd.append('complain', JSON.stringify(complain));
 
   const req = new Request('/api/contracts/addcomplain', {
     method: 'POST',
-    headers: headers,
+    headers,
     mode: 'no-cors',
     body: fd,
   });
-  
-  return fetch(req).then(handleLogOut).then((resp)=> resp.json()).then((data)=>{return data;});
+
+  return fetch(req).then(handleLogOut).then((resp) => resp.json()).then((data) => data);
 }
 
-function submitCompleteContract(_id){
+function submitCompleteContract(_id) {
   const headers = new Headers();
   const userCookie = JSON.parse(localStorage.getItem('user'));
 
@@ -192,16 +193,16 @@ function submitCompleteContract(_id){
   headers.append('Authorization', userCookie ? `Bearer${userCookie.token}` : 'Bearer');
 
   const fd = new FormData();
-  fd.append('_id',JSON.stringify(_id));
+  fd.append('_id', JSON.stringify(_id));
 
   const req = new Request('/api/contracts/complete', {
     method: 'POST',
-    headers: headers,
+    headers,
     mode: 'no-cors',
     body: fd,
   });
-  
-  return fetch(req).then(handleLogOut).then((resp)=> resp.json()).then((data)=>{return data;});
+
+  return fetch(req).then(handleLogOut).then((resp) => resp.json()).then((data) => data);
 }
 
 export default {
@@ -215,5 +216,5 @@ export default {
   desicionContractAccept,
   submitReviewContract,
   submitComplainContract,
-  submitCompleteContract
+  submitCompleteContract,
 };
