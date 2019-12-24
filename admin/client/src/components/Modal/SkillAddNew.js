@@ -59,11 +59,22 @@ class SkillAddNew extends React.Component {
                     }
                 });
                 this.setState({
-                    success: 'successfuly'
+                    success: 'successfuly',
+                    errors: {}
                 });
             }
         } catch (e) {
-            console.log(e);
+            let connect = '';
+            if (e.response) {
+                connect = e.response.data.msg
+            } else {
+                connect = e.message
+            }
+            this.setState({
+                errors: {
+                    connect
+                }
+            })
         } finally {
             console.log('done.');
             this.setState({
@@ -76,7 +87,10 @@ class SkillAddNew extends React.Component {
         const {errors} = this.state;
         return (
             <Modal returnFocusAfterClose isOpen={this.props.open}>
-                <ModalHeader>Add new skill {this.state.success}</ModalHeader>
+                <ModalHeader>
+                    {errors.connect && <h4>Error message: {errors.connect}</h4>}
+                    Add new skill {this.state.success}
+                </ModalHeader>
                 <ModalBody>
                     <Form>
                         <FormGroup row>

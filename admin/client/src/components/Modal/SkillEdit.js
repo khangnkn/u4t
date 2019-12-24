@@ -21,13 +21,17 @@ class SkillEdit extends React.Component {
     onChange(event) {
         console.log('onchange');
         this.setState({
-            [event.target.name]: event.target.value
+            [event.target.name]: event.target.value,
+            succeess: ''
         })
     }
 
     onCancle() {
         this.setState({
-            name: null
+            name: null,
+            isLoading: false,
+            errors: {},
+            succeess: ''
         });
         this.props.toggle();
     }
@@ -42,16 +46,28 @@ class SkillEdit extends React.Component {
                 this.setState({
                     isLoading: true
                 });
-                await this.props.editSkill({
+                const res = await this.props.editSkill({
                     id: this.props.skill.id,
                     name: this.state.name
                 });
                 this.setState({
-                    succeess: 'successfully'
+                    succeess: 'successfully',
+                    errors: {}
                 })
             }
         } catch (e) {
             console.log(e);
+            let connect = '';
+            if (e.response) {
+                connect = e.response.data.msg
+            } else {
+                connect = e.message
+            }
+            this.setState({
+                errors: {
+                    connect: connect
+                }
+            })
         } finally {
             this.setState({
                 isLoading: false
@@ -60,11 +76,14 @@ class SkillEdit extends React.Component {
     };
 
     render() {
-        console.log('render');
+        const {errors} = this.state;
         const name = this.state.name !== null ? this.state.name : this.props.skill.name;
         return (
             <Modal returnFocusAfterClose isOpen={this.props.open}>
-                <ModalHeader>Edit skill {this.state.succeess}</ModalHeader>
+                <ModalHeader>
+                    {errors.connect && <h4>Error message: {errors.connect}</h4>}
+                    Edit skill {this.state.succeess}
+                </ModalHeader>
                 <ModalBody>
                     <Form>
                         <FormGroup row>
