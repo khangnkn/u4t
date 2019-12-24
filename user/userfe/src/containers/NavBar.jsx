@@ -3,7 +3,7 @@ import { Dropdown } from 'react-bootstrap';
 
 const NavBar = () => {
   const renderForLoggedIn = () => {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const storage = JSON.parse(localStorage.getItem('user'));
     return (
       <div className="navbar-collapse-air d-none d-lg-flex">
         <div className="navbar-form-air">

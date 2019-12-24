@@ -279,10 +279,5 @@ export const handleCompleteContractSubmit = (_id) => (dispatch) => {
 
 export const handleContractControllerSelect = (selected) => ({
   type: types.HANDLE_CONTRACT_CONTROLLER_SELECT,
-<<<<<<< HEAD
-  selected
-});
-=======
   selected,
 });
->>>>>>> 435784392ff39faf01913cd21c9139d938c3da77
