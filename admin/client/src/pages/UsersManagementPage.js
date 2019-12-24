@@ -2,7 +2,7 @@ import React from 'react';
 import Page from '../components/Page';
 import UsersManagementTabs from "../components/Tab/UsersManagementTabs";
 import PaginationUser from '../components/Paginattion/PaginationUser';
-import { Container, Row, Col, Card, CardBody } from 'reactstrap';
+import {Container, Row, Col, Card, CardBody} from 'reactstrap';
 import Button from 'reactstrap/lib/Button';
 import UserAddNew from '../components/Modal/UserAddNew';
 
@@ -11,8 +11,10 @@ class UsersManagementPage extends React.Component {
         super(props);
         this.state = {
             isModalAddUser: false
-        }
+        };
+        // this.toggle = this.toggle.bind(this)
     }
+
     componentDidMount() {
         // this is needed, because InfiniteCalendar forces window scroll
         window.scrollTo(0, 0);
@@ -23,14 +25,14 @@ class UsersManagementPage extends React.Component {
         this.setState({
             isModalAddUser: !isOpen
         })
-    }
+    };
 
     render() {
         return (
             <Page
                 className="UserManagementPage"
                 title="User"
-                breadcrumbs={[{ name: 'Management', active: true }]}
+                breadcrumbs={[{name: 'Management', active: true}]}
             >
                 <Row>
                     <Col>

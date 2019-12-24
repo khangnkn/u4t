@@ -1,7 +1,11 @@
 import {
-    ADD_ADMIN, ADD_USER,
-    BASE_URL, DELETE_ADMIN, DELETE_USER,
-    EDIT_ADMIN, EDIT_USER,
+    ADD_ADMIN,
+    ADD_USER,
+    BASE_URL,
+    DELETE_ADMIN,
+    DELETE_USER,
+    EDIT_ADMIN,
+    EDIT_USER,
     GET_USER_DETAIL,
     GET_USER_LIST,
     LOCK_USER,
@@ -11,7 +15,7 @@ import * as types from "../constants/actionTypes";
 
 const axios = require('axios').default.create({
     baseURL: BASE_URL,
-    timeout: 1000,
+    timeout: 3000,
 });
 
 export function setUserList(payload) {

@@ -1,15 +1,15 @@
 export const BASE_URL = 'http://localhost:8000';
 
-export const LOG_IN = '/admin/login';
+export const LOG_IN = '/admins/login';
 
 export const GET_USER_LIST = '/users';
 export const GET_USER_DETAIL = '/users/detail';
-export const ADD_ADMIN = '/admin';
-export const ADD_USER = '/user';
-export const EDIT_ADMIN = '/admin';
-export const EDIT_USER = '/user';
-export const DELETE_ADMIN = '/admin';
-export const DELETE_USER = '/user';
+export const ADD_ADMIN = '/admins';
+export const ADD_USER = '/users';
+export const EDIT_ADMIN = '/admins';
+export const EDIT_USER = '/users';
+export const DELETE_ADMIN = '/admins';
+export const DELETE_USER = '/users';
 export const LOCK_USER = '/users/lock';
 export const UNLOCK_USER = '/users/unlock';
 
