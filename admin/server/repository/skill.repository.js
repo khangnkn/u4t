@@ -13,7 +13,7 @@ const findSkillByName = async (name) => {
             res: null
         }
     }
-}
+};
 
 const addSkill = async (name) => {
     try {
@@ -35,22 +35,18 @@ const addSkill = async (name) => {
 
 const deleteSkillById = async (id) => {
     try {
-        const res = SkillModel.findOneAndDelete({id: id});
-        return {
-            err: res,
-            res: null
-        }
-    } catch (e) {
-        return {
-            err: e,
-            res: null
-        }
-    }
-};
+        const query = {
+            _id: id
+        };
+        const update = {
+            deleted_at: Date.now()
+        };
+        const options = {
+            new: true
+        };
 
-const updateSkillById = async (skill) => {
-    try {
-        const res = await SkillModel.findOneAndUpdate({id: skill.id}, skill, {new: true})
+        const res = await SkillModel.findOneAndUpdate(query, update, options);
+
         return {
             err: false,
             res: res
@@ -63,10 +59,31 @@ const updateSkillById = async (skill) => {
     }
 };
 
-const getSkillList = async (type, page, limit) => {
+const updateSkillById = async (skill) => {
     try {
-        const _query = {
-            role: type
+        const update = {
+            name: skill.name,
+            updated_at: Date.now()
+        };
+        const res = await SkillModel
+            .findOneAndUpdate({_id: skill.id}, update, {new: true});
+
+        return {
+            err: false,
+            res: res
+        }
+    } catch (e) {
+        return {
+            err: e,
+            res: null
+        }
+    }
+};
+
+const getSkillList = async (page, limit) => {
+    try {
+        const query = {
+            deleted_at: null
         };
 
         const _option = {
@@ -74,7 +91,7 @@ const getSkillList = async (type, page, limit) => {
             limit: limit
         };
 
-        const res = await SkillModel.paginate(_query, _option);
+        const res = await SkillModel.paginate(query, _option);
 
         return {
             err: false,

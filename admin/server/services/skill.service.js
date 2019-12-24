@@ -45,6 +45,72 @@ const addNewSkill = async (payload) => {
     }
 };
 
+const deleteSkill = async (payload) => {
+        try {
+            let result = await SkillRepository.deleteSkillById(payload.id);
+            if (result.err) {
+                return {
+                    err: RES_CONSTANT.DB_ERROR,
+                    res: null,
+                    data: result.err
+                }
+            } else if (result.res == null) {
+                return {
+                    err: RES_CONSTANT.ITEM_NOT_EXISTED,
+                    res: null,
+                    data: result.err
+                }
+            }
+            return {
+                err: null,
+                res: RES_CONSTANT.DELETE_ITEM_SUCCESS,
+                data: result.res
+            }
+
+        } catch (e) {
+            return {
+                err: true,
+                res: {
+                    code: 'UK0',
+                    message: e.message()
+                }
+            }
+        }
+    };
+
+const updateSkill = async (payload) => {
+        try {
+            let result = await SkillRepository.updateSkillById(payload);
+            if (result.err) {
+                return {
+                    err: RES_CONSTANT.DB_ERROR,
+                    res: null,
+                    data: result.err
+                }
+            } else if (result.res == null) {
+                return {
+                    err: RES_CONSTANT.ITEM_NOT_EXISTED,
+                    res: null,
+                    data: result.err
+                }
+            }
+            return {
+                err: null,
+                res: RES_CONSTANT.UPDATE_ITEM_SUCCESS,
+                data: result.res
+            }
+
+        } catch (e) {
+            return {
+                err: true,
+                res: {
+                    code: 'UK0',
+                    message: e.message()
+                }
+            }
+        }
+    };
+
 const getSkillList = async (payload) => {
     try {
         let result = await SkillRepository.getSkillList(payload.page, payload.limit)
@@ -74,5 +140,7 @@ const getSkillList = async (payload) => {
 
 module.exports = {
     getSkillList,
-    addNewSkill
+    addNewSkill,
+    updateSkill,
+    deleteSkill
 };

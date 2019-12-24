@@ -1,9 +1,9 @@
-import {ADD_SKILL, DELETE_SKILL, EDIT_SKILL, GET_SKILL_LIST} from "../constants/apis";
+import {ADD_SKILL, BASE_URL, DELETE_SKILL, EDIT_SKILL, GET_SKILL_LIST} from "../constants/apis";
 import * as types from "../constants/actionTypes";
 
 const axios = require('axios').default.create({
     baseURL: BASE_URL,
-    timeout: 1000,
+    timeout: 3000,
 });
 
 export function setSkillList(_payload) {
@@ -20,7 +20,7 @@ export function setNewSkill(_payload) {
     return {
         type: types.ADD_SKILL,
         payload: {
-            datas: _payload.datas
+            data: _payload.data
         }
     }
 }
@@ -36,7 +36,7 @@ export function setDeleteSkill(_payload) {
     return {
         type: types.DELETE_SKILL,
         payload: {
-            datas: _payload.datas
+            data: _payload.data
         }
     }
 }
@@ -47,18 +47,18 @@ export function getSkillList(_payload) {
             .then(res => {
                 const _resData = res.data.dt;
 
-                let _payload = {
+                let payload = {
                     ...{},
                     ...{
                         datas: _resData.docs,
                         pagination: {
                             page: _payload.page,
                             limit: _payload.limit,
-                            totalPages: _resData.totalDocs
+                            totalPages: _resData.totalPages
                         }
                     }
                 };
-                dispatch(setSkillList(_payload));
+                dispatch(setSkillList(payload));
             })
     };
 }
@@ -70,13 +70,14 @@ export function addSkill(payload) {
         ...{},
         ...payload.data
     };
+    console.log(data);
     return dispatch => {
         return axios.post(`${url}`, data)
             .then(res => {
                 const _resData = {
                     ...{},
                     ...{
-                        datas: res.data.dt.docs,
+                        data: res.data.dt
                     }
                 };
                 dispatch(setNewSkill(_resData));
@@ -88,7 +89,7 @@ export function editSkill(payload) {
     const url = EDIT_SKILL;
     const data = {
         ...{},
-        ...payload.data
+        ...payload
     };
     return dispatch => {
         axios.put(url, data)
@@ -108,11 +109,12 @@ export function deleteSkill(payload) {
     const url = DELETE_SKILL;
     const data = {
         ...{},
-        ...payload.data
+        ...payload
     };
     return dispatch => {
-        axios.delete(url, data)
+        axios.put(url, data)
             .then(res => {
+                console.log(res.data)
                 const _resData = {
                     ...{},
                     ...{

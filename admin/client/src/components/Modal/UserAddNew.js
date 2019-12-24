@@ -18,6 +18,7 @@ import {
 import {addUser} from "../../actions/user.actions";
 import validateInput from "../../utils/validations/addNewUser";
 import Avatar from "../Avatar";
+import {cities} from "../../constants/cities";
 
 
 class UserAddNew extends React.Component {
@@ -29,6 +30,7 @@ class UserAddNew extends React.Component {
             username: '',
             password: '',
             passwordConfirmation: '',
+            email: '',
             fullname: '',
             city: '',
             is_active: '1',
@@ -50,7 +52,7 @@ class UserAddNew extends React.Component {
 
     onChangeAvatar(event) {
         const image = event.target.files.length >= 1 ? event.target.files[0] : null;
-        const imageUrl = image != null ? URL.createObjectURL(image) : ''
+        const imageUrl = image != null ? URL.createObjectURL(image) : '';
         this.setState({
             avatar: image,
             avatarUrl: imageUrl
@@ -80,6 +82,7 @@ class UserAddNew extends React.Component {
                             username: this.state.username,
                             password: this.state.password,
                             passwordConfirmation: this.state.passwordConfirmation,
+                            email: this.state.email,
                             fullname: this.state.fullName,
                             city: this.state.city,
                             is_active: this.state.is_active,
@@ -112,6 +115,13 @@ class UserAddNew extends React.Component {
     render() {
 
         const {errors} = this.state;
+
+        let itemsCity = cities.map((item) => {
+            return (
+                <option>{item}</option>
+            )
+        });
+
         return (
             <Modal returnFocusAfterClose isOpen={this.props.open} size="lg">
                 <ModalHeader>
@@ -158,6 +168,16 @@ class UserAddNew extends React.Component {
                             </Col>
                         </FormGroup>
                         <FormGroup row>
+                            <Label sm={2}>Email</Label>
+                            <Col sm={10}>
+                                <Input type="email" name="email" placeholder="Email"
+                                       value={this.state.email}
+                                       onChange={this.onChange}
+                                       invalid={errors.email}/>
+                                <FormFeedback>{errors.email}</FormFeedback>
+                            </Col>
+                        </FormGroup>
+                        <FormGroup row>
                             <Label sm={2}>Fullname</Label>
                             <Col sm={10}>
                                 <Input name="fullname" placeholder="Fullname"
@@ -171,8 +191,7 @@ class UserAddNew extends React.Component {
                                 <Input type="select" name="city" placeholder="City"
                                        value={this.state.city}
                                        onChange={this.onChange}>
-                                    <option>TP1</option>
-                                    <option>TP2</option>
+                                    {itemsCity}
                                 </Input>
                             </Col>
                         </FormGroup>
