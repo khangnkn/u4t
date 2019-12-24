@@ -1,11 +1,4 @@
-import {
-    DELETE_CONTRACT,
-    EDIT_CONTRACT,
-    GET_CONTRACT_LIST,
-    GET_REVENUE,
-    GET_REVENUE_TOTAL, GET_TOP_SALE_SKILLS,
-    GET_TOP_SALE_USERS
-} from "../constants/apis";
+import {GET_REVENUE, GET_REVENUE_TOTAL, GET_TOP_SALE_SKILLS, GET_TOP_SALE_USERS} from "../constants/apis";
 import * as types from "../constants/actionTypes";
 
 const axios = require('axios').default.create({
