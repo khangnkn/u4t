@@ -86,6 +86,13 @@ export default (state = initialState, action = {}) => {
                 ...state,
                 ...{datas: datas}
             };
+        case types.ADD_USER:
+            return {
+                ...state,
+                ...{
+                    datas: action.datas
+                }
+            };
         case types.EDIT_USER:
             return {
                 ...state,
@@ -101,7 +108,7 @@ export default (state = initialState, action = {}) => {
             return {
                 ...state,
                 ...{
-                    datas: state.datas.filter((item) => {
+                    datas: action.payload.datas.filter((item) => {
                         return (item.deleted_at !== null)
                     })
                 }

@@ -1,5 +1,4 @@
 import * as types from '../constants/actionTypes';
-import isEmpty from 'lodash/isEmpty';
 
 const initialState = {
     datas: [],
