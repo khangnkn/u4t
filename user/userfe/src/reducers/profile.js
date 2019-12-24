@@ -1,58 +1,50 @@
 import * as types from '../constants/ActionTypes'
-// function loadAvatarPreviewUrl() {
-//     var userCookie = JSON.parse(localStorage.getItem('user'));
-//     return userCookie ? userCookie.avatar : "";
-// }
+function loadAvatarPreviewUrl() {
+    var userCookie = JSON.parse(localStorage.getItem('user'));
+    return userCookie ? userCookie.avatar : "";
+}
 
-// function loadId() {
-//     var userCookie = JSON.parse(localStorage.getItem('user'));
-//     return userCookie ? userCookie.id : "";
-// }
+function loadId() {
+    var userCookie = JSON.parse(localStorage.getItem('user'));
+    return userCookie ? userCookie._id : "";
+}
 
-// function loadUsername() {
-//     var userCookie = JSON.parse(localStorage.getItem('user'));
-//     return userCookie ? userCookie.username : "";
-// }
+function loadUsername() {
+    var userCookie = JSON.parse(localStorage.getItem('user'));
+    return userCookie ? userCookie.username : "";
+}
 
-// function loadUserInfor(){
-//     var userCookie = JSON.parse(localStorage.getItem('user'));
-//     var user = userCookie.user;
-//     return {
-//             hoTen: user.hoTen,
-//             gioiTinh: user.gioiTinh,
-//             email: user.email,
-//             sdt: user.sdt,
-//             diaChi: user.diaChi,
-//             ttp: user.ttp,
-//             role: user.role,
-//     }
-// }
+function loadUserInfor(){
+    var userCookie = JSON.parse(localStorage.getItem('user'));
+    if (userCookie === null)   return null;
+    return {
+            hoTen: userCookie.fullname,
+            gioiTinh: userCookie.sex,
+            email: userCookie.email,
+            sdt: userCookie.phone,
+            diaChi: userCookie.address,
+            ttp: userCookie.city,
+            role: userCookie.role,
+    }
+}
+
+function loadUserData() {
+    var userCookie = JSON.parse(localStorage.getItem('user'));
+    if (userCookie === null) return null;
+    return userCookie.data;
+}
 
 var initialState = {
     user: {
-        id: 1,
-        userName: 2,
-        infor: {
-            hoTen: '',
-            gioiTinh: 1,
-            email: "",
-            sdt: "",
-            diaChi: "",
-            ttp: "",
-            role: 0,
-        },
+        id: loadId(),
+        userName: loadUsername(),
+        infor: loadUserInfor(),
         avatar: null,
-        data: {
-            trinhDo: 0,
-            kyNang: [],
-            giaTien: 0,
-            tieuDe: "",
-            tongQuan: ""
-        }
+        data: loadUserData()
     },
     step: 1,
     currStep: 1,
-    avatarPreviewUrl: '',
+    avatarPreviewUrl: loadAvatarPreviewUrl(),
     requestUpdate: false
 }
 

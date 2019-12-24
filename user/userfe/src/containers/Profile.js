@@ -10,15 +10,16 @@ import { helperService } from '../actions/HelperService';
 import '../public/stylesheets/air2.css';
 import '../public/stylesheets/air2_1.css';
 import '../public/stylesheets/footer.css';
+import '../public/stylesheets/auth.scss';
 import SimpleReactValidator from 'simple-react-validator';
 
 class Profile extends React.Component {
     constructor(props) {
         super(props);
-        this.renderNav = this.renderNav.bind(this);
+        // this.renderNav = this.renderNav.bind(this);
         this.renderSideBar = this.renderSideBar.bind(this);
         this.renderJobForm = this.renderJobForm.bind(this);
-        this.renderFooter = this.renderFooter.bind(this);
+        // this.renderFooter = this.renderFooter.bind(this);
         this.renderInforForm = this.renderInforForm.bind(this);
         this.renderOverviewForm = this.renderOverviewForm.bind(this);
 
@@ -84,31 +85,6 @@ class Profile extends React.Component {
     handleNext(event) {
         event.preventDefault();
         this.props.handleNext();
-    }
-
-    renderNav() {
-        return (
-            <nav aria-label="Navigation bar" className="navbar">
-                <div className="container">
-                    <div className="navbar-header">
-                        <a href="/" className="nv-brand">U4T</a>
-                    </div>
-                    <div className="navbar-collapse">
-                        <div slot="header-text" className="navbar-text navbar-right">
-                            <p className="m-0-bottom">
-                                <span>
-                                    Logged in as
-                              {' '}
-                                    {this.props.profile.user.username}
-                                </span>
-                                <br />
-                                <a href={this.props.logout()} className="navbar-link">Log out</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-        );
     }
 
     renderSideBar() {
@@ -394,39 +370,6 @@ class Profile extends React.Component {
         );
     }
 
-    renderFooter() {
-        return (
-            <footer id="myFooter">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-sm-3">
-                            <h5><a href="/">Trang chủ</a></h5>
-                        </div>
-                        <div className="col-sm-3">
-                            <h5><a href="/login">Đăng nhập</a></h5>
-                        </div>
-                        <div className="col-sm-3">
-                            <h5><a href="/register">Đăng kí</a></h5>
-                        </div>
-                        <div className="col-sm-3 info">
-                            <h5>Information</h5>
-                            <p> Đây là trang web dành cho freelancer</p>
-                        </div>
-                    </div>
-                </div>
-                <div className="second-bar">
-                    <div className="container">
-                        <h2 className="logo"><a href="/"> U4T </a></h2>
-                        <div className="social-icons">
-                            {/* <a href="#" className="twitter"><i className="fa fa-twitter"></i></a>
-                    <a href="#" className="facebook"><i className="fa fa-facebook"></i></a>
-                    <a href="#" className="google"><i className="fa fa-google-plus"></i></a> */}
-                        </div>
-                    </div>
-                </div>
-            </footer>
-        );
-    }
     componentWillReceiveProps(){
         this.validator.showMessages();
     }

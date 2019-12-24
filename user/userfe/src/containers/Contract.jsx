@@ -5,13 +5,16 @@ import { ListGroup } from 'react-bootstrap';
 import { helperService } from '../actions/HelperService';
 import { Button } from 'react-bootstrap';
 const Contract = (props) => {
-    // var contract;
+    var validator = new SimpleReactValidator();
+    var contract;
     var componentDidMount = () => {
         helperService.loadContract(id).then(data => {
-            this.contract = data.data;
+            contract = data.data;
         })
     }
-
+    var componentWillReceiveProps = () => {
+        validator.showMessages();
+    }
     var handleComplainDataChange = (event) => {
         var { name, value } = event.target;
         props.handleComplainDataChange(name, value);
@@ -21,20 +24,20 @@ const Contract = (props) => {
         props.handleReviewDataChange(name, value);
     }
     var handleReviewContractSubmit = () => {
-        var {_id} = contract;
-        var {review} = props.contract;
-        props.handleReviewContractSubmit(_id,review);
+        var { _id } = contract;
+        var { review } = props.contract;
+        props.handleReviewContractSubmit(_id, review);
     }
     var handleComplainContractSubmit = () => {
-        var {_id} = this.contract;
-        var {complain} = props.contract;
-        props.handleComplainContractSubmit(_id,complain);
+        var { _id } = contract;
+        var { complain } = props.contract;
+        props.handleComplainContractSubmit(_id, complain);
     }
     var handleCompleteContractSubmit = () => {
-        var {_id} = this.contract;
+        var { _id } = contract;
         props.handleCompleteContractSubmit(_id);
     }
-    var contractOverview = (contract) => {
+    var contractOverview = () => {
         return (
             <div className="air-card m-0-top m-0-right-md m-0-right-xl p-0-top-bottom">
                 <div className="content col-lg-9">
@@ -43,7 +46,7 @@ const Contract = (props) => {
                     </header>
                     <section className="air-card-divider-sm">
                         <div className="job-description break">
-                            {contract.moTa}
+                            {contract.description}
                         </div>
                     </section>
                     <section className="air-card-divider-sm">
@@ -51,7 +54,7 @@ const Contract = (props) => {
                             <li>
                                 <i className="glyphicon air-icon-clock-hourly jobdetails-tier-level-icon"></i>
                                 <strong>Mức lương/Giờ</strong>
-                                <small className="text-muted">{contract.giaTien}</small>
+                                <small className="text-muted">{contract.price}</small>
                             </li>
                             <li>
                                 <i className="glyphicon air-icon-calendar-under1month-alt jobdetails-tier-level-icon"></i>
@@ -59,8 +62,8 @@ const Contract = (props) => {
                                     <span className="d-none d-lg-inline">Thời gian</span>
                                 </strong>
                                 <small className="text-muted">
-                                    <span className="d-none d-lg-inline">{contract.ngayBatDau} - {contract.ngayKetThuc}</span>
-                                    <span className="d-none d-lg-inline">{contract.ghGio} giờ/tuần</span>
+                                    <span className="d-none d-lg-inline">{contract.startDate} - {contract.endDate}</span>
+                                    {/* <span className="d-none d-lg-inline">{contract.ghGio} giờ/tuần</span> */}
                                 </small>
                             </li>
 
@@ -72,7 +75,7 @@ const Contract = (props) => {
                                 </strong>
                                 <small className="text-muted">
                                     <span className="d-none d-lg-inline">
-                                        {contract.tongTien}
+                                        {contract.total}
                                     </span>
                                 </small>
                             </li>
@@ -193,6 +196,37 @@ const Contract = (props) => {
             </div>
         );
     }
+    const board = () => {
+        return (
+            <div class="cfe-main p-0-left-right-xs col-xs-12 col-lg-9">
+                <div dclass="ng-scope">
+                    <div class="ng-scope">
+                        <div class="m-0-right ng-scope">
+                            <div class="ng-scope ng-isolate-scope">
+                                <div class="p-0-top-bottom m-0-right m-0-left-right-md m-0-left-right-xl air-card">
+                                    <header class="ng-scope">
+                                        <div class="d-flex vertical-align-middle justify-content-space-between align-items-start">
+                                            <h2 class="cfe-assignments-title m-0-top-bottom">{tt}</h2>
+                                        </div>
+                                    </header>
+                                    <div class="in" aria-expanded="true" aria-hidden="false" style="height: auto;">
+                                        <section class="p-lg-top responsive assigment-list-content ng-scope">
+                                            <div class="m-sm-bottom ng-scope">
+                                                <div class="ng-scope">
+                                                {contractOverview()}
+                                                {props.contract.selected === 0 ? contractReview() : contractComplain()}
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
     return (
         <div id="layout" class="layout">
             <div class="layout-page-content">
@@ -203,7 +237,7 @@ const Contract = (props) => {
                                 <div class="fe-ui-application responsive">
                                     <div class="fe-ui-application cfe-ui-application">
                                         <div class="row eo-block-none o-profile">
-                                            {props.contract.selected === 0 ? contractReview() : contractComplain()}
+                                            {board()}
                                             {controller()}
                                         </div>
                                     </div>
@@ -229,11 +263,11 @@ const mapDispatchToProps = (dispatch, props) => ({
     handleReviewDataChange: (name, value) => {
         dispatch(actions.handleReviewDataChange(name, value));
     },
-    handleReviewContractSubmit: (_id,review) => {
-        dispatch(actions.handleReviewContractSubmit(_id,review));
+    handleReviewContractSubmit: (_id, review) => {
+        dispatch(actions.handleReviewContractSubmit(_id, review));
     },
-    handleComplainContractSubmit: (_id,complain) => {
-        dispatch(actions.handleComplainContractSubmit(_id,complain));
+    handleComplainContractSubmit: (_id, complain) => {
+        dispatch(actions.handleComplainContractSubmit(_id, complain));
     },
     handleCompleteContractSubmit: (_id) => {
         dispatch(actions.handleComplainContractSubmit(_id));

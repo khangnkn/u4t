@@ -33,8 +33,8 @@ class CreateContract extends React.Component {
     this.validator.showMessages();
   }
   componentDidMount() {
-    var userCookie = JSON.parse(localStorage.getItem(user));
-    helperService.loadUserInfor(id).then(data => {
+    var userCookie = JSON.parse(localStorage.getItem('user'));
+    helperService.loadUserInfor(userCookie._id).then(data => {
       this.setState({ inforTutor: data });
       this.props.setId(userCookie.id, data.id);
     })

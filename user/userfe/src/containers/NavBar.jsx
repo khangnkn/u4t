@@ -2,7 +2,7 @@ import React from 'react';
 import {Dropdown} from 'react-bootstrap';
 const NavBar = () => {
   const renderForLoggedIn = () => {
-    const storage = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(localStorage.getItem('user'));
     return (
       <div className="navbar-collapse-air d-none d-lg-flex">
         <div className="navbar-form-air">
@@ -26,7 +26,7 @@ const NavBar = () => {
                     type="search"
                     name="q"
                     tabIndex="0"
-                    placeholder="Find Freelancers &amp; Agencies"
+                    placeholder="Tìm kiếm người dạy phù hợp"
                   />
                 </div>
               </form>

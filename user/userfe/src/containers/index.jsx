@@ -4,7 +4,7 @@ import {
   Route, Router, Switch, Redirect,
 } from 'react-router-dom';
 import Login from './Login';
-import Register from './Register';
+import Register from './Register.jsx';
 import Profile from './Profile';
 import Search from './Search';
 import Home from './Home';

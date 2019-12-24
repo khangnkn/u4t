@@ -33,9 +33,10 @@ const Register = (props) => {
       <div className="auth-block">
         <h1>Sign Up</h1>
         <a href="/login" className="auth-link">You have an account?Sign in!</a>
-        {alert.message
-                        && <div className={`alert ${alert.type} auth-alert-app`}>{alert.message}</div>}
+       
         <Form className="form-horizontal" onSubmit={handleSubmit}>
+        {alert.message
+                        && <div className={`alert alert-${alert.type} auth-alert-app`}>{alert.message}</div>}
           <div className="form-group row">
             <Form.Label htmlFor="inputUser1" className="col-sm-3 control-label">Username</Form.Label>
             <div className="col-sm-9">
@@ -59,7 +60,7 @@ const Register = (props) => {
           <div className="form-group row">
             <Form.Label htmlFor="inputRole1" className="col-sm-3 control-label">I want to</Form.Label>
             <div className="col-sm-9">
-              <Form.Control className="form-control" onChange={handleChange} id="inputRole1" name="role" as="select" defaultValue="0" style={{height: '40px'}}>
+              <Form.Control className="height40 form-control" onChange={handleChange} id="inputRole1" name="role" as="select" defaultValue="0" st>
                 <option value="0">Hide a teacher</option>
                 <option value="1">Work as a teacher</option>
               </Form.Control>

@@ -179,25 +179,25 @@ export const handleMessageChatRoom = (mess) => ({
   mess,
 });
 
-export const handleControllerSelectContractManagement = (value) => {
+export const handleControllerSelectContractManagement = (value) => ({
   type: types.HANDLE_CONTROLLER_SELECT_CONTRACT_MANAGEMENT,
   value
-}
-export const handleLoadListContractManagement = (data) => {
+});
+export const handleLoadListContractManagement = (data) => ({
   type: types.HANDLE_LOAD_LIST_CONTRACT_MANAGEMENT,
   data
-}
+});
 
 // 
-export const handleComplainDataChange = (name,value) => {
+export const handleComplainDataChange = (name,value) => ({
   type: types.HANDLE_COMPLAIN_DATA_CHANGE,
   name,value
-}
+});
 
-export const handleReviewDataChange = (name,value) => {
+export const handleReviewDataChange = (name,value) => ({
   type: types.HANDLE_REVIEW_DATA_CHANGE,
   name,value
-}
+})
 
 export const handleReviewContractSubmit = (_id,review) => {
   return (dispatch) => {
@@ -247,7 +247,7 @@ export const handleCompleteContractSubmit = (_id) => {
   }
 }
 
-export const handleContractControllerSelect = (selected) => {
+export const handleContractControllerSelect = (selected) => ({
   type: types.HANDLE_CONTRACT_CONTROLLER_SELECT,
   selected
-}
+});

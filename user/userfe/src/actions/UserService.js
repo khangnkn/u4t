@@ -144,8 +144,8 @@ function submitReviewContract(_id,review){
   const headers = new Headers();
   const userCookie = JSON.parse(localStorage.getItem('user'));
 
-  header.append('Content-Type', 'application/json');
-  header.append('Authorization', userCookie ? `Bearer${userCookie.token}` : 'Bearer');
+  headers.append('Content-Type', 'application/json');
+  headers.append('Authorization', userCookie ? `Bearer${userCookie.token}` : 'Bearer');
 
   const fd = new FormData();
   fd.append('_id',JSON.stringify(_id));
@@ -153,7 +153,7 @@ function submitReviewContract(_id,review){
 
   const req = new Request('/api/contracts/addreview', {
     method: 'POST',
-    headers: header,
+    headers: headers,
     mode: 'no-cors',
     body: fd,
   });
@@ -165,8 +165,8 @@ function submitComplainContract(_id,complain){
   const headers = new Headers();
   const userCookie = JSON.parse(localStorage.getItem('user'));
 
-  header.append('Content-Type', 'application/json');
-  header.append('Authorization', userCookie ? `Bearer${userCookie.token}` : 'Bearer');
+  headers.append('Content-Type', 'application/json');
+  headers.append('Authorization', userCookie ? `Bearer${userCookie.token}` : 'Bearer');
 
   const fd = new FormData();
   fd.append('_id',JSON.stringify(_id));
@@ -174,7 +174,7 @@ function submitComplainContract(_id,complain){
 
   const req = new Request('/api/contracts/addcomplain', {
     method: 'POST',
-    headers: header,
+    headers: headers,
     mode: 'no-cors',
     body: fd,
   });
@@ -186,15 +186,15 @@ function submitCompleteContract(_id){
   const headers = new Headers();
   const userCookie = JSON.parse(localStorage.getItem('user'));
 
-  header.append('Content-Type', 'application/json');
-  header.append('Authorization', userCookie ? `Bearer${userCookie.token}` : 'Bearer');
+  headers.append('Content-Type', 'application/json');
+  headers.append('Authorization', userCookie ? `Bearer${userCookie.token}` : 'Bearer');
 
   const fd = new FormData();
   fd.append('_id',JSON.stringify(_id));
 
   const req = new Request('/api/contracts/complete', {
     method: 'POST',
-    headers: header,
+    headers: headers,
     mode: 'no-cors',
     body: fd,
   });

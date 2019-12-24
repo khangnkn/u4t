@@ -208,6 +208,7 @@ a.forgot-pass {
     }
 }
 .auth-alert-app{
+  text-align: center;
   margin-bottom: 10px;
   width: 100%;
 }
@@ -223,4 +224,8 @@ a.forgot-pass {
   padding-left: 10px;
   margin-bottom: 12px;
   cursor: pointer;
+}
+
+.height40{
+  height: 40px !important;
 }

@@ -30,9 +30,9 @@ const Login = (props) => {
       <div className="auth-block">
         <h1>Sign In</h1>
         <a href="/register" className="auth-link">New To Us?Sign up!</a>
-        {alert.message
-                            && <div className={`alert ${alert.type} auth-alert-app`}>{alert.message}</div>}
         <Form className="form-horizontal" onSubmit={handleSubmit}>
+          {alert.message
+            && <div className={`alert alert-${alert.type} auth-alert-app`}>{alert.message}</div>}
           <div className="form-group row">
             <Form.Label htmlFor="inputUser1" className="col-sm-3 control-label float-right">Username</Form.Label>
             <div className="col-sm-9">
