@@ -40,11 +40,21 @@ const search = (data) => {
 function loadContract(id) {
   const requestOptions = {
       method: 'GET',
-      headers: { 'Content-Type': 'application/json','_id' : id}
+      headers: { 'Content-Type': 'application/json'}
   }
   return fetch(`/api/contracts/${id}`,requestOptions).then(resp => resp.json()).then(data => {
       return data;
   });
+}
+
+function loadUserInfor(id){
+  const requestOptions = {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json'}
+}
+return fetch(`/api/users/${id}`,requestOptions).then(resp => resp.json()).then(data => {
+    return data;
+});
 }
 
 const helperService = {
@@ -53,6 +63,7 @@ const helperService = {
   loadLevels,
   loadContract,
   search,
+  loadUserInfor
 };
 
 export {
