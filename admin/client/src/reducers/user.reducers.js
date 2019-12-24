@@ -32,37 +32,49 @@ export default (state = initialState, action = {}) => {
     switch (action.type) {
         case types.SET_STUDENT_LIST:
             return {
-                datas: action.datas,
-                role: action.role,
-                detail: {},
-                paginationStudent: action.paginationStudent
+                ...state,
+                ...{
+                    datas: action.datas,
+                    role: action.role,
+                    detail: {},
+                    paginationStudent: action.paginationStudent
+                }
             };
         case types.SET_TEACHER_LIST:
             return {
-                datas: action.datas,
-                role: action.role,
-                detail: {},
-                paginationTeacher: action.paginationTeacher
+                ...state,
+                ...{
+                    datas: action.datas,
+                    role: action.role,
+                    detail: {},
+                    paginationTeacher: action.paginationTeacher
+                }
 
             };
         case types.SET_ADMIN_LIST:
             return {
-                datas: action.datas,
-                role: action.role,
-                detail: {},
-                paginationAdmin: action.paginationAdmin
+                ...state,
+                ...{
+                    datas: action.datas,
+                    role: action.role,
+                    detail: {},
+                    paginationAdmin: action.paginationAdmin
+                }
             };
         case types.SET_ROOT_LIST:
             return {
-                datas: action.datas,
-                role: action.role,
-                detail: {},
-                paginationRoot: action.paginationRoot
-
+                ...state,
+                ...{
+                    datas: action.datas,
+                    role: action.role,
+                    detail: {},
+                    paginationRoot: action.paginationRoot
+                }
             };
         case types.SET_DETAIL_ACCOUNT:
             return {
-                ...state, ...{detail: action.payload}
+                ...state,
+                ...{detail: action.payload}
             };
         case types.SET_LOCK_ACCOUNT:
             let datas = state.datas.map(item =>
@@ -70,7 +82,30 @@ export default (state = initialState, action = {}) => {
                     ? {...{}, ...action.payload}
                     : item
             );
-            return {...state, ...{datas: datas}};
+            return {
+                ...state,
+                ...{datas: datas}
+            };
+        case types.EDIT_USER:
+            return {
+                ...state,
+                ...{
+                    datas: state.datas.map(item =>
+                        (item._id === action.payload._id)
+                            ? {...{}, ...action.payload}
+                            : item
+                    )
+                }
+            };
+        case types.DELETE_USER:
+            return {
+                ...state,
+                ...{
+                    datas: state.datas.filter((item) => {
+                        return (item.deleted_at !== null)
+                    })
+                }
+            };
         default:
             return state
     }
