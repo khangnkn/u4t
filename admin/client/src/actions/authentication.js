@@ -21,12 +21,13 @@ export function login(data) {
         }
     };
     return dispatch => {
-        return axios.post(LOG_IN, _data).then(res => {
-            const token = res.data.token;
-            localStorage.setItem('jwtToken', token);
-            setAuthorizationToken(token);
-            dispatch(setCurrentUser(jwtDecode(token)));
-        })
+        return axios.post(LOG_IN, _data)
+            .then(res => {
+                const token = res.data.token;
+                localStorage.setItem('jwtToken', token);
+                setAuthorizationToken(token);
+                dispatch(setCurrentUser(jwtDecode(token)));
+            })
     };
 }
 
