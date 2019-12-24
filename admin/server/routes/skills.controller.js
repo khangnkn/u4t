@@ -47,7 +47,7 @@ router.put('/update', async (req, res) => {
         let result = await SkillService.updateSkill(req.body);
         if (result.err) {
             return await res.status(400).json(
-                ResponseFormat.error(result.err.code, result.err.message, null)
+                ResponseFormat.error(result.err.code, result.err.message, result.data.message)
             )
         } else if (result.res) {
             return await res.status(200).json(
