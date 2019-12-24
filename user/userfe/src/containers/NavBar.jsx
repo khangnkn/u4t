@@ -37,7 +37,7 @@ const NavBar = () => {
         <div className="navbar-text navbar-right">
           <p className="m-0-bottom">
             <span>
-              {storage ? `Logged as ${storage.user.fullname}` : 'Hi, there!'}
+              {user ? `Logged as ${user.fullname}` : 'Hi, there!'}
             </span>
             <br />
             <a href="" className="navbar-link">Log out</a>

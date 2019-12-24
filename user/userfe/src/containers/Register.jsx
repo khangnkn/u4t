@@ -8,7 +8,7 @@ import '../public/stylesheets/auth.scss';
 import SimpleReactValidator from 'simple-react-validator';
 
 const Register = (props) => {
-  var validator = new SimpleReactValidator();
+  // var validator = new SimpleReactValidator();
   const handleChange = (event) => {
     const { name, value } = event.target;
     props.handleRegisterChange(name, value);

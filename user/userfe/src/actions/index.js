@@ -182,14 +182,14 @@ export const handleMessageChatRoom = (mess) => ({
   mess,
 });
 
-export const handleControllerSelectContractManagement = (value) => {
+export const handleControllerSelectContractManagement = (value) => ({
   type: types.HANDLE_CONTROLLER_SELECT_CONTRACT_MANAGEMENT,
   value
-};
-export const handleLoadListContractManagement = (data) => {
+});
+export const handleLoadListContractManagement = (data) => ({
   type: types.HANDLE_LOAD_LIST_CONTRACT_MANAGEMENT,
   data
-};
+});
 
 export const handleSearchData = (name, value) => ({
   type: types.HANDLE_SEARCH_DATA,
@@ -212,17 +212,6 @@ export const handleSearch = (name, skill, city, price) => {
     });
   };
 };
-
-export const handleControllerSelectContractManagement = (value) => ({
-  type: types.HANDLE_CONTROLLER_SELECT_CONTRACT_MANAGEMENT,
-  value,
-});
-export const handleLoadListContractManagement = (data) => ({
-  type: types.HANDLE_LOAD_LIST_CONTRACT_MANAGEMENT,
-  data,
-});
-
-//
 export const handleComplainDataChange = (name, value) => ({
   type: types.HANDLE_COMPLAIN_DATA_CHANGE,
   name,

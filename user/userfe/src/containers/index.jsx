@@ -5,7 +5,7 @@ import {
 } from 'react-router-dom';
 import Login from './Login';
 import Register from './Register.jsx';
-import Profile from './Profile';
+import Profile from './Profile.jsx';
 import Search from './Search';
 import Home from './Home';
 import TeacherProfile from './TeacherProfile';
@@ -30,7 +30,7 @@ const App = () => {
         <Route path="/chat" component={RoomChat} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
-        {userCookie ? <Route path="/profile" component={Profile} /> : null}
+        {true ? <Route path="/profile" component={Profile} /> : null}
         <Route path="/search" component={Search} />
       </Switch>
     </Router>

@@ -18,12 +18,12 @@ function loadUserInfor(){
     var userCookie = JSON.parse(localStorage.getItem('user'));
     if (userCookie === null)   return null;
     return {
-            hoTen: userCookie.fullname,
-            gioiTinh: userCookie.sex,
+            fullname: userCookie.fullname,
+            sex: userCookie.sex,
             email: userCookie.email,
-            sdt: userCookie.phone,
-            diaChi: userCookie.address,
-            ttp: userCookie.city,
+            phone: userCookie.phone,
+            address: userCookie.address,
+            city: userCookie.city,
             role: userCookie.role,
     }
 }

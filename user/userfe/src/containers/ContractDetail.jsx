@@ -1,6 +1,19 @@
 import React from 'react'
 import { userService } from '../actions/UserService';
 // import SimpleReactValidator from 'simple-react-validator';
+
+const ContractDetail = (props) => {
+    var contract;
+
+    var componentDidMount = () => {
+        var id = props.match.params.id;
+        userService.getContractDetail(id).then(data => {
+            this.setState({ contract: data.contract });
+        })
+    }
+    
+}
+
 class ContractDetail extends React.Component {
     constructor(props) {
         super(props);
@@ -12,9 +25,7 @@ class ContractDetail extends React.Component {
     }
     componentDidMount() {
         var id = 'cmt8';
-        userService.getContractDetail(id).then(data => {
-            this.setState({ contract: data.contract });
-        })
+
     }
     handleDesicionContractAcception(value) {
         userService.desicionContractAccept(state.id,value).then(data => {

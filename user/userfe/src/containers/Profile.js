@@ -20,6 +20,7 @@ class Profile extends React.Component {
         this.renderSideBar = this.renderSideBar.bind(this);
         this.renderJobForm = this.renderJobForm.bind(this);
         // this.renderFooter = this.renderFooter.bind(this);
+        this.renderTitleForm = this.renderTitleForm.bind(this);
         this.renderInforForm = this.renderInforForm.bind(this);
         this.renderOverviewForm = this.renderOverviewForm.bind(this);
         this.renderFooterForm = this.renderFooterForm.bind(this);
@@ -298,7 +299,7 @@ class Profile extends React.Component {
                             var flat = false;
                             data.skills.forEach(element => {
                                 if (element === e._id)
-                                    {flat = true;break;}
+                                    {flat = true;}
                             });
                             return (
                                 <div className="checkbox col-md-6" key={i}>
