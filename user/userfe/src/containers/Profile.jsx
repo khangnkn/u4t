@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { Button, Form } from 'react-bootstrap';
 import '../public/stylesheets/air2.css';
 import '../public/stylesheets/air2_1.css';
+import '../public/stylesheets/air2-ng-cat.css';
 import '../public/stylesheets/footer.css';
 import '../public/stylesheets/auth.scss';
 import SimpleReactValidator from 'simple-react-validator';
@@ -218,7 +219,7 @@ const Profile = (props) => {
                     <div className="col-sm-6 m-lg-bottom">
                         <div className="form-group">
                             <Form.Label className="">Giới tính</Form.Label>
-                            <Form.Control as="select" onChange={handleInforChange} selected={user.infor.sex} name="sex" className="form-control sessioncamexclude">
+                            <Form.Control as="select" onChange={handleInforChange} selected={user.infor.sex === '' ? '' : user.infor.sex} name="sex" className="form-control sessioncamexclude">
                                 <option value="0">Nam</option>
                                 <option value="1">Nữ</option>
                             </Form.Control>

@@ -1,9 +1,10 @@
 import React from 'react';
 import { Dropdown } from 'react-bootstrap';
+import * as actions from '../actions/index';
 
-const NavBar = () => {
+const NavBar = (props) => {
   const renderForLoggedIn = () => {
-    const storage = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(localStorage.getItem('user'));
     return (
       <div className="navbar-collapse-air d-none d-lg-flex">
         <div className="navbar-form-air">
@@ -36,11 +37,21 @@ const NavBar = () => {
 
         <div className="navbar-text navbar-right">
           <p className="m-0-bottom">
-            <span>
-              {user ? `Logged as ${user.fullname}` : 'Hi, there!'}
-            </span>
-            <br />
-            <a href="" className="navbar-link">Log out</a>
+
+            <Dropdown>
+              <Dropdown.Toggle variant="infor" id="dropdown-basic">
+                <span>
+                  {user ? `Logged as ${user.fullname}` : 'Hi, there!'}
+                </span>
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item href="/profile">Profile</Dropdown.Item>
+                <Dropdown.Item href="/message">Tin nhắn</Dropdown.Item>
+                <Dropdown.Item href="/contract">Hợp đòng </Dropdown.Item>
+                <Dropdown.Item onClick={actions.logOut} className="navbar-link">Đăng xuất</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
           </p>
         </div>
       </div>
@@ -76,17 +87,6 @@ const NavBar = () => {
           </div>
         </div>
       </div>
-      <Dropdown>
-        <Dropdown.Toggle variant="infor" id="dropdown-basic">
-            Dropdown Button
-        </Dropdown.Toggle>
-
-        <Dropdown.Menu style={{ height: '300px', width: '500px' }}>
-          <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-          <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-          <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
       <ul className="navbar-nav navbar-lg navbar-subnav navbar-right">
         <li role="none"><a href="/login"> Log In</a></li>
         <li role="none"><a href="/register"> Sign up</a></li>
@@ -106,5 +106,9 @@ const NavBar = () => {
     </nav>
   );
 };
+
+const mapStateToProps = (state) => {
+
+}
 
 export default NavBar;

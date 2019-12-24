@@ -16,15 +16,15 @@ function loadUsername() {
 
 function loadUserInfor(){
     var userCookie = JSON.parse(localStorage.getItem('user'));
-    if (userCookie === null)   return null;
+    if (userCookie === null) return null;
     return {
-            fullname: userCookie.fullname,
-            sex: userCookie.sex,
-            email: userCookie.email,
-            phone: userCookie.phone,
-            address: userCookie.address,
-            city: userCookie.city,
-            role: userCookie.role,
+            fullname: userCookie.fullname ? userCookie.fullname : '',
+            sex: userCookie.sex ? userCookie.sex : 0,
+            email: userCookie.email ? userCookie.email : '',
+            phone: userCookie.phone ? userCookie.phone : '',
+            address: userCookie.address ? userCookie.address : '',
+            city: userCookie.city ? userCookie.city : {_id: '',name: ''},
+            role: userCookie.role ? userCookie.role : 0,
     }
 }
 
