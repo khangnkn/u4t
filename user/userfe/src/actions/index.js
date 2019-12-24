@@ -182,15 +182,6 @@ export const handleMessageChatRoom = (mess) => ({
   mess,
 });
 
-export const handleControllerSelectContractManagement = (value) => {
-  type: types.HANDLE_CONTROLLER_SELECT_CONTRACT_MANAGEMENT,
-  value
-};
-export const handleLoadListContractManagement = (data) => {
-  type: types.HANDLE_LOAD_LIST_CONTRACT_MANAGEMENT,
-  data
-};
-
 export const handleSearchData = (name, value) => ({
   type: types.HANDLE_SEARCH_DATA,
   name,

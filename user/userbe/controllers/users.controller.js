@@ -7,18 +7,20 @@ const UserRepository = require('../repository/user.repository');
 const parseUser = (body) => {
   const result = {
     email: body.infor.email,
-    fullname: body.infor.hoTen,
-    address: body.infor.diaChi,
-    city: body.infor.ttp,
+    fullname: body.infor.fullname,
+    address: body.infor.address,
+    gender: body.infor.gender,
+    phone: body.infor.phone,
+    city: body.infor.city,
     role: body.infor.role,
   };
 
   if (body.infor.role === 1) {
     const metadata = {
-      level: body.data.trinhDo,
-      skills: body.data.kyNang,
-      intro: body.data.tongQuan,
-      price: body.data.giaTien,
+      level: body.data.level,
+      skills: body.data.skills,
+      intro: body.data.intro,
+      price: body.data.price,
     };
     result.data = metadata;
   }
@@ -30,8 +32,10 @@ const UpdateUserInfo = (req, res, next) => {
   const { body } = req;
   const avatar = req.file;
   const user = parseUser(body);
+  const id = res.locals.user._id;
   user.avatar = avatar;
-  User.findByIdAndUpdate(body.id, user, (err, foundUser) => {
+  console.log(user);
+  User.findByIdAndUpdate(id, user).populate(['city', 'data.level']).exec((err, foundUser) => {
     if (err) {
       return next({
         status: SC.INTERNAL_SERVER_ERROR,
