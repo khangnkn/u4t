@@ -10,6 +10,7 @@ function handleLogOut(resp) {
 
 function logOut() {
   localStorage.removeItem('user');
+  window.location.reload(true);
 }
 function login(username, password) {
   const requestOptions = {
@@ -82,7 +83,7 @@ function loadTop4() {
     headers: { 'Content-Type': 'application/json' },
   };
 
-  return fetch('/api/top4', requestOptions).then((resp) => resp.json()).then((data) => data.data);
+  return fetch('/api/tutors/top', requestOptions).then((resp) => resp.json()).then((data) => data.data);
 }
 
 function createContract(contract) {
@@ -145,7 +146,11 @@ export default {
   logOut,
   update,
   loadTop4,
+<<<<<<< HEAD
   loadAllContract,
   createContract,
   desicionContractAccept
+=======
+
+>>>>>>> ef31a82d8c84317028b6d6618145626c2489efac
 };

@@ -1,6 +1,8 @@
 import React from 'react';
 
-import { Route, Router } from 'react-router-dom';
+import {
+  Route, Router, Switch, Redirect,
+} from 'react-router-dom';
 import Login from './Login';
 import Register from './Register';
 import Profile from './Profile';
@@ -15,6 +17,7 @@ import history from '../helpers/HistoryHelper';
 const App = () => {
   const userCookie = localStorage.getItem('user');
   return (
+<<<<<<< HEAD
     <div>
       <div className="">
         <Router history={history}>
@@ -29,6 +32,27 @@ const App = () => {
         </Router>
       </div>
     </div>
+=======
+  // <div>
+  // /* <div className=""> */
+    <Router history={history}>
+      <Switch>
+        <Route exact path="/">
+          <Redirect to="/home" />
+        </Route>
+        <Route path="/home" component={Home} />
+        <Route path="/tutorprofile/:id" component={TeacherProfile} />
+        <Route path="/contract/create" component={CreateContract} />
+        <Route path="/chat" component={RoomChat} />
+        <Route path="/login" component={Login} />
+        <Route path="/register" component={Register} />
+        {userCookie ? <Route path="/profile" component={Profile} /> : null}
+        <Route path="/search" component={Search} />
+      </Switch>
+    </Router>
+  // </div>
+  // </div>
+>>>>>>> ef31a82d8c84317028b6d6618145626c2489efac
   );
 };
 

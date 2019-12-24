@@ -2,7 +2,7 @@ import React from 'react';
 import {Dropdown} from 'react-bootstrap';
 const NavBar = () => {
   const renderForLoggedIn = () => {
-    var user = JSON.parse(localStorage.getItem(user));
+    const storage = JSON.parse(localStorage.getItem('user'));
     return (
       <div className="navbar-collapse-air d-none d-lg-flex">
         <div className="navbar-form-air">
@@ -37,9 +37,13 @@ const NavBar = () => {
         <div className="navbar-text navbar-right">
           <p className="m-0-bottom">
             <span>
+<<<<<<< HEAD
               Logged in as
               {' '}
               {user.data.username}
+=======
+              {storage ? `Logged as ${storage.user.fullname}` : 'Hi, there!'}
+>>>>>>> ef31a82d8c84317028b6d6618145626c2489efac
             </span>
             <br />
             <a href="" className="navbar-link">Log out</a>

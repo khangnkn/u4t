@@ -24,17 +24,10 @@ const GetTopTutors = async () => {
         },
       },
     ];
-    const res = await Contract.aggregate(aggregatorOpts).exec();
-    // const res = User.paginate({ role: 1 }, { page, limit });
-    return {
-      error: null,
-      result: res,
-    };
+    const users = User.find({ role: 1 }).limit(4).populate('city').exec();
+    return users;
   } catch (error) {
-    return {
-      error: true,
-      result: error,
-    };
+    return error;
   }
 };
 
