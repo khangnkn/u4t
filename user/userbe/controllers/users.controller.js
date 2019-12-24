@@ -73,7 +73,32 @@ const GetInfoHandler = async (req, res, next) => {
   }
 };
 
+const UserDetailHandler = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    if (id === '') {
+      throw new Error('id not found');
+    }
+    const user = await UserRepository.GetById(id);
+    console.log(user);
+    return next({
+      status: SC.OK,
+      code: Error.Success,
+      message: 'success',
+      data: user,
+    });
+  } catch (ex) {
+    return next({
+      status: SC.BAD_REQUEST,
+      code: Error.UnknownError,
+      message: 'unexpected error occured',
+      extra: ex,
+    });
+  }
+};
+
 module.exports = {
   UpdateUserInfo,
   GetInfoHandler,
+  UserDetailHandler,
 };

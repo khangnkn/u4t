@@ -1,16 +1,18 @@
 const express = require('express');
-const UserRoutes = require('./auth');
-const AuthRoutes = require('./city');
+const AuthRoutes = require('./auth');
+const CityRoutes = require('./city');
 const SkillRoutes = require('./skill');
 const LevelRoutes = require('./level');
 const TutorRoutes = require('./tutor');
+const UserRoutes = require('./user');
 
 const router = express.Router();
 
-router.use('/auth', UserRoutes);
-router.use('/cities', AuthRoutes);
+router.use('/auth', AuthRoutes);
+router.use('/cities', CityRoutes);
 router.use('/skills', SkillRoutes);
 router.use('/levels', LevelRoutes);
 router.use('/tutors', TutorRoutes);
+router.use('/users', UserRoutes);
 
 module.exports = router;
