@@ -1,8 +1,11 @@
+/* eslint-disable no-sequences */
+import { dispatch } from 'rxjs/internal/observable/pairs';
 import * as types from '../constants/ActionTypes';
 
 import userService from './UserService';
 import { alertActions } from './alert';
 import history from '../helpers/HistoryHelper';
+import { helperService } from './HelperService';
 
 
 export const handleLoginChange = (name, value) => ({
@@ -179,75 +182,107 @@ export const handleMessageChatRoom = (mess) => ({
   mess,
 });
 
+// export const handleControllerSelectContractManagement = (value) => {
+//   type: types.HANDLE_CONTROLLER_SELECT_CONTRACT_MANAGEMENT,
+//   value
+// };
+// export const handleLoadListContractManagement = (data) => {
+//   type: types.HANDLE_LOAD_LIST_CONTRACT_MANAGEMENT,
+//   data
+// };
+
+export const handleSearchData = (name, value) => ({
+  type: types.HANDLE_SEARCH_DATA,
+  name,
+  value,
+});
+export const handleSearch = (name, skill, city, price) => {
+  const success = (list) => ({ type: types.HANDLE_SEARCH_RESULT, list });
+  return (dispatch) => {
+    const data = {
+      name,
+      skill,
+      city,
+      price,
+    };
+    helperService.search(data).then((data) => {
+      if (data.code === 1) {
+        dispatch(success(data.data));
+      }
+    });
+  };
+};
+
 export const handleControllerSelectContractManagement = (value) => ({
   type: types.HANDLE_CONTROLLER_SELECT_CONTRACT_MANAGEMENT,
-  value
+  value,
 });
 export const handleLoadListContractManagement = (data) => ({
   type: types.HANDLE_LOAD_LIST_CONTRACT_MANAGEMENT,
-  data
+  data,
 });
 
-// 
-export const handleComplainDataChange = (name,value) => ({
+//
+export const handleComplainDataChange = (name, value) => ({
   type: types.HANDLE_COMPLAIN_DATA_CHANGE,
-  name,value
+  name,
+  value,
 });
 
-export const handleReviewDataChange = (name,value) => ({
+export const handleReviewDataChange = (name, value) => ({
   type: types.HANDLE_REVIEW_DATA_CHANGE,
-  name,value
-})
+  name,
+  value,
+});
 
-export const handleReviewContractSubmit = (_id,review) => {
-  return (dispatch) => {
-    try {
-      userService.submitReviewContract(_id,review).then(data=>{
-        if (data.code === 1) {
-          dispatch(alertActions.success(data.message));
-        } else {
-          dispatch(alertActions.error(data.message));
-        }
-      })
-    } catch(ex) {
-
-    }
+export const handleReviewContractSubmit = (_id, review) => (dispatch) => {
+  try {
+    userService.submitReviewContract(_id, review).then((data) => {
+      if (data.code === 1) {
+        dispatch(alertActions.success(data.message));
+      } else {
+        dispatch(alertActions.error(data.message));
+      }
+    });
+  } catch (ex) {
+    console.log(ex);
   }
-}
+};
 
-export const handleComplainContractSubmit = (_id,complain) => {
-  return (dispatch)=> {
-    try {
-      userService.submitComplainContract(_id,complain).then(data=>{
-        if (data.code === 1){
-          dispatch(alertActions.success(data.message));
-        } else {
-          dispatch(alertActions.error(data.message));
-        }
-      })
-    } catch (error) {
-      
-    }
+export const handleComplainContractSubmit = (_id, complain) => (dispatch) => {
+  try {
+    userService.submitComplainContract(_id, complain).then((data) => {
+      if (data.code === 1) {
+        dispatch(alertActions.success(data.message));
+      } else {
+        dispatch(alertActions.error(data.message));
+      }
+    });
+  } catch (error) {
+    console.log(error);
   }
-}
+};
 
-export const handleCompleteContractSubmit = (_id) => {
-  return (dispatch) => {
-    try {
-      userService.submitCompleteContract(_id).then(data=>{
-        if (data.code === 1){
-          dispatch(alertActions.success(data.message));
-        } else {
-          dispatch(alertActions.error(data.message));
-        }
-      })
-    } catch (error) {
-      
-    }
+export const handleCompleteContractSubmit = (_id) => (dispatch) => {
+  try {
+    userService.submitCompleteContract(_id).then((data) => {
+      if (data.code === 1) {
+        dispatch(alertActions.success(data.message));
+      } else {
+        dispatch(alertActions.error(data.message));
+      }
+    });
+  } catch (error) {
+    console.log(error);
   }
-}
+};
 
 export const handleContractControllerSelect = (selected) => ({
   type: types.HANDLE_CONTRACT_CONTROLLER_SELECT,
+<<<<<<< HEAD
   selected
 });
+=======
+  selected,
+});
+>>>>>>> 435784392ff39faf01913cd21c9139d938c3da77

@@ -3,6 +3,7 @@ const { User } = require('../models');
 const Error = require('../utils/error');
 const UserRepository = require('../repository/user.repository');
 
+
 const parseUser = (body) => {
   const result = {
     email: body.infor.email,
@@ -97,8 +98,37 @@ const UserDetailHandler = async (req, res, next) => {
   }
 };
 
+const SearchHandler = async (req, res, next) => {
+  const { query } = req;
+  if (query.name) {
+    query.fullname = {
+      $regex: `.*${query.name}.*`,
+    };
+    delete query.name;
+  }
+  Object.keys(query).forEach((k) => (!query[k] && query[k] !== undefined) && delete query[k]);
+  try {
+    console.log(query);
+    const users = await UserRepository.SearchByQuery(query);
+    return next({
+      status: SC.OK,
+      code: Error.Success,
+      message: 'success',
+      data: users,
+    });
+  } catch (ex) {
+    return next({
+      status: SC.BAD_REQUEST,
+      code: Error.UnknownError,
+      message: 'unexpected error occured',
+      extra: ex,
+    });
+  }
+};
+
 module.exports = {
   UpdateUserInfo,
   GetInfoHandler,
   UserDetailHandler,
+  SearchHandler,
 };

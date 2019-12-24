@@ -1,14 +1,14 @@
 import React from 'react';
 import DatePicker from 'react-datepicker';
-import { Form } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
 import * as actions from '../actions/index';
 
 import 'react-datepicker/dist/react-datepicker.css';
 import SimpleReactValidator from 'simple-react-validator';
-import {helperService} from '../actions/HelperService';
-import { Button } from 'react-bootstrap';
+import { helperService } from '../actions/HelperService';
+
 
 class CreateContract extends React.Component {
   constructor(props) {
@@ -29,16 +29,17 @@ class CreateContract extends React.Component {
     };
     this.validator = new SimpleReactValidator();
   }
+
   componentWillReceiveProps() {
     this.validator.showMessages();
   }
+
   componentDidMount() {
     var userCookie = JSON.parse(localStorage.getItem('user'));
     helperService.loadUserInfor(userCookie._id).then(data => {
       this.setState({ inforTutor: data });
       this.props.setId(userCookie.id, data.id);
-    })
-   
+    });
   }
 
   handleSubmit(event) {
@@ -67,20 +68,22 @@ class CreateContract extends React.Component {
     // const d = moment(date).format('MM/DD/YYYY');
     this.props.handleCreateContractDateEndChange(date);
   }
+
   checkStartEndDate(start, end) {
     // const moment = require('moment');
     // const s = Date.parse(moment(start).format('DD/MM/YYYY'));
     // const e = Date.parse(moment(end).format('DD/MM/YYYY'));
-    var d = Math.floor((Date.UTC(start.getFullYear(), start.getMonth(), start.getDate()) - Date.UTC(end.getFullYear(), end.getMonth(), end.getDate())) / (1000 * 60 * 60 * 24))
+    const d = Math.floor((Date.UTC(start.getFullYear(), start.getMonth(), start.getDate()) - Date.UTC(end.getFullYear(), end.getMonth(), end.getDate())) / (1000 * 60 * 60 * 24));
     if (d >= 0) {
       return true;
     }
     return false;
   }
+
   renderContractDetails() {
-    var contract = this.props.createContract.contract;
-    var inforTutor = this.state.inforTutor;
-    var dateMess = (<div>The start date less or equal the end date.</div>);
+    const { contract } = this.props.createContract;
+    const { inforTutor } = this.state;
+    const dateMess = (<div>The start date less or equal the end date.</div>);
     return (
       <div className="form ng-valid ng-valid-format ng-valid-min ng-valid-max ng-valid-date ng-valid-date-range ng-valid-hr-constraintinteger ng-valid-hr-constraintmin ng-valid-hr-constraintmax ng-dirty ng-valid-number ng-valid-hr-constraintrequired ng-valid-hr-constraintfloat">
         <div className="air-card m-0-top m-0-right-md m-0-right-xl p-0-top-bottom">
@@ -92,7 +95,7 @@ class CreateContract extends React.Component {
                 src="./Contract_files/c1PoXrydUGYA9LO6ofPHVhDT-C1Jbbt7cP0neDqE2SWOYzmrC4knZuD69ImVgyUNfu"
               />
               <span className="vertical-align-middle">
-              {inforTutor.fullName + ',' + inforTutor.address + " - " + inforTutor.city.name} 
+                {`${inforTutor.fullName},${inforTutor.address} - ${inforTutor.city.name}`}
               </span>
             </h2>
           </header>
@@ -145,7 +148,7 @@ class CreateContract extends React.Component {
                 </div>
                 <div className="clearfix">
                   <div className="text-muted p-sm-top">
-                      {'Mức lương đề xuất của người dạy là $ '+ inforTutor.price + '/giờ'}
+                    {`Mức lương đề xuất của người dạy là $ ${inforTutor.price}/giờ`}
                   </div>
                 </div>
               </div>
@@ -187,7 +190,7 @@ class CreateContract extends React.Component {
                     <div className="ng-pristine ng-untouched ng-valid ng-empty col-lg-4 col-md-5 col-sm-5 col-xs-12 p-0 ng-valid-date-range">
                       <DatePicker onChange={this.handleDateEndChange} name="ngayKetThuc" value={contract.ngayKetThuc} />
                     </div>
-                    {this.checkStartEndDate(contract.ngayBatDau,contract.ngayKetThuc) ? dateMess : null}
+                    {this.checkStartEndDate(contract.ngayBatDau, contract.ngayKetThuc) ? dateMess : null}
                   </div>
                 </div>
               </div>
@@ -205,7 +208,7 @@ class CreateContract extends React.Component {
                 </Form.Label>
                 <div className="ng-pristine ng-untouched ng-valid ng-empty col-lg-4 col-md-5 col-sm-5 col-xs-12 p-0 ng-valid-date-range">
                   <Form.Control name="tongTien" onChange={this.handleDataChange} className="qa-wm-contract-proposal-form-limit-custom ng-pristine ng-untouched ng-valid width-sm form-control ng-empty ng-hide" />
-                  {this.validator.message('total',contract.tongTien,'required|numberic')}
+                  {this.validator.message('total', contract.tongTien, 'required|numberic')}
                 </div>
               </div>
             </div>
@@ -216,7 +219,7 @@ class CreateContract extends React.Component {
   }
 
   renderWorkDescription() {
-    var contract = this.props.createContract.contract;
+    const { contract } = this.props.createContract;
     return (
       <div>
         <div role="form" className="ng-pristine ng-valid ng-valid-uploading-file">
@@ -241,7 +244,7 @@ class CreateContract extends React.Component {
                     placeholder="Hãy mô tả về công việc để người dạy có thể hiểu rõ hơn."
                     rows="8"
                   />
-                  {this.validator.message('contract description',contract.moTa,'required')}
+                  {this.validator.message('contract description', contract.moTa, 'required')}
                   {/* <span className="form-message form-error form-error-bottom">
                                             <span>Báo lỗi</span>
                                         </span> */}
@@ -330,7 +333,7 @@ class CreateContract extends React.Component {
                 Xác nhận
 
               </Button>
-              <Button type='button' className="btn btn-link m-lg-left">
+              <Button type="button" className="btn btn-link m-lg-left">
                 Cancel
               </Button>
             </div>

@@ -34,8 +34,18 @@ const GetTutorDetail = async (id) => {
   }
 };
 
+const SearchByQuery = async (query) => {
+  try {
+    const users = User.find(query).populate(['city', 'data.level']).exec();
+    return users;
+  } catch (ex) {
+    return ex;
+  }
+};
+
 module.exports = {
   GetById,
   GetTopTutors,
   GetTutorDetail,
+  SearchByQuery,
 };
