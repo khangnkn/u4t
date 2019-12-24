@@ -355,6 +355,7 @@ class CreateContract extends React.Component {
   }
 
   render() {
+    var alert = this.props.alert;
     return (
       <div id="layout" className="layout">
         <div className="layout-page-content">
@@ -367,6 +368,8 @@ class CreateContract extends React.Component {
                   </h1>
                   <div className="hr-form-container row">
                     <div className="col-md-9 p-0-top">
+                      {alert.message
+                        && <div className={`alert alert-${alert.type} auth-alert-app`}>{alert.message}</div>}
                       {this.renderContractDetails()}
                       {this.renderWorkDescription()}
                       {/* {this.renderSkill()} */}

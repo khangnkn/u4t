@@ -155,10 +155,10 @@ export const handleCreateContractSubmit = (contract) => {
       userService.createContract(contract).then(
         (data) => {
           if (data.code === 1) {
-            dispatch(success(data.message));
+            // dispatch(success(data.message));
             dispatch(alertActions.success(data.message));
           } else {
-            dispatch(failure(data.message));
+            // dispatch(failure(data.message));
             dispatch(alertActions.error(data.message));
           }
         },
@@ -267,9 +267,9 @@ export const handleCompleteContractSubmit = (_id) => (dispatch) => {
   try {
     userService.submitCompleteContract(_id).then((data) => {
       if (data.code === 1) {
-        dispatch(alertActions.success(data.message));
+        window.alert(data.message);
       } else {
-        dispatch(alertActions.error(data.message));
+        window.alert(data.message);
       }
     });
   } catch (error) {

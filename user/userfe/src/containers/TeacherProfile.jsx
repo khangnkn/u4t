@@ -2,7 +2,8 @@ import React from 'react';
 import { Button, ProgressBar } from 'react-bootstrap';
 import NavBar from './NavBar';
 import Footer from './Footer';
-import userService from '../actions/UserService';
+// import userService from '../actions/UserService';
+import { helperService } from '../actions/HelperService';
 
 class TeacherProfile extends React.Component {
   constructor(props) {
@@ -11,32 +12,14 @@ class TeacherProfile extends React.Component {
     this.renderSkills = this.renderSkills.bind(this);
     this.renderHistory = this.renderHistory.bind(this);
     this.renderContact = this.renderContact.bind(this);
-    this.state = {
-      tutor: {
-        fullname: 'Fullname',
-        city: {
-          name: 'City',
-        },
-        data: {
-          rating: 80,
-          skills: [],
-        },
-        contract: [],
-      },
-    };
+    // this.state = {};
   }
 
   componentDidMount() {
-    const { tutor } = this.state;
-    const idTutor = this.props.match.params.id;
-    userService.LoadTutorDetail(idTutor).then((resp) => {
-      console.log(resp.data);
-      this.setState({
-        tutor: {
-          ...tutor,
-          ...resp.data,
-        },
-      });
+    // const { tutor } = this.state;
+    var idTutor = props.match.params.id;
+    helperService.loadUserInfor(idTutor).then((resp) => {
+      this.setState({tutor : resp.data});
     });
   }
 
@@ -113,10 +96,10 @@ class TeacherProfile extends React.Component {
                   className="col-xs-12 col-sm-4 col-md-3 col-lg-2 p-0-left d-none d-sm-block"
                 >
                   <p>
-                    Tỷ lệ thành công:
+                    Tỷ lệ rating: {tutor.data.rating}
                   </p>
                   <div>
-                    <ProgressBar animated variant="success" now={tutor.data.rating} />
+                    <ProgressBar animated variant="success" now={tutor.data.rating * 20} />
                   </div>
                 </div>
               </div>
@@ -250,8 +233,8 @@ class TeacherProfile extends React.Component {
                                   <strong
                                     className="ng-binding"
                                   >
-5.00
-
+                                    5.00
+                                    
                                   </strong>
                                 </li>
                                 <li
@@ -260,12 +243,12 @@ class TeacherProfile extends React.Component {
                                   <small
                                     className="text-muted ng-binding"
                                   >
-Oct
-                                                                      2019
-                                                                      -
-                                                                      Nov
-                                                          2019
-
+                                    Oct
+                                                                                                          2019
+                                                                                                          -
+                                                                                                          Nov
+                                                                                              2019
+                                    
                                   </small>
                                 </li>
                               </ul>
@@ -286,8 +269,8 @@ Oct
                                     <strong
                                       className="ng-binding"
                                     >
-$54.67
-
+                                      $54.67
+                                      
                                     </strong>
                                   </div>
                                   <div
@@ -310,7 +293,7 @@ $54.67
                                   <strong
                                     className="ng-binding"
                                   >
-$54.67
+                                    $54.67
                                   </strong>
                                 </div>
                                 <div
@@ -319,7 +302,7 @@ $54.67
                                   <small
                                     className="text-muted ng-binding"
                                   >
-$4.00/hr
+                                    $4.00/hr
                                   </small>
                                 </div>
                                 <div
@@ -328,7 +311,7 @@ $4.00/hr
                                   <div
                                     className="ng-binding ng-scope"
                                   >
-14 hours
+                                    14 hours
                                   </div>
                                 </div>
                               </div>
@@ -339,7 +322,7 @@ $4.00/hr
                               <em
                                 className=" ng-binding ng-scope"
                               >
-Completed the work on time,asked clarification questions, and was great to work with.
+                                Completed the work on time,asked clarification questions, and was great to work with.
                               </em>
                             </div>
                           </div>
@@ -371,7 +354,7 @@ Completed the work on time,asked clarification questions, and was great to work 
               >
                 <h2 className="cfe-assignments-title m-0-top-bottom">
                   <span>
-                                        Work history and feedback
+                    Work history and feedback
                   </span>
                 </h2>
               </div>
@@ -399,7 +382,7 @@ Completed the work on time,asked clarification questions, and was great to work 
           <div className="air-card m-0-left-right-md m-0-left-right-xl p-0-top-bottom">
             <header className="d-flex vertical-align-middle justify-content-space-between align-items-start">
               <h2 className="m-0-bottom">
-                                Skills
+                Skills
               </h2>
             </header>
             <div className="in" aria-expanded="true" aria-hidden="false" style={{ height: 'auto' }}>
@@ -428,10 +411,10 @@ Completed the work on time,asked clarification questions, and was great to work 
               <div className="ng-scope">
                 <div className="text-center">
                   <h3 className="title ">
-                                        Bạn muốn thuê người này.
+                    Bạn muốn thuê người này.
                   </h3>
                   <p className="subtitle ">
-                                        Hãy bấm vào nút dưới đây để bắt đầu đề nghị hợp đồng
+                    Hãy bấm vào nút dưới đây để bắt đầu đề nghị hợp đồng
                   </p>
                 </div>
                 <div className="ng-pristine ng-valid ng-valid-email">

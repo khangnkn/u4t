@@ -31,7 +31,7 @@ class Profile extends React.Component {
         this.handleStepChange = this.handleStepChange.bind(this);
         this.handleBack = this.handleBack.bind(this);
         this.handleNext = this.handleNext.bind(this);
-        this.validator = new SimpleReactValidator({autoForceUpdate: this});
+        this.validator = new SimpleReactValidator({ autoForceUpdate: this });
     }
 
     componentDidMount() {
@@ -72,7 +72,7 @@ class Profile extends React.Component {
 
     handleSubmit(event) {
         if (!this.validator.allValid()) return;
-        event.preventDefault();        
+        event.preventDefault();
         const { user } = this.props.profile;
         this.props.update(user);
     }
@@ -370,13 +370,13 @@ class Profile extends React.Component {
         );
     }
 
-    componentWillReceiveProps(){
+    componentWillReceiveProps() {
         this.validator.showMessages();
     }
     render() {
         // var userCookie = JSON.parse(localStorage.getItem('user'));
         // var role = parseInt(userCookie.data.user.account_type);
-        const { profile } = this.props;
+        const { profile,alert } = this.props;
         const { step } = profile;
         const requestIcon = (
             <img
@@ -397,13 +397,14 @@ class Profile extends React.Component {
                                         <div>
                                             <div className="step-manager-modal">
                                                 <div className="modal-content">
-                                                    {alert.message
-                                                        && <div className={`alert ${alert.type} alert-app`}>{alert.message}</div>}
+
                                                     {this.renderTitleForm()}
                                                     <div data-v-1b001e90="" className="progress m-0-bottom d-md-none progress-nodetails">
                                                         <div data-v-1b001e90="" aria-valuenow="0" aria-valuemin="0" aria-valuemax="9" role="progressbar" className="progress-bar" style={{ width: 0 }} />
                                                     </div>
                                                     <div className="modal-flex-container flex-1">
+                                                        {alert.message
+                                                            && <div className={`alert alert-${alert.type} auth-alert-app`}>{alert.message}</div>}
                                                         {step === 1 ? this.renderInforForm() : step === 2 ? this.renderJobForm() : this.renderOverviewForm()}
                                                         {this.renderFooterForm()}
                                                     </div>

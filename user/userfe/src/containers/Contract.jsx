@@ -1,9 +1,9 @@
 
 import * as actions from '../actions/index'
 import { connect } from 'react-redux';
-import { ListGroup } from 'react-bootstrap';
 import { helperService } from '../actions/HelperService';
 import { Button } from 'react-bootstrap';
+import '../public/stylesheets/auth.scss';
 const Contract = (props) => {
     var validator = new SimpleReactValidator();
     var contract;
@@ -100,6 +100,7 @@ const Contract = (props) => {
         );
     }
     var contractReview = (review) => {
+        var { alert } = props;
         var l = [1, 2, 3, 4, 5];
         return (
             <div className="air-card m-0-top m-0-right-md m-0-right-xl p-0-top-bottom">
@@ -111,6 +112,8 @@ const Contract = (props) => {
 
                 <section>
                     <div className="form-group" id="rowHourlyRate">
+                        {alert.message
+                            && <div className={`alert alert-${alert.type} auth-alert-app`}>{alert.message}</div>}
                         <Form.Label className="control-label">Điểm đánh giá</Form.Label>
                         <div className="d-xs-block d-sm-inline-block ng-hide" />
                         <div className="d-flex align-items-center">
@@ -145,7 +148,7 @@ const Contract = (props) => {
                                     placeholder="Hãy chi tiết đánh giá."
                                     rows="8"
                                 />
-                                {this.validator.message('review content', review.content, 'required|max:300')}
+                                {/* {this.validator.message('review content', review.content, 'required|max:300')} */}
                             </div>
                         </div>
                     </div>
@@ -155,6 +158,7 @@ const Contract = (props) => {
         );
     }
     var contractComplain = () => {
+        var {alert} = props;
         return (
             <div className="air-card m-0-top m-0-right-md m-0-right-xl p-0-top-bottom">
                 <header className="d-flex align-items-center flex-justify-content-between">
@@ -164,6 +168,8 @@ const Contract = (props) => {
                 </header>
                 <section>
                     <div className="form-group">
+                        {alert.message
+                            && <div className={`alert alert-${alert.type} auth-alert-app`}>{alert.message}</div>}
                         <Form.Label htmlFor="hourlyWeeklyLimit">Thông tin khiếu nại</Form.Label>
                         <div className="row">
                             <div className="ng-pristine ng-untouched ng-valid col-lg-4 col-md-5 col-sm-5 col-xs-12 py-0 ng-not-empty ng-valid-hr-constraintinteger ng-valid-hr-constraintmin ng-valid-hr-constraintmax"                                >
@@ -176,7 +182,7 @@ const Contract = (props) => {
                                     placeholder="Hãy trình bày khiếu nại của bạn...."
                                     rows="8"
                                 />
-                                {this.validator.message('review content', props.complain, 'required|max:600')}
+                                {/* {this.validator.message('review content', props.complain, 'required|max:600')} */}
                             </div>
                         </div>
                     </div>
@@ -213,8 +219,8 @@ const Contract = (props) => {
                                         <section class="p-lg-top responsive assigment-list-content ng-scope">
                                             <div class="m-sm-bottom ng-scope">
                                                 <div class="ng-scope">
-                                                {contractOverview()}
-                                                {props.contract.selected === 0 ? contractReview() : contractComplain()}
+                                                    {contractOverview()}
+                                                    {props.contract.selected === 0 ? contractReview() : contractComplain()}
                                                 </div>
                                             </div>
                                         </section>
