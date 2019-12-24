@@ -142,11 +142,8 @@ $
   }
 
   renderTopTeacher() {
-<<<<<<< HEAD
-=======
     console.log(this.state);
     const { data } = this.state;
->>>>>>> ef31a82d8c84317028b6d6618145626c2489efac
 
     this.topTeacher = (
       <section className="fl-carousel-section  ng-scope">
@@ -157,15 +154,9 @@ $
             <div className="container-visitor">
               <div className="d-none d-xl-block carousel-comp carousel ng-isolate-scope">
                 <div className="carousel-inner">
-<<<<<<< HEAD
-                  <div className="item text-center ng-scope ng-isolate-scope active">
-                    <div className="d-flex p-xs-left-right p-sm-bottom row ng-scope" style={{height: '400px'}}>
-                      {/* {test.map((e, i) => this.renderTopTeacherItem(i, e.avatar, e.giaTien, e.fullName, e.tieuDe, e.thanhPho, e.skills))} */}
-=======
                   <div className="item text-center ng-scope ng-isolate-scope active" style={{ height: '400px' }}>
                     <div className="d-flex p-xs-left-right p-sm-bottom row ng-scope">
                       {data.map((e, i) => this.renderTopTeacherItem(i, e.avatar, e.data.price, e.fullname, e.data.title, e.city.name, e.data.skills))}
->>>>>>> ef31a82d8c84317028b6d6618145626c2489efac
                     </div>
                   </div>
                 </div>

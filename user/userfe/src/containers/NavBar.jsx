@@ -1,5 +1,6 @@
 import React from 'react';
-import {Dropdown} from 'react-bootstrap';
+import { Dropdown } from 'react-bootstrap';
+
 const NavBar = () => {
   const renderForLoggedIn = () => {
     const storage = JSON.parse(localStorage.getItem('user'));
@@ -10,7 +11,7 @@ const NavBar = () => {
             <div className="hydrated">
               <form
                 method="GET"
-                action="/search/profiles/"
+                action="/search/profile "
                 role="search"
                 className="ng-pristine ng-valid"
               >
@@ -20,7 +21,6 @@ const NavBar = () => {
                       <span className="glyphicon m-sm-left m-0-right" aria-hidden="true"><i className="fas fa-search" /></span>
                     </button>
                   </div>
-                  <input type="hidden" name="nbs" value="1" />
                   <input
                     className="form-control"
                     type="search"
@@ -33,17 +33,11 @@ const NavBar = () => {
             </div>
           </div>
         </div>
-        
+
         <div className="navbar-text navbar-right">
           <p className="m-0-bottom">
             <span>
-<<<<<<< HEAD
-              Logged in as
-              {' '}
-              {user.data.username}
-=======
               {storage ? `Logged as ${storage.user.fullname}` : 'Hi, there!'}
->>>>>>> ef31a82d8c84317028b6d6618145626c2489efac
             </span>
             <br />
             <a href="" className="navbar-link">Log out</a>
@@ -60,7 +54,7 @@ const NavBar = () => {
           <div className="hydrated">
             <form
               method="GET"
-              action="/search/profiles/"
+              action="/search/profiles"
               role="search"
               className="ng-pristine ng-valid"
             >
@@ -70,11 +64,10 @@ const NavBar = () => {
                     <span className="glyphicon m-sm-left m-0-right" aria-hidden="true"><i className="fas fa-search" /></span>
                   </button>
                 </div>
-                <input type="hidden" name="nbs" value="1" />
                 <input
                   className="form-control"
                   type="search"
-                  name="q"
+                  name="name"
                   tabIndex="0"
                   placeholder="Find Freelancers &amp; Agencies"
                 />
@@ -84,16 +77,16 @@ const NavBar = () => {
         </div>
       </div>
       <Dropdown>
-          <Dropdown.Toggle  variant="infor" id="dropdown-basic">
+        <Dropdown.Toggle variant="infor" id="dropdown-basic">
             Dropdown Button
-  </Dropdown.Toggle>
+        </Dropdown.Toggle>
 
-          <Dropdown.Menu style={{height: '300px',width: '500px'}}>
-            <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-            <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-            <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
+        <Dropdown.Menu style={{ height: '300px', width: '500px' }}>
+          <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+          <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+          <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
       <ul className="navbar-nav navbar-lg navbar-subnav navbar-right">
         <li role="none"><a href="/login"> Log In</a></li>
         <li role="none"><a href="/register"> Sign up</a></li>

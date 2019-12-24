@@ -1,8 +1,10 @@
+import { dispatch } from 'rxjs/internal/observable/pairs';
 import * as types from '../constants/ActionTypes';
 
 import userService from './UserService';
 import { alertActions } from './alert';
 import history from '../helpers/HistoryHelper';
+import { helperService } from './HelperService';
 
 
 export const handleLoginChange = (name, value) => ({
@@ -179,11 +181,33 @@ export const handleMessageChatRoom = (mess) => ({
   mess,
 });
 
-export const handleControllerSelectContractManagement = (value) => {
-  type: types.HANDLE_CONTROLLER_SELECT_CONTRACT_MANAGEMENT,
-  value
-}
-export const handleLoadListContractManagement = (data) => {
-  type: types.HANDLE_LOAD_LIST_CONTRACT_MANAGEMENT,
-  data
-}
+// export const handleControllerSelectContractManagement = (value) => {
+//   types.HANDLE_CONTROLLER_SELECT_CONTRACT_MANAGEMENT,
+//   value
+// };
+// export const handleLoadListContractManagement = (data) => {
+//   types.HANDLE_LOAD_LIST_CONTRACT_MANAGEMENT,
+//   data
+// };
+
+export const handleSearchData = (name, value) => ({
+  type: types.HANDLE_SEARCH_DATA,
+  name,
+  value,
+});
+export const handleSearch = (name, skill, city, price) => {
+  const success = (list) => ({ type: types.HANDLE_SEARCH_RESULT, list });
+  return (dispatch) => {
+    const data = {
+      name,
+      skill,
+      city,
+      price,
+    };
+    helperService.search(data).then((data) => {
+      if (data.code === 1) {
+        dispatch(success(data.data));
+      }
+    });
+  };
+};

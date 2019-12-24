@@ -111,14 +111,16 @@ function createContract(contract) {
 function loadAllContract(id) {
   const requestOptions = {
     method: 'GET',
-    headers: { 'Content-Type': 'application/json',
-                'id' : id}
+    headers: {
+      'Content-Type': 'application/json',
+      id,
+    },
   };
 
   return fetch('/api/all-contract', requestOptions).then((resp) => resp.json()).then((data) => data.data);
 }
 
-function desicionContractAccept(id,value){ 
+function desicionContractAccept(id, value) {
   const header = new Headers();
 
   const userCookie = JSON.parse(localStorage.getItem('user'));
@@ -129,7 +131,7 @@ function desicionContractAccept(id,value){
   const fd = new FormData();
 
   fd.append('id', JSON.stringify(id));
-  fd.append('choice',JSON.stringify(value))
+  fd.append('choice', JSON.stringify(value));
   const req = new Request('/api/contract/accept', {
     method: 'POST',
     headers: header,
@@ -146,11 +148,7 @@ export default {
   logOut,
   update,
   loadTop4,
-<<<<<<< HEAD
   loadAllContract,
   createContract,
-  desicionContractAccept
-=======
-
->>>>>>> ef31a82d8c84317028b6d6618145626c2489efac
+  desicionContractAccept,
 };
