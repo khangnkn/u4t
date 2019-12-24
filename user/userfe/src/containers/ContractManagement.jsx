@@ -1,4 +1,4 @@
-import {Button} from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import * as actions from '../actions/index';
 import UserService from '../actions/UserService';
 import { connect } from 'react-redux';
@@ -10,7 +10,7 @@ const ContractManagement = (props) => {
         var userCookie = JSON.parse(localStorage.getItem('user'));
         UserService.loadAllContract(userCookie.id).then(data => {
             props.handleLoadListContractManagement(data.list);
-        }) 
+        })
     }
     const itemContract = (e, i) => {
         var m = moment();
@@ -127,33 +127,33 @@ const ContractManagement = (props) => {
 
     return (
         <div id="layout" class="layout">
-        <div class="layout-page-content">
-          <div class="container p-lg-bottom p-0-top-bottom-xs p-0-top-bottom-sm">
-            <div class="ng-scope">
-              <div>
-                <div class="ng-scope ng-isolate-scope">
-                  <div class="fe-ui-application responsive">
-                    <div class="fe-ui-application cfe-ui-application">
-                      <div class="row eo-block-none o-profile">
-                          {management()}
-                          {controller()}
-                      </div>
+            <div class="layout-page-content">
+                <div class="container p-lg-bottom p-0-top-bottom-xs p-0-top-bottom-sm">
+                    <div class="ng-scope">
+                        <div>
+                            <div class="ng-scope ng-isolate-scope">
+                                <div class="fe-ui-application responsive">
+                                    <div class="fe-ui-application cfe-ui-application">
+                                        <div class="row eo-block-none o-profile">
+                                            {management()}
+                                            {controller()}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
     );
 }
 
 const mapStateToProps = (state) => {
-    const {contractManagement} = state;
-    return {contractManagement};
+    const { contractManagement } = state;
+    return { contractManagement };
 }
-const mapDispatchToProps = (dispatch,props) => ({
+const mapDispatchToProps = (dispatch, props) => ({
     handleControllerSelectContractManagement: (value) => {
         actions.handleControllerSelectContractManagement(value);
     },
@@ -162,4 +162,4 @@ const mapDispatchToProps = (dispatch,props) => ({
     }
 });
 
-export default connect(mapStateToProps,mapDispatchToProps)(ContractManagement);
+export default connect(mapStateToProps, mapDispatchToProps)(ContractManagement);

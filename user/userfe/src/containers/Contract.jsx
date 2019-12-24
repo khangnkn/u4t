@@ -189,12 +189,32 @@ const Contract = (props) => {
                     <Button class="btn btn-primary" style="width: 200px;" type="button" onClick={handleContractControllerSelect(0)}>Đánh giá</Button>
                     <Button class="btn btn-primary" style="width: 200px;" type="button" onClick={handleContractControllerSelect(1)}>Khiếu nai</Button>
                     <Button class="btn btn-primary" style="width: 200px;" type="button" onClick={handleCompleteContractSubmit()}>Hoàn thành hợp đồng</Button>
-                    {role === 0 ? "" : xTKBtn}
                 </div>
             </div>
         );
     }
-    return ();
+    return (
+        <div id="layout" class="layout">
+            <div class="layout-page-content">
+                <div class="container p-lg-bottom p-0-top-bottom-xs p-0-top-bottom-sm">
+                    <div class="ng-scope">
+                        <div>
+                            <div class="ng-scope ng-isolate-scope">
+                                <div class="fe-ui-application responsive">
+                                    <div class="fe-ui-application cfe-ui-application">
+                                        <div class="row eo-block-none o-profile">
+                                            {props.contract.selected === 0 ? contractReview() : contractComplain()}
+                                            {controller()}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
 }
 
 const mapStateToProps = (state) => {
