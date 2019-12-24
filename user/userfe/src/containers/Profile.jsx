@@ -252,8 +252,8 @@ const Profile = (props) => {
                     <div className="col-sm-6 m-lg-bottom">
                         <div className="form-group">
                             <Form.Label className="">Tỉnh/Thành phố</Form.Label>
-                            <Form.Control as="select" className="form-control sessioncamexclude" value={user.infor.city} onChange={handleInforChange} name="city">
-                                {state.cities.map((e, i) => (<option value={e._id} key={i}>e.name</option>))}
+                            <Form.Control as="select" className="form-control sessioncamexclude" value={user.infor.city._id} onChange={handleInforChange} name="city">
+                                {state.cities.map((e, i) => (<option value={e._id} key={i}>{e.name}</option>))}
                             </Form.Control>
                         </div>
                     </div>

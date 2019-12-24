@@ -52,7 +52,7 @@ var myReducer = (state = initialState, action) => {
     switch (action.type) {
         case types.HANDLE_PROFILE_INFOR_CHANGE:
             let name1 = action.name, value1 = action.value;
-            if (name1 === "gioiTinh") value1 = parseInt(value1);
+            if (name1 === "sex") value1 = parseInt(value1);
             let user1 = state.user;
             user1.infor[name1] = value1;
             return { ...state, user: user1 };
@@ -65,12 +65,12 @@ var myReducer = (state = initialState, action) => {
             let skill = parseInt(action.value);
             let user4 = state.user;
             if (action.checked) {
-                user4.data.kyNang.push(skill);
+                user4.data.skills.push(skill);
                 return { ...state, user: user4 }
             }
-            var index = user4.data.kyNang.indexOf(skill);
+            var index = user4.data.skills.indexOf(skill);
             if (index !== -1)
-                user4.data.kyNang.splice(index, 1);
+                user4.data.skills.splice(index, 1);
             return { ...state, user: user4 };
         case types.HANDLE_PROFILE_AVATAR_CHANGE:
             let { imgFile } = action;
