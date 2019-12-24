@@ -1,52 +1,98 @@
 import React from 'react';
-import { Button, Modal, ModalFooter, ModalHeader, Form, Row, Label } from 'reactstrap';
-import { connect } from "react-redux";
-import ModalBody from 'reactstrap/lib/ModalBody';
-import Col from 'reactstrap/lib/Col';
-import Input from 'reactstrap/lib/Input';
-import FormGroup from 'reactstrap/lib/FormGroup';
+import {connect} from "react-redux";
+
+import {
+    Button,
+    Col,
+    Form,
+    FormFeedback,
+    FormGroup,
+    Input,
+    Label,
+    Modal,
+    ModalBody,
+    ModalFooter,
+    ModalHeader
+} from 'reactstrap';
+import validateInput from "../../utils/validations/addNewSkill";
+import {addSkill} from "../../actions/skill.actions";
 
 class SkillAddNew extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            name: '',
+            isLoading: false,
+            errors: {},
+            success: ''
+        };
+        this.onSubmit = this.onSubmit.bind(this);
+        this.onChange = this.onChange.bind(this)
     }
 
-    onSubmit = () => async () => {
-        try {
+    onChange(event) {
+        this.setState({
+            [event.target.name]: event.target.value
+        })
+    }
 
+    isValid() {
+        const {errors, isValid} = validateInput(this.state);
+        console.log(errors);
+        console.log(isValid);
+        this.setState({
+            errors: errors
+        });
+        return isValid;
+    }
+
+    onSubmit = async () => {
+        this.setState({
+            isLoading: true,
+            success: ''
+        });
+        try {
+            if (this.isValid()) {
+                await this.props.addSkill({
+                    data: {
+                        name: this.state.name
+                    }
+                });
+                this.setState({
+                    success: 'successfuly'
+                });
+            }
         } catch (e) {
             console.log(e);
         } finally {
             console.log('done.');
-            this.props.toggle();
+            this.setState({
+                isLoading: false
+            });
         }
     };
 
     render() {
+        const {errors} = this.state;
         return (
             <Modal returnFocusAfterClose isOpen={this.props.open}>
-                <ModalHeader>Add new skill</ModalHeader>
+                <ModalHeader>Add new skill {this.state.success}</ModalHeader>
                 <ModalBody>
                     <Form>
                         <FormGroup row>
-                            <Label sm={2}>Skill name</Label>
-                            <Col sm={10}>
-                                <Input name="skillname" placeholder="Skill name"></Input>
-                            </Col>
-                        </FormGroup>
-                        <FormGroup row>
-                            <Label sm={2}>Status</Label>
-                            <Col sm={10}>
-                                <Input type="select" name="status" placeholder="status">
-                                    <option>Active</option>
-                                    <option>Lock</option>
-                                </Input>
+                            <Label sm={3}>Skill name</Label>
+                            <Col sm={9}>
+                                <Input name="name" placeholder="Skill name"
+                                       onChange={this.onChange}
+                                       invalid={errors.name}
+                                />
+                                <FormFeedback>{errors.name}</FormFeedback>
                             </Col>
                         </FormGroup>
                     </Form>
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="primary" onClick={this.onSubmit()}>Submit</Button>{' '}
+                    <Button color="primary" onClick={this.onSubmit}>Submit</Button>{' '}
                     <Button color="secondary" onClick={this.props.toggle}>Cancel</Button>
                 </ModalFooter>
             </Modal>
@@ -59,7 +105,7 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = {
-
+    addSkill
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SkillAddNew);

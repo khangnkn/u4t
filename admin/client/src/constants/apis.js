@@ -15,8 +15,8 @@ export const UNLOCK_USER = '/users/unlock';
 
 export const GET_SKILL_LIST = '/skills';
 export const ADD_SKILL = '/skills';
-export const EDIT_SKILL = '/skills';
-export const DELETE_SKILL = '/skills';
+export const EDIT_SKILL = '/skills/update';
+export const DELETE_SKILL = '/skills/delete';
 
 export const GET_CONTRACT_LIST = '/contracts';
 export const EDIT_CONTRACT = '/contracts';

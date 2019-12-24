@@ -1,16 +1,18 @@
 const AdminModel = require('../shared/models/admin.model');
+const CityModel = require('../shared/models/city.model');
 
 const save = async (adminPayload) => {
     try {
         console.log('Repository add new admin ' + adminPayload);
         const admin = new AdminModel({
+            avatar: adminPayload.avatar,
             username: adminPayload.username,
             password: adminPayload.password,
-            email: adminPayload.email,
-            fullname: adminPayload.fullname,
-            avatar: adminPayload.avatar,
+            fullname: adminPayload.fullName,
+            city: new CityModel(adminPayload.city),
             is_active: adminPayload.is_active,
-            role: adminPayload.role
+            sex: adminPayload.sex,
+            role: adminPayload.role,
         });
 
         const res = await admin.save()

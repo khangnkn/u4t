@@ -4,46 +4,63 @@ const mongoosePaginate = require('mongoose-paginate-v2');
 
 
 const AdminSchema = new Schema({
-        username: {
-            type: String,
-            required: true,
-            unique: true
-        },
-        password: {
-            type: String,
-            required: true
-        },
-        email: {
-            type: String,
-            required: true
-        },
-        fullname: {
-            type: String,
-            required: true
-        },
-        avatar: {
-            type: String,
-            required: false
-        },
-        address: {
-            type: String,
-            required: false
-        },
-        is_active: {
-            type: Boolean,
-            required: true,
-            default: true
-        },
-        role: {
-            type: Number,
-            required: true,
-            default: 2
-        }
+    avatar: {
+        type: String,
+        required: false,
     },
-    {
-        timestamp: true
-    }
-);
+    username: {
+        type: String,
+        required: true,
+    },
+    password: {
+        type: String,
+        required: true,
+    },
+    email: {
+        type: String,
+        required: false,
+    },
+    fullname: {
+        type: String,
+        required: false,
+    },
+    address: {
+        type: String,
+        required: false,
+    },
+    city: {
+        type: Schema.Types.ObjectId,
+        ref: 'City',
+        required: false,
+    },
+    is_active: {
+        type: Boolean,
+        required: true,
+        default: true,
+    },
+    sex : {
+        type: Number,
+        required: false,
+        default: 0,
+    },
+    role: {
+        type: Number,
+        required: false,
+        default: 0,
+    },
+    created_at: {
+        type: Date,
+        default: Date.now,
+    },
+    updated_at: {
+        type: Date,
+        default: Date.now,
+    },
+    deleted_at: {
+        type: Date,
+        default: null,
+    },
+});
 
 AdminSchema.plugin(mongoosePaginate);
 
