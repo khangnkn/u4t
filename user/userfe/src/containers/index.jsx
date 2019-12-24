@@ -24,7 +24,7 @@ const App = () => {
           <Route path="/chat" component={RoomChat} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
-          {userCookie ? <Route path="/profile" component={Profile} /> : null}
+          {true ? <Route path="/profile" component={Profile} /> : null}
           <Route path="/search" component={Search} />
         </Router>
       </div>

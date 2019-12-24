@@ -6,25 +6,117 @@ import userService from '../actions/UserService';
 class TeacherProfile extends React.Component {
   constructor(props) {
     super(props);
-    this.renderDetail = this.renderDetail.bind(this);
+    this.renderTutorDetail = this.renderTutorDetail.bind(this);
     this.renderSkills = this.renderSkills.bind(this);
     this.renderHistory = this.renderHistory.bind(this);
     this.renderContact = this.renderContact.bind(this);
+    this.renderStudentDetail = this.renderStudentDetail.bind(this);
     this.state = {
-      tutor: null,
+      user: null,
     };
   }
 
   componentDidMount() {
-    const idTutor = this.props.match.params.id;
-    userService.loadTutorInfor(idTutor).then((data) => {
+    const id = this.props.match.params.id;
+    userService.loadInfor(id).then((data) => {
       this.setState({
-        tutor: data,
+        infor: data,
       });
     });
   }
+  renderStudentDetail(std){
+    return(
+      <div className="ng-scope ng-isolate-scope">
+      <div className="m-0 p-0">
+        <div className="fe-profile-header ng-scope">
+              <div
+                  className="air-card m-0-left-right-md m-0-left-right-xl m-0-top-bottom m-0-right ng-scope"
+                >
+                  <div className="row m-lg-bottom">
+                      <div className="col-xs-12 col-sm-8 col-md-9 col-lg-10">
+                          <div className="media">
+                              <div className="m-sm-right">
+                                  <div className="ng-isolate-scope">
+                                      <div className="ng-isolate-scope">
+                                          <div
+                                              className="up-active-container ng-isolate-scope"
+                                            >
+                                              <img
+                                                  className="avatar avatar-md cfe-avatar m-0 ng-scope"
+                                                  alt="avatar"
+                                                  src={std.avatar}
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                              <div className="media-body">
+                                  <h2 className="m-xs-bottom">
+                                      <span itemProp="name" className="ng-binding">
+                                          {std.fullName}
+                                        </span>
+                                      <span
+                                          className="idv-verified badge badge-verified ng-scope"
+                                        >
+                                          <span
+                                              aria-hidden="true"
+                                              className="glyphicon air-icon-verified"
+                                            >
+                                            </span>
 
-  renderDetail(tutor) {
+                                        </span>
+                                    </h2>
+                                  <div className="div-local-time">
+                                      <div className="ng-isolate-scope">
+                                          <span className="fe-map-trigger">
+                                              <div>
+                                                  <div
+                                                      className="ng-scope ng-isolate-scope"
+                                                    >
+                                                      <span
+                                                          aria-hidden="true"
+                                                          className="glyphicon air-icon-location m-0-left vertical-align-middle m-xs-right"
+                                                        >
+                                                        </span>
+                                                      <span
+                                                          ng-className="labelClass"
+                                                          className="w-700"
+                                                        >
+                                                          <span
+                                                              className="ng-binding ng-scope"
+                                                            >
+                                                              <span
+                                                                  className="text-capitalize ng-binding"
+                                                                >
+                                                                  {std.address}
+
+                                                                </span>
+,
+                                                            </span>
+                                                          <span
+                                                              className="ng-binding ng-scope"
+                                                            >
+                                                              {std.city.name}
+
+                                                            </span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  <hr className="m-0-bottom d-block d-lg-none" />
+                </div>
+            </div>
+      </div>
+    </div>
+    );
+  }
+  renderTutorDetail(tutor) {
     return (
       <div className="ng-scope ng-isolate-scope">
         <div className="m-0 p-0">
@@ -44,7 +136,7 @@ class TeacherProfile extends React.Component {
                                                 <img
                                                     className="avatar avatar-md cfe-avatar m-0 ng-scope"
                                                     alt="avatar"
-                                                    src="Ma.%20Jericca%20C.%20-%20Web%20Research,%20Data%20Entry,%20Lead%20Generation%20Expert%20-%20Upwork%20Freelancer%20from%20Cagayan%20Valley,%20Philippines_files/c19yU5qVwk5YXuJpxLGqz4X570l626FIgippe_8k4aINo6fUU2W9-vTB3pS.jpeg"
+                                                    src={tutor.avatar}
                                                   />
                                               </div>
                                           </div>
@@ -547,7 +639,8 @@ Completed
   }
 
   render() {
-    const { tutor } = this.state;
+    const { user } = this.state;
+    const role = user.role;
     return (
       <div>
         <NavBar />
@@ -560,13 +653,13 @@ Completed
                                 <div className="fe-ui-application cfe-ui-application">
                                     <div className="row eo-block-none o-profile">
                                         <div className="cfe-main p-0-left-right-xs col-xs-12 col-lg-9">
-                                            {this.renderDetail(tutor)}
-                                            {this.renderSkills(tutor.data.skills)}
-                                            {this.renderHistory(tutor.history)}
+                                            {role === 1 ? this.renderTutorDetail(user) : this.renderStudentDetail(user)}
+                                            {role === 1 ? this.renderSkills(user.data.skills): ""}
+                                            {this.renderHistory(user.history)}
                                           </div>
                                         <div className="col-lg-3 cfe-sidebar d-none d-lg-block ng-scope">
-                                            {this.renderContact(tutor._id)}
-                                          </div>
+                                            {role === 1 ? this.renderContact(user._id): ""}
+                                        </div>
                                       </div>
                                   </div>
                               </div>

@@ -3,11 +3,12 @@ import { connect } from 'react-redux';
 
 import { Button, Form, Badge } from 'react-bootstrap';
 
-
 import * as actions from '../actions/index';
 import '../public/stylesheets/auth.scss';
+import SimpleReactValidator from 'simple-react-validator';
 
 const Register = (props) => {
+  var validator = new SimpleReactValidator();
   const handleChange = (event) => {
     const { name, value } = event.target;
     props.handleRegisterChange(name, value);
@@ -23,12 +24,10 @@ const Register = (props) => {
       props.registerUser(user);
     }
   };
-
   const { } = props;
   const { register } = props;
   const requestIcon = <img alt="processing" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />;
-  const confimPasswordFeedback = (
-    <Badge variant="danger">Password don't match.</Badge>);
+  const confimPasswordFeedback = (<Badge variant="danger">Password don't match.</Badge>);
   return (
     <div className="auth-main">
       <div className="auth-block">
@@ -60,7 +59,7 @@ const Register = (props) => {
           <div className="form-group row">
             <Form.Label htmlFor="inputRole1" className="col-sm-3 control-label">I want to</Form.Label>
             <div className="col-sm-9">
-              <Form.Control className="form-control" onChange={handleChange} id="inputRole1" name="role" as="select" defaultValue="0">
+              <Form.Control className="form-control" onChange={handleChange} id="inputRole1" name="role" as="select" defaultValue="0" style={{height: '40px'}}>
                 <option value="0">Hide a teacher</option>
                 <option value="1">Work as a teacher</option>
               </Form.Control>

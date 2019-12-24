@@ -1,11 +1,14 @@
 import React from 'react'
 import { userService } from '../actions/UserService';
+// import SimpleReactValidator from 'simple-react-validator';
 class ContractDetail extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             contract: null
         }
+        // this.validator = new SimpleReactValidator();
+        this.handleDesicionContractAcception = this.handleDesicionContractAcception.bind(this);
     }
     componentDidMount() {
         var id = 'cmt8';
@@ -13,7 +16,11 @@ class ContractDetail extends React.Component {
             this.setState({ contract: data.contract });
         })
     }
-
+    handleDesicionContractAcception(value) {
+        userService.desicionContractAccept(state.id,value).then(data => {
+            window.alert(data.message);
+        })
+    }
     renderContract() {
         return (
             <div className="content col-lg-9">
@@ -102,7 +109,7 @@ class ContractDetail extends React.Component {
                             <span className="nowrap">
                                 5.00 of 2
                                 reviews
-                        </span>
+                            </span>
                         </div>
 
                         <ul className="list-unstyled m-0-bottom">
@@ -122,6 +129,39 @@ class ContractDetail extends React.Component {
                                 </div>
                             </li>
 
+                            <li className="justify-xs-md">
+                                <strong className="primary">
+                                    Người học
+                            </strong>
+                                <div className="text-muted">
+                                    <a href="#">Nguyen Hung</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </section>
+                </div>
+            </aside>
+        );
+    }
+    renderContractBeforeAccept(){
+        return (
+            <aside className="sidebar-extra col-lg-3">
+                <div className="sidebar m-0-top p-0-top">
+                    <section className="air-card-divider-sm">
+
+                        <h4>Thông tin đánh giá</h4>
+
+                        <div className="m-md-bottom">
+                            <span className="text-success text-primary glyphicon air-icon-verified eoPaymentVerified m-0-left m-xs-right no-close-lg ng-scope">
+                            </span>
+                            <strong>
+                                Nếu bạn muốn xem thông tin người học
+                            </strong>
+                            <em>
+                                Hãy nhấp chọn link bên dưới
+                            </em>
+                        </div>
+                        <ul className="list-unstyled m-0-bottom">
                             <li className="justify-xs-md">
                                 <strong className="primary">
                                     Người học
@@ -160,7 +200,7 @@ class ContractDetail extends React.Component {
                                             </span>
                                             <div className="ng-isolate-scope">
                                                 {e.moTa}
-                                    </div>
+                                            </div>
                                         </span>
                                     </div>
                                 </div>
@@ -171,7 +211,7 @@ class ContractDetail extends React.Component {
                                     <span className="ng-scope">
                                         <strong className="ng-binding">
                                             {e.by.fullName}
-                                </strong>
+                                        </strong>
                                     </span>
                                 </div>
                             </div>
@@ -181,7 +221,18 @@ class ContractDetail extends React.Component {
             </client-work-history>
         );
     }
+    renderAccept() {
+        return (
+            <div className="modal-footer">
+                <div className="btn-row">
+                    <Button type="button" className="btn pull-left btn-primary" onClick={this.handleDesicionContractAcception(-1)}>Từ chối</Button>
+                    <Button type="button" className="btn pull-right btn-primary" onClick={this.handleDesicionContractAcception(1)}>Chấp thuận</Button>
+                </div>
+            </div>
+        );
+    }
     render() {
+        var flat = this.props.flat;
         return (
             <div id="layout" className="layout">
                 <div className="layout-page-content">
@@ -191,11 +242,12 @@ class ContractDetail extends React.Component {
                             <div className="jd-card air-card p-0-top-bottom m-0-top-bottom ng-scope">
                                 <div className="row">
                                     {this.renderContract()}
-                                    {this.renderContractEvaluation()}
+                                    {flat === 1 ? this.renderContractEvaluation(): ""}
+                                    {flat === 1 ?this.renderContract() : this.renderContractBeforeAccept()}
                                 </div>
                             </div>
                             <div className="work-history air-card m-0-bottom p-0-top-bottom ng-scope">
-                                {this.renderReview()}
+                                {flat === 1 ? this.renderReview() : this.renderAccept()}
                             </div>
                         </div>
                     </div>

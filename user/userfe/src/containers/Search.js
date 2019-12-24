@@ -17,7 +17,7 @@ class Search extends React.Component {
                         className="nv-brand" href="/" > U4T </a>
                     </div>
                     <div className="navbar-collapse d-none d-lg-flex ">
-                        <div className="navbar-form">
+                        <div className="navbar-form-air">
                             <div className="hydrated">
                                 <div className="hydrated">
                                     <form method="GET" action="/search/profiles/" role="search"

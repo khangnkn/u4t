@@ -140,18 +140,6 @@ $
   }
 
   renderTopTeacher() {
-    const test = [{
-      avatar: '', giaTien: 20, fullName: 'Nguyen Hungw', tieuDe: 'La mot giao vien tieu bieu nhat he mat troi', thanhPho: 'Ho Chi Minh', skills: ['Toan', 'Ly', 'Hoa'],
-    },
-    {
-      avatar: '', giaTien: 20, fullName: 'Nguyen Hungw', tieuDe: 'La mot giao vien tieu bieu nhat he mat troi', thanhPho: 'Ho Chi Minh', skills: ['Toan', 'Ly', 'Hoa'],
-    },
-    {
-      avatar: '', giaTien: 20, fullName: 'Nguyen Hungw', tieuDe: 'La mot giao vien tieu bieu nhat he mat troi', thanhPho: 'Ho Chi Minh', skills: ['Toan', 'Ly', 'Hoa'],
-    },
-    {
-      avatar: '', giaTien: 20, fullName: 'Nguyen Hungw', tieuDe: 'La mot giao vien tieu bieu nhat he mat troi', thanhPho: 'Ho Chi Minh', skills: ['Toan', 'Ly', 'Hoa'],
-    }];
 
     this.topTeacher = (
       <section className="fl-carousel-section  ng-scope">
@@ -163,8 +151,8 @@ $
               <div className="d-none d-xl-block carousel-comp carousel ng-isolate-scope">
                 <div className="carousel-inner">
                   <div className="item text-center ng-scope ng-isolate-scope active">
-                    <div className="d-flex p-xs-left-right p-sm-bottom row ng-scope">
-                      {test.map((e, i) => this.renderTopTeacherItem(i, e.avatar, e.giaTien, e.fullName, e.tieuDe, e.thanhPho, e.skills))}
+                    <div className="d-flex p-xs-left-right p-sm-bottom row ng-scope" style={{height: '400px'}}>
+                      {/* {test.map((e, i) => this.renderTopTeacherItem(i, e.avatar, e.giaTien, e.fullName, e.tieuDe, e.thanhPho, e.skills))} */}
                     </div>
                   </div>
                 </div>

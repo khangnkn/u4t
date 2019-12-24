@@ -39,14 +39,14 @@ var initialState = {
             sdt: "",
             diaChi: "",
             ttp: "",
-            role: 1,
+            role: 0,
         },
         avatar: null,
         data: {
             trinhDo: 0,
             kyNang: [],
             giaTien: 0,
-            tieuDe: "J",
+            tieuDe: "",
             tongQuan: ""
         }
     },

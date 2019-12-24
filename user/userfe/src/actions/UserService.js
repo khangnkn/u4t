@@ -107,6 +107,37 @@ function createContract(contract) {
   return fetch(req).then(handleLogOut).then((resp) => resp.json()).then((data) => data);
 }
 
+function loadAllContract(id) {
+  const requestOptions = {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json',
+                'id' : id}
+  };
+
+  return fetch('/api/all-contract', requestOptions).then((resp) => resp.json()).then((data) => data.data);
+}
+
+function desicionContractAccept(id,value){ 
+  const header = new Headers();
+
+  const userCookie = JSON.parse(localStorage.getItem('user'));
+
+  header.append('Content-Type', 'application/json');
+  header.append('Authorization', userCookie ? `Bearer${userCookie.token}` : 'Bearer');
+
+  const fd = new FormData();
+
+  fd.append('id', JSON.stringify(id));
+  fd.append('choice',JSON.stringify(value))
+  const req = new Request('/api/contract/accept', {
+    method: 'POST',
+    headers: header,
+    mode: 'no-cors',
+    body: fd,
+  });
+
+  return fetch(req).then(handleLogOut).then((resp) => resp.json()).then((data) => data);
+}
 
 export default {
   login,
@@ -114,4 +145,7 @@ export default {
   logOut,
   update,
   loadTop4,
+  loadAllContract,
+  createContract,
+  desicionContractAccept
 };

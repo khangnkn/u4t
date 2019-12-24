@@ -1,11 +1,11 @@
 import React from 'react';
-
+import {Dropdown} from 'react-bootstrap';
 const NavBar = () => {
   const renderForLoggedIn = () => {
     var user = JSON.parse(localStorage.getItem(user));
     return (
-      <div className="navbar-collapse d-none d-lg-flex">
-        <div className="navbar-form">
+      <div className="navbar-collapse-air d-none d-lg-flex">
+        <div className="navbar-form-air">
           <div className="hydrated">
             <div className="hydrated">
               <form
@@ -33,10 +33,11 @@ const NavBar = () => {
             </div>
           </div>
         </div>
+        
         <div className="navbar-text navbar-right">
           <p className="m-0-bottom">
             <span>
-Logged in as
+              Logged in as
               {' '}
               {user.data.username}
             </span>
@@ -49,8 +50,8 @@ Logged in as
   };
 
   const renderBeforeLogIn = () => (
-    <div className="navbar-collapse d-none d-lg-flex">
-      <div className="navbar-form">
+    <div className="navbar-collapse-air d-none d-lg-flex">
+      <div className="navbar-form-air">
         <div className="hydrated">
           <div className="hydrated">
             <form
@@ -78,6 +79,17 @@ Logged in as
           </div>
         </div>
       </div>
+      <Dropdown>
+          <Dropdown.Toggle  variant="infor" id="dropdown-basic">
+            Dropdown Button
+  </Dropdown.Toggle>
+
+          <Dropdown.Menu style={{height: '300px',width: '500px'}}>
+            <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+            <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+            <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
       <ul className="navbar-nav navbar-lg navbar-subnav navbar-right">
         <li role="none"><a href="/login"> Log In</a></li>
         <li role="none"><a href="/register"> Sign up</a></li>

@@ -306,12 +306,12 @@ main:active {
     }
 }
 
-.container-visitor .navbar-collapse {
+.container-visitor .navbar-collapse-air {
     margin: 0 auto
 }
 
 @media (min-width: 480px) {
-    .container-visitor .navbar-collapse {
+    .container-visitor .navbar-collapse-air {
         width: 432px;
         -ms-flex-preferred-size: auto;
         flex-basis: auto
@@ -319,7 +319,7 @@ main:active {
 }
 
 @media (min-width: 768px) {
-    .container-visitor .navbar-collapse {
+    .container-visitor .navbar-collapse-air {
         width: 720px
     }
 }
@@ -5060,7 +5060,7 @@ a.list-group-item.active:focus .list-group-item-text {
     }
 }
 
-.navbar-collapse {
+.navbar-collapse-air {
     -ms-flex-preferred-size: 100%;
     flex-basis: 100%;
     -webkit-box-flex: 1;
@@ -5070,7 +5070,7 @@ a.list-group-item.active:focus .list-group-item-text {
 }
 
 @media (min-width: 992px) {
-    .navbar-collapse {
+    .navbar-collapse-air {
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
@@ -5078,7 +5078,7 @@ a.list-group-item.active:focus .list-group-item-text {
     }
 }
 
-.navbar-collapse>.btn {
+.navbar-collapse-air>.btn {
     -ms-flex-item-align: center;
     align-self: center
 }
@@ -5244,12 +5244,12 @@ a.list-group-item.active:focus .list-group-item-text {
     }
 }
 
-.navbar-form {
+.navbar-form-air {
     margin-bottom: 20px
 }
 
 @media (min-width: 992px) {
-    .navbar-form {
+    .navbar-form-air {
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
@@ -5261,7 +5261,7 @@ a.list-group-item.active:focus .list-group-item-text {
 }
 
 @media (min-width: 1200px) {
-    .navbar-form {
+    .navbar-form-air {
         margin-right: 15px
     }
 }

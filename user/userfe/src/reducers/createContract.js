@@ -23,8 +23,8 @@ var myReducer = (state = initialState, action) => {
             return {...state};
         case types.HANDLE_CREATE_CONTRACT_DATA_CHANGE:
             var value = action.value;
-            if (action.name === 'giaTien' || action.name === 'tongTien') {
-                value = parseInt(value);
+            if (action.name === 'ghGio' || action.name === 'giaTien' || action.name === 'tongTien') {
+                value = parseFloat(value);
             }
             state.contract[action.name] = value;
             return { ...state };

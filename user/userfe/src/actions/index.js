@@ -178,3 +178,12 @@ export const handleMessageChatRoom = (mess) => ({
   type: types.HANDLE_MESSAGE_CHAT_ROOM,
   mess,
 });
+
+export const handleControllerSelectContractManagement = (value) => {
+  type: types.HANDLE_CONTROLLER_SELECT_CONTRACT_MANAGEMENT,
+  value
+}
+export const handleLoadListContractManagement = (data) => {
+  type: types.HANDLE_LOAD_LIST_CONTRACT_MANAGEMENT,
+  data
+}
