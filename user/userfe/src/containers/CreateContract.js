@@ -7,6 +7,8 @@ import * as actions from '../actions/index';
 
 import 'react-datepicker/dist/react-datepicker.css';
 import SimpleReactValidator from 'simple-react-validator';
+import {helperService} from '../actions/HelperService';
+import { Button } from 'react-bootstrap';
 
 class CreateContract extends React.Component {
   constructor(props) {
@@ -17,7 +19,7 @@ class CreateContract extends React.Component {
     this.renderSkill = this.renderSkill.bind(this);
     this.renderWarning = this.renderWarning.bind(this);
     this.handleDataChange = this.handleDataChange.bind(this);
-    this.handleSkillsChange = this.handleSkillsChange.bind(this);
+    // this.handleSkillsChange = this.handleSkillsChange.bind(this);
     this.handleDateStartChange = this.handleDateStartChange.bind(this);
     this.handleDateEndChange = this.handleDateEndChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -31,11 +33,12 @@ class CreateContract extends React.Component {
     this.validator.showMessages();
   }
   componentDidMount() {
-    const idSt = 'cmt8';
-    const idTutor = 'cmt10';
-    const tutor = {};
-    this.setState({ inforTutor: tutor });
-    this.props.setId(idSt, idTutor);
+    var userCookie = JSON.parse(localStorage.getItem(user));
+    helperService.loadUserInfor(id).then(data => {
+      this.setState({ inforTutor: data });
+      this.props.setId(userCookie.id, data.id);
+    })
+   
   }
 
   handleSubmit(event) {
@@ -76,6 +79,7 @@ class CreateContract extends React.Component {
   }
   renderContractDetails() {
     var contract = this.props.createContract.contract;
+    var inforTutor = this.state.inforTutor;
     var dateMess = (<div>The start date less or equal the end date.</div>);
     return (
       <div className="form ng-valid ng-valid-format ng-valid-min ng-valid-max ng-valid-date ng-valid-date-range ng-valid-hr-constraintinteger ng-valid-hr-constraintmin ng-valid-hr-constraintmax ng-dirty ng-valid-number ng-valid-hr-constraintrequired ng-valid-hr-constraintfloat">
@@ -88,7 +92,7 @@ class CreateContract extends React.Component {
                 src="./Contract_files/c1PoXrydUGYA9LO6ofPHVhDT-C1Jbbt7cP0neDqE2SWOYzmrC4knZuD69ImVgyUNfu"
               />
               <span className="vertical-align-middle">
-                Abhinav Sogga, Matrix Infologics® Pvt. Ltd.
+              {inforTutor.fullName + ',' + inforTutor.address + " - " + inforTutor.city.name} 
               </span>
             </h2>
           </header>
@@ -141,7 +145,7 @@ class CreateContract extends React.Component {
                 </div>
                 <div className="clearfix">
                   <div className="text-muted p-sm-top">
-                    Mức lương đề xuất của người dạy là $15.00 / giờ
+                      {'Mức lương đề xuất của người dạy là $ '+ inforTutor.price + '/giờ'}
                   </div>
                 </div>
               </div>
@@ -250,64 +254,64 @@ class CreateContract extends React.Component {
     );
   }
 
-  renderSkill() {
-    return (
-      <div>
-        <div role="form" className="ng-pristine ng-valid ng-valid-uploading-file">
-          <div className="air-card m-0-top m-0-right-md m-0-right-xl p-0-top-bottom">
-            <header>
-              <h2 className="m-0-bottom">
-                Kỹ năng giảng dạy liên quan
-              </h2>
-            </header>
-            <section>
-              <div
-                data-ng-show="flagIndex.hourly"
-                id="rowHourlyInstruction"
-                className=""
-              >
-                <div className="row">
-                  <div className="checkbox col-md-6">
-                    <Form.Label>
-                      <Form.Control type="checkbox" onChange={this.handleSkillsChange} name="kyNang" value="1" />
-                      <span className="checkbox-replacement-helper">
-                        <span aria-hidden="true" className="glyphicon ">
-                          <i className="fas fa-check" />
-                        </span>
-                      </span>
-                      A/B Testing
-                    </Form.Label>
-                  </div>
-                  <div className="checkbox col-md-6">
-                    <Form.Label>
-                      <Form.Control type="checkbox" onChange={this.handleSkillsChange} name="kyNang" value="3" />
-                      <span className="checkbox-replacement-helper">
-                        <span aria-hidden="true" className="glyphicon">
-                          <i className="fas fa-check" />
-                        </span>
-                      </span>
-                      A/B Testing
-                    </Form.Label>
-                  </div>
-                  <div className="checkbox col-md-6">
-                    <Form.Label>
-                      <Form.Control type="checkbox" onChange={this.handleSkillsChange} name="kyNang" value="4" />
-                      <span className="checkbox-replacement-helper">
-                        <span aria-hidden="true" className="glyphicon">
-                          <i className="fas fa-check" />
-                        </span>
-                      </span>
-                      A/B Testing
-                    </Form.Label>
-                  </div>
-                </div>
-              </div>
-            </section>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  // renderSkill() {
+  //   return (
+  //     <div>
+  //       <div role="form" className="ng-pristine ng-valid ng-valid-uploading-file">
+  //         <div className="air-card m-0-top m-0-right-md m-0-right-xl p-0-top-bottom">
+  //           <header>
+  //             <h2 className="m-0-bottom">
+  //               Kỹ năng giảng dạy liên quan
+  //             </h2>
+  //           </header>
+  //           <section>
+  //             <div
+  //               data-ng-show="flagIndex.hourly"
+  //               id="rowHourlyInstruction"
+  //               className=""
+  //             >
+  //               <div className="row">
+  //                 <div className="checkbox col-md-6">
+  //                   <Form.Label>
+  //                     <Form.Control type="checkbox" onChange={this.handleSkillsChange} name="kyNang" value="1" />
+  //                     <span className="checkbox-replacement-helper">
+  //                       <span aria-hidden="true" className="glyphicon ">
+  //                         <i className="fas fa-check" />
+  //                       </span>
+  //                     </span>
+  //                     A/B Testing
+  //                   </Form.Label>
+  //                 </div>
+  //                 <div className="checkbox col-md-6">
+  //                   <Form.Label>
+  //                     <Form.Control type="checkbox" onChange={this.handleSkillsChange} name="kyNang" value="3" />
+  //                     <span className="checkbox-replacement-helper">
+  //                       <span aria-hidden="true" className="glyphicon">
+  //                         <i className="fas fa-check" />
+  //                       </span>
+  //                     </span>
+  //                     A/B Testing
+  //                   </Form.Label>
+  //                 </div>
+  //                 <div className="checkbox col-md-6">
+  //                   <Form.Label>
+  //                     <Form.Control type="checkbox" onChange={this.handleSkillsChange} name="kyNang" value="4" />
+  //                     <span className="checkbox-replacement-helper">
+  //                       <span aria-hidden="true" className="glyphicon">
+  //                         <i className="fas fa-check" />
+  //                       </span>
+  //                     </span>
+  //                     A/B Testing
+  //                   </Form.Label>
+  //                 </div>
+  //               </div>
+  //             </div>
+  //           </section>
+  //         </div>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   renderContractFooter() {
     return (
@@ -318,17 +322,17 @@ class CreateContract extends React.Component {
         >
           <div>
             <div className="d-none d-lg-block">
-              <button
+              <Button
                 type="submit"
                 onClick={this.handleSubmit}
                 className="btn btn-primary"
               >
                 Xác nhận
 
-              </button>
-              <button className="btn btn-link m-lg-left">
+              </Button>
+              <Button type='button' className="btn btn-link m-lg-left">
                 Cancel
-              </button>
+              </Button>
             </div>
           </div>
         </div>
@@ -362,7 +366,7 @@ class CreateContract extends React.Component {
                     <div className="col-md-9 p-0-top">
                       {this.renderContractDetails()}
                       {this.renderWorkDescription()}
-                      {this.renderSkill()}
+                      {/* {this.renderSkill()} */}
                       {this.renderContractFooter()}
                     </div>
                     <div className="col-md-3 d-none d-md-block p-xs-top p-xs-left">
@@ -387,9 +391,9 @@ const mapDispatchToProps = (dispatch, props) => ({
   handleCreateContractDataChange: (name, value) => {
     dispatch(actions.handleCreateContractDataChange(name, value));
   },
-  handleCreateContractSkillChange: (name, value, checked) => {
-    dispatch(actions.handleCreateContractSkillChange(name, value, checked));
-  },
+  // handleCreateContractSkillChange: (name, value, checked) => {
+  //   dispatch(actions.handleCreateContractSkillChange(name, value, checked));
+  // },
   handleCreateContractDateStartChange: (date) => {
     dispatch(actions.handleCreateContractDateStartChange(date));
   },

@@ -37,13 +37,9 @@ const NavBar = () => {
         <div className="navbar-text navbar-right">
           <p className="m-0-bottom">
             <span>
-<<<<<<< HEAD
               Logged in as
               {' '}
               {user.data.username}
-=======
-              {storage ? `Logged as ${storage.user.fullname}` : 'Hi, there!'}
->>>>>>> ef31a82d8c84317028b6d6618145626c2489efac
             </span>
             <br />
             <a href="" className="navbar-link">Log out</a>

@@ -187,3 +187,67 @@ export const handleLoadListContractManagement = (data) => {
   type: types.HANDLE_LOAD_LIST_CONTRACT_MANAGEMENT,
   data
 }
+
+// 
+export const handleComplainDataChange = (name,value) => {
+  type: types.HANDLE_COMPLAIN_DATA_CHANGE,
+  name,value
+}
+
+export const handleReviewDataChange = (name,value) => {
+  type: types.HANDLE_REVIEW_DATA_CHANGE,
+  name,value
+}
+
+export const handleReviewContractSubmit = (_id,review) => {
+  return (dispatch) => {
+    try {
+      userService.submitReviewContract(_id,review).then(data=>{
+        if (data.code === 1) {
+          dispatch(alertActions.success(data.message));
+        } else {
+          dispatch(alertActions.error(data.message));
+        }
+      })
+    } catch(ex) {
+
+    }
+  }
+}
+
+export const handleComplainContractSubmit = (_id,complain) => {
+  return (dispatch)=> {
+    try {
+      userService.submitComplainContract(_id,complain).then(data=>{
+        if (data.code === 1){
+          dispatch(alertActions.success(data.message));
+        } else {
+          dispatch(alertActions.error(data.message));
+        }
+      })
+    } catch (error) {
+      
+    }
+  }
+}
+
+export const handleCompleteContractSubmit = (_id) => {
+  return (dispatch) => {
+    try {
+      userService.submitCompleteContract(_id).then(data=>{
+        if (data.code === 1){
+          dispatch(alertActions.success(data.message));
+        } else {
+          dispatch(alertActions.error(data.message));
+        }
+      })
+    } catch (error) {
+      
+    }
+  }
+}
+
+export const handleContractControllerSelect = (selected) => {
+  type: types.HANDLE_CONTRACT_CONTROLLER_SELECT,
+  selected
+}

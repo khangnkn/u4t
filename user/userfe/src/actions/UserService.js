@@ -140,17 +140,78 @@ function desicionContractAccept(id,value){
   return fetch(req).then(handleLogOut).then((resp) => resp.json()).then((data) => data);
 }
 
+function submitReviewContract(_id,review){
+  const headers = new Headers();
+  const userCookie = JSON.parse(localStorage.getItem('user'));
+
+  header.append('Content-Type', 'application/json');
+  header.append('Authorization', userCookie ? `Bearer${userCookie.token}` : 'Bearer');
+
+  const fd = new FormData();
+  fd.append('_id',JSON.stringify(_id));
+  fd.append('review',JSON.stringify(review));
+
+  const req = new Request('/api/contracts/addreview', {
+    method: 'POST',
+    headers: header,
+    mode: 'no-cors',
+    body: fd,
+  });
+  
+  return fetch(req).then(handleLogOut).then((resp)=> resp.json()).then((data)=>{return data;});
+}
+
+function submitComplainContract(_id,complain){
+  const headers = new Headers();
+  const userCookie = JSON.parse(localStorage.getItem('user'));
+
+  header.append('Content-Type', 'application/json');
+  header.append('Authorization', userCookie ? `Bearer${userCookie.token}` : 'Bearer');
+
+  const fd = new FormData();
+  fd.append('_id',JSON.stringify(_id));
+  fd.append('complain',JSON.stringify(complain));
+
+  const req = new Request('/api/contracts/addcomplain', {
+    method: 'POST',
+    headers: header,
+    mode: 'no-cors',
+    body: fd,
+  });
+  
+  return fetch(req).then(handleLogOut).then((resp)=> resp.json()).then((data)=>{return data;});
+}
+
+function submitCompleteContract(_id){
+  const headers = new Headers();
+  const userCookie = JSON.parse(localStorage.getItem('user'));
+
+  header.append('Content-Type', 'application/json');
+  header.append('Authorization', userCookie ? `Bearer${userCookie.token}` : 'Bearer');
+
+  const fd = new FormData();
+  fd.append('_id',JSON.stringify(_id));
+
+  const req = new Request('/api/contracts/complete', {
+    method: 'POST',
+    headers: header,
+    mode: 'no-cors',
+    body: fd,
+  });
+  
+  return fetch(req).then(handleLogOut).then((resp)=> resp.json()).then((data)=>{return data;});
+}
+
 export default {
   login,
   register,
   logOut,
   update,
   loadTop4,
-<<<<<<< HEAD
   loadAllContract,
   createContract,
-  desicionContractAccept
-=======
-
->>>>>>> ef31a82d8c84317028b6d6618145626c2489efac
+  desicionContractAccept,
+  submitReviewContract,
+  submitComplainContract,
+  submitCompleteContract
 };

@@ -10,7 +10,7 @@ var initialState = {
         ghGio: 0,
         ngayBatDau: '',
         ngayKetThuc: '',
-        kyNang: []
+        // kyNang: []
     },
     requestCreate: false
 }

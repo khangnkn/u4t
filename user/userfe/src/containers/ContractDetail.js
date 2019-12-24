@@ -25,11 +25,11 @@ class ContractDetail extends React.Component {
         return (
             <div className="content col-lg-9">
                 <header>
-                    <h2 className="m-0-bottom" data-ng-non-bindable="">{this.state.contract.tieuDe}</h2>
+                    <h2 className="m-0-bottom" data-ng-non-bindable="">{this.state.contract.title}</h2>
                 </header>
                 <section className="air-card-divider-sm">
                     <div className="job-description break">
-                        {this.state.contract.moTa}
+                        {this.state.contract.description}
                     </div>
                 </section>
                 <section className="air-card-divider-sm">
@@ -37,7 +37,7 @@ class ContractDetail extends React.Component {
                         <li>
                             <i className="glyphicon air-icon-clock-hourly jobdetails-tier-level-icon"></i>
                             <strong>Mức lương/Giờ</strong>
-                            <small className="text-muted">{this.state.contract.giaTien}</small>
+                            <small className="text-muted">{this.state.contract.price}</small>
                         </li>
                         <li>
                             <i className="glyphicon air-icon-calendar-under1month-alt jobdetails-tier-level-icon"></i>
@@ -45,8 +45,8 @@ class ContractDetail extends React.Component {
                                 <span className="d-none d-lg-inline">Thời gian</span>
                             </strong>
                             <small className="text-muted">
-                                <span className="d-none d-lg-inline">{this.state.contract.ngayBatDau} - {this.state.contract.ngayKetThuc}</span>
-                                <span className="d-none d-lg-inline">{this.state.contract.ghGio} giờ/tuần</span>
+                                <span className="d-none d-lg-inline">{this.state.contract.startDate} - {this.state.contract.endDate}</span>
+                                {/* <span className="d-none d-lg-inline">{this.state.contract.ghGio} giờ/tuần</span> */}
                             </small>
                         </li>
 
@@ -58,19 +58,19 @@ class ContractDetail extends React.Component {
                             </strong>
                             <small className="text-muted">
                                 <span className="d-none d-lg-inline">
-                                    {this.state.contract.tongTien}
+                                    {this.state.contract.total}
                                 </span>
                             </small>
                         </li>
                     </ul>
                 </section>
 
-                <section className="air-card-divider-sm">
+                {/* <section className="air-card-divider-sm">
                     <h4>Thông tin kỹ năng liên quan</h4>
                     <div className="sands-groups">
                         <div className="row">
                             <div className="col-sm-6 m-md-bottom">
-                                {this.state.contract.kyNang.map((e, i) => {
+                                {this.state.contract.skills.map((e, i) => {
                                     return (<a className="o-tag m-0-left m-0-top m-xs-bottom" key={i}
                                         href="#" disabled>CSS</a>);
                                 })}
@@ -78,7 +78,7 @@ class ContractDetail extends React.Component {
 
                         </div>
                     </div>
-                </section>
+                </section> */}
             </div>
         );
     }
