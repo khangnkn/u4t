@@ -1,47 +1,11 @@
 import React from 'react';
-import {
-  Dropdown,
-  Button,
-  ButtonGroup,
-  Navbar,
-  Nav,
-  NavDropdown,
-  Form,
-  FormControl,
-} from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import UserService from '../actions/UserService';
-
-const NavBar = (props) => {
-  const nav = (
-    <Navbar bg="light" expand="lg">
-      <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
-          <Nav.Link href="#home">Home</Nav.Link>
-          <Nav.Link href="#link">Link</Nav.Link>
-          <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-            <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-            <NavDropdown.Divider />
-            <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-          </NavDropdown>
-        </Nav>
-        <Form inline>
-          <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-          <Button variant="outline-success">Search</Button>
-        </Form>
-      </Navbar.Collapse>
-    </Navbar>
-  );
-  return nav;
+import {Dropdown} from 'react-bootstrap';
+const NavBar = () => {
   const renderForLoggedIn = () => {
     const storage = JSON.parse(localStorage.getItem('user'));
     return (
-      <div className="navbar-collapse d-none d-lg-flex">
-        <div className="navbar-form">
+      <div className="navbar-collapse-air d-none d-lg-flex">
+        <div className="navbar-form-air">
           <div className="hydrated">
             <div className="hydrated">
               <form
@@ -69,24 +33,29 @@ const NavBar = (props) => {
             </div>
           </div>
         </div>
-        {/* <div className="navbar-text navbar-right"> */}
-        <Dropdown as={ButtonGroup}>
-          <Button>{storage && storage.user.fullname ? `Xin chào, ${storage.user.fullname}` : 'Xin chào!'}</Button>
-          <Dropdown.Toggle variant="success" id="dropdown-user">
-          </Dropdown.Toggle>
-          <Dropdown.Menu>
-            <Dropdown.Item href="/">Profile</Dropdown.Item>
-            <Dropdown.Item onClick={UserService.logOut}>Sign Out</Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
-        {/* </div> */}
+        
+        <div className="navbar-text navbar-right">
+          <p className="m-0-bottom">
+            <span>
+<<<<<<< HEAD
+              Logged in as
+              {' '}
+              {user.data.username}
+=======
+              {storage ? `Logged as ${storage.user.fullname}` : 'Hi, there!'}
+>>>>>>> ef31a82d8c84317028b6d6618145626c2489efac
+            </span>
+            <br />
+            <a href="" className="navbar-link">Log out</a>
+          </p>
+        </div>
       </div>
     );
   };
 
   const renderBeforeLogIn = () => (
-    <div className="navbar-collapse d-none d-lg-flex">
-      <div className="navbar-form">
+    <div className="navbar-collapse-air d-none d-lg-flex">
+      <div className="navbar-form-air">
         <div className="hydrated">
           <div className="hydrated">
             <form
@@ -114,14 +83,21 @@ const NavBar = (props) => {
           </div>
         </div>
       </div>
-      {/* <ul className="navbar-nav navbar-lg navbar-subnav navbar-right"> */}
-      <Link to="/login">
-        <Button>Log In</Button>
-      </Link>
-      <Link to="/register">
-        <Button>Sign up</Button>
-      </Link>
-      {/* </ul> */}
+      <Dropdown>
+          <Dropdown.Toggle  variant="infor" id="dropdown-basic">
+            Dropdown Button
+  </Dropdown.Toggle>
+
+          <Dropdown.Menu style={{height: '300px',width: '500px'}}>
+            <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+            <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+            <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+      <ul className="navbar-nav navbar-lg navbar-subnav navbar-right">
+        <li role="none"><a href="/login"> Log In</a></li>
+        <li role="none"><a href="/register"> Sign up</a></li>
+      </ul>
     </div>
   );
 

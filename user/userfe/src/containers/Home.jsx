@@ -1,6 +1,5 @@
 import React from 'react';
 import '../public/stylesheets/air2-ng-cat.css';
-import { Button } from 'react-bootstrap';
 import NavBar from './NavBar';
 import Footer from './Footer';
 
@@ -94,21 +93,22 @@ U4T hỗ trợ quản lý thống kê lịch sử hợp đồng
     return this.overview;
   }
 
-  renderTopTeacherItem(tutor, index) {
+  renderTopTeacherItem(i, avatar, price, fullname, title, city, skills) {
     this.topTeacherItem = (
-      <div key={index} className="fl-tile col-xl-3 col-md-5 col-sm-12 p-xs-top">
+      <div key={i} className="fl-tile col-xl-3 col-md-5 col-sm-12 p-xs-top">
         <div className="vs-shadow-dark p-md-top p-lg-bottom p-sm-left-right text-left ng-scope">
           <div className="d-flex">
             <div className="text-center">
               <img
                 alt="avatar"
-                src={tutor.avatar}
+                src={avatar}
                 className="avatar d-block avatar-md m-0"
               />
               <p className="m-md-top text-center m-0-bottom">
                 <strong className="font-14">
-  $
-                  {tutor.data.price}
+                  {' '}
+$
+                  {price}
                 </strong>
                 <small>/giờ</small>
               </p>
@@ -116,25 +116,25 @@ U4T hỗ trợ quản lý thống kê lịch sử hợp đồng
             <div className="p-sm-left tile-text-part">
               <p className="d-block ellipsis fl-name">
                 <small>
-                  <strong>{tutor.fullname}</strong>
+                  <strong>{fullname}</strong>
                 </small>
               </p>
-              <p className="m-sm-bottom tile-title vs-full-word-cut-text">{tutor.data.title}</p>
+              <p className="m-sm-bottom tile-title vs-full-word-cut-text">{title}</p>
               <span className="d-block badge badge-top-rated top-rated-badge-height">
                 <span aria-hidden="true" className="glyphicon air-icon-top-rated" />
                                 Top rated
               </span>
               <small className="d-block m-xs-top vs-color-gray ellipsis p-xs-top p-0-top-xs">
-                {`${tutor.city.name}, Việt Nam`}
+                {city}
+,Viet Nam
               </small>
             </div>
           </div>
           <hr className="m-sm-top-bottom" />
-          <p>Kỹ năng:</p>
           <div className="skills-list-container m-xs-bottom m-0-bottom-xs">
-            {tutor.data.skills.map((e, i) => (<Button variant="outline-primary" size="sm">{e.name}</Button>))}
+            {skills.map((e, i) => (<div key={i}><span className="vs-full-word-cut-text o-tag-skill m-xs-right pull-left m-xs-bottom vs-o-tag-no-hover d-block vs-color-text">{e}</span></div>))}
           </div>
-          <a href={`/user/detail/${tutor._id}`} className="btn btn-primary btn-sm btn-block-sm m-0-bottom m-md-top tile-cta-button">Thông tin chi tiết</a>
+          <a href="/user/detail" className="btn btn-primary btn-sm btn-block-sm m-0-bottom m-md-top tile-cta-button">Thông tin chi tiết</a>
         </div>
       </div>
     );
@@ -142,7 +142,11 @@ U4T hỗ trợ quản lý thống kê lịch sử hợp đồng
   }
 
   renderTopTeacher() {
+<<<<<<< HEAD
+=======
+    console.log(this.state);
     const { data } = this.state;
+>>>>>>> ef31a82d8c84317028b6d6618145626c2489efac
 
     this.topTeacher = (
       <section className="fl-carousel-section  ng-scope">
@@ -153,9 +157,15 @@ U4T hỗ trợ quản lý thống kê lịch sử hợp đồng
             <div className="container-visitor">
               <div className="d-none d-xl-block carousel-comp carousel ng-isolate-scope">
                 <div className="carousel-inner">
+<<<<<<< HEAD
+                  <div className="item text-center ng-scope ng-isolate-scope active">
+                    <div className="d-flex p-xs-left-right p-sm-bottom row ng-scope" style={{height: '400px'}}>
+                      {/* {test.map((e, i) => this.renderTopTeacherItem(i, e.avatar, e.giaTien, e.fullName, e.tieuDe, e.thanhPho, e.skills))} */}
+=======
                   <div className="item text-center ng-scope ng-isolate-scope active" style={{ height: '400px' }}>
                     <div className="d-flex p-xs-left-right p-sm-bottom row ng-scope">
-                      {data.map((e, i) => this.renderTopTeacherItem(e, i))}
+                      {data.map((e, i) => this.renderTopTeacherItem(i, e.avatar, e.data.price, e.fullname, e.data.title, e.city.name, e.data.skills))}
+>>>>>>> ef31a82d8c84317028b6d6618145626c2489efac
                     </div>
                   </div>
                 </div>
@@ -185,7 +195,8 @@ U4T hỗ trợ quản lý thống kê lịch sử hợp đồng
                         href="/search"
                         className="btn-block-sm btn-primary btn-submit btn m-0 btn m-0"
                       >
-                        Tìm kiếm ngay
+Tìm kiếm ngay
+
                       </a>
                     </div>
                   </div>

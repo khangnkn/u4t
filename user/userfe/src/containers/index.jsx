@@ -17,6 +17,22 @@ import history from '../helpers/HistoryHelper';
 const App = () => {
   const userCookie = localStorage.getItem('user');
   return (
+<<<<<<< HEAD
+    <div>
+      <div className="">
+        <Router history={history}>
+          <Route path="/" exact component={Home} />
+          <Route path="/tutorprofile/:id" component={TeacherProfile} />
+          <Route path="/contract/create" component={CreateContract} />
+          <Route path="/chat" component={RoomChat} />
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
+          {true ? <Route path="/profile" component={Profile} /> : null}
+          <Route path="/search" component={Search} />
+        </Router>
+      </div>
+    </div>
+=======
   // <div>
   // /* <div className=""> */
     <Router history={history}>
@@ -25,7 +41,7 @@ const App = () => {
           <Redirect to="/home" />
         </Route>
         <Route path="/home" component={Home} />
-        <Route path="/user/detail/:id" component={TeacherProfile} />
+        <Route path="/tutorprofile/:id" component={TeacherProfile} />
         <Route path="/contract/create" component={CreateContract} />
         <Route path="/chat" component={RoomChat} />
         <Route path="/login" component={Login} />
@@ -36,6 +52,7 @@ const App = () => {
     </Router>
   // </div>
   // </div>
+>>>>>>> ef31a82d8c84317028b6d6618145626c2489efac
   );
 };
 

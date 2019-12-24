@@ -268,19 +268,19 @@ main:active, main:focus {
     }
 }
 
-.container-visitor .navbar-collapse {
+.container-visitor .navbar-collapse-air {
     margin: 0 auto
 }
 
 @media (min-width:480px) {
-    .container-visitor .navbar-collapse {
+    .container-visitor .navbar-collapse-air {
         width: 432px;
         flex-basis: auto
     }
 }
 
 @media (min-width:768px) {
-    .container-visitor .navbar-collapse {
+    .container-visitor .navbar-collapse-air {
         width: 720px
     }
 }
@@ -3939,20 +3939,20 @@ a.list-group-item.active .list-group-item-text, a.list-group-item.active:focus .
     }
 }
 
-.navbar-collapse {
+.navbar-collapse-air {
     flex-basis: 100%;
     flex: 1;
     padding: 10px 0 20px
 }
 
 @media (min-width:992px) {
-    .navbar-collapse {
+    .navbar-collapse-air {
         display: flex;
         padding: 0
     }
 }
 
-.navbar-collapse>.btn {
+.navbar-collapse-air>.btn {
     align-self: center
 }
 
@@ -4087,12 +4087,12 @@ a.list-group-item.active .list-group-item-text, a.list-group-item.active:focus .
     }
 }
 
-.navbar-form {
+.navbar-form-air {
     margin-bottom: 20px
 }
 
 @media (min-width:992px) {
-    .navbar-form {
+    .navbar-form-air {
         display: flex;
         align-items: center;
         margin-bottom: 0
@@ -4100,7 +4100,7 @@ a.list-group-item.active .list-group-item-text, a.list-group-item.active:focus .
 }
 
 @media (min-width:1200px) {
-    .navbar-form {
+    .navbar-form-air {
         margin-right: 15px
     }
 }

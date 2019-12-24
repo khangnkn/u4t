@@ -1,4 +1,3 @@
-const host = 'http://localhost:8080';
 function handleLogOut(resp) {
   if (resp.code !== 1) {
     if (resp.code === 401) {
@@ -20,7 +19,7 @@ function login(username, password) {
     body: JSON.stringify({ username, password }),
   };
 
-  return fetch(`${host}/api/auth/login`, requestOptions)
+  return fetch('/api/auth/login', requestOptions)
     .then((resp) => resp.json()).then((data) => {
       if (data.code !== 1) {
         return data;
@@ -37,7 +36,7 @@ function register(user) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ username: user.username, password: user.password, role: user.role }),
   };
-  return fetch(`${host}/api/auth/register`, requestOptions)
+  return fetch('/api/auth/register', requestOptions)
     .then(handleLogOut).then((resp) => resp.json()).then((data) => data);
 }
 
@@ -64,7 +63,7 @@ function update(user) {
   const req = new Request('/update', {
     method: 'POST',
     headers: header,
-    mode: 'cors',
+    mode: 'no-cors',
     body: fd,
   });
 
@@ -84,7 +83,7 @@ function loadTop4() {
     headers: { 'Content-Type': 'application/json' },
   };
 
-  return fetch(`${host}/api/tutors/top`, requestOptions).then((resp) => resp.json()).then((data) => data.data);
+  return fetch('/api/tutors/top', requestOptions).then((resp) => resp.json()).then((data) => data.data);
 }
 
 function createContract(contract) {
@@ -103,19 +102,43 @@ function createContract(contract) {
     method: 'POST',
     headers: header,
     mode: 'no-cors',
+    body: fd,
   });
 
   return fetch(req).then(handleLogOut).then((resp) => resp.json()).then((data) => data);
 }
 
-const LoadTutorDetail = (id) => {
-  const req = new Request(`${host}/api/tutors/${id}`, {
+function loadAllContract(id) {
+  const requestOptions = {
     method: 'GET',
+    headers: { 'Content-Type': 'application/json',
+                'id' : id}
+  };
 
+  return fetch('/api/all-contract', requestOptions).then((resp) => resp.json()).then((data) => data.data);
+}
+
+function desicionContractAccept(id,value){ 
+  const header = new Headers();
+
+  const userCookie = JSON.parse(localStorage.getItem('user'));
+
+  header.append('Content-Type', 'application/json');
+  header.append('Authorization', userCookie ? `Bearer${userCookie.token}` : 'Bearer');
+
+  const fd = new FormData();
+
+  fd.append('id', JSON.stringify(id));
+  fd.append('choice',JSON.stringify(value))
+  const req = new Request('/api/contract/accept', {
+    method: 'POST',
+    headers: header,
+    mode: 'no-cors',
+    body: fd,
   });
-  return fetch(req).then((resp) => resp.json()).then((data) => data);
-};
 
+  return fetch(req).then(handleLogOut).then((resp) => resp.json()).then((data) => data);
+}
 
 export default {
   login,
@@ -123,5 +146,11 @@ export default {
   logOut,
   update,
   loadTop4,
-  LoadTutorDetail,
+<<<<<<< HEAD
+  loadAllContract,
+  createContract,
+  desicionContractAccept
+=======
+
+>>>>>>> ef31a82d8c84317028b6d6618145626c2489efac
 };

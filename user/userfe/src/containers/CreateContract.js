@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import * as actions from '../actions/index';
 
 import 'react-datepicker/dist/react-datepicker.css';
+import SimpleReactValidator from 'simple-react-validator';
 
 class CreateContract extends React.Component {
   constructor(props) {
@@ -20,11 +21,15 @@ class CreateContract extends React.Component {
     this.handleDateStartChange = this.handleDateStartChange.bind(this);
     this.handleDateEndChange = this.handleDateEndChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.checkStartEndDate = this.checkStartEndDate.bind(this);
     this.state = {
       inforTutor: null,
     };
+    this.validator = new SimpleReactValidator();
   }
-
+  componentWillReceiveProps() {
+    this.validator.showMessages();
+  }
   componentDidMount() {
     const idSt = 'cmt8';
     const idTutor = 'cmt10';
@@ -49,18 +54,29 @@ class CreateContract extends React.Component {
   }
 
   handleDateStartChange(date) {
-    const moment = require('moment');
-    const d = moment(date).format('MM/DD/YYYY');
-    this.props.handleCreateContractDateStartChange(d);
+    // const moment = require('moment');
+    // const d = moment(date).format('MM/DD/YYYY');
+    this.props.handleCreateContractDateStartChange(date);
   }
 
   handleDateEndChange(date) {
-    const moment = require('moment');
-    const d = moment(date).format('MM/DD/YYYY');
-    this.props.handleCreateContractDateEndChange(d);
+    // const moment = require('moment');
+    // const d = moment(date).format('MM/DD/YYYY');
+    this.props.handleCreateContractDateEndChange(date);
   }
-
+  checkStartEndDate(start, end) {
+    // const moment = require('moment');
+    // const s = Date.parse(moment(start).format('DD/MM/YYYY'));
+    // const e = Date.parse(moment(end).format('DD/MM/YYYY'));
+    var d = Math.floor((Date.UTC(start.getFullYear(), start.getMonth(), start.getDate()) - Date.UTC(end.getFullYear(), end.getMonth(), end.getDate())) / (1000 * 60 * 60 * 24))
+    if (d >= 0) {
+      return true;
+    }
+    return false;
+  }
   renderContractDetails() {
+    var contract = this.props.createContract.contract;
+    var dateMess = (<div>The start date less or equal the end date.</div>);
     return (
       <div className="form ng-valid ng-valid-format ng-valid-min ng-valid-max ng-valid-date ng-valid-date-range ng-valid-hr-constraintinteger ng-valid-hr-constraintmin ng-valid-hr-constraintmax ng-dirty ng-valid-number ng-valid-hr-constraintrequired ng-valid-hr-constraintfloat">
         <div className="air-card m-0-top m-0-right-md m-0-right-xl p-0-top-bottom">
@@ -72,21 +88,23 @@ class CreateContract extends React.Component {
                 src="./Contract_files/c1PoXrydUGYA9LO6ofPHVhDT-C1Jbbt7cP0neDqE2SWOYzmrC4knZuD69ImVgyUNfu"
               />
               <span className="vertical-align-middle">
-                                Abhinav Sogga, Matrix Infologics® Pvt. Ltd.
+                Abhinav Sogga, Matrix Infologics® Pvt. Ltd.
               </span>
             </h2>
           </header>
           <section>
             <div className="form-group m-0-bottom">
-              <label className="control-label" htmlFor="title">Tiêu đề hợp đồng</label>
+              <Form.Label className="control-label" htmlFor="title">Tiêu đề hợp đồng</Form.Label>
               <div className="width-lg">
-                <input
+                <Form.Control
                   type="text"
                   id="title"
                   name="tieuDe"
+                  value={contract.tieuDe}
                   onChange={this.handleDataChange}
                   className="form-control ng-pristine ng-valid ng-not-empty ng-touched"
                 />
+                {this.validator.message('contract title', contract.tieuDe, 'required')}
               </div>
             </div>
           </section>
@@ -94,23 +112,24 @@ class CreateContract extends React.Component {
         <div className="air-card m-0-top m-0-right-md m-0-right-xl p-0-top-bottom">
           <header className="d-flex align-items-center flex-justify-content-between">
             <h2 className="m-0-bottom">
-                            Kỳ hạn hợp đồng
+              Kỳ hạn hợp đồng
             </h2>
           </header>
 
           <section>
             <div>
               <div className="form-group" id="rowHourlyRate">
-                <label className="control-label">Mức tiền lương</label>
+                <Form.Label className="control-label">Mức tiền lương</Form.Label>
                 <div className="d-xs-block d-sm-inline-block ng-hide" />
                 <div className="d-flex align-items-center">
                   <div className="has-feedback">
-                    <input
+                    <Form.Control
                       onChange={this.handleDataChange}
                       className="form-control text-right p-sm-right width-xs ng-valid ng-not-empty ng-dirty ng-valid-number ng-valid-hr-constraintrequired ng-valid-hr-constraintfloat ng-valid-hr-constraintmin ng-valid-hr-constraintmax ng-touched"
                       type="number"
                       name="giaTien"
                       placeholder="0.00"
+                      value={contract.giaTien}
                     />
                     <span
                       className="glyphicon glyphicon-md air-icon-payment text-primary form-control-feedback"
@@ -118,77 +137,71 @@ class CreateContract extends React.Component {
                     />
                   </div>
                   <span className="m-sm-left">/giờ</span>
-
+                  {this.validator.message('contract title', contract.giaTien, 'required|numeric')}
                 </div>
                 <div className="clearfix">
                   <div className="text-muted p-sm-top">
-                                        Mức lương đề xuất của Abhinav Sogga là $15.00 / giờ
+                    Mức lương đề xuất của người dạy là $15.00 / giờ
                   </div>
                 </div>
               </div>
               <div className="form-group">
-                <label htmlFor="hourlyWeeklyLimit">Giới hạn giờ/tuần</label>
+                <Form.Label htmlFor="hourlyWeeklyLimit">Giới hạn giờ/tuần</Form.Label>
                 <div className="row">
                   <div
                     name="weekly-limit"
                     className="ng-pristine ng-untouched ng-valid col-lg-4 col-md-5 col-sm-5 col-xs-12 py-0 ng-not-empty ng-valid-hr-constraintinteger ng-valid-hr-constraintmin ng-valid-hr-constraintmax"
                   >
-                    <input
+                    <Form.Control
                       name="ghGio"
                       onChange={this.handleDataChange}
                       className="qa-wm-contract-proposal-form-limit-custom ng-pristine ng-untouched ng-valid width-sm form-control ng-empty ng-hide"
                       placeholder="Nhập giới hạn"
+                      value={contract.ghGio}
                     />
-                  </div>
-                  <div className="display-inline-block text-muted col-lg-8 col-md-7 col-sm-7 col-xs-12 pl-15 pl-sm-0">
-                    <div className="pl-0 pl-sm-10 py-0 py-sm-10 pt-10">
-                      <span
-                        className="d-none d-md-inline pl-md-20"
-                      >
-=
-
-                      </span>
-                      <span>$250.00 tối đa/tuần</span>
-                    </div>
+                    {this.validator.message('limit hours/week', contract.ghGio, 'required|numberic')}
                   </div>
                 </div>
               </div>
               <div className="row">
                 <div className="col">
                   <div className="form-group row full-width m-0-left">
-                    <label className="control-label border-0-bottom">
+                    <Form.Label className="control-label border-0-bottom">
                       <span className="nowrap">Ngày bắt đầu</span>
-                    </label>
+                    </Form.Label>
                     <div className="ng-pristine ng-untouched ng-valid ng-empty col-lg-4 col-md-5 col-sm-5 col-xs-12 p-0 ng-valid-date-range">
-                      <DatePicker onChange={this.handleDateStartChange} name=" ngayBatDau" />
+                      <DatePicker onChange={this.handleDateStartChange} value={contract.ngayBatDau} name=" ngayBatDau" />
+
                     </div>
                   </div>
                 </div>
                 <div className="col">
                   <div className="form-group row full-width m-0-left">
-                    <label className="control-label border-0-bottom">
+                    <Form.Label className="control-label border-0-bottom">
                       <span className="nowrap">Ngày kết thúc</span>
-                    </label>
+                    </Form.Label>
                     <div className="ng-pristine ng-untouched ng-valid ng-empty col-lg-4 col-md-5 col-sm-5 col-xs-12 p-0 ng-valid-date-range">
-                      <DatePicker onChange={this.handleDateEndChange} name="ngayKetThuc" />
+                      <DatePicker onChange={this.handleDateEndChange} name="ngayKetThuc" value={contract.ngayKetThuc} />
                     </div>
+                    {this.checkStartEndDate(contract.ngayBatDau,contract.ngayKetThuc) ? dateMess : null}
                   </div>
                 </div>
               </div>
-              <div className="form-group row full-width m-0-left">
-                <label className="control-label border-0-bottom">
+              {/* <div className="form-group row full-width m-0-left">
+                <Form.Label className="control-label border-0-bottom">
                   <span className="nowrap">Tổng dự kiến</span>
-                </label>
+                </Form.Label>
                 <div className="ng-pristine ng-untouched ng-valid ng-empty col-lg-4 col-md-5 col-sm-5 col-xs-12 p-0 ng-valid-date-range">
                   <span>2 000 000</span>
                 </div>
-              </div>
+              </div> */}
               <div className="form-group row full-width m-0-left">
-                <label className="control-label border-0-bottom">
+                <Form.Label className="control-label border-0-bottom">
                   <span className="nowrap">Tổng tiền muốn trả</span>
-                </label>
+                </Form.Label>
                 <div className="ng-pristine ng-untouched ng-valid ng-empty col-lg-4 col-md-5 col-sm-5 col-xs-12 p-0 ng-valid-date-range">
-                  <input name="tongTien" onChange={this.handleDataChange} className="qa-wm-contract-proposal-form-limit-custom ng-pristine ng-untouched ng-valid width-sm form-control ng-empty ng-hide" />
+                  <Form.Control name="tongTien" onChange={this.handleDataChange} className="qa-wm-contract-proposal-form-limit-custom ng-pristine ng-untouched ng-valid width-sm form-control ng-empty ng-hide" />
+                  {this.validator.message('total',contract.tongTien,'required|numberic')}
                 </div>
               </div>
             </div>
@@ -199,13 +212,14 @@ class CreateContract extends React.Component {
   }
 
   renderWorkDescription() {
+    var contract = this.props.createContract.contract;
     return (
       <div>
         <div role="form" className="ng-pristine ng-valid ng-valid-uploading-file">
           <div className="air-card m-0-top m-0-right-md m-0-right-xl p-0-top-bottom">
             <header>
               <h2 className="m-0-bottom">
-                                Mô tả công việc
+                Mô tả công việc
               </h2>
             </header>
             <section>
@@ -217,11 +231,13 @@ class CreateContract extends React.Component {
                   <textarea
                     name="moTa"
                     onChange={this.handleDataChange}
+                    value={contract.moTa}
                     className="form-control ng-pristine ng-untouched ng-valid ng-not-empty"
                     autoComplete="off"
                     placeholder="Hãy mô tả về công việc để người dạy có thể hiểu rõ hơn."
                     rows="8"
                   />
+                  {this.validator.message('contract description',contract.moTa,'required')}
                   {/* <span className="form-message form-error form-error-bottom">
                                             <span>Báo lỗi</span>
                                         </span> */}
@@ -241,7 +257,7 @@ class CreateContract extends React.Component {
           <div className="air-card m-0-top m-0-right-md m-0-right-xl p-0-top-bottom">
             <header>
               <h2 className="m-0-bottom">
-                                Kỹ năng giảng dạy liên quan
+                Kỹ năng giảng dạy liên quan
               </h2>
             </header>
             <section>
@@ -259,7 +275,7 @@ class CreateContract extends React.Component {
                           <i className="fas fa-check" />
                         </span>
                       </span>
-                                            A/B Testing
+                      A/B Testing
                     </Form.Label>
                   </div>
                   <div className="checkbox col-md-6">
@@ -270,7 +286,7 @@ class CreateContract extends React.Component {
                           <i className="fas fa-check" />
                         </span>
                       </span>
-                                            A/B Testing
+                      A/B Testing
                     </Form.Label>
                   </div>
                   <div className="checkbox col-md-6">
@@ -281,7 +297,7 @@ class CreateContract extends React.Component {
                           <i className="fas fa-check" />
                         </span>
                       </span>
-                                            A/B Testing
+                      A/B Testing
                     </Form.Label>
                   </div>
                 </div>
@@ -307,11 +323,11 @@ class CreateContract extends React.Component {
                 onClick={this.handleSubmit}
                 className="btn btn-primary"
               >
-Xác nhận
+                Xác nhận
 
               </button>
               <button className="btn btn-link m-lg-left">
-                                Cancel
+                Cancel
               </button>
             </div>
           </div>
@@ -325,7 +341,7 @@ Xác nhận
       <div>
         <strong>Hãy kiểm tra cẩn thận trước khi gửi hợp đồng</strong>
         <p>
-                    U4T sẽ luôn bảo vệ lợi ích của cả người học và người dạy.
+          U4T sẽ luôn bảo vệ lợi ích của cả người học và người dạy.
         </p>
       </div>
     );
@@ -340,7 +356,7 @@ Xác nhận
               <div className="edit_offer_area">
                 <div>
                   <h1 className="d-none-mobile-app m-lg-top-bottom">
-                                        Tạo hợp đồng
+                    Tạo hợp đồng
                   </h1>
                   <div className="hr-form-container row">
                     <div className="col-md-9 p-0-top">
