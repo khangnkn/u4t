@@ -22,6 +22,10 @@ class RoomChat extends React.Component {
     });
   }
 
+  reloadChatRoom = () => {
+    console.log("on reload");
+  }
+
   loadNewStory(room) {
     userService.loadStory(room).then((data) => {
       this.props.loadStory(data);
