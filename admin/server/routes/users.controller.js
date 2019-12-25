@@ -6,6 +6,25 @@ const UserService = require('../services/user.service');
 
 const {ResponseFormat} = require('../core');
 
+router.post('/', async (req, res) => {
+    try {
+        let result = await UserService.addNew(req.body);
+        if (result.err) {
+            return await res.status(400).json(
+                ResponseFormat.error(result.err.code, result.err.message, null)
+            )
+        } else if (result.res) {
+            return await res.status(201).json(
+                ResponseFormat.success(result.res.code, result.res.message, null)
+            );
+        }
+    } catch (e) {
+        return await res.status(400).json(
+            ResponseFormat.controller_error(e.message, e)
+        )
+    }
+});
+
 
 // Get user list
 router.get('/:role/:page/:limit', async (req, res) => {
