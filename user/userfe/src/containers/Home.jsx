@@ -93,7 +93,8 @@ U4T hỗ trợ quản lý thống kê lịch sử hợp đồng
     return this.overview;
   }
 
-  renderTopTeacherItem(i, avatar, price, fullname, title, city, skills) {
+  renderTopTeacherItem(i, tutor) {
+    console.log(tutor);
     this.topTeacherItem = (
       <div key={i} className="fl-tile col-xl-3 col-md-5 col-sm-12 p-xs-top">
         <div className="vs-shadow-dark p-md-top p-lg-bottom p-sm-left-right text-left ng-scope">
@@ -101,14 +102,14 @@ U4T hỗ trợ quản lý thống kê lịch sử hợp đồng
             <div className="text-center">
               <img
                 alt="avatar"
-                src={avatar}
+                src={tutor.avatar}
                 className="avatar d-block avatar-md m-0"
               />
               <p className="m-md-top text-center m-0-bottom">
                 <strong className="font-14">
                   {' '}
 $
-                  {price}
+                  {tutor.data.price}
                 </strong>
                 <small>/giờ</small>
               </p>
@@ -116,23 +117,23 @@ $
             <div className="p-sm-left tile-text-part">
               <p className="d-block ellipsis fl-name">
                 <small>
-                  <strong>{fullname}</strong>
+                  <strong>{tutor.fullname}</strong>
                 </small>
               </p>
-              <p className="m-sm-bottom tile-title vs-full-word-cut-text">{title}</p>
+              <p className="m-sm-bottom tile-title vs-full-word-cut-text">{tutor.data.title}</p>
               <span className="d-block badge badge-top-rated top-rated-badge-height">
                 <span aria-hidden="true" className="glyphicon air-icon-top-rated" />
                                 Top rated
               </span>
               <small className="d-block m-xs-top vs-color-gray ellipsis p-xs-top p-0-top-xs">
-                {city}
+                {tutor.city ? tutor.city.name : 'No City'}
 ,Viet Nam
               </small>
             </div>
           </div>
           <hr className="m-sm-top-bottom" />
           <div className="skills-list-container m-xs-bottom m-0-bottom-xs">
-            {skills.map((e, i) => (<div key={i}><span className="vs-full-word-cut-text o-tag-skill m-xs-right pull-left m-xs-bottom vs-o-tag-no-hover d-block vs-color-text">{e}</span></div>))}
+            {tutor.data.skills ? tutor.data.skills.map((e, i) => (<div key={i}><span className="vs-full-word-cut-text o-tag-skill m-xs-right pull-left m-xs-bottom vs-o-tag-no-hover d-block vs-color-text">{e.name}</span></div>)) : null}
           </div>
           <a href="/user/detail" className="btn btn-primary btn-sm btn-block-sm m-0-bottom m-md-top tile-cta-button">Thông tin chi tiết</a>
         </div>
@@ -155,7 +156,7 @@ $
                 <div className="carousel-inner">
                   <div className="item text-center ng-scope ng-isolate-scope active" style={{ height: '400px' }}>
                     <div className="d-flex p-xs-left-right p-sm-bottom row ng-scope">
-                      {data.map((e, i) => this.renderTopTeacherItem(i, e.avatar, e.data.price, e.fullname, e.data.title, e.city.name, e.data.skills))}
+                      {data.map((e, i) => this.renderTopTeacherItem(i, e))}
                     </div>
                   </div>
                 </div>

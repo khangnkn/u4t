@@ -35,8 +35,8 @@ class CreateContract extends React.Component {
   }
 
   componentDidMount() {
-    var userCookie = JSON.parse(localStorage.getItem('user'));
-    helperService.loadUserInfor(userCookie._id).then(data => {
+    let userCookie = JSON.parse(localStorage.getItem('user'));
+    helperService.loadUserInfor(userCookie._id).then((data) => {
       this.setState({ inforTutor: data });
       this.props.setId(userCookie.id, data.id);
     });
@@ -355,7 +355,7 @@ class CreateContract extends React.Component {
   }
 
   render() {
-    var alert = this.props.alert;
+    let {alert} = this.props;
     return (
       <div id="layout" className="layout">
         <div className="layout-page-content">
