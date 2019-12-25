@@ -4,23 +4,25 @@ const Error = require('../utils/error');
 const UserRepository = require('../repository/user.repository');
 
 
-const parseUser = (body) => {
+const parseUser = (infor, data) => {
   const result = {
-    email: body.infor.email,
-    fullname: body.infor.fullname,
-    address: body.infor.address,
-    gender: body.infor.gender,
-    phone: body.infor.phone,
-    city: body.infor.city,
-    role: body.infor.role,
+    email: infor.email,
+    fullname: infor.fullname,
+    address: infor.address,
+    gender: infor.gender,
+    phone: infor.phone,
+    city: infor.city,
+    role: infor.role,
   };
-
-  if (body.infor.role === 1) {
+  if (!data) {
+    return result;
+  }
+  if (infor.role === 1) {
     const metadata = {
-      level: body.data.level,
-      skills: body.data.skills,
-      intro: body.data.intro,
-      price: body.data.price,
+      level: data.level,
+      skills: data.skills,
+      intro: data.intro,
+      price: data.price,
     };
     result.data = metadata;
   }
@@ -30,8 +32,10 @@ const parseUser = (body) => {
 
 const UpdateUserInfo = (req, res, next) => {
   const { body } = req;
-  const avatar = req.file;
-  const user = parseUser(body);
+  const info = JSON.parse(body.infor);
+  const user = parseUser(info, null);
+  console.log('user: ', user);
+  const avatar = req.file.path;
   const id = res.locals.user._id;
   user.avatar = avatar;
   console.log(user);
