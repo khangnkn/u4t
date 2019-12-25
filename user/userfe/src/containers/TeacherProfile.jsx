@@ -31,13 +31,14 @@ class TeacherProfile extends React.Component {
   componentDidMount() {
     const { tutor } = this.state;
     const idTutor = this.props.match.params.id;
-    console.log(`component mounted with id = ${idTutor}`);
     helperService.loadUserInfor(idTutor).then((resp) => {
+      console.log('resp:', resp);
       this.setState(
         {
           tutor: {
             ...tutor,
-            ...resp.data,
+            ...resp.data.user,
+            contract: resp.data.contracts,
           },
         },
       );
@@ -45,7 +46,6 @@ class TeacherProfile extends React.Component {
   }
 
   renderDetail(tutor) {
-    console.log(tutor);
     this.detailPage = (
       <div className="ng-scope ng-isolate-scope">
         <div className="m-0 p-0">
@@ -185,7 +185,6 @@ class TeacherProfile extends React.Component {
                           >
                             <span className="up-active-context">
                               <span className="ng-binding">
-                                {console.log(tutor.contract)}
                                 {`$ ${tutor.contract.length}`}
                               </span>
                             </span>
@@ -429,7 +428,7 @@ class TeacherProfile extends React.Component {
   }
 
   renderContact(_id) {
-    return (
+    this.contact = (
       <section className="m-lg-bottom ng-scope">
         <div className="ng-scope">
           <div className="d-none d-md-block ng-scope">
@@ -457,11 +456,11 @@ class TeacherProfile extends React.Component {
         </div>
       </section>
     );
+    return this.contact;
   }
 
   render() {
     const { tutor } = this.state;
-    console.log(tutor);
     return (
       <div>
         <NavBar />
