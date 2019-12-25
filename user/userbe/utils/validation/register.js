@@ -15,6 +15,13 @@ const validate = (body) => {
       message: 'password is required',
     };
   }
+  if (body.role === undefined) {
+    return {
+      valid: false,
+      error: Error.RoleIsRequired,
+      message: 'user\'s role is required',
+    };
+  }
   return {
     valid: true,
   };

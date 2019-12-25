@@ -1,10 +1,11 @@
 import React from 'react';
 import { Dropdown } from 'react-bootstrap';
 import * as actions from '../actions/index';
+import UserService from '../actions/UserService';
 
 const NavBar = (props) => {
   const renderForLoggedIn = () => {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const { user } = JSON.parse(localStorage.getItem('user'));
     return (
       <div className="navbar-collapse-air d-none d-lg-flex">
         <div className="navbar-form-air">
@@ -49,7 +50,7 @@ const NavBar = (props) => {
                 <Dropdown.Item href="/profile">Profile</Dropdown.Item>
                 <Dropdown.Item href="/message">Tin nhắn</Dropdown.Item>
                 <Dropdown.Item href="/contract">Hợp đòng </Dropdown.Item>
-                <Dropdown.Item onClick={actions.logOut} className="navbar-link">Đăng xuất</Dropdown.Item>
+                <Dropdown.Item onClick={UserService.logOut} className="navbar-link">Đăng xuất</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           </p>
@@ -109,6 +110,6 @@ const NavBar = (props) => {
 
 const mapStateToProps = (state) => {
 
-}
+};
 
 export default NavBar;

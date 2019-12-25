@@ -35,7 +35,7 @@ const UpdateUserInfo = (req, res, next) => {
   const id = res.locals.user._id;
   user.avatar = avatar;
   console.log(user);
-  User.findByIdAndUpdate(id, user).populate(['city', 'data.level']).exec((err, foundUser) => {
+  User.findByIdAndUpdate(id, user).populate(['city', 'data.level', 'data.skills']).exec((err, foundUser) => {
     if (err) {
       return next({
         status: SC.INTERNAL_SERVER_ERROR,

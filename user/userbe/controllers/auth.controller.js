@@ -75,9 +75,11 @@ const RegisterHandler = (req, res, next) => {
     const user = new User({
       username: body.username,
       password: hash,
-      account_type: parseInt(body.role, 10),
+      role: body.role,
     });
-    return user.save().then(() => {
+    return user.save().then((user) => {
+      console.log(user);
+
       next({
         status: SC.OK,
         code: Error.Success,

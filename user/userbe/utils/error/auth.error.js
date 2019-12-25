@@ -6,5 +6,6 @@ module.exports = {
   UsernameIsRequired: -31,
   PasswordIsRequired: -32,
   FullnameIsRequired: -33,
-  AccountExisted: -34,
+  RoleIsRequired: -34,
+  AccountExisted: -35,
 };
