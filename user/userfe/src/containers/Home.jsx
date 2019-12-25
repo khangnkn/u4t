@@ -135,7 +135,7 @@ $
           <div className="skills-list-container m-xs-bottom m-0-bottom-xs">
             {tutor.data.skills ? tutor.data.skills.map((e, i) => (<div key={i}><span className="vs-full-word-cut-text o-tag-skill m-xs-right pull-left m-xs-bottom vs-o-tag-no-hover d-block vs-color-text">{e.name}</span></div>)) : null}
           </div>
-          <a href="/user/detail" className="btn btn-primary btn-sm btn-block-sm m-0-bottom m-md-top tile-cta-button">Thông tin chi tiết</a>
+          <a href={`/user/detail/${tutor._id}`} className="btn btn-primary btn-sm btn-block-sm m-0-bottom m-md-top tile-cta-button">Thông tin chi tiết</a>
         </div>
       </div>
     );

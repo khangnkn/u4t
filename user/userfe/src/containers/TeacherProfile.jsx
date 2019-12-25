@@ -12,18 +12,40 @@ class TeacherProfile extends React.Component {
     this.renderSkills = this.renderSkills.bind(this);
     this.renderHistory = this.renderHistory.bind(this);
     this.renderContact = this.renderContact.bind(this);
-    // this.state = {};
+    this.state = {
+      tutor: {
+        avatar: '',
+        fullname: '',
+        city: {
+          name: '',
+        },
+        data: {
+          rating: 0,
+          skills: [],
+        },
+        contract: [],
+      },
+    };
   }
 
   componentDidMount() {
-    // const { tutor } = this.state;
-    var idTutor = props.match.params.id;
+    const { tutor } = this.state;
+    const idTutor = this.props.match.params.id;
+    console.log(`component mounted with id = ${idTutor}`);
     helperService.loadUserInfor(idTutor).then((resp) => {
-      this.setState({tutor : resp.data});
+      this.setState(
+        {
+          tutor: {
+            ...tutor,
+            ...resp.data,
+          },
+        },
+      );
     });
   }
 
   renderDetail(tutor) {
+    console.log(tutor);
     this.detailPage = (
       <div className="ng-scope ng-isolate-scope">
         <div className="m-0 p-0">
@@ -96,7 +118,9 @@ class TeacherProfile extends React.Component {
                   className="col-xs-12 col-sm-4 col-md-3 col-lg-2 p-0-left d-none d-sm-block"
                 >
                   <p>
-                    Tỷ lệ rating: {tutor.data.rating}
+                    Tỷ lệ rating:
+                    {' '}
+                    {tutor.data.rating}
                   </p>
                   <div>
                     <ProgressBar animated variant="success" now={tutor.data.rating * 20} />
@@ -161,6 +185,7 @@ class TeacherProfile extends React.Component {
                           >
                             <span className="up-active-context">
                               <span className="ng-binding">
+                                {console.log(tutor.contract)}
                                 {`$ ${tutor.contract.length}`}
                               </span>
                             </span>
@@ -234,7 +259,7 @@ class TeacherProfile extends React.Component {
                                     className="ng-binding"
                                   >
                                     5.00
-                                    
+
                                   </strong>
                                 </li>
                                 <li
@@ -248,7 +273,7 @@ class TeacherProfile extends React.Component {
                                                                                                           -
                                                                                                           Nov
                                                                                               2019
-                                    
+
                                   </small>
                                 </li>
                               </ul>
@@ -270,7 +295,7 @@ class TeacherProfile extends React.Component {
                                       className="ng-binding"
                                     >
                                       $54.67
-                                      
+
                                     </strong>
                                   </div>
                                   <div
@@ -376,7 +401,7 @@ class TeacherProfile extends React.Component {
   }
 
   renderSkills(skills) {
-    return (
+    this.skills = (
       <div className="ng-isolate-scop">
         <div className="ng-scope">
           <div className="air-card m-0-left-right-md m-0-left-right-xl p-0-top-bottom">
@@ -400,6 +425,7 @@ class TeacherProfile extends React.Component {
         </div>
       </div>
     );
+    return this.skills;
   }
 
   renderContact(_id) {
@@ -435,6 +461,7 @@ class TeacherProfile extends React.Component {
 
   render() {
     const { tutor } = this.state;
+    console.log(tutor);
     return (
       <div>
         <NavBar />
