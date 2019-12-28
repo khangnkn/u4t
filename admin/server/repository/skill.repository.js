@@ -1,20 +1,5 @@
 const SkillModel = require('../shared/models/skill.model');
 
-const findSkillByName = async (name) => {
-    try {
-        const res = await SkillModel.findOne({name: name});
-        return {
-            err: false,
-            res: res
-        }
-    } catch (e) {
-        return {
-            err: e,
-            res: null
-        }
-    }
-};
-
 const addSkill = async (name) => {
     try {
         const skill = new SkillModel({
@@ -45,7 +30,8 @@ const deleteSkillById = async (id) => {
             new: true
         };
 
-        const res = await SkillModel.findOneAndUpdate(query, update, options);
+        const res = await SkillModel
+            .findOneAndUpdate(query, update, options);
 
         return {
             err: false,
@@ -66,7 +52,7 @@ const updateSkillById = async (skill) => {
             updated_at: Date.now()
         };
         const res = await SkillModel
-            .findOneAndUpdate({_id: skill.id}, update, {new: true});
+            .findOneAndUpdate({ _id: skill.id }, update, { new: true });
 
         return {
             err: false,
@@ -80,7 +66,7 @@ const updateSkillById = async (skill) => {
     }
 };
 
-const getSkillList = async (page, limit) => {
+const getSkillListPagination = async (page, limit) => {
     try {
         const query = {
             deleted_at: null
@@ -106,11 +92,42 @@ const getSkillList = async (page, limit) => {
     }
 };
 
+const getSkillList = async() => {
+    try {
+        const res = await SkillModel.find();
+        return {
+            err: false,
+            res: res
+        }
+    } catch (e) {
+        return {
+            err: e,
+            res: null
+        }
+    }
+}
+
+const getSkillByName = async (name) => {
+    try {
+        const res = await SkillModel.findOne({ name: name });
+        return {
+            err: false,
+            res: res
+        }
+    } catch (e) {
+        return {
+            err: e,
+            res: null
+        }
+    }
+};
+
 
 module.exports = {
-    getSkillList,
-    findSkillByName,
     addSkill,
     updateSkillById,
-    deleteSkillById
+    deleteSkillById,
+    getSkillListPagination,
+    getSkillList,    
+    getSkillByName
 };

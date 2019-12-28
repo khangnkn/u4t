@@ -1,111 +1,52 @@
-const UserRepository = require('../repository/user.repository');
-const AdminRepository = require('../repository/admin.repository');
-const RES_CONSTANT = require('../shared/constant/response_code');
+import UserRepository from '../repository/user.repository';
+import AdminRepository from "../repository/admin.repository";
+import ServiceResponse from '../utils/res/service.response'
+
+const addNewUser = async (payload) => {
+    const res = UserRepository.addNewUser(payload);
+    return ServiceResponse.serviceResponseCreate(res);
+}
 
 const getUserList = async (payload) => {
-    try {
-        let result = {};
-
-        if (payload.role === '0' || payload.role === '1') {
-            result = await UserRepository.getUserList(payload.role, payload.page, payload.limit)
-        } else if (payload.role === '2' || payload.role === '3') {
-            result = await AdminRepository.getAdminList(payload.role, payload.page, payload.limit)
-        } else {
-            return {
-                err: RES_CONSTANT.USERTYPE_INCORRECT,
-                res: null
-            }
-        }
-
-        if (result.err) {
-            return {
-                err: RES_CONSTANT.DB_ERROR,
-                res: null
-            }
-        }
+    let result = {};
+    if (payload.role === '0' || payload.role === '1') {
+        result = await UserRepository.getUserList(payload.role, payload.page, payload.limit)
+    } else if (payload.role === '2' || payload.role === '3') {
+        result = await getAdminList(payload.role, payload.page, payload.limit)
+    } else {
         return {
-            err: false,
-            res: RES_CONSTANT.GET_USER_LIST,
-            data: result.res
-        }
-    } catch (e) {
-        return {
-            err: true,
-            res: {
-                code: 'UK0',
-                message: e.message()
-            }
+            err: RES_CONSTANT.USERTYPE_INCORRECT,
+            res: null
         }
     }
-};
+    return ServiceResponse.serviceResponseRead(result)
+}
 
 const getUserDetail = async (payload) => {
-    try {
-        let result = await UserRepository.getUserDetailByUsername(payload.username);
-
-        if (result.err) {
-            return {
-                err: RES_CONSTANT.DB_ERROR,
-                res: result.err
-            }
-        } else if (!result.res) {
-            return {
-                err: RES_CONSTANT.USERNAME_NOT_EXIST,
-                res: null
-            }
-        }
-        return {
-            err: false,
-            res: RES_CONSTANT.GET_USER_DETAIL_SUCCESS,
-            data: result.res
-        }
-    } catch (e) {
-        return {
-            err: true,
-            res: {
-                code: 'UK0',
-                message: e.message()
-            }
-        }
-    }
+    let result = await UserRepository.getUserDetailByUsername(payload.username);
+    return ServiceResponse.serviceResponseRead(result);
 };
-
 
 const updateActiceUser = async (payload) => {
-    try {
-        let result = await UserRepository.updateActiveUserByUsername(payload.isActive, payload.username);
-
-        if (result.err) {
-            return {
-                err: RES_CONSTANT.DB_ERROR,
-                res: null
-            }
-        } else if (!result.res) {
-            return {
-                err: RES_CONSTANT.USERNAME_NOT_EXIST,
-                res: null
-            }
-        }
-        return {
-            err: false,
-            res: payload.isActive ? RES_CONSTANT.UNLOCK_USER_SUCCESS : RES_CONSTANT.LOCK_USER_SUCCESS,
-            data: result.res
-        }
-    } catch (e) {
-        return {
-            err: true,
-            res: {
-                code: 'UK0',
-                message: e.message()
-            }
-        }
-    }
+    let result = await UserRepository.updateActiveUserByUsername(payload.isActive, payload.username);
+    return ServiceResponse.serviceResponseUpdate(result);
 };
 
+const updateUserDetail = async (id, payload) => {
+    let result = await UserRepository.updateUserById(id, payload);
+    return ServiceResponse.serviceResponseUpdate(result);
+}
 
+const deleteUser = async(id) => {
+    let result = await UserRepository.deleteUserById(id);
+    return ServiceResponse.serviceResponseDelete(result);
+}
 
-module.exports = {
+export default {
+    addNewUser,
     getUserList,
     getUserDetail,
     updateActiceUser,
+    updateUserDetail,
+    deleteUser
 };

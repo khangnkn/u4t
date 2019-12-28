@@ -1,67 +1,35 @@
-const express = require('express');
-const router = express.Router();
-const {ResponseFormat} = require('../core');
+import { Router } from "express";
+const router = Router();
 
-const SkillService = require('../services/skill.service');
+import SkillService from "../services/skill.service";
+import ControllerResponse from '../utils/res/controller.response';
 
 router.post('/', async (req, res) => {
     try {
         let result = await SkillService.addNewSkill(req.body);
-        if (result.err) {
-            return await res.status(400).json(
-                ResponseFormat.error(result.err.code, result.err.message, null)
-            )
-        } else if (result.res) {
-            return await res.status(201).json(
-                ResponseFormat.success(result.res.code, result.res.message, result.data)
-            );
-        }
+        return ControllerResponse.postResponse(result);
     } catch (e) {
-        return await res.status(400).json(
-            ResponseFormat.controller_error(e.message, e)
-        )
+        return ControllerResponse.internalServerError(e);
     }
 });
 
 router.put('/delete', async (req, res) => {
     try {
         let result = await SkillService.deleteSkill(req.body);
-        if (result.err) {
-            return await res.status(400).json(
-                ResponseFormat.error(result.err.code, result.err.message, null)
-            )
-        } else if (result.res) {
-            return await res.status(200).json(
-                ResponseFormat.success(result.res.code, result.res.message, result.data)
-            );
-        }
+        return ControllerResponse.updateResponse(result);
     } catch (e) {
-        return await res.status(400).json(
-            ResponseFormat.controller_error(e.message, e)
-        )
+        return ControllerResponse.internalServerError(e)
     }
 });
 
 router.put('/update', async (req, res) => {
     try {
         let result = await SkillService.updateSkill(req.body);
-        if (result.err) {
-            return await res.status(400).json(
-                ResponseFormat.error(result.err.code, result.err.message, result.data.message)
-            )
-        } else if (result.res) {
-            return await res.status(200).json(
-                ResponseFormat.success(result.res.code, result.res.message, result.data)
-            );
-        }
+        return ControllerResponse.updateResponse(result);
     } catch (e) {
-        return await res.status(400).json(
-            ResponseFormat.controller_error(e.message, e)
-        )
+        return ControllerResponse.internalServerError(e);
     }
 });
-
-
 
 router.get('/:page/:limit', async (req, res) => {
     try {
@@ -69,23 +37,11 @@ router.get('/:page/:limit', async (req, res) => {
             page: req.params.page,
             limit: req.params.limit
         };
-
         const result = await SkillService.getSkillList(_payload);
-
-        if (result.err) {
-            return await res.status(400).json(
-                ResponseFormat.error(result.err.code, result.err.message, result.data.message)
-            )
-        } else if (result.res) {
-            return await res.status(200).json(
-                ResponseFormat.success(result.res.code, result.res.message, result.data)
-            );
-        }
+        return ControllerResponse.getResponse(result);
     } catch (e) {
-        return await res.status(400).json(
-            ResponseFormat.controller_error(e.message, e)
-        )
+        return ControllerResponse.internalServerError(e);
     }
 });
 
-module.exports = router;
+export default router;
