@@ -22,10 +22,8 @@ const updateContractById = async (payload) => {
             ...{},
             payload
         };
-
         const res = await ContractModel
-            .findOneAndUpdate({ _id: payload.id }, update, { new: true });
-
+            .findOneAndUpdate({_id: payload.id}, update, {new: true});
         return {
             err: false,
             res: res
@@ -43,18 +41,14 @@ const deleteContractById = async (id) => {
         const query = {
             _id: id
         };
-
         const update = {
             deleted_at: Date.now()
         };
-
         const options = {
             new: true
         };
-
         const res = await ContractModel
             .findOneAndUpdate(query, update, options);
-
         return {
             err: false,
             res: res
@@ -71,8 +65,7 @@ const getContractById = async (id) => {
     try {
         const res = ContractModel
             .findById(id);
-        
-            return {
+        return {
             err: false,
             res: res
         }
@@ -87,19 +80,16 @@ const getContractById = async (id) => {
 const getContractListPagination = async (page, limit) => {
     try {
         const _query = {};
-
         const _option = {
             page: page,
             limit: limit
         };
-
-        const res = await ContractModel.paginate(_query, _option);
-
+        const res = await ContractModel
+            .paginate(_query, _option);
         return {
             err: false,
             res: res
         }
-
     } catch (e) {
         return {
             err: e,
@@ -107,7 +97,6 @@ const getContractListPagination = async (page, limit) => {
         }
     }
 };
-
 
 module.exports = {
     addContract,
