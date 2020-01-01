@@ -118,7 +118,7 @@ const ITEM_NOT_EXISTED = {
     message: 'Item not existed'
 };
 
-export default {
+module.exports = {
     LOG_IN_SUCCESS,
     ADD_ADMIN_SUCCESS,
     USERNAME_EXISTED,

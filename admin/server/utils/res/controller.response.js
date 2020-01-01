@@ -1,6 +1,6 @@
-import ResponseFormat from '../../shared/constant/response_code'
+const ResponseFormat = require('../../core/response-format');
 
-const postResponse = (result) => {
+const postResponse = async (res, result) => {
   if (result.err) {
     return await res
       .status(400)
@@ -16,9 +16,9 @@ const postResponse = (result) => {
           .success(result.res.code, result.res.message, result.data)
       );
   }
-}
+};
 
-const getResponse = (result) => {
+const getResponse = async (res, result) => {
   if (result.err) {
     return await res
       .status(400)
@@ -34,9 +34,9 @@ const getResponse = (result) => {
           .success(result.res.code, result.res.message, result.data)
       );
   }
-}
+};
 
-const updateResponse = (result) => {
+const updateResponse = async (res, result) => {
   if (result.err) {
     return await res
       .status(400)
@@ -48,13 +48,13 @@ const updateResponse = (result) => {
     return await res
       .status(201)
       .json(
-        ResponseFormat.success(result.res.code, result.res.message, result.data)
-
+        ResponseFormat
+            .success(result.res.code, result.res.message, result.data)
       );
   }
-}
+};
 
-const deleteResponse = (result) => {
+const deleteResponse = async (res, result) => {
   if (result.err) {
     return await res
       .status(400)
@@ -70,23 +70,23 @@ const deleteResponse = (result) => {
           .success(result.res.code, result.res.message, result.data)
       );
   }
-}
+};
 
-const authenResponse = (result) => {
+const authenticateResponse = async (res, result) => {
 
-}
+};
 
-const internalServerError = (error) => {
-  return res
+const internalServerError = async (res, error) => {
+  return await res
     .status(500)
     .json()
-}
+};
 
-export default {
+module.exports = {
   postResponse,
   getResponse,
   updateResponse,
   deleteResponse,
-  authenResponse,
+  authenticateResponse,
   internalServerError
-}
+};

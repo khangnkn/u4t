@@ -1,8 +1,10 @@
-import AdminRepository from "../repository/admin.repository";
-import ServiceResponse from '../utils/res/service.response'
+const RES_CONSTANT = require("../shared/constant/response_code");
+
+const AdminRepository = require("../repository/admin.repository");
+const ServiceResponse = require('../utils/res/service.response');
 
 const addNewAdmin = async (admin) => {
-    const _isAdminExisted = await findByUsername(admin.username);
+    const _isAdminExisted = await AdminRepository.getAdminByUsername(admin.username);
     if (_isAdminExisted.err) {
         return {
             err: RES_CONSTANT.DB_ERROR,
@@ -14,36 +16,36 @@ const addNewAdmin = async (admin) => {
             res: null
         }
     } else {
-        const res = await save(admin);
+        const res = await AdminRepository.addNewAdmin(admin);
         return ServiceResponse.serviceResponseCreate(res);
     }
 };
 
 const getAdminById = async (id) => {
-    return ServiceResponse.serviceResponseRead(res);
     const res = await AdminRepository.getAdminById(id);
-}
+    return ServiceResponse.serviceResponseRead(res);
+};
 
 const getAdminPagination = async (payload) => {
-    let res = await _getAdminPagination(payload.page, payload.limit)
+    let res = await AdminRepository.getAdminPagination(payload.page, payload.limit);
     return ServiceResponse.serviceResponseRead(res);
 };
 
 const updateAdmin = async (id, payload) => {
-    let res = await updateAdminById(id, payload);
+    let res = await AdminRepository.updateAdminById(id, payload);
     return ServiceResponse.serviceResponseUpdate(res)
 };
 
 const deleteAdmin = async (id) => {
-    let res = await deleteAdminById(id);
+    let res = await AdminRepository.deleteAdminById(id);
     return ServiceResponse.serviceResponseDelete(res);
 };
 
-const login = async(username, password) => {
+const login = async (username, password) => {
     let res = AdminRepository.getAdminByUsername(username);
-}
+};
 
-export default {
+module.exports = {
     addNewAdmin,
     getAdminById,
     getAdminPagination,

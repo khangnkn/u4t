@@ -21,7 +21,7 @@ const updateContractById = async (payload) => {
         const update = {
             ...{},
             payload
-        }
+        };
 
         const res = await ContractModel
             .findOneAndUpdate({ _id: payload.id }, update, { new: true });
@@ -70,7 +70,7 @@ const deleteContractById = async (id) => {
 const getContractById = async (id) => {
     try {
         const res = ContractModel
-            .findById(id)
+            .findById(id);
         
             return {
             err: false,
@@ -82,7 +82,7 @@ const getContractById = async (id) => {
             res: null
         }
     }
-}
+};
 
 const getContractListPagination = async (page, limit) => {
     try {
