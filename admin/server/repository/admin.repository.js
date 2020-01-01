@@ -30,7 +30,8 @@ const addNewAdmin = async (adminPayload) => {
 
 const getAdminByUsername = async (username) => {
     try {
-        let res = await AdminModel.findOne({ username: username });
+        let res = await AdminModel
+            .findOne({username: username});
         return {
             err: false,
             res: res
@@ -45,7 +46,8 @@ const getAdminByUsername = async (username) => {
 
 const getAdminById = async (id) => {
     try {
-        let res = await AdminModel.findOne({ _id: id });
+        let res = await AdminModel
+            .findOne({_id: id});
         return {
             err: false,
             res: res
@@ -63,19 +65,16 @@ const getAdminList = async (type, page, limit) => {
         const _query = {
             role: type
         };
-
         const _option = {
             page: page,
             limit: limit
         };
-
-        const res = await AdminModel.paginate(_query, _option);
-
+        const res = await AdminModel
+            .paginate(_query, _option);
         return {
             err: false,
             res: res
         }
-
     } catch (e) {
         return {
             err: e,
@@ -93,7 +92,6 @@ const updateAdminById = async (id, adminPayload) => {
         const options = {
             new: true
         };
-
         const res = await AdminModel
             .findOneAndUpdate(query, update, options);
 

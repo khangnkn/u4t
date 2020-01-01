@@ -52,7 +52,7 @@ const updateSkillById = async (skill) => {
             updated_at: Date.now()
         };
         const res = await SkillModel
-            .findOneAndUpdate({ _id: skill.id }, update, { new: true });
+            .findOneAndUpdate({_id: skill.id}, update, {new: true});
 
         return {
             err: false,
@@ -77,11 +77,12 @@ const getSkillListPagination = async (page, limit) => {
             limit: limit
         };
 
-        const res = await SkillModel.paginate(query, _option);
+        const res = await SkillModel
+            .paginate(query, _option);
 
         return {
-            err: false,
-            res: res
+            res: res,
+            err: false
         }
 
     } catch (e) {
@@ -92,9 +93,10 @@ const getSkillListPagination = async (page, limit) => {
     }
 };
 
-const getSkillList = async() => {
+const getSkillList = async () => {
     try {
-        const res = await SkillModel.find();
+        const res = await SkillModel
+            .find();
         return {
             err: false,
             res: res
@@ -105,11 +107,11 @@ const getSkillList = async() => {
             res: null
         }
     }
-}
+};
 
 const getSkillByName = async (name) => {
     try {
-        const res = await SkillModel.findOne({ name: name });
+        const res = await SkillModel.findOne({name: name});
         return {
             err: false,
             res: res
@@ -128,6 +130,6 @@ module.exports = {
     updateSkillById,
     deleteSkillById,
     getSkillListPagination,
-    getSkillList,    
+    getSkillList,
     getSkillByName
 };

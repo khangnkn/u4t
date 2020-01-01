@@ -5,19 +5,16 @@ const getUserList = async (type, page, limit) => {
         const _query = {
             role: type
         };
-
         const _option = {
             page: page,
             limit: limit
         };
-
-        const res = await paginate(_query, _option);
-
+        const res = await UserModel
+            .paginate(_query, _option);
         return {
             err: false,
             res: res
         }
-
     } catch (e) {
         return {
             err: e,
@@ -28,14 +25,14 @@ const getUserList = async (type, page, limit) => {
 
 const getUserByUsername = async (username) => {
     try {
-        const res = await findOne({ username: username })
+        const res = await UserModel
+            .findOne({username: username})
             .populate(['city', 'data.skills'])
             .exec();
         return {
             err: false,
             res: res
         }
-
     } catch (e) {
         return {
             err: e,
@@ -55,9 +52,8 @@ const updateActiveUserByUsername = async (isActive, username) => {
         const options = {
             new: true
         };
-
-        const res = await findOneAndUpdate(query, update, options);
-
+        const res = await UserModel
+            .findOneAndUpdate(query, update, options);
         return {
             err: false,
             res: res
@@ -84,40 +80,13 @@ const addNewUser = async (payload) => {
             res: null
         }
     }
-}
+};
 
 const updateUserById = async (id, payload) => {
     try {
-        const update = { ...{}, ...payload };
-        const res = await findOneAndUpdate({ _id: id }, update, { new: true });
-
-        return {
-            err: false,
-            res: res
-        }
-
-    } catch (error) {
-        return {
-            err: e,
-            res: null
-        }
-    }
-}
-
-const deleteUserById = async (id) => {
-    try {
-        const quert = {
-            _id: id
-        };
-        const update = {
-            delete_ad: Date.now()
-        };
-        const options = {
-            new: true
-        }
-
-        const res = await findOneAndUpdate(query, update, options);
-
+        const update = {...{}, ...payload};
+        const res = await UserModel
+            .findOneAndUpdate({_id: id}, update, {new: true});
         return {
             err: false,
             res: res
@@ -128,7 +97,32 @@ const deleteUserById = async (id) => {
             res: null
         }
     }
-}
+};
+
+const deleteUserById = async (id) => {
+    try {
+        const query = {
+            _id: id
+        };
+        const update = {
+            delete_ad: Date.now()
+        };
+        const options = {
+            new: true
+        };
+        const res = await UserModel
+            .findOneAndUpdate(query, update, options);
+        return {
+            err: false,
+            res: res
+        }
+    } catch (error) {
+        return {
+            err: error,
+            res: null
+        }
+    }
+};
 
 module.exports = {
     addNewUser,
