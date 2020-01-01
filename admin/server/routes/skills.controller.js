@@ -1,33 +1,33 @@
-import { Router } from "express";
+const Router = require("express");
 const router = Router();
 
-import SkillService from "../services/skill.service";
-import ControllerResponse from '../utils/res/controller.response';
+const SkillService = require("../services/skill.service");
+const ControllerResponse = require('../utils/res/controller.response');
 
 router.post('/', async (req, res) => {
     try {
         let result = await SkillService.addNewSkill(req.body);
-        return ControllerResponse.postResponse(result);
+        return await ControllerResponse.postResponse(res, result);
     } catch (e) {
-        return ControllerResponse.internalServerError(e);
+        return await ControllerResponse.internalServerError(res, e);
     }
 });
 
 router.put('/delete', async (req, res) => {
     try {
         let result = await SkillService.deleteSkill(req.body);
-        return ControllerResponse.updateResponse(result);
+        return await ControllerResponse.deleteResponse(res, result);
     } catch (e) {
-        return ControllerResponse.internalServerError(e)
+        return await ControllerResponse.internalServerError(e)
     }
 });
 
 router.put('/update', async (req, res) => {
     try {
         let result = await SkillService.updateSkill(req.body);
-        return ControllerResponse.updateResponse(result);
+        return await ControllerResponse.updateResponse(res, result);
     } catch (e) {
-        return ControllerResponse.internalServerError(e);
+        return await ControllerResponse.internalServerError(res, e);
     }
 });
 
@@ -38,10 +38,10 @@ router.get('/:page/:limit', async (req, res) => {
             limit: req.params.limit
         };
         const result = await SkillService.getSkillList(_payload);
-        return ControllerResponse.getResponse(result);
+        return await ControllerResponse.getResponse(res, result);
     } catch (e) {
-        return ControllerResponse.internalServerError(e);
+        return await ControllerResponse.internalServerError(res, e);
     }
 });
 
-export default router;
+module.exports = router;

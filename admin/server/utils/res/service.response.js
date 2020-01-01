@@ -1,4 +1,4 @@
-import * as RES_CONSTANT from "../shared/constant/response_code";
+const RES_CONSTANT = require("../../shared/constant/response_code");
 
 const serviceResponseCreate = (payload) => {
   if (payload.err) {
@@ -13,7 +13,7 @@ const serviceResponseCreate = (payload) => {
     res: RES_CONSTANT.ADD_ITEM_SUCCESS,
     data: payload.res
   }
-}
+};
 
 const serviceResponseRead = (payload) => {
   if (payload.err) {
@@ -28,7 +28,7 @@ const serviceResponseRead = (payload) => {
     res: RES_CONSTANT.GET_ITEM,
     data: payload.res
   }
-}
+};
 
 const serviceResponseUpdate = (payload) => {
   if (payload.err) {
@@ -49,7 +49,7 @@ const serviceResponseUpdate = (payload) => {
     res: RES_CONSTANT.UPDATE_ITEM_SUCCESS,
     data: payload.res
   }
-}
+};
 
 const serviceResponseDelete = (payload) => {
   if (payload.err) {
@@ -70,13 +70,13 @@ const serviceResponseDelete = (payload) => {
     res: RES_CONSTANT.DELETE_ITEM_SUCCESS,
     data: payload.res
   }
-}
+};
 
 const serviceResponseLogin = (payload) => {
   
-}
+};
 
-export default {
+module.exports = {
   serviceResponseCreate,
   serviceResponseRead,
   serviceResponseUpdate,

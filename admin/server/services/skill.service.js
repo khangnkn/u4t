@@ -1,8 +1,9 @@
-import SkillRepository from "../repository/skill.repository";
-import ServiceResponse from "../utils/res/service.response";
+const SkillRepository = require("../repository/skill.repository");
+const ServiceResponse = require("../utils/res/service.response");
+const RES_CONSTANT = require("../shared/constant/response_code");
 
 const addNewSkill = async (payload) => {
-    let isExisted = await SkillRepository.findSkillByName(payload.name);
+    let isExisted = await SkillRepository.getSkillByName(payload.name);
     if (isExisted.err) {
         return {
             err: RES_CONSTANT.DB_ERROR,
@@ -36,7 +37,7 @@ const getSkillList = async (payload) => {
     return ServiceResponse.serviceResponseRead(result);
 };
 
-export default {
+module.exports = {
     getSkillList,
     updateSkill,
     addNewSkill,

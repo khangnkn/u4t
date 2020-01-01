@@ -1,15 +1,15 @@
 //routes/auth.js
-import { Router } from "express";
+const Router = require("express");
 const router = Router();
-import UserService from "../services/user.service";
-import ControllerResponse from '../utils/res/controller.response';
+const UserService = require("../services/user.service");
+const ControllerResponse = require('../utils/res/controller.response');
 
 router.post('/', async (req, res) => {
     try {
         let result = await UserService.addNew(req.body);
-        return ControllerResponse.postResponse(result)
+        return await ControllerResponse.postResponse(res, result)
     } catch (e) {
-        return ControllerResponse.internalServerError(e)
+        return await ControllerResponse.internalServerError(res, e)
     }
 });
 
@@ -21,9 +21,9 @@ router.get('/:role/:page/:limit', async (req, res) => {
             limit: req.params.limit
         };
         const result = await UserService.getUserList(_payload);
-        return ControllerResponse.getResponse(result);
+        return await ControllerResponse.getResponse(res, result);
     } catch (e) {
-        return ControllerResponse.internalServerError(result);
+        return await ControllerResponse.internalServerError(res, e);
     }
 });
 
@@ -33,9 +33,9 @@ router.get('/detail/:userName', async (req, res) => {
             username: req.params.userName
         };
         const result = await UserService.getUserDetail(_payload);
-        return ControllerResponse.getResponse(result);
+        return await ControllerResponse.getResponse(res, result);
     } catch (e) {
-        return ControllerResponse.internalServerError(e)
+        return await ControllerResponse.internalServerError(res, e)
     }
 });
 
@@ -46,9 +46,9 @@ router.put('/lock/:username', async (req, res) => {
             username: req.params.username
         };
         const result = await UserService.updateActiceUser(_payload);
-        return ControllerResponse.updateResponse(result);
+        return await ControllerResponse.updateResponse(res, result);
     } catch (e) {
-        return ControllerResponse.internalServerError(e)
+        return await ControllerResponse.internalServerError(res, e)
     }
 });
 
@@ -60,39 +60,37 @@ router.put('/unlock/:username', async (req, res) => {
         };
 
         const result = await UserService.updateActiceUser(_payload);
-        return ControllerResponse.updateResponse(result);
+        return await ControllerResponse.updateResponse(res, result);
     } catch (e) {
-        return ControllerResponse.internalServerError(e);
+        return await ControllerResponse.internalServerError(res, e);
     }
 });
 
 router.post('/', async (req, res) => {
     try {
         let result = await UserService.addNew(req.body);
-        return ControllerResponse.postResponse(result);
+        return await ControllerResponse.postResponse(res, result);
     } catch (e) {
-        return await res.status(400).json(
-            ResponseFormat.controller_error(e.message, e)
-        )
+        return await ControllerResponse.internalServerError(res, e);
     }
 });
 
 router.put('/update', async (req, res) => {
     try {
         let result = await SkillService.updateSkill(req.body);
-        return ControllerResponse.updateResponse(result);
+        return await ControllerResponse.updateResponse(res, result);
     } catch (e) {
-       return ControllerResponse.internalServerError(e)
+        return await ControllerResponse.internalServerError(res, e)
     }
 });
 
 router.put('/delete', async (req, res) => {
     try {
         let result = await SkillService.deleteSkill(req.body);
-        return ControllerResponse.deleteResponse(result);
+        return await ControllerResponse.deleteResponse(res, result);
     } catch (e) {
-        return ControllerResponse.internalServerError(e);
+        return await ControllerResponse.internalServerError(res, e);
     }
 });
 
-export default router;
+module.exports = router;

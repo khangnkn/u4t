@@ -1,4 +1,4 @@
-import UserModel, { paginate, findOne, findOneAndUpdate } from "../shared/models/user.model";
+const UserModel = require("../shared/models/user.model");
 
 const getUserList = async (type, page, limit) => {
     try {
@@ -130,11 +130,11 @@ const deleteUserById = async (id) => {
     }
 }
 
-export default {
+module.exports = {
     addNewUser,
+    getUserList,
+    getUserByUsername,
     updateUserById,
     updateActiveUserByUsername,
     deleteUserById,
-    getUserList,
-    getUserDetailByUsername,
 };
