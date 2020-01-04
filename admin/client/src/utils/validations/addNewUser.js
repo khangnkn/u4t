@@ -16,6 +16,9 @@ export default function validateInput(data) {
   if (!Validator.equals(data.password, data.passwordConfirmation)) {
     errors.passwordConfirmation = 'Passwords must match';
   }
+  if (Validator.isEmpty(data.email)) {
+    errors.email = 'This field is required';
+  }
 
 
   return {

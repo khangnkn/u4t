@@ -5,17 +5,18 @@ import {
     DELETE_ADMIN,
     DELETE_USER,
     EDIT_ADMIN,
-    EDIT_USER,
+    EDIT_USER, GET_ADMIN_DETAIL,
+    GET_ADMIN_LIST,
     GET_USER_DETAIL,
-    GET_USER_LIST,
-    LOCK_USER,
+    GET_USER_LIST, LOCK_ADMIN,
+    LOCK_USER, UNLOCK_ADMIN,
     UNLOCK_USER
 } from "../constants/apis";
 import * as types from "../constants/actionTypes";
 
 const axios = require('axios').default.create({
     baseURL: BASE_URL,
-    timeout: 3000,
+    timeout: 10000,
 });
 
 export function setUserList(payload) {
@@ -65,8 +66,10 @@ export function setDeleteUser(_payload) {
 }
 
 export function getUserList(payload) {
+    const url = payload.admin ? GET_ADMIN_LIST : GET_USER_LIST;
+
     return dispatch => {
-        return axios.get(`${GET_USER_LIST}/${payload.role}/${payload.page}/${payload.limit}`)
+        return axios.get(`${url}/${payload.role}/${payload.page}/${payload.limit}`)
             .then(res => {
                 const _resData = res.data.dt;
 
@@ -138,8 +141,10 @@ export function getUserList(payload) {
 }
 
 export function getDetailUser(payload) {
+    const url = payload.admin ? GET_ADMIN_DETAIL : GET_USER_DETAIL;
+
     return dispatch => {
-        return axios.get(`${GET_USER_DETAIL}/${payload.username}`)
+        return axios.get(`${url}/${payload.username}`)
             .then(res => {
                 const _resData = res.data.dt;
                 dispatch(setUserDetail(_resData));
@@ -209,9 +214,11 @@ export function deleteUser(payload) {
 }
 
 export function lockAccount(payload) {
+    const url = payload.admin ? LOCK_ADMIN : LOCK_USER;
+
     console.log(payload);
     return dispatch => {
-        return axios.put(`${LOCK_USER}/${payload.username}`).then(res => {
+        return axios.put(`${url}/${payload.username}`).then(res => {
                 const _resData = res.data.dt;
                 dispatch(setLockAccount(_resData));
             }
@@ -220,8 +227,10 @@ export function lockAccount(payload) {
 }
 
 export function unlockAccount(payload) {
+    const url = payload.admin ? UNLOCK_ADMIN : UNLOCK_USER;
+
     return dispatch => {
-        return axios.put(`${UNLOCK_USER}/${payload.username}`).then(res => {
+        return axios.put(`${url}/${payload.username}`).then(res => {
                 const _resData = res.data.dt;
                 dispatch(setLockAccount(_resData));
             }

@@ -1,6 +1,8 @@
-const Router = require("express");
-const router = Router();
-const sign =  require("jsonwebtoken");
+const AdminValidator = require("../utils/validator/admins.validator");
+
+const express = require("express");
+const router = express.Router();
+const sign = require("jsonwebtoken");
 const authenticate = require("passport");
 const AdminService = require("../services/admin.service");
 const ControllerResponse = require('../utils/res/controller.response');
@@ -33,15 +35,19 @@ const ControllerResponse = require('../utils/res/controller.response');
 //         })(req, res);
 // });
 
-router.post('/', async (req, res) => {
-    try {
-        let result = await AdminService.addNew(req.body);
-        return ControllerResponse.postResponse(result);
-    } catch (e) {
-        console.trace(e);
-        return ControllerResponse.internalServerError(e);
-    }
-});
+
+router.post('/',
+    AdminValidator.addAdminValidationRules(),
+    AdminValidator.validate,
+    async (req, res) => {
+        try {
+            let result = await AdminService.addNewAdmin(req.body);
+            return await ControllerResponse.postResponse(res, result);
+        } catch (e) {
+            console.trace(e);
+            return await ControllerResponse.internalServerError(res, e);
+        }
+    });
 
 router.get('/:id', async (req, res) => {
     try {
@@ -53,9 +59,10 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-router.get('/:page/:limit', async (req, res) => {
+router.get('/:role/:page/:limit', async (req, res) => {
     try {
         const payload = {
+            role: req.params.role,
             page: req.params.page,
             limit: req.params.limit
         };

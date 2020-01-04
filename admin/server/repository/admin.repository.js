@@ -8,7 +8,8 @@ const addNewAdmin = async (adminPayload) => {
             avatar: adminPayload.avatar,
             username: adminPayload.username,
             password: adminPayload.password,
-            fullname: adminPayload.fullName,
+            email: adminPayload.email,
+            fullname: adminPayload.fullname,
             city: new CityModel(adminPayload.city),
             is_active: adminPayload.is_active,
             sex: adminPayload.sex,
@@ -29,18 +30,11 @@ const addNewAdmin = async (adminPayload) => {
 };
 
 const getAdminByUsername = async (username) => {
-    try {
-        let res = await AdminModel
-            .findOne({username: username});
-        return {
-            err: false,
-            res: res
-        }
-    } catch (e) {
-        return {
-            err: e,
-            res: false
-        }
+    let res = await AdminModel
+        .findOne({username: username});
+    return {
+        err: false,
+        res: res
     }
 };
 
@@ -60,10 +54,13 @@ const getAdminById = async (id) => {
     }
 };
 
-const getAdminList = async (type, page, limit) => {
+const getAdminPagination = async (payload) => {
     try {
+        const role = payload.role;
+        const page = payload.page ? payload.page : 1;
+        const limit = payload.limit ? payload.limit : 10;
         const _query = {
-            role: type
+            role: role
         };
         const _option = {
             page: page,
@@ -138,7 +135,7 @@ module.exports = {
     addNewAdmin,
     getAdminById,
     getAdminByUsername,
-    getAdminList,
+    getAdminPagination,
     updateAdminById,
     deleteAdminById,
 };

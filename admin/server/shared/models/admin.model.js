@@ -18,7 +18,7 @@ const AdminSchema = new Schema({
     },
     email: {
         type: String,
-        required: false,
+        required: true,
     },
     fullname: {
         type: String,

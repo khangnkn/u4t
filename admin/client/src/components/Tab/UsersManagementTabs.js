@@ -24,19 +24,20 @@ class UsersManagementTabs extends React.Component {
     }
 
     toggle = (tab) => async () => {
-        console.log(this.props);
         try {
             if (this.state.activeTab !== tab) {
+                this.setState({
+                    activeTab: tab
+                });
+
                 let _payload = {
                     role: tab,
                     page: this.props.page,
-                    limit: this.props.limit
+                    limit: this.props.limit,
+                    admin: tab === '2' || tab === '3'
                 };
-                await this.props.getUserList(_payload);
 
-                this.setState({
-                    activeTab: tab
-                })
+                await this.props.getUserList(_payload);
             }
         } catch (e) {
             console.log('Get user list fail.');

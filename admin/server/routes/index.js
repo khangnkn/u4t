@@ -8,7 +8,10 @@ const contracts = require('./contracts.controller');
 const complains = require('./complains.controller');
 const revenues = require('./revenues.controller');
 
-router.use('/admins', admins);
+router.use('/admins', (req, res, next) => {
+    console.log('authentication');
+    return next()
+}, admins);
 router.use('/users', users);
 router.use('/skills', skills);
 router.use('/contracts', contracts);

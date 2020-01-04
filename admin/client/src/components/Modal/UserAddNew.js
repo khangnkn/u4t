@@ -26,16 +26,16 @@ class UserAddNew extends React.Component {
         super(props);
         this.state = {
             avatar: null,
-            avatarUrl: '',
-            username: '',
-            password: '',
-            passwordConfirmation: '',
-            email: '',
-            fullname: '',
-            city: '',
+            avatarUrl: null,
+            username: null,
+            password: null,
+            passwordConfirmation: null,
+            email: null,
+            fullname: null,
+            city: null,
             is_active: '1',
-            sex: '0',
-            role: '0',
+            sex: null,
+            role: null,
             datas: [],
             errors: {},
             isLoading: false
@@ -83,7 +83,7 @@ class UserAddNew extends React.Component {
                             password: this.state.password,
                             passwordConfirmation: this.state.passwordConfirmation,
                             email: this.state.email,
-                            fullname: this.state.fullName,
+                            fullname: this.state.fullname,
                             city: this.state.city,
                             is_active: this.state.is_active,
                             sex: this.state.sex,
@@ -98,7 +98,7 @@ class UserAddNew extends React.Component {
                 this.props.toggle();
             }
         } catch (e) {
-            console.log();
+            console.log(e);
             this.setState({
                 errors: {
                     connect: e.message

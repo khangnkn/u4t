@@ -3,7 +3,7 @@ import * as types from "../constants/actionTypes";
 
 const axios = require('axios').default.create({
     baseURL: BASE_URL,
-    timeout: 3000,
+    timeout: 10000,
 });
 
 export function setSkillList(_payload) {
