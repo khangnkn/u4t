@@ -5,7 +5,6 @@ import setAuthorizationToken from "../utils/setAuthorizationToken";
 import {LOG_IN} from "../constants/apis";
 import * as types from "../constants/actionTypes";
 
-
 export function setCurrentUser(user) {
     return {
         user,

@@ -4,9 +4,9 @@ const path = require('path');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
-const passport = require('passport')
+const passport = require('passport');
 
-const router = require('./routes')
+const router = require('./routes');
 
 require('dotenv').config();
 require('./passport');
@@ -36,6 +36,6 @@ connection.once('open',
     }
 );
 
-require('./shared/models')
+require('./shared/models');
 
 module.exports = app;

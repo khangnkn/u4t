@@ -5,15 +5,10 @@ const ServiceResponse = require('../utils/res/service.response');
 
 const addNewAdmin = async (admin) => {
     const _isAdminExisted = await AdminRepository.getAdminByUsername(admin.username);
-    if (_isAdminExisted.err) {
-        return {
-            err: RES_CONSTANT.DB_ERROR,
-            res: null
-        }
-    } else if (_isAdminExisted.res) {
+    if (_isAdminExisted.res) {
         return {
             err: RES_CONSTANT.USERNAME_EXISTED,
-            res: null
+            res: _isAdminExisted.err
         }
     } else {
         const res = await AdminRepository.addNewAdmin(admin);
@@ -27,7 +22,7 @@ const getAdminById = async (id) => {
 };
 
 const getAdminPagination = async (payload) => {
-    let res = await AdminRepository.getAdminPagination(payload.page, payload.limit);
+    let res = await AdminRepository.getAdminPagination(payload);
     return ServiceResponse.serviceResponseRead(res);
 };
 

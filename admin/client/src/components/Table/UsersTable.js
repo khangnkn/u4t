@@ -79,6 +79,10 @@ class UsersTable extends React.Component {
             )
         });
 
+        if (items.length === 0){
+            items = (<h3>No data!!</h3>)
+        }
+
         return (
             <div>
                 <Table hover>

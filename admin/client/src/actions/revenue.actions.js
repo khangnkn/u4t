@@ -3,7 +3,7 @@ import * as types from "../constants/actionTypes";
 
 const axios = require('axios').default.create({
     baseURL: BASE_URL,
-    timeout: 1000,
+    timeout: 10000,
 });
 
 export function setAllRevenue(_payload) {
