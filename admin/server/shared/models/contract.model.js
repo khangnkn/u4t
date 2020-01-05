@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const mongoosePaginate = require('mongoose-paginate-v2');
 const {Schema} = mongoose;
 
 const ContractSchema = new Schema(
@@ -7,16 +7,20 @@ const ContractSchema = new Schema(
         tutor: {
             type: Schema.Types.ObjectId,
             ref: 'User',
+            require: true
         },
         learner: {
             type: Schema.Types.ObjectId,
             ref: 'User',
+            require: true
         },
         title: {
             type: String,
+            default: 'Contract title'
         },
         description: {
             type: String,
+            default: 'Contract description'
         },
         price: {
             type: Number,
@@ -32,9 +36,11 @@ const ContractSchema = new Schema(
         },
         start_date: {
             type: Date,
+            default: null
         },
         end_date: {
             type: Date,
+            default: null
         },
         rating: {
             type: Number,
@@ -44,12 +50,18 @@ const ContractSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: 'Review',
         }],
+        deleted_at: {
+            type: Date,
+            default: null
+        }
     },
     {
         timestamps: {createdAt: 'created_at', updatedAt: 'updated_at'}
     }
 );
 
-const Contract = mongoose.model('Contract', ContractSchema);
+ContractSchema.plugin(mongoosePaginate);
 
-module.exports = Contract;
+const ContractModel = mongoose.model('Contract', ContractSchema);
+
+module.exports = ContractModel;
