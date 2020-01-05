@@ -1,8 +1,8 @@
 const {isEmail, isLength} = require("validator");
 const {isBoolean, isInteger, inRange} = require('lodash');
-
-const {body, validationResult} = require('express-validator');
+const {body, param, validationResult} = require('express-validator');
 const ControllerResponse = require('../res/controller.response');
+const mongoose = require('mongoose');
 
 const addAdminValidationRules = () => {
     return [
@@ -26,6 +26,9 @@ const addAdminValidationRules = () => {
 
 const updateAdminValidationRules = () => {
     return [
+        param('id')
+            .custom((value) => mongoose.Types.ObjectId.isValid(value)).withMessage('Invalid Object ID')
+            .exists().withMessage('Id is require'),
         body('email')
             .custom((value) => {
                 if (!value) {

@@ -59,7 +59,7 @@ const deleteUserById = async (id) => {
             _id: id
         };
         const update = {
-            delete_ad: Date.now()
+            deleted_at: Date.now()
         };
         const options = {
             new: true
