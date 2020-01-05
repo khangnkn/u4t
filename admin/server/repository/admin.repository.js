@@ -20,6 +20,7 @@ const addNewAdmin = async (adminPayload) => {
         res: res
     }
 }
+
 const getAdminByUsername = async (username) => {
     let res = await AdminModel
         .findOne({username: username});

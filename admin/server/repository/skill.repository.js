@@ -18,42 +18,10 @@ const addSkill = async (name) => {
     }
 };
 
-const deleteSkillById = async (id) => {
+const getSkillList = async () => {
     try {
-        const query = {
-            _id: id
-        };
-        const update = {
-            deleted_at: Date.now()
-        };
-        const options = {
-            new: true
-        };
-
         const res = await SkillModel
-            .findOneAndUpdate(query, update, options);
-
-        return {
-            err: false,
-            res: res
-        }
-    } catch (e) {
-        return {
-            err: e,
-            res: null
-        }
-    }
-};
-
-const updateSkillById = async (skill) => {
-    try {
-        const update = {
-            name: skill.name,
-            updated_at: Date.now()
-        };
-        const res = await SkillModel
-            .findOneAndUpdate({_id: skill.id}, update, {new: true});
-
+            .find();
         return {
             err: false,
             res: res
@@ -93,10 +61,32 @@ const getSkillListPagination = async (page, limit) => {
     }
 };
 
-const getSkillList = async () => {
+const updateSkillById = async (id, payload) => {
+    const update = payload
+    const res = await SkillModel
+        .findOneAndUpdate({_id: id}, update, {new: true});
+
+    return {
+        err: false,
+        res: res
+    }
+};
+
+const deleteSkillById = async (id) => {
     try {
+        const query = {
+            _id: id
+        };
+        const update = {
+            deleted_at: Date.now()
+        };
+        const options = {
+            new: true
+        };
+
         const res = await SkillModel
-            .find();
+            .findOneAndUpdate(query, update, options);
+
         return {
             err: false,
             res: res

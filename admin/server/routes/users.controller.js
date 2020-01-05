@@ -4,7 +4,7 @@ const router = Router();
 const UserService = require("../services/user.service");
 const ControllerResponse = require('../utils/res/controller.response');
 const UserValidator = require("../utils/validator/user.validator");
-const ObjectIdValidator = require("../utils/validator/objectID.validator")
+const ObjectIdValidator = require("../utils/validator/objectID.validator");
 
 router.post('/',
     UserValidator.addUserValidationRules(),

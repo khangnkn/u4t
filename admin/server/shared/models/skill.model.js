@@ -1,27 +1,23 @@
 const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate-v2');
 
-const { Schema } = mongoose;
+const {Schema} = mongoose;
 
-const SkillSchema = new Schema({
-  name: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  created_at: {
-    type: Date,
-    default: Date.now,
-  },
-  updated_at: {
-    type: Date,
-    default: Date.now,
-  },
-  deleted_at: {
-    type: Date,
-    default: null,
-  },
-});
+const SkillSchema = new Schema(
+    {
+        name: {
+            type: String,
+            required: true,
+            unique: true,
+        },
+        deleted_at: {
+            type: Date,
+            default: null,
+        },
+    }, {
+        timestamps: {createdAt: 'created_at', updatedAt: 'updated_at'}
+    }
+);
 
 SkillSchema.plugin(mongoosePaginate);
 
