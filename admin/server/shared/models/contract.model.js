@@ -14,6 +14,11 @@ const ContractSchema = new Schema(
             ref: 'User',
             require: true
         },
+        skill: {
+            type: Schema.Types.ObjectId,
+            ref: 'Skill',
+            require: true
+        },
         title: {
             type: String,
             default: 'Contract title'
