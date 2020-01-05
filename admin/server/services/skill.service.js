@@ -23,12 +23,12 @@ const addNewSkill = async (payload) => {
 };
 
 const updateSkill = async (payload) => {
-    let result = await SkillRepository.updateSkillById(payload);
+    let result = await SkillRepository.updateSkillById(payload.id, payload.update);
     return ServiceResponse.serviceResponseUpdate(result);
 };
 
-const deleteSkill = async (payload) => {
-    let result = await SkillRepository.deleteSkillById(payload.id);
+const deleteSkill = async (id) => {
+    let result = await SkillRepository.deleteSkillById(id);
     return ServiceResponse.serviceResponseDelete(result);
 };
 
