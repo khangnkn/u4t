@@ -27,7 +27,12 @@ const getAdminPagination = async (payload) => {
 };
 
 const updateAdmin = async (id, payload) => {
-    let res = await AdminRepository.updateAdminById(id, payload);
+    const updateAdmin = {...payload};
+    const ignoreFields = ['avatar', 'username', 'email', 'role'];
+    ignoreFields.forEach((item) => {
+        delete updateAdmin[item]
+    });
+    let res = await AdminRepository.updateAdminById(id, updateAdmin);
     return ServiceResponse.serviceResponseUpdate(res)
 };
 

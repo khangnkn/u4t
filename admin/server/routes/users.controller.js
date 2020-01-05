@@ -3,15 +3,21 @@ const Router = require("express");
 const router = Router();
 const UserService = require("../services/user.service");
 const ControllerResponse = require('../utils/res/controller.response');
+const UserValidator = require("../utils/validator/user.validator");
+const ObjectIdValidator = require("../utils/validator/objectID.validator")
 
-router.post('/', async (req, res) => {
-    try {
-        let result = await UserService.addNew(req.body);
-        return await ControllerResponse.postResponse(res, result)
-    } catch (e) {
-        return await ControllerResponse.internalServerError(res, e)
+router.post('/',
+    UserValidator.addUserValidationRules(),
+    UserValidator.validate,
+    async (req, res) => {
+        try {
+            let result = await UserService.addNewUser(req.body);
+            return await ControllerResponse.postResponse(res, result)
+        } catch (e) {
+            return await ControllerResponse.internalServerError(res, e)
+        }
     }
-});
+);
 
 router.get('/:role/:page/:limit', async (req, res) => {
     try {
@@ -27,70 +33,59 @@ router.get('/:role/:page/:limit', async (req, res) => {
     }
 });
 
-router.get('/detail/:userName', async (req, res) => {
-    try {
-        const _payload = {
-            username: req.params.userName
-        };
-        const result = await UserService.getUserDetail(_payload);
-        return await ControllerResponse.getResponse(res, result);
-    } catch (e) {
-        return await ControllerResponse.internalServerError(res, e)
+router.get('/detail/:id',
+    ObjectIdValidator.objectIDValidationRules(),
+    ObjectIdValidator.validate,
+    async (req, res) => {
+        try {
+            const _payload = {
+                id: req.params.id
+            };
+            const result = await UserService.getUserDetail(_payload);
+            return await ControllerResponse.getResponse(res, result);
+        } catch (e) {
+            return await ControllerResponse.internalServerError(res, e)
+        }
     }
-});
+);
 
-router.put('/lock/:username', async (req, res) => {
-    try {
-        const _payload = {
-            isActive: false,
-            username: req.params.username
-        };
-        const result = await UserService.updateActiceUser(_payload);
-        return await ControllerResponse.updateResponse(res, result);
-    } catch (e) {
-        return await ControllerResponse.internalServerError(res, e)
+router.put('/lock/:id',
+    ObjectIdValidator.objectIDValidationRules(),
+    ObjectIdValidator.validate,
+    async (req, res) => {
+        try {
+            const _payload = {
+                update: {
+                    is_active: false,
+                },
+                id: req.params.id
+            };
+            const result = await UserService.updateActiveUser(_payload);
+            return await ControllerResponse.updateResponse(res, result);
+        } catch (e) {
+            return await ControllerResponse.internalServerError(res, e)
+        }
     }
-});
+);
 
-router.put('/unlock/:username', async (req, res) => {
-    try {
-        const _payload = {
-            isActive: true,
-            username: req.params.username
-        };
+router.put('/unlock/:id',
+    ObjectIdValidator.objectIDValidationRules(),
+    ObjectIdValidator.validate,
+    async (req, res) => {
+        try {
+            const _payload = {
+                update: {
+                    is_active: true,
+                },
+                id: req.params.id
+            };
 
-        const result = await UserService.updateActiceUser(_payload);
-        return await ControllerResponse.updateResponse(res, result);
-    } catch (e) {
-        return await ControllerResponse.internalServerError(res, e);
+            const result = await UserService.updateActiveUser(_payload);
+            return await ControllerResponse.updateResponse(res, result);
+        } catch (e) {
+            return await ControllerResponse.internalServerError(res, e);
+        }
     }
-});
-
-router.post('/', async (req, res) => {
-    try {
-        let result = await UserService.addNew(req.body);
-        return await ControllerResponse.postResponse(res, result);
-    } catch (e) {
-        return await ControllerResponse.internalServerError(res, e);
-    }
-});
-
-router.put('/update', async (req, res) => {
-    try {
-        let result = await SkillService.updateSkill(req.body);
-        return await ControllerResponse.updateResponse(res, result);
-    } catch (e) {
-        return await ControllerResponse.internalServerError(res, e)
-    }
-});
-
-router.put('/delete', async (req, res) => {
-    try {
-        let result = await SkillService.deleteSkill(req.body);
-        return await ControllerResponse.deleteResponse(res, result);
-    } catch (e) {
-        return await ControllerResponse.internalServerError(res, e);
-    }
-});
+);
 
 module.exports = router;

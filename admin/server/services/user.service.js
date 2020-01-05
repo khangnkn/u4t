@@ -21,12 +21,12 @@ const getUserList = async (payload) => {
 };
 
 const getUserDetail = async (payload) => {
-    let result = await UserRepository.getUserByUsername(payload.username);
+    let result = await UserRepository.getUserById(payload.id);
     return ServiceResponse.serviceResponseRead(result);
 };
 
 const updateActiveUser = async (payload) => {
-    let result = await UserRepository.updateActiveUserByUsername(payload.isActive, payload.username);
+    let result = await UserRepository.updateUserById(payload.id, payload.update);
     return ServiceResponse.serviceResponseUpdate(result);
 };
 

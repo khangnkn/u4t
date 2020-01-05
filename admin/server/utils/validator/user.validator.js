@@ -4,7 +4,7 @@ const {isBoolean, isInteger, inRange} = require('lodash');
 const {body, validationResult} = require('express-validator');
 const ControllerResponse = require('../res/controller.response');
 
-const addAdminValidationRules = () => {
+const addUserValidationRules = () => {
     return [
         body('username')
             .exists().withMessage('Username is require'),
@@ -24,7 +24,7 @@ const addAdminValidationRules = () => {
     ]
 };
 
-const updateAdminValidationRules = () => {
+const updateUserValidationRules = () => {
     return [
         body('email')
             .custom((value) => {
@@ -94,7 +94,7 @@ const validate = async (req, res, next) => {
 };
 
 module.exports = {
-    addAdminValidationRules,
-    updateAdminValidationRules,
+    addUserValidationRules,
+    updateUserValidationRules,
     validate,
 };
