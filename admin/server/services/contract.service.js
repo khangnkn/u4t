@@ -7,7 +7,7 @@ const addNewContract = async (payload) => {
 };
 
 const updateContract = async (payload) => {
-    const res = await ContractRepository.updateContractById(payload);
+    const res = await ContractRepository.updateContractById(payload.id, payload.update);
     return RESPONSE_SERVICE.serviceResponseUpdate(res);
 };
 
