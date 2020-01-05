@@ -36,7 +36,25 @@ const getRevenueSortBySkill = async (start, end) => {
     }
 };
 
+const getRevenueTotal = async (start, end) => {
+    const query = {
+        created_at: {$gte: start, $lt: end}
+    };
+    const sortCondition = {
+        created_at: 1
+    };
+    const res = await ContractModel
+        .find(query)
+        .sort(sortCondition);
+
+    return {
+        res: res,
+        err: null
+    }
+};
+
 module.exports = {
     getRevenueSortByUser,
-    getRevenueSortBySkill
+    getRevenueSortBySkill,
+    getRevenueTotal
 };

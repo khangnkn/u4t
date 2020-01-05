@@ -38,4 +38,20 @@ router.get('/top-skills/:range',
     }
 );
 
+router.get('/total/:range',
+    RevenueValidator.rangeValidationRules(),
+    RevenueValidator.validate,
+    async (req, res) => {
+        try {
+            const payload = {
+                range: req.params.range
+            };
+            const result = await RevenueService.getTotalRevenue(payload);
+            return await ControllerResponse.getResponse(res, result);
+        } catch (error) {
+            console.trace(error);
+            return await ControllerResponse.internalServerError(res, error);
+        }
+    }
+);
 module.exports = router;
