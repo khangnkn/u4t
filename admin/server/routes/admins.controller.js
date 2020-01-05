@@ -62,7 +62,8 @@ router.get('/detail/:id',
             console.trace(error);
             return await ControllerResponse.internalServerError(res, error);
         }
-    });
+    }
+);
 
 router.get('/:role/:page/:limit',
     async (req, res) => {
@@ -78,7 +79,8 @@ router.get('/:role/:page/:limit',
             console.trace(error);
             return await ControllerResponse.internalServerError(res, error)
         }
-    });
+    }
+);
 
 router.put('/update/:id',
     AdminValidator.updateAdminValidationRules(),
@@ -93,7 +95,8 @@ router.put('/update/:id',
             console.trace(error);
             return await ControllerResponse.internalServerError(res, error);
         }
-    });
+    }
+);
 
 router.put('/delete/:id',
     ObjectIdValidator.objectIDValidationRules(),
@@ -107,6 +110,7 @@ router.put('/delete/:id',
             console.trace(error);
             return await ControllerResponse.internalServerError(res, error);
         }
-    });
+    }
+);
 
 module.exports = router;

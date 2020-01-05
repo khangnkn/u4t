@@ -1,8 +1,8 @@
 const {isEmail, isLength} = require("validator");
 const {isBoolean, isInteger, inRange} = require('lodash');
-
-const {body, validationResult} = require('express-validator');
+const {body, param, validationResult} = require('express-validator');
 const ControllerResponse = require('../res/controller.response');
+const mongoose = require('mongoose');
 
 const addUserValidationRules = () => {
     return [
@@ -19,13 +19,16 @@ const addUserValidationRules = () => {
             .isLength({min: 5}).withMessage('Length must > 5')
             .exists().withMessage('Password confirmation is require'),
         body('role')
-            .isIn(['2', '3']).withMessage('Invalid role')
+            .isIn(['0', '1']).withMessage('Invalid role')
             .exists().withMessage('Password confirmation is require'),
     ]
 };
 
 const updateUserValidationRules = () => {
     return [
+        param('id')
+            .custom((value) => mongoose.Types.ObjectId.isValid(value)).withMessage('Invalid Object ID')
+            .exists().withMessage('Id is require'),
         body('email')
             .custom((value) => {
                 if (!value) {

@@ -31,8 +31,13 @@ const updateActiveUser = async (payload) => {
 };
 
 const updateUserDetail = async (id, payload) => {
-    let result = await UserRepository.updateUserById(id, payload);
-    return ServiceResponse.serviceResponseUpdate(result);
+    const updateUser = {...payload};
+    const ignoreFields = ['avatar', 'username', 'email', 'role'];
+    ignoreFields.forEach((item) => {
+        delete updateUser[item]
+    });
+    let res = await UserRepository.updateUserById(id, updateUser);
+    return ServiceResponse.serviceResponseUpdate(res)
 };
 
 const deleteUser = async (id) => {
