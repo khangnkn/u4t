@@ -36,6 +36,11 @@ const updateAdmin = async (id, payload) => {
     return ServiceResponse.serviceResponseUpdate(res)
 };
 
+const updateActiveAdmin = async (payload) => {
+    let result = await AdminRepository.updateAdminById(payload.id, payload.update);
+    return ServiceResponse.serviceResponseUpdate(result);
+};
+
 const deleteAdmin = async (id) => {
     let res = await AdminRepository.deleteAdminById(id);
     return ServiceResponse.serviceResponseDelete(res);
@@ -50,5 +55,6 @@ module.exports = {
     getAdminById,
     getAdminPagination,
     updateAdmin,
+    updateActiveAdmin,
     deleteAdmin,
 };

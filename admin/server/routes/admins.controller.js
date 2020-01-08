@@ -113,4 +113,43 @@ router.put('/delete/:id',
     }
 );
 
+router.put('/lock/:id',
+    ObjectIdValidator.objectIDValidationRules(),
+    ObjectIdValidator.validate,
+    async (req, res) => {
+        try {
+            const _payload = {
+                update: {
+                    is_active: false,
+                },
+                id: req.params.id
+            };
+            const result = await AdminService.updateActiveAdmin(_payload);
+            return await ControllerResponse.updateResponse(res, result);
+        } catch (e) {
+            return await ControllerResponse.internalServerError(res, e)
+        }
+    }
+);
+
+router.put('/unlock/:id',
+    ObjectIdValidator.objectIDValidationRules(),
+    ObjectIdValidator.validate,
+    async (req, res) => {
+        try {
+            const _payload = {
+                update: {
+                    is_active: true,
+                },
+                id: req.params.id
+            };
+
+            const result = await AdminService.updateActiveAdmin(_payload);
+            return await ControllerResponse.updateResponse(res, result);
+        } catch (e) {
+            return await ControllerResponse.internalServerError(res, e);
+        }
+    }
+);
+
 module.exports = router;

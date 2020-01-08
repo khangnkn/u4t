@@ -22,6 +22,10 @@ const addUserValidationRules = () => {
         body('role')
             .isIn(['0', '1']).withMessage('Invalid role')
             .exists().withMessage('Password confirmation is require'),
+        body('city')
+            .isLength({min: 1}).withMessage("Invalid city")
+            .custom((value) => mongoose.Types.ObjectId.isValid(value)).withMessage('Invalid city')
+            .exists().withMessage('City is require'),
     ]
 };
 

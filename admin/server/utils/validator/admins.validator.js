@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const addAdminValidationRules = () => {
     return [
         body('username')
+            .isLength({min: 1}).withMessage('Username is require')
             .exists().withMessage('Username is require'),
         body('email')
             .isEmail().withMessage('Invalid email')
@@ -20,7 +21,11 @@ const addAdminValidationRules = () => {
             .exists().withMessage('Password confirmation is require'),
         body('role')
             .isIn(['2', '3']).withMessage('Invalid role')
-            .exists().withMessage('Password confirmation is require'),
+            .exists().withMessage('Role is require'),
+        body('city')
+            .isLength({min: 1}).withMessage("Invalid city")
+            .custom((value) => mongoose.Types.ObjectId.isValid(value)).withMessage('Invalid city')
+            .exists().withMessage('City is require'),
     ]
 };
 

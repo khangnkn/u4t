@@ -50,7 +50,7 @@ export function setNewUser(_payload) {
     return {
         type: types.ADD_USER,
         payload: {
-            datas: _payload.datas
+            data: _payload.data
         }
     }
 }
@@ -83,7 +83,8 @@ export function getUserList(payload) {
             let _payload = {
                 datas: _resData.docs,
                 details: {},
-                role: payload.role
+                role: payload.role,
+                admin: payload.admin
             };
             switch (payload.role) {
                 case '0':
@@ -152,9 +153,10 @@ export function getUserList(payload) {
 export function getDetailUser(payload) {
     const url = payload.admin ? GET_ADMIN_DETAIL : GET_USER_DETAIL;
 
-    return dispatch => {
+    return async dispatch => {
         try {
-            const res = axios.get(`${url}/${payload.username}`);
+            const res = await axios.get(`${url}/${payload.id}`);
+            console.log(res)
             const _resData = res.data.dt;
             dispatch(setUserDetail(_resData));
             return successResponse(res)
@@ -178,7 +180,7 @@ export function addUser(payload) {
             const _resData = {
                 ...{},
                 ...{
-                    datas: res.data.dt
+                    data: res.data.dt
                 }
             };
             dispatch(setNewUser(_resData));
@@ -236,6 +238,7 @@ export function deleteUser(payload) {
 }
 
 export function lockAccount(payload) {
+    console.log(payload)
     const url = payload.admin ? LOCK_ADMIN : LOCK_USER;
     return async dispatch => {
         try {
@@ -254,7 +257,7 @@ export function unlockAccount(payload) {
 
     return async dispatch => {
         try {
-            const res = await axios.put(`${url}/${payload.username}`)
+            const res = await axios.put(`${url}/${payload.id}`)
             const _resData = res.data.dt;
             dispatch(setLockAccount(_resData));
             return successResponse(res)

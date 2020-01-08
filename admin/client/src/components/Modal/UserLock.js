@@ -10,13 +10,14 @@ class UserLock extends React.Component {
 
     onSubmit = () => async () => {
         try {
-            const username = this.props.user.username;
+            const id = this.props.user.id;
+            const isAdmin = this.props.admin
             if (this.props.user.active) {
                 console.log('lock account');
-                await this.props.lockAccount({username: username});
+                await this.props.lockAccount({id: id, admin: isAdmin});
             } else {
                 console.log('unlock account');
-                await this.props.unlockAccount({username: username});
+                await this.props.unlockAccount({id: id, admin: isAdmin});
             }
         } catch (e) {
             console.log(e);
@@ -40,10 +41,15 @@ class UserLock extends React.Component {
     }
 }
 
+function mapStateToProps(state) {
+    const {user} = state;
+    return {admin: user.admin}
+}
+
 const mapDispatchToProps = {
     lockAccount,
     unlockAccount
 };
 
 
-export default connect(null, mapDispatchToProps)(UserLock);
+export default connect(mapStateToProps, mapDispatchToProps)(UserLock);
