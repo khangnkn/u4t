@@ -1,5 +1,5 @@
 import React from 'react';
-import {Col, Nav, NavItem, NavLink, Row, TabContent, TabPane} from 'reactstrap';
+import {Col, Nav, NavItem, NavLink, Row, Spinner, TabContent, TabPane} from 'reactstrap';
 import classnames from 'classnames';
 import UsersTable from "../Table/UsersTable";
 import * as roles from '../../constants/userRole';
@@ -11,6 +11,9 @@ class UsersManagementTabs extends React.Component {
         super(props);
         this.state = {
             activeTab: roles.student.role,
+            errors: {},
+            errorMessage: '',
+            isLoading: false
         }
     }
 
@@ -27,31 +30,121 @@ class UsersManagementTabs extends React.Component {
         try {
             if (this.state.activeTab !== tab) {
                 this.setState({
-                    activeTab: tab
+                    activeTab: tab,
+                    isLoading: true
                 });
 
                 let _payload = {
                     role: tab,
-                    page: this.props.page,
+                    page: 1,
                     limit: this.props.limit,
                     admin: tab === '2' || tab === '3'
                 };
-
-                await this.props.getUserList(_payload);
+                const res = await this.props.getUserList(_payload);
+                if (!res.res) {
+                    this.setState(res)
+                }
             }
         } catch (e) {
             console.log('Get user list fail.');
             console.log(e)
+        } finally {
+            this.setState({
+                isLoading: false
+            });
         }
     };
 
     render() {
+
+        let loading = (
+            <TabContent color="primary" activeTab={this.state.activeTab}>
+                <div className="justify-content-center align-items-center">
+                    <Spinner type="grow" color="primary"/>
+                    <Spinner type="grow" color="secondary"/>
+                    <Spinner type="grow" color="success"/>
+                    <Spinner type="grow" color="danger"/>
+                    <Spinner type="grow" color="warning"/>
+                    <Spinner type="grow" color="info"/>
+                    <Spinner type="grow" color="light"/>
+                    <Spinner type="grow" color="dark"/>
+                </div>
+            </TabContent>
+        );
+        let content = this.state.errorMessage ?
+            (
+                <TabContent color="primary" activeTab={this.state.activeTab}>
+                    <TabPane tabId={roles.student.role}>
+                        <Row>
+                            <Col sm="12">
+                                {this.state.errorMessage}
+                            </Col>
+                        </Row>
+                    </TabPane>
+                    <TabPane tabId={roles.teacher.role}>
+                        <Row>
+                            <Col sm="12">
+                                {this.state.errorMessage}
+                            </Col>
+                        </Row>
+                    </TabPane>
+                    <TabPane tabId={roles.admin.role}>
+                        <Row>
+                            <Col sm="12">
+                                {this.state.errorMessage}
+                            </Col>
+                        </Row>
+                    </TabPane>
+                    <TabPane tabId={roles.root.role}>
+                        <Row>
+                            <Col sm="12">
+                                {this.state.errorMessage}
+                            </Col>
+                        </Row>
+                    </TabPane>
+                </TabContent>
+            ) :
+            (
+                <TabContent color="primary" activeTab={this.state.activeTab}>
+                    <TabPane tabId={roles.student.role}>
+                        <Row>
+                            <Col sm="12">
+                                <UsersTable/>
+                            </Col>
+                        </Row>
+                    </TabPane>
+                    <TabPane tabId={roles.teacher.role}>
+                        <Row>
+                            <Col sm="12">
+                                <UsersTable/>
+                            </Col>
+                        </Row>
+                    </TabPane>
+                    <TabPane tabId={roles.admin.role}>
+                        <Row>
+                            <Col sm="12">
+                                <UsersTable/>
+                            </Col>
+                        </Row>
+                    </TabPane>
+                    <TabPane tabId={roles.root.role}>
+                        <Row>
+                            <Col sm="12">
+                                <UsersTable/>
+                            </Col>
+                        </Row>
+                    </TabPane>
+                </TabContent>
+            );
+
         return (
             <div>
                 <Nav tabs>
                     <NavItem>
                         <NavLink
-                            className={classnames({active: this.state.activeTab === roles.student.role})}
+                            className={
+                                classnames({active: this.state.activeTab === roles.student.role})
+                            }
                             onClick={this.toggle(roles.student.role)}
                         >
                             {roles.student.name + "s"}
@@ -82,38 +175,10 @@ class UsersManagementTabs extends React.Component {
                         </NavLink>
                     </NavItem>
                 </Nav>
-                <TabContent activeTab={this.state.activeTab}>
-                    <TabPane tabId={roles.student.role}>
-                        <Row>
-                            <Col sm="12">
-                                <UsersTable/>
-                            </Col>
-                        </Row>
-                    </TabPane>
-                    <TabPane tabId={roles.teacher.role}>
-                        <Row>
-                            <Col sm="12">
-                                <UsersTable/>
-                            </Col>
-                        </Row>
-                    </TabPane>
-                    <TabPane tabId={roles.admin.role}>
-                        <Row>
-                            <Col sm="12">
-                                <UsersTable/>
-                            </Col>
-                        </Row>
-                    </TabPane>
-                    <TabPane tabId={roles.root.role}>
-                        <Row>
-                            <Col sm="12">
-                                <UsersTable/>
-                            </Col>
-                        </Row>
-                    </TabPane>
-                </TabContent>
+                {this.state.isLoading ? loading : content}
             </div>
-        );
+        )
+            ;
     }
 }
 

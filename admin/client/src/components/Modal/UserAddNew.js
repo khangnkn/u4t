@@ -12,11 +12,11 @@ import {
     Modal,
     ModalBody,
     ModalFooter,
-    ModalHeader, Spinner
+    ModalHeader,
+    Spinner
 } from "reactstrap";
 
 import {addUser} from "../../actions/user.actions";
-import validateInput from "../../utils/validations/addNewUser";
 import Avatar from "../Avatar";
 import {cities} from "../../constants/cities";
 
@@ -34,12 +34,12 @@ class UserAddNew extends React.Component {
             fullname: null,
             city: null,
             is_active: '1',
-            sex: null,
-            role: null,
+            gender: false,
+            role: '',
             datas: [],
             errors: {},
             errorMessage: '',
-            isLoading: false
+            isLoading: false,
         };
         this.onChange = this.onChange.bind(this);
         this.onChangeAvatar = this.onChangeAvatar.bind(this);
@@ -77,7 +77,7 @@ class UserAddNew extends React.Component {
                         fullname: this.state.fullname,
                         city: this.state.city,
                         is_active: this.state.is_active,
-                        sex: this.state.sex,
+                        gender: this.state.gender,
                         role: this.state.role,
                         datas: [],
                     }
@@ -88,6 +88,23 @@ class UserAddNew extends React.Component {
             const res = await this.props.addUser(_payload);
             this.setState(res);
             if (res.res) {
+                this.setState({
+                    avatar: null,
+                    avatarUrl: null,
+                    username: null,
+                    password: null,
+                    passwordConfirmation: null,
+                    email: null,
+                    fullname: null,
+                    city: null,
+                    is_active: '1',
+                    gender: false,
+                    role: '',
+                    datas: [],
+                    errors: {},
+                    errorMessage: '',
+                    isLoading: false,
+                });
                 this.props.toggle();
             }
         } catch (e) {
@@ -105,7 +122,7 @@ class UserAddNew extends React.Component {
 
         let itemsCity = cities.map((item) => {
             return (
-                <option>{item}</option>
+                <option value={item._id}>{item.name}</option>
             )
         });
 
@@ -171,7 +188,9 @@ class UserAddNew extends React.Component {
                             <Col sm={10}>
                                 <Input name="fullname" placeholder="Fullname"
                                        value={this.state.fullName}
-                                       onChange={this.onChange}/>
+                                       onChange={this.onChange}
+                                       invalid={errors.fullname}/>
+                                <FormFeedback>{errors.fullname}</FormFeedback>
                             </Col>
                         </FormGroup>
                         <FormGroup row>
@@ -179,9 +198,12 @@ class UserAddNew extends React.Component {
                             <Col sm={10}>
                                 <Input type="select" name="city" placeholder="City"
                                        value={this.state.city}
-                                       onChange={this.onChange}>
+                                       onChange={this.onChange}
+                                       invalid={errors.city}>
+                                    <option value={-1}>Choose city</option>
                                     {itemsCity}
                                 </Input>
+                                <FormFeedback>{errors.city}</FormFeedback>
                             </Col>
                         </FormGroup>
                         <FormGroup row>
@@ -189,21 +211,25 @@ class UserAddNew extends React.Component {
                             <Col sm={10}>
                                 <Input type="select" name="is_active" placeholder="status"
                                        value={this.state.is_active}
-                                       onChange={this.onChange}>
+                                       onChange={this.onChange}
+                                       invalid={errors.is_active}>
                                     <option value={0}>Lock</option>
                                     <option value={1}>Active</option>
                                 </Input>
+                                <FormFeedback>{errors.is_active}</FormFeedback>
                             </Col>
                         </FormGroup>
                         <FormGroup row>
                             <Label sm={2}>Sex</Label>
                             <Col sm={10}>
-                                <Input type="select" name="sex" placeholder="Sex"
-                                       value={this.state.sex}
-                                       onChange={this.onChange}>
-                                    <option value={0}>Female</option>
-                                    <option value={1}>Male</option>
+                                <Input type="select" name="gender" placeholder="Sex"
+                                       value={this.state.gender}
+                                       onChange={this.onChange}
+                                       invalid={errors.gender}>
+                                    <option value={true}>Female</option>
+                                    <option value={false}>Male</option>
                                 </Input>
+                                <FormFeedback>{errors.gender}</FormFeedback>
                             </Col>
                         </FormGroup>
                         <FormGroup row>
@@ -211,12 +237,15 @@ class UserAddNew extends React.Component {
                             <Col sm={10}>
                                 <Input type="select" name="role" placeholder="Role"
                                        value={this.state.role}
-                                       onChange={this.onChange}>
+                                       onChange={this.onChange}
+                                       invalid={errors.role}>
+                                    <option value={-1}>Choose role</option>
                                     <option value={0}>Learner</option>
                                     <option value={1}>Tutor</option>
                                     <option value={2}>Admin</option>
                                     <option value={3}>Root</option>
                                 </Input>
+                                <FormFeedback>{errors.role}</FormFeedback>
                             </Col>
                         </FormGroup>
 
@@ -247,9 +276,12 @@ class UserAddNew extends React.Component {
     }
 }
 
+function mapStateToProps(state) {
+    return null
+}
+
 const mapDispatchToProps = {
     addUser
 };
 
-
-export default connect(null, mapDispatchToProps)(UserAddNew);
+export default connect(mapStateToProps, mapDispatchToProps)(UserAddNew);

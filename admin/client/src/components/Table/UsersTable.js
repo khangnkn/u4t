@@ -31,7 +31,14 @@ class UsersTable extends React.Component {
                     userChoosed: payload
                 });
                 if (!this.state.modal_detail) {
-                    await this.props.getDetailUser(payload)
+                    const isAdmin = this.props.admin
+                    let newPayload = {
+                        ...payload,
+                        ...{
+                            admin: isAdmin
+                        }
+                    };
+                    await this.props.getDetailUser(newPayload)
                 }
                 break;
             default:
@@ -46,7 +53,6 @@ class UsersTable extends React.Component {
             <th>Username</th>
             <th>Created at</th>
             <th>Updated at</th>
-            <th>Deleted at</th>
             <th>Status</th>
             <th>Operation</th>
         </tr>;
@@ -61,25 +67,29 @@ class UsersTable extends React.Component {
                     <td>{data.username}</td>
                     <td>{data.created_at}</td>
                     <td>{data.updated_at}</td>
-                    <td>{data.deleted_at}</td>
-                    <td>{data.is_active ? 'Active' : 'Locked'}</td>
-                    <td>
-                        <Button onClick={this.toggle('active', {
-                                username: data.username,
+                    <td>{data.is_active ? <h5>Active</h5> : <h5>Locked</h5>}</td>
+                    <td className="pr-0 pl-0">
+                        <Button
+                            onClick={this.toggle('active', {
+                                id: data._id,
                                 active: data.is_active
-                            }
-                        )}>
+                            })}
+                        >
                             {data.is_active ? 'Lock' : 'Unlock'}
                         </Button>
                     </td>
-                    <td>
-                        <Button onClick={this.toggle('detail', {username: data.username})}>Detail</Button>
+                    <td className="pr-0 pl-0">
+                        <Button
+                            onClick={this.toggle('detail', {id: data._id})}
+                        >
+                            Detail
+                        </Button>
                     </td>
                 </tr>
             )
         });
 
-        if (items.length === 0){
+        if (items.length === 0) {
             items = (<h3>No data!!</h3>)
         }
 
@@ -113,7 +123,8 @@ function mapStateToProps(state) {
     return {
         datas: user.datas,
         type: user.type,
-        detail: user.detail
+        detail: user.detail,
+        admin: user.admin
     }
 }
 

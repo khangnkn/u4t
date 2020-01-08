@@ -5,25 +5,29 @@ const initialState = {
     detail: {},
     // Type: student, teacher, admin
     role: '0',
+    admin: false,
     paginationStudent: {
         page: 1,
         totalPages: 1,
-        limit: 2,
+        limit: 5,
     },
     paginationTeacher: {
         page: 1,
         totalPages: 1,
-        limit: 2,
+        limit: 5,
     },
     paginationAdmin: {
         page: 1,
         totalPages: 1,
-        limit: 2,
+        limit: 5,
     },
     paginationRoot: {
         page: 1,
         totalPages: 1,
-        limit: 2,
+        limit: 5,
+    },
+    pagination: {
+        limit: 5
     }
 };
 
@@ -36,6 +40,7 @@ export default (state = initialState, action = {}) => {
                     datas: action.datas,
                     role: action.role,
                     detail: {},
+                    admin: action.admin,
                     paginationStudent: action.paginationStudent
                 }
             };
@@ -46,6 +51,7 @@ export default (state = initialState, action = {}) => {
                     datas: action.datas,
                     role: action.role,
                     detail: {},
+                    admin: action.admin,
                     paginationTeacher: action.paginationTeacher
                 }
 
@@ -57,6 +63,7 @@ export default (state = initialState, action = {}) => {
                     datas: action.datas,
                     role: action.role,
                     detail: {},
+                    admin: action.admin,
                     paginationAdmin: action.paginationAdmin
                 }
             };
@@ -67,6 +74,7 @@ export default (state = initialState, action = {}) => {
                     datas: action.datas,
                     role: action.role,
                     detail: {},
+                    admin: action.admin,
                     paginationRoot: action.paginationRoot
                 }
             };

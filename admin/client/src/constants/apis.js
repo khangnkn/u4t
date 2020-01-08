@@ -7,8 +7,8 @@ export const GET_ADMIN_LIST = 'admins';
 export const GET_ADMIN_DETAIL = 'admins/detail';
 export const EDIT_ADMIN = '/admins';
 export const DELETE_ADMIN = '/admins';
-export const LOCK_ADMIN = '/users/lock';
-export const UNLOCK_ADMIN = '/users/unlock';
+export const LOCK_ADMIN = '/admins/lock';
+export const UNLOCK_ADMIN = '/admins/unlock';
 
 export const ADD_USER = '/users';
 export const GET_USER_LIST = '/users';
@@ -36,4 +36,6 @@ export const GET_REVENUE = '/revenues';
 export const GET_REVENUE_TOTAL = '/revenues/total';
 export const GET_TOP_SALE_USERS = '/revenues/top-users';
 export const GET_TOP_SALE_SKILLS = '/revenues/top-skills';
+
+export const GET_CITY_LIST = '/cities';
 

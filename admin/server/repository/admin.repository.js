@@ -1,5 +1,4 @@
 const AdminModel = require('../shared/models/admin.model');
-const CityModel = require('../shared/models/city.model');
 
 const addNewAdmin = async (adminPayload) => {
     const admin = new AdminModel({
@@ -8,7 +7,7 @@ const addNewAdmin = async (adminPayload) => {
         password: adminPayload.password,
         email: adminPayload.email,
         fullname: adminPayload.fullname,
-        city: new CityModel(adminPayload.city),
+        city: adminPayload.city,
         is_active: adminPayload.is_active,
         sex: adminPayload.sex,
         role: adminPayload.role,
