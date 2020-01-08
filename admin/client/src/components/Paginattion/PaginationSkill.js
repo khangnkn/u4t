@@ -4,8 +4,8 @@ import {Pagination, PaginationItem, PaginationLink} from 'reactstrap';
 import {getSkillList} from "../../actions/skill.actions";
 
 class PaginationSkill extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.handleClick = this.handleClick.bind(this)
     }
 

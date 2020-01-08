@@ -12,14 +12,14 @@ export default (state = initialState, action = {}) => {
             return {
                 ...state,
                 ...{
-                    datas: action.datas,
-                    pagination: action.pagination
+                    datas: action.payload.datas,
+                    pagination: action.payload.pagination
                 }
             };
         case types.SET_DETAIL_CONTRACT:
             return {
                 ...state,
-                ...{detail: action.payload}
+                ...{detail: action.payload.data}
             };
         case types.EDIT_CONTRACT:
             return {
