@@ -247,8 +247,8 @@ class Profile extends React.Component {
                     <div className="col-sm-6 m-lg-bottom">
                         <div className="form-group">
                             <Form.Label className="">Họ tên</Form.Label>
-                            <Form.Control type="text" onChange={this.handleInforChange} value={user.infor.fullname} name="fullname" className="form-control sessioncamexclude" />
-                            {this.validator.message('fullname', this.props.profile.user.infor.hoTen, 'required|alpha')}
+                            <Form.Control type="text" onChange={this.handleInforChange} value={user.infor.fullname} name="fullname" className="form-control sessioncamexclude"/>
+                            {/* {this.validator.message('fullname', user.infor.fullname, 'required|alpha')} */}
                         </div>
                     </div>
                     <div className="col-sm-6 m-lg-bottom">
@@ -306,7 +306,7 @@ class Profile extends React.Component {
                 <div className="form-group">
                     <Form.Label className="">Trình độ</Form.Label>
                     <div className="dropdown width-lg fe-cat-height dropdown-block">
-                        <Form.Control as="select" className="custom-select" value={data.level} onChange={this.handleDataChange} name="level" style={{height: '40px'}}>
+                        <Form.Control as="select" className="custom-select" value={data.levels} onChange={this.handleDataChange} name="levels" style={{height: '40px'}}>
                             {this.state.levels.map((e, i) => (<option value={e._id} key={i}>{e.name}</option>))}
                         </Form.Control>
                     </div>
@@ -323,7 +323,7 @@ class Profile extends React.Component {
                         <div className="col-md-5 col-sm-7 col-xs-8">
                             <div className="d-flex align-items-center">
                                 <div className="has-feedback width-auto">
-                                    <Form.Control placeholder="" type="text" className="form-control width-xs text-right p-sm-right" value="0.00" onChange={this.handleDataChange} name="price" />
+                                    <Form.Control placeholder="" type="text" className="form-control width-xs text-right p-sm-right" value={data.price} onChange={this.handleDataChange} name="price" />
                                     {this.validator.message('price', this.props.profile.user.data.price, 'required|integer')}
                                     <span aria-hidden="true" className="glyphicon glyphicon-md air-icon-payment text-primary form-control-feedback" />
                                     <span id="input-el" className="sr-only" />

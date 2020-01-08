@@ -16,15 +16,16 @@ function loadUsername() {
 
 function loadUserInfor(){
     var userCookie = JSON.parse(localStorage.getItem('user'));
+    // var userCookie = storage.user;
     // console.log(userCookie);
     if (userCookie === null) return null;
     return {
-            fullname: userCookie.user.fullname ? userCookie.fullname : '',
+            fullname: userCookie.user.fullname ? userCookie.user.fullname : '',
             sex: userCookie.user.sex ? userCookie.user.sex : 0,
             email: userCookie.user.email ? userCookie.user.email : '',
             phone: userCookie.user.phone ? userCookie.user.phone : '',
             address: userCookie.user.address ? userCookie.user.address : '',
-            city: userCookie.user.city ? userCookie.user.city : {_id: '',name: ''},
+            city: userCookie.user.city ? userCookie.user.city : '5df0e3394576d02450b15e9f',
             role: userCookie.user.role ? userCookie.user.role : 0,
     }
 }
@@ -38,7 +39,14 @@ function loadUserData() {
         skills: [],
         levels: ''
     };
-    return userCookie.user.data;
+    
+    return {
+        intro: userCookie.user.data.intro ? userCookie.user.data.intro : '',
+        title: userCookie.user.data.title ? userCookie.user.data.title : '',
+        price: userCookie.user.data.price ? userCookie.user.data.price : 0,
+        skills: userCookie.user.data.skills ? userCookie.user.data.skills : [],
+        levels: userCookie.user.data.levels ? userCookie.user.data.levels : '5dfdaa512bc57e11b630c55e'
+    };
 }
 
 var initialState = {
@@ -65,12 +73,12 @@ var myReducer = (state = initialState, action) => {
             return { ...state, user: user1 };
         case types.HANDLE_PROFILE_DATA_CHANGE:
             let name2 = action.name, value2 = action.value;
-            if (name2 === 'price') 
-            var user2 = state.user;
-            user2.data[name2] = value2;
-            return { ...state, user: user2 };
+            if (name2 === 'price') value2 = parseInt(value2);
+            //var user2 = state.user;
+            state.user.data[name2] = value2;
+            return { ...state};
         case types.HANDLE_PROFILE_SKILLS_CHANGE:
-            let skill = parseInt(action.value);
+            let skill = action.value;
             let user4 = state.user;
             if (action.checked) {
                 user4.data.skills.push(skill);

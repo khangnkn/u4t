@@ -49,7 +49,7 @@ function update(user) {
   const userCookie = JSON.parse(localStorage.getItem('user'));
   header.append('Content-Type', 'application/json');
   header.append('Authorization', userCookie ? `Bearer ${userCookie.token}` : ``);
-
+  console.log(userCookie.token);
   var fd =new FormData();
 
   const {
@@ -59,12 +59,14 @@ function update(user) {
   fd.append('id', JSON.stringify(id));
   fd.append('infor', JSON.stringify(infor));
   
-  if (avatar != null) fd.append('avatar', avatar);
+  
   if (infor.role === 0) {
     // fd.append('data', JSON.stringify({}));
   } else {
     fd.append('data', JSON.stringify(data));
   }
+
+  if (avatar != null) fd.append('avatar', avatar);
   const req = new Request(`${host}/api/p/users/info`, {
     method: 'POST',
     headers: header,

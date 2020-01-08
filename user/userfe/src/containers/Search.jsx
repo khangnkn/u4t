@@ -20,10 +20,12 @@ class Search extends React.Component {
   componentDidMount() {
     const search = queryString.parse(window.location.search);
     helperService.loadSkills().then((_skills) => {
-      state.skills = _skills;
+      this.setState({skills: _skills});
+      // state.skills = _skills;
     });
     helperService.loadLevels().then((_levels) => {
-      state.levels = _levels;
+      // state.levels = _levels;
+      this.setState({levels: _levels});
     });
     const {
       name, city, skills, price
@@ -40,7 +42,7 @@ class Search extends React.Component {
     const {
       keyword, city, skill, price,
     } = this.props.search;
-    this.props.handleSearch(name, city._id, skill._id, price);
+    this.props.handleSearch(keyword, city._id, skill._id, price);
   }
 
   renderResultItem() {

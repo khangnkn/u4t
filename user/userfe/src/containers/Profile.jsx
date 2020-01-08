@@ -17,7 +17,7 @@ import Footer from './Footer';
 
 const Profile = (props) => {
   const validator = new SimpleReactValidator();
-  let state;
+  var state;
   // var skills, levels, cities;
   const componentDidMount = () => {
     helperService.loadSkills().then((_skills) => {
