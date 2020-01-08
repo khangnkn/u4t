@@ -24,6 +24,7 @@ export const EDIT_SKILL = '/skills/update';
 export const DELETE_SKILL = '/skills/delete';
 
 export const ADD_CONTRACT = '/contracts';
+export const GET_CONTRACT_DETAIL = '/contracts/details';
 export const GET_CONTRACT_LIST = '/contracts';
 export const EDIT_CONTRACT = '/contracts';
 export const DELETE_CONTRACT = '/contracts';

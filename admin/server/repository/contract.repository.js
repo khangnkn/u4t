@@ -26,10 +26,13 @@ const getContractListPagination = async (page, limit) => {
     };
     const _option = {
         page: page,
-        limit: limit
+        limit: limit,
+        populate: ['learner', 'tutor'],
+        lean: true
     };
     const res = await ContractModel
         .paginate(_query, _option);
+
     return {
         err: false,
         res: res

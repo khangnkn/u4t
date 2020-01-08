@@ -1,9 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import { Button, Modal, ModalBody, ModalFooter, ModalHeader, Table } from 'reactstrap';
+import {Button, Table} from 'reactstrap';
 import ContractDetail from '../Modal/ContractDetail';
 import ContractEdit from '../Modal/ContractEdit';
 import ContractDelete from '../Modal/ContractDelete';
+import {getContractDetail, getContractList} from "../../actions/contract.actions";
 
 class ContractsTable extends React.Component {
     constructor(props) {
@@ -16,25 +17,36 @@ class ContractsTable extends React.Component {
         }
     }
 
-    toggle = (modalType, payload) => () => {
+    componentDidMount() {
+        const _payload = {
+            page: 1,
+            limit: 5
+        };
+        this.props.getContractList(_payload);
+    }
+
+    toggle = (modalType, payload) => async () => {
         switch (modalType) {
             case 'detail':
+                if (!this.state.modal_detail) {
+                    const res = await this.props.getContractDetail(payload)
+                }
                 this.setState({
                     modal_detail: !this.state.modal_detail,
                     contractChoosed: payload
-                })
+                });
                 break;
             case 'edit':
                 this.setState({
                     modal_edit: !this.state.modal_edit,
                     contractChoosed: payload
-                })
+                });
                 break;
             case 'delete':
                 this.setState({
                     modal_delete: !this.state.modal_delete,
                     contractChoosed: payload
-                })
+                });
                 break;
             default:
                 break;
@@ -51,22 +63,40 @@ class ContractsTable extends React.Component {
             <th>Start date</th>
             <th>End date</th>
             <th>Operation</th>
-        </tr>
+            <th></th>
+            <th></th>
+        </tr>;
 
 
         let items = this.props.datas.map((data, index) => {
             return (
                 <tr>
-                    <td>{data.name}</td>
-                    <td>{data.tutor}</td>
-                    <td>{data.learner}</td>
+                    <td>{data.title}</td>
+                    <td>{data.tutor ? data.tutor.username : ""}</td>
+                    <td>{data.learner ? data.tutor.username : ""}</td>
                     <td>{data.price}</td>
                     <td>{data.start_date}</td>
                     <td>{data.end_date}</td>
                     <td>
-                        <Button onClick={this.toggle('detail')}>Detail</Button>
-                        <Button onClick={this.toggle('edit')}>Edit</Button>
-                        <Button onClick={this.toggle('delete')}>Delete</Button>
+                        <Button
+                            onClick={this.toggle('detail', {id: data._id})}
+                        >
+                            Detail
+                        </Button>
+                    </td>
+                    <td>
+                        <Button disabled
+                            onClick={this.toggle('edit', {id: data._id})}
+                        >
+                            Edit
+                        </Button>
+                    </td>
+                    <td>
+                        <Button
+                            onClick={this.toggle('delete', {id: data._id})}
+                        >
+                            Delete
+                        </Button>
                     </td>
                 </tr>
             )
@@ -76,36 +106,29 @@ class ContractsTable extends React.Component {
             <div>
                 <Table hover>
                     <thead>
-                        {header}
+                    {header}
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>name</td>
-                            <td>Tutor</td>
-                            <td>Learner</td>
-                            <td>1.000.000</td>
-                            <td>10/10/2010</td>
-                            <td>10/11/2010</td>
-                            <td>
-                                <Button onClick={this.toggle('detail')}>Detail</Button>
-                                <Button onClick={this.toggle('edit')}>Edit</Button>
-                                <Button onClick={this.toggle('delete')}>Delete</Button>
-                            </td>
-                        </tr>
+                    {items}
                     </tbody>
                 </Table>
-                <ContractDetail open={this.state.modal_detail} toggle={this.toggle('detail', {})}></ContractDetail>
-                <ContractEdit open={this.state.modal_edit} toggle={this.toggle('edit', {})}></ContractEdit>
-                <ContractDelete open={this.state.modal_delete} toggle={this.toggle('delete', {})}></ContractDelete>
+                <ContractDetail
+                    open={this.state.modal_detail}
+                    toggle={this.toggle('detail', {})}
+                />
+                <ContractEdit
+                    open={this.state.modal_edit}
+                    toggle={this.toggle('edit', {})}
+                />
+                <ContractDelete
+                    open={this.state.modal_delete}
+                    toggle={this.toggle('delete', {})}
+                />
 
             </div>
         );
     }
-};
-
-const mapDispatchToProps = {
-    
-};
+}
 
 function mapStateToProps(state) {
     const {contract} = state;
@@ -114,5 +137,11 @@ function mapStateToProps(state) {
         detail: contract.detail
     }
 }
+
+
+const mapDispatchToProps = {
+    getContractList,
+    getContractDetail
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContractsTable);

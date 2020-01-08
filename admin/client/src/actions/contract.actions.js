@@ -1,4 +1,11 @@
-import {ADD_CONTRACT, DELETE_CONTRACT, EDIT_CONTRACT, GET_CONTRACT_LIST} from "../constants/apis";
+import {
+    ADD_CONTRACT,
+    BASE_URL,
+    DELETE_CONTRACT,
+    EDIT_CONTRACT,
+    GET_CONTRACT_DETAIL,
+    GET_CONTRACT_LIST
+} from "../constants/apis";
 import * as types from "../constants/actionTypes";
 
 const {errorResponse, successResponse} = require('../utils/responseFormat');
@@ -11,6 +18,13 @@ const axios = require('axios').default.create({
 export function setNewContract(_payload) {
     return {
         type: types.ADD_CONTRACT,
+        payload: _payload
+    }
+}
+
+export function setDetailContract(_payload) {
+    return {
+        type: types.SET_DETAIL_CONTRACT,
         payload: _payload
     }
 }
@@ -72,16 +86,40 @@ export function getContractList(payload) {
                     pagination: {
                         page: payload.page,
                         limit: payload.limit,
-                        totalPages: _resData.totalDocs
+                        totalPages: _resData.totalPages
                     }
                 }
             };
+            console.log(payloadState);
             dispatch(setContractList(payloadState));
             return successResponse(res);
         } catch (e) {
             return errorResponse(e)
         }
     };
+}
+
+export function getContractDetail(payload) {
+    const url = `${GET_CONTRACT_DETAIL}/${payload.id}`;
+    const data = {
+        ...{},
+        ...payload.data
+    };
+    return async dispatch => {
+        try {
+            const res = await axios.get(url, data);
+            const _resData = {
+                ...{},
+                ...{
+                    data: res.data.dt
+                }
+            };
+            dispatch(setDetailContract(_resData));
+            return successResponse(res)
+        } catch (e) {
+            return errorResponse(e)
+        }
+    }
 }
 
 export function editContract(payload) {
@@ -92,7 +130,7 @@ export function editContract(payload) {
     };
     return async dispatch => {
         try {
-            const res = await axios.put(url, data)
+            const res = await axios.put(url, data);
             const _resData = {
                 ...{},
                 ...{
@@ -111,7 +149,7 @@ export function deleteContract(payload) {
     const url = `${DELETE_CONTRACT}/${payload.id}`;
     return async dispatch => {
         try {
-            const res = await axios.delete(url)
+            const res = await axios.delete(url);
             const _resData = {
                 ...{},
                 ...{

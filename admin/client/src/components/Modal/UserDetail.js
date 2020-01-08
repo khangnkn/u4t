@@ -12,7 +12,6 @@ class UserDetail extends React.Component {
         this.props.toggle();
     };
 
-
     render() {
         const {detail} = this.props;
         return (
