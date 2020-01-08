@@ -26,6 +26,7 @@ const CreateMessage = async (req, res, next) => {
     console.log(message);
     const conversation = await Conversation.findById(body.conversation);
     conversation.messages.push(message);
+    conversation.updated_at = +new Date();
     await conversation.save();
     message = await Message.findById(message._id).populate(['sender']);
     return next({
