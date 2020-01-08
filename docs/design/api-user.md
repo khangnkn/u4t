@@ -101,8 +101,9 @@
 | Name | Method | Path | Type |
 | -----| -----| ----| ----|
 | Profile | Get | /api/p/users/info | - |
+| Update | POST | /api/p/users/info | json |
 
-1. Cities
+### Profile
 
 - Path: `<host>/api/cities`
 - Method: `get`
@@ -117,9 +118,58 @@
             "name": "Hồ Chí Minh"
         },
         {
-            "_id": "5df5cbf407d13b20338e3397",
+            "_id": "5df5cbf407d13b20338e3397",s
             "name": "Bình Dương"
         }
     ]
+}
+```
+
+### Update Profile
+- Path: `/api/p/users/info`
+- Mehtod: `POST`
+- Body:
+```json
+
+```
+
+## Contract
+### Create contract
+- Method: `POST`
+- API: `/api/p/contracts`
+- Authentication: `true`
+- Body:
+```json
+{
+	"tutor": "5df5e3d1116830329cd03d6d",
+	"learner": "5df5e3ca116830329cd03d6c",
+	"title": "Create contract",
+	"description": "create contract with love",
+	"price": 6969000,
+	"total": 30000,
+	"start_date": 1578455264,
+	"end_date": 1606780800
+}
+```
+- Response:
+```json
+{
+    "code": 1,
+    "message": "success",
+    "data": {
+        "price": 6969000,
+        "total": 30000,
+        "issuing_time": 1578455571599,
+        "rating": 0,
+        "reviews": [],
+        "_id": "5e1554187932ad2ac3e5072d",
+        "tutor": "5df5e3d1116830329cd03d6d",
+        "learner": "5df5e3ca116830329cd03d6c",
+        "title": "Create contract",
+        "description": "create contract with love",
+        "start_date": 1578455264,
+        "end_date": 1606780800,
+        "__v": 0
+    }
 }
 ```

@@ -9,4 +9,26 @@ const GetByTutor = async (id) => {
   }
 };
 
-module.exports = { GetByTutor };
+const Create = async (data) => {
+  const contract = new Contract();
+  contract.tutor = data.tutor;
+  contract.learner = data.learner;
+  contract.title = data.title;
+  contract.description = data.description;
+  contract.price = data.price;
+  contract.total = data.total;
+  contract.start_date = data.start_date;
+  contract.end_date = data.end_date;
+  try {
+    const res = await contract.save();
+    console.log('contract', contract);
+    return res;
+  } catch (ex) {
+    return ex;
+  }
+};
+
+module.exports = {
+  GetByTutor,
+  Create,
+};
