@@ -143,10 +143,11 @@ export const handleCreateContractDateEndChange = (date) => ({
   date,
 });
 
-export const handleCreateContractSetIdUser = (idSt, idTutor) => ({
+export const handleCreateContractSetIdUser = (idSt, idTutor,data) => ({
   type: types.HANDLE_CREATE_CONTRACT_SET_ID_USER,
   idSt,
   idTutor,
+  data
 });
 export const handleCreateContractSubmit = (contract) => {
   return (dispatch) => {
@@ -202,8 +203,9 @@ export const handleSearch = (name, skill, city, price) => {
     var data={};
     if (name) data.name=name;
     if (skill) data.skill = skill;
-    if(city) data.city = city;
+    if (city) data.city = city;
     if (price) data.price = price;
+    console.log(data);
     helperService.search(data).then((data) => {
       if (data.code === 1) {
         

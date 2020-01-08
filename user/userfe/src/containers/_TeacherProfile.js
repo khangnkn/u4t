@@ -301,7 +301,6 @@ Job
                                             >
                                               <span className="up-active-context">
                                                   <span className="ng-binding">
-                                                                $
                                                       {tutor.history.length}
                                                     </span>
                                                 </span>
@@ -393,23 +392,11 @@ Job
                                                                 </div>
                                                             </div>
                                                         </li>
-                                                      <li
-                                                          className="m-xs-bottom p-0-left ng-scope"
-                                                        >
-                                                          <strong
-                                                              className="ng-binding"
-                                                            >
-5.00
-
-                                                            </strong>
+                                                      <li className="m-xs-bottom p-0-left ng-scope">
+                                                          <strong className="ng-binding">5.00</strong>
                                                         </li>
-                                                      <li
-                                                          className="m-xs-bottom p-0-left"
-                                                        >
-                                                          <small
-                                                              className="text-muted ng-binding"
-                                                            >
-Oct
+                                                      <li className="m-xs-bottom p-0-left">
+                                                          <small className="text-muted ng-binding"> Oct
                                                                         2019
                                                                         -
                                                                         Nov

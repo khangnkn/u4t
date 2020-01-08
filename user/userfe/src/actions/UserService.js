@@ -107,15 +107,12 @@ function createContract(contract) {
   header.append('Content-Type', 'application/json');
   header.append('Authorization', userCookie ? `Bearer${userCookie.token}` : 'Bearer');
 
-  const fd = new FormData();
-
-  fd.append('contract', JSON.stringify(contract));
 
   const req = new Request('/api/contract/create', {
     method: 'POST',
     headers: header,
-    mode: 'no-cors',
-    body: fd,
+    // mode: 'no-cors',
+    body: JSON.stringify(contract),
   });
 
   return fetch(req).then(handleLogOut).then((resp) => resp.json()).then((data) => data);

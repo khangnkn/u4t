@@ -65,7 +65,7 @@ class Search extends React.Component {
     const {
       keyword, city, skill, price,
     } = this.props.search;
-    this.props.handleSearch(keyword, city, skill, price);
+    this.props.handleSearch(keyword, skill, city, price);
   }
 
   renderResultItem(item,_i) {

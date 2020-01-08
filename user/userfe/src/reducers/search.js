@@ -22,6 +22,7 @@ const myReducer = (state = initialState, action) => {
           value = 0;
         }
       }
+      
       state[action.name] = value;
       return { ...state };
     case types.HANDLE_SEARCH_RESULT:

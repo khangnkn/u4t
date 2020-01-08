@@ -97,7 +97,6 @@ class TeacherProfile extends React.Component {
                                   className="glyphicon air-icon-location m-0-left vertical-align-middle m-xs-right"
                                 />
                                 <span
-                                  ng-className="labelClass"
                                   className="w-700"
                                 >
                                   <span
@@ -185,7 +184,7 @@ class TeacherProfile extends React.Component {
                           >
                             <span className="up-active-context">
                               <span className="ng-binding">
-                                {`$ ${tutor.contract.length}`}
+                                {` ${tutor.contract.length}`}
                               </span>
                             </span>
                           </div>
@@ -414,7 +413,7 @@ class TeacherProfile extends React.Component {
                 <div>
                   <div className="ng-scope ng-isolate-scope">
                     <div className="o-profile-skills m-sm-top ng-scope">
-                      {skills.map((e, i) => (<Button variant="success">{e.name}</Button>))}
+                      {skills.map((e, i) => (<Button key={i} variant="success">{e.name}</Button>))}
                     </div>
                   </div>
                 </div>
@@ -436,7 +435,7 @@ class TeacherProfile extends React.Component {
               <div className="ng-scope">
                 <div className="text-center">
                   <h3 className="title ">
-                    Bạn muốn thuê người này.
+                    Bạn muốn thuê người này?
                   </h3>
                   <p className="subtitle ">
                     Hãy bấm vào nút dưới đây để bắt đầu đề nghị hợp đồng
@@ -444,8 +443,7 @@ class TeacherProfile extends React.Component {
                 </div>
                 <div className="ng-pristine ng-valid ng-valid-email">
                   <div className="ng-scope">
-                    <div>
-                      {' '}
+                    <div className="d-flex justify-content-center">
                       <a className="btn btn-primary m-0-top-bottom m-0-left-right" href={`/contract/create?tutor=${_id}`}>Tạo hợp đồng</a>
                     </div>
                   </div>
