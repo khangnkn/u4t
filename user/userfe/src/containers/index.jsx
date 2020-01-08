@@ -27,12 +27,12 @@ const App = () => {
         <Route path="/home" component={Home} />
         <Route path="/user/detail/:id" component={TeacherProfile} />
         <Route path="/contract/create" component={CreateContract} />
-        <Route path="/chat" component={RoomChat} />
+        <Route path="/message" component={RoomChat} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/search" component={Search} />
-        {userCookie ? <Route path="/profile" component={Profile} /> : <Redirect to='/home'/>}
-        
+        {userCookie ? <Route path="/profile" component={Profile} /> : <Redirect to="/home" />}
+
       </Switch>
     </Router>
   // </div>

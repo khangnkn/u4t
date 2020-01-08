@@ -81,7 +81,6 @@ function update(user) {
       const { user } = data.data;
       const lss = localStorage.getItem('user');
       const ls = JSON.parse(lss);
-      console.log(ls);
       ls.user = user;
       localStorage.setItem('user', JSON.stringify(ls));
       return data;

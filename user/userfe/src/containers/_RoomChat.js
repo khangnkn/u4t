@@ -42,7 +42,7 @@ class RoomChat extends React.Component {
   }
 
   renderListChat() {
-    this.listChat = (
+    return (
       <div className="room-nav-body">
         <div className="fill room-nav-body-scrollable">
           <div className="room-list-container">
@@ -52,10 +52,10 @@ class RoomChat extends React.Component {
                   <div className="room-list-item-div">
                     <eo-room-icon className="room-list-icon-span">
                       <div>
-                          <div className="room-icon avatar-new avatar avatar-sm-42 user-presence-icon-photo sm-42 none">
-                            <span className="glyphicon air-icon-users glyphicon-md" />
-                          </div>
+                        <div className="room-icon avatar-new avatar avatar-sm-42 user-presence-icon-photo sm-42 none">
+                          <span className="glyphicon air-icon-users glyphicon-md" />
                         </div>
+                      </div>
                     </eo-room-icon>
                     <span className="room-list-name-span">
                       <span className="date">3:39 PM</span>
@@ -72,7 +72,6 @@ class RoomChat extends React.Component {
         </div>
       </div>
     );
-    return this.listChat;
   }
 
   renderRoomName() {
@@ -229,26 +228,26 @@ class RoomChat extends React.Component {
                             {this.renderRoomName()}
                             <div className="col-xs-12 room-chat-area">
                               <div className="room-chat-area-content">
-                                    <div className="story-box" style={{ width: 'calc(100% - 300px)' }}>
-                                        <div className="story-panel">
-                                            <div className="room-story-list">
-                                                <div className="eo-scroll-continuum-container">
-                                                    <div className="viewport" tabIndex="0">
-                                                        <div className="content minimal-content">
-                                                            {this.renderListMessage()}
-                                                          </div>
-                                                      </div>
-                                                    <div className="loading-indicator" />
-                                                  </div>
-                                              </div>
+                                <div className="story-box" style={{ width: 'calc(100% - 300px)' }}>
+                                  <div className="story-panel">
+                                    <div className="room-story-list">
+                                      <div className="eo-scroll-continuum-container">
+                                        <div className="viewport" tabIndex="0">
+                                          <div className="content minimal-content">
+                                            {this.renderListMessage()}
                                           </div>
-                                        <div className="composer-panel" style={{ height: '79px' }}>
-                                            <div autoFocus="">
-                                                {this.renderSendForm()}
-                                              </div>
-                                          </div>
+                                        </div>
+                                        <div className="loading-indicator" />
                                       </div>
+                                    </div>
                                   </div>
+                                  <div className="composer-panel" style={{ height: '79px' }}>
+                                    <div autoFocus="">
+                                      {this.renderSendForm()}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>

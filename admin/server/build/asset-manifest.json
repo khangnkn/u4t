@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "https://reduction-admin.github.io/react-reduction/static/css/main.daed1d85.chunk.css",
+    "main.js": "https://reduction-admin.github.io/react-reduction/static/js/main.bcf49934.chunk.js",
+    "main.js.map": "https://reduction-admin.github.io/react-reduction/static/js/main.bcf49934.chunk.js.map",
+    "runtime-main.js": "https://reduction-admin.github.io/react-reduction/static/js/runtime-main.f63ab1d4.js",
+    "runtime-main.js.map": "https://reduction-admin.github.io/react-reduction/static/js/runtime-main.f63ab1d4.js.map",
+    "static/js/2.ec95181e.chunk.js": "https://reduction-admin.github.io/react-reduction/static/js/2.ec95181e.chunk.js",
+    "static/js/2.ec95181e.chunk.js.map": "https://reduction-admin.github.io/react-reduction/static/js/2.ec95181e.chunk.js.map",
+    "index.html": "https://reduction-admin.github.io/react-reduction/index.html",
+    "precache-manifest.561f1f68891ea9d60e0ed7155a521848.js": "https://reduction-admin.github.io/react-reduction/precache-manifest.561f1f68891ea9d60e0ed7155a521848.js",
+    "service-worker.js": "https://reduction-admin.github.io/react-reduction/service-worker.js",
+    "static/css/main.daed1d85.chunk.css.map": "https://reduction-admin.github.io/react-reduction/static/css/main.daed1d85.chunk.css.map",
+    "static/media/100_1.jpg": "https://reduction-admin.github.io/react-reduction/static/media/100_1.1f7beca5.jpg",
+    "static/media/100_2.jpg": "https://reduction-admin.github.io/react-reduction/static/media/100_2.82e7c41e.jpg",
+    "static/media/100_3.jpg": "https://reduction-admin.github.io/react-reduction/static/media/100_3.6e25d86d.jpg",
+    "static/media/100_4.jpg": "https://reduction-admin.github.io/react-reduction/static/media/100_4.978e51b5.jpg",
+    "static/media/100_5.jpg": "https://reduction-admin.github.io/react-reduction/static/media/100_5.fd533725.jpg",
+    "static/media/actionTypes": "https://reduction-admin.github.io/react-reduction/static/media/actionTypes.0cdb4bc1.bin",
+    "static/media/logo_200.png": "https://reduction-admin.github.io/react-reduction/static/media/logo_200.b175e1c4.png",
+    "static/media/sidebar-4.jpg": "https://reduction-admin.github.io/react-reduction/static/media/sidebar-4.80d4a4e5.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.f63ab1d4.js",
+    "static/js/2.ec95181e.chunk.js",
+    "static/css/main.daed1d85.chunk.css",
+    "static/js/main.bcf49934.chunk.js"
+  ]
+}
