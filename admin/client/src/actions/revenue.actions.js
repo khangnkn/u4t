@@ -1,17 +1,12 @@
 import {GET_REVENUE, GET_REVENUE_TOTAL, GET_TOP_SALE_SKILLS, GET_TOP_SALE_USERS} from "../constants/apis";
 import * as types from "../constants/actionTypes";
 
+const {errorResponse, successResponse} = require('../utils/responseFormat');
+
 const axios = require('axios').default.create({
     baseURL: BASE_URL,
     timeout: 10000,
 });
-
-export function setAllRevenue(_payload) {
-    return {
-        type: types.SET_ALL_REVENUE,
-        payload: _payload
-    }
-}
 
 export function setRevenueTotal(_payload) {
     return {
@@ -40,69 +35,65 @@ export function setTopSkillsRevenue(_payload) {
     }
 }
 
+export function getTotalRevenue(payload) {
+    let url = `${GET_REVENUE_TOTAL}/${payload.range}`;
+    return async dispatch => {
+        try {
+            const res = await axios.get(url);
+            const _resData = res.data.dt;
 
-export function getAllRevenue(_payload) {
-    return dispatch => {
-        return axios.get(`${GET_REVENUE}`)
-            .then(res => {
-                const _resData = res.data.dt;
-
-                let _payload = {
-                    ...{},
-                    ..._resData
-                };
-                dispatch(setAllRevenue(_payload));
-            })
+            let payloadState = {
+                ...{},
+                ...{
+                    datasChart: _resData
+                }
+            };
+            dispatch(setRevenueTotal(payloadState));
+            return successResponse(res)
+        } catch (e) {
+            return errorResponse(e)
+        }
     };
 }
 
-export function getTotalRevenue(_payload) {
-    return dispatch => {
-        return axios.get(`${GET_REVENUE_TOTAL}`)
-            .then(res => {
-                const _resData = res.data.dt;
+export function getTopUsersRevenue(payload) {
+    let url = `${GET_TOP_SALE_USERS}/${payload.range}`;
+    return async dispatch => {
+        try {
+            const res = await axios.get(url)
+            const _resData = res.data.dt;
 
-                let _payload = {
-                    ...{},
-                    ...{
-                        datasChart: _resData
-                    }
-                };
-                dispatch(setRevenueTotal(_payload));
-            })
+            let payloadState = {
+                ...{},
+                ...{
+                    datasTopUser: _resData
+                }
+            };
+            dispatch(setTopUsersRevenue(payloadState));
+            return successResponse(res)
+        } catch (e) {
+            return errorResponse(e)
+        }
     };
 }
 
-export function getTopUsersRevenue(_payload) {
-    return dispatch => {
-        return axios.get(`${GET_TOP_SALE_USERS}`)
-            .then(res => {
-                const _resData = res.data.dt;
+export function getTopSkillsRevenue(payload) {
+    let url = `${GET_TOP_SALE_SKILLS}/${payload.range}`
+    return async dispatch => {
+        try {
+            const res = await axios.get(url);
+            const _resData = res.data.dt;
 
-                let _payload = {
-                    ...{},
-                    ...{
-                        datasTopUser: _resData
-                    }
-                };
-                dispatch(setTopUsersRevenue(_payload));
-            })
-    };
-}
-
-export function getTopSkillsRevenue(_payload) {
-    return dispatch => {
-        return axios.get(`${GET_TOP_SALE_SKILLS}`)
-            .then(res => {
-                const _resData = res.data.dt;
-
-                let _payload = {
-                    ...{},
-                    ...{
-                        datasTopSkill: _resData
-                    }
-                };
-                dispatch(setTopSkillsRevenue(_payload));
-            })
+            let payloadState = {
+                ...{},
+                ...{
+                    datasTopSkill: _resData
+                }
+            };
+            dispatch(setTopSkillsRevenue(payloadState));
+            return successResponse(res)
+        } catch (e) {
+            return errorResponse(e)
+        }
     };
 }

@@ -32,7 +32,7 @@ const getAdminByUsername = async (username) => {
 
 const getAdminById = async (id) => {
     let res = await AdminModel
-        .find({_id: id})
+        .findOne({_id: id})
         .populate(['city'])
         .exec();
     return {

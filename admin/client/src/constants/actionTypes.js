@@ -20,6 +20,7 @@ export const EDIT_SKILL = 'EDIT_SKILL';
 export const DELETE_SKILL = 'DELETE_SKILL';
 
 // Contract management
+export const ADD_CONTRACT = 'ADD_CONTRACT';
 export const SET_CONTRACT_LIST = 'SET_CONTRACT_LIST';
 export const SET_DETAIL_CONTRACT = 'ADD_CONTRACT';
 export const EDIT_CONTRACT = 'EDIT_CONTRACT';

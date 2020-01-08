@@ -5,6 +5,8 @@ import setAuthorizationToken from "../utils/setAuthorizationToken";
 import {LOG_IN} from "../constants/apis";
 import * as types from "../constants/actionTypes";
 
+const {errorResponse, successResponse} = require('../utils/responseFormat');
+
 export function setCurrentUser(user) {
     return {
         user,
@@ -19,14 +21,17 @@ export function login(data) {
             password: data.password
         }
     };
-    return dispatch => {
-        return axios.post(LOG_IN, _data)
-            .then(res => {
-                const token = res.data.token;
-                localStorage.setItem('jwtToken', token);
-                setAuthorizationToken(token);
-                dispatch(setCurrentUser(jwtDecode(token)));
-            })
+    return async dispatch => {
+        try {
+            const res = await axios.post(LOG_IN, _data)
+            const token = res.data.token;
+            localStorage.setItem('jwtToken', token);
+            setAuthorizationToken(token);
+            dispatch(setCurrentUser(jwtDecode(token)));
+            return successResponse(successResponse())
+        } catch (e) {
+            return errorResponse(e)
+        }
     };
 }
 
