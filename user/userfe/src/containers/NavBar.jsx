@@ -1,11 +1,19 @@
 import React from 'react';
 import { Dropdown } from 'react-bootstrap';
+<<<<<<< HEAD
 // import * as actions from '../actions/index';
+=======
+import * as actions from '../actions/index';
+>>>>>>> 00febc84c2a559e68dc215010cc01ea369986dce
 import UserService from '../actions/UserService';
 
 const NavBar = (props) => {
   const renderForLoggedIn = () => {
+<<<<<<< HEAD
     const storage = JSON.parse(localStorage.getItem('user'));   
+=======
+    const { user } = JSON.parse(localStorage.getItem('user'));
+>>>>>>> 00febc84c2a559e68dc215010cc01ea369986dce
     return (
       <div className="navbar-collapse-air d-none d-lg-flex">
         <div className="navbar-form-air">
@@ -48,7 +56,11 @@ const NavBar = (props) => {
               <Dropdown.Menu style={{height: '110px',width: '100px'}}>
                 <Dropdown.Item href="/profile">Profile</Dropdown.Item>
                 <Dropdown.Item href="/message">Tin nhắn</Dropdown.Item>
+<<<<<<< HEAD
                 <Dropdown.Item href="/contract">Hợp đồng </Dropdown.Item>
+=======
+                <Dropdown.Item href="/contract">Hợp đòng </Dropdown.Item>
+>>>>>>> 00febc84c2a559e68dc215010cc01ea369986dce
                 <Dropdown.Item onClick={UserService.logOut} className="navbar-link">Đăng xuất</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
@@ -109,6 +121,6 @@ const NavBar = (props) => {
 
 const mapStateToProps = (state) => {
 
-}
+};
 
 export default NavBar;

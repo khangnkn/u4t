@@ -2,10 +2,11 @@ const { Contract } = require('../models');
 
 const GetByTutor = async (id) => {
   try {
-    const contracts = Contract.find({ tutor: id }).populate('user').exec();
+    const contracts = await Contract.find({ tutor: id }).populate('tutor').exec();
+    return contracts;
   } catch (err) {
     return err;
   }
 };
 
-module.exports = { GetAll };
+module.exports = { GetByTutor };

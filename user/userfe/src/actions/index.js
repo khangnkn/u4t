@@ -21,7 +21,11 @@ export const login = (username, password) => {
       (data) => {
         if (data.code === 1) {
           dispatch(success(data.data));
+<<<<<<< HEAD
           history.push('/');
+=======
+          history.push('/home');
+>>>>>>> 00febc84c2a559e68dc215010cc01ea369986dce
         } else {
           dispatch(failure(data.message));
           dispatch(alertActions.error(data.message));
@@ -184,11 +188,11 @@ export const handleMessageChatRoom = (mess) => ({
 
 export const handleControllerSelectContractManagement = (value) => ({
   type: types.HANDLE_CONTROLLER_SELECT_CONTRACT_MANAGEMENT,
-  value
+  value,
 });
 export const handleLoadListContractManagement = (data) => ({
   type: types.HANDLE_LOAD_LIST_CONTRACT_MANAGEMENT,
-  data
+  data,
 });
 
 export const handleSearchData = (name, value) => ({

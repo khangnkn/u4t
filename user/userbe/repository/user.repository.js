@@ -1,10 +1,21 @@
-const { User, Contract } = require('../models');
+const { User } = require('../models');
+const { GetByTutor } = require('./contract.repository');
 
 
 const GetById = async (id) => {
   try {
-    const res = await User.findById(id).populate(['city', 'data.skills']).exec();
-    return res;
+    const user = await User.findById(id).populate(['city', 'data.skills', 'data.level']).exec();
+    if (!user) {
+      return {
+        error: 'user not found',
+      };
+    }
+    const contracts = await GetByTutor(user._id);
+    const result = {
+      user,
+      contracts,
+    };
+    return result;
   } catch (ex) {
     console.log(`[ERROR] ${ex}`);
     return ex;
@@ -22,13 +33,19 @@ const GetTopTutors = async () => {
 
 const GetTutorDetail = async (id) => {
   try {
-    const tutor = User.findOne({ _id: id, role: 1 }).populate(['city', 'data.skills']).exec();
+    const tutor = await User.findOne({ _id: id, role: 1 }).populate(['city', 'data.skills', 'data.level']).exec();
     if (!tutor) {
       return {
         error: 'tutor not found',
       };
     }
-    return tutor;
+
+    const contracts = await GetByTutor(tutor._id);
+    const result = {
+      tutor,
+      contracts,
+    };
+    return result;
   } catch (err) {
     return err;
   }

@@ -12,14 +12,36 @@ class TeacherProfile extends React.Component {
     this.renderSkills = this.renderSkills.bind(this);
     this.renderHistory = this.renderHistory.bind(this);
     this.renderContact = this.renderContact.bind(this);
-    // this.state = {};
+    this.state = {
+      tutor: {
+        avatar: '',
+        fullname: '',
+        city: {
+          name: '',
+        },
+        data: {
+          rating: 0,
+          skills: [],
+        },
+        contract: [],
+      },
+    };
   }
 
   componentDidMount() {
-    // const { tutor } = this.state;
-    var idTutor = props.match.params.id;
+    const { tutor } = this.state;
+    const idTutor = this.props.match.params.id;
     helperService.loadUserInfor(idTutor).then((resp) => {
-      this.setState({tutor : resp.data});
+      console.log('resp:', resp);
+      this.setState(
+        {
+          tutor: {
+            ...tutor,
+            ...resp.data.user,
+            contract: resp.data.contracts,
+          },
+        },
+      );
     });
   }
 
@@ -96,7 +118,9 @@ class TeacherProfile extends React.Component {
                   className="col-xs-12 col-sm-4 col-md-3 col-lg-2 p-0-left d-none d-sm-block"
                 >
                   <p>
-                    Tỷ lệ rating: {tutor.data.rating}
+                    Tỷ lệ rating:
+                    {' '}
+                    {tutor.data.rating}
                   </p>
                   <div>
                     <ProgressBar animated variant="success" now={tutor.data.rating * 20} />
@@ -234,7 +258,7 @@ class TeacherProfile extends React.Component {
                                     className="ng-binding"
                                   >
                                     5.00
-                                    
+
                                   </strong>
                                 </li>
                                 <li
@@ -248,7 +272,7 @@ class TeacherProfile extends React.Component {
                                                                                                           -
                                                                                                           Nov
                                                                                               2019
-                                    
+
                                   </small>
                                 </li>
                               </ul>
@@ -270,7 +294,7 @@ class TeacherProfile extends React.Component {
                                       className="ng-binding"
                                     >
                                       $54.67
-                                      
+
                                     </strong>
                                   </div>
                                   <div
@@ -376,7 +400,7 @@ class TeacherProfile extends React.Component {
   }
 
   renderSkills(skills) {
-    return (
+    this.skills = (
       <div className="ng-isolate-scop">
         <div className="ng-scope">
           <div className="air-card m-0-left-right-md m-0-left-right-xl p-0-top-bottom">
@@ -400,10 +424,11 @@ class TeacherProfile extends React.Component {
         </div>
       </div>
     );
+    return this.skills;
   }
 
   renderContact(_id) {
-    return (
+    this.contact = (
       <section className="m-lg-bottom ng-scope">
         <div className="ng-scope">
           <div className="d-none d-md-block ng-scope">
@@ -431,6 +456,7 @@ class TeacherProfile extends React.Component {
         </div>
       </section>
     );
+    return this.contact;
   }
 
   render() {
