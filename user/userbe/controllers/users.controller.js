@@ -112,6 +112,7 @@ const SearchHandler = async (req, res, next) => {
   if (query.name) {
     query.fullname = {
       $regex: `.*${query.name}.*`,
+      $options: 'i',
     };
     delete query.name;
   }
