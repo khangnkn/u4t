@@ -1,37 +1,44 @@
 import * as types from '../constants/ActionTypes'
 function loadAvatarPreviewUrl() {
     var userCookie = JSON.parse(localStorage.getItem('user'));
-    return userCookie ? userCookie.avatar : "";
+    return !userCookie ? "" : userCookie.user.avatar ? userCookie.user.avatar : "";
 }
 
 function loadId() {
     var userCookie = JSON.parse(localStorage.getItem('user'));
-    return userCookie ? userCookie._id : "";
+    return userCookie ? userCookie.user._id : "";
 }
 
 function loadUsername() {
     var userCookie = JSON.parse(localStorage.getItem('user'));
-    return userCookie ? userCookie.username : "";
+    return userCookie ? userCookie.user.username : "";
 }
 
 function loadUserInfor(){
     var userCookie = JSON.parse(localStorage.getItem('user'));
+    // console.log(userCookie);
     if (userCookie === null) return null;
     return {
-            fullname: userCookie.fullname ? userCookie.fullname : '',
-            sex: userCookie.sex ? userCookie.sex : 0,
-            email: userCookie.email ? userCookie.email : '',
-            phone: userCookie.phone ? userCookie.phone : '',
-            address: userCookie.address ? userCookie.address : '',
-            city: userCookie.city ? userCookie.city : {_id: '',name: ''},
-            role: userCookie.role ? userCookie.role : 0,
+            fullname: userCookie.user.fullname ? userCookie.fullname : '',
+            sex: userCookie.user.sex ? userCookie.user.sex : 0,
+            email: userCookie.user.email ? userCookie.user.email : '',
+            phone: userCookie.user.phone ? userCookie.user.phone : '',
+            address: userCookie.user.address ? userCookie.user.address : '',
+            city: userCookie.user.city ? userCookie.user.city : {_id: '',name: ''},
+            role: userCookie.user.role ? userCookie.user.role : 0,
     }
 }
 
 function loadUserData() {
     var userCookie = JSON.parse(localStorage.getItem('user'));
-    if (userCookie === null) return null;
-    return userCookie.data;
+    if (userCookie === null || userCookie.user.data === null) return {
+        intro: '',
+        title: '',
+        price: 0,
+        skills: [],
+        levels: ''
+    };
+    return userCookie.user.data;
 }
 
 var initialState = {
@@ -58,7 +65,8 @@ var myReducer = (state = initialState, action) => {
             return { ...state, user: user1 };
         case types.HANDLE_PROFILE_DATA_CHANGE:
             let name2 = action.name, value2 = action.value;
-            let user2 = state.user;
+            if (name2 === 'price') 
+            var user2 = state.user;
             user2.data[name2] = value2;
             return { ...state, user: user2 };
         case types.HANDLE_PROFILE_SKILLS_CHANGE:

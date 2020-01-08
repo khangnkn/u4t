@@ -1,10 +1,11 @@
 import React from 'react';
 import { Dropdown } from 'react-bootstrap';
-import * as actions from '../actions/index';
+// import * as actions from '../actions/index';
+import UserService from '../actions/UserService';
 
 const NavBar = (props) => {
   const renderForLoggedIn = () => {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const storage = JSON.parse(localStorage.getItem('user'));   
     return (
       <div className="navbar-collapse-air d-none d-lg-flex">
         <div className="navbar-form-air">
@@ -36,23 +37,22 @@ const NavBar = (props) => {
         </div>
 
         <div className="navbar-text navbar-right">
-          <p className="m-0-bottom">
-
+          <div className="m-0-bottom">
             <Dropdown>
               <Dropdown.Toggle variant="infor" id="dropdown-basic">
                 <span>
-                  {user ? `Logged as ${user.fullname}` : 'Hi, there!'}
+                  {storage.user? `Logged as ${storage.user.username}` : 'Hi, there!'}
                 </span>
               </Dropdown.Toggle>
 
-              <Dropdown.Menu>
+              <Dropdown.Menu style={{height: '110px',width: '100px'}}>
                 <Dropdown.Item href="/profile">Profile</Dropdown.Item>
                 <Dropdown.Item href="/message">Tin nhắn</Dropdown.Item>
-                <Dropdown.Item href="/contract">Hợp đòng </Dropdown.Item>
-                <Dropdown.Item onClick={actions.logOut} className="navbar-link">Đăng xuất</Dropdown.Item>
+                <Dropdown.Item href="/contract">Hợp đồng </Dropdown.Item>
+                <Dropdown.Item onClick={UserService.logOut} className="navbar-link">Đăng xuất</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
-          </p>
+          </div>
         </div>
       </div>
     );
@@ -80,7 +80,7 @@ const NavBar = (props) => {
                   type="search"
                   name="name"
                   tabIndex="0"
-                  placeholder="Find Freelancers &amp; Agencies"
+                  placeholder="Tìm người dạy phù hợp"
                 />
               </div>
             </form>

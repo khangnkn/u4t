@@ -8,13 +8,26 @@ import SearchItem from '../components/SearchItem';
 import NavBar from './NavBar';
 import Footer from './Footer';
 import * as actions from '../actions/index';
+import { Dropdown, Form } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
+import {helperService} from '../actions/HelperService';
 
 class Search extends React.Component {
+  constructor(props){
+    super(props);
+
+  }
   componentDidMount() {
     const search = queryString.parse(window.location.search);
+    helperService.loadSkills().then((_skills) => {
+      state.skills = _skills;
+    });
+    helperService.loadLevels().then((_levels) => {
+      state.levels = _levels;
+    });
     const {
- name, city, skills, price 
-} = search;
+      name, city, skills, price
+    } = search;
     this.props.handleSearch(name, city, skills, price);
   }
 
@@ -25,9 +38,9 @@ class Search extends React.Component {
 
   handeSearchSubmit() {
     const {
-      keyword: name, city, skill, price,
+      keyword, city, skill, price,
     } = this.props.search;
-    this.props.handleSearch(name, city, skill, price);
+    this.props.handleSearch(name, city._id, skill._id, price);
   }
 
   renderResultItem() {
@@ -61,7 +74,7 @@ class Search extends React.Component {
                       <div>
                         <div className="ng-scope">
                           <h4 className="m-0 freelancer-tile-title ellipsis ng-binding ng-scope">
-                                                          Senior Full Stack Software Developer (Java, C and C++)
+                            Senior Full Stack Software Developer (Java, C and C++)
                           </h4>
                         </div>
                       </div>
@@ -107,7 +120,7 @@ class Search extends React.Component {
                                     <div className="progress-sm">
                                       <div className="progress-bar progress-bar-complimentary" style={{ width: '100%' }}>
                                         <span className="ng-binding">
-                                                                                      100%
+                                          100%
                                           <span className="progress-bar-text">Hợp đồng thành công</span>
                                         </span>
                                       </div>
@@ -139,7 +152,7 @@ class Search extends React.Component {
                         <span aria-hidden="true" className="glyphicon m-0-left m-xs-right">
                           <i className="fas fa-graduation-cap" />
                         </span>
-                                                  Trình độ: Thạc sĩ
+                        Trình độ: Thạc sĩ
                       </div>
                     </div>
                   </div>
@@ -148,9 +161,9 @@ class Search extends React.Component {
                   <div className="col-md-12">
                     <div className="ng-isolate-scope">
                       <p className="p-0-left m-0 freelancer-tile-description ng-binding ng-scope">
-                                                  I gained a degree a in Computer Science B.Sc from the
-                                                  university of Manchester and was one of the top of my class
-                                                  in all of the programming courses (Java, C, C+ ...
+                        I gained a degree a in Computer Science B.Sc from the
+                        university of Manchester and was one of the top of my class
+                        in all of the programming courses (Java, C, C+ ...
                       </p>
                     </div>
                   </div>
@@ -158,7 +171,7 @@ class Search extends React.Component {
                 <div className="ng-scope">
                   <div className="ng-scope ng-isolate-scope">
                     <strong className="ng-binding">
-                                              Kỹ năng:
+                      Kỹ năng:
                     </strong>
                     <ul style={{ listStyleType: 'none', marginTop: '10px' }} className="d-flex">
                       <li className="ng-scope">
@@ -206,12 +219,12 @@ class Search extends React.Component {
                                 action=""
                                 className="form facet-input-search-component ng-pristine ng-valid ng-valid-maxlength"
                               >
-                                <input
+                                <Form.Control
                                   className="form-control  ng-not-empty enabled"
-                                  type="search"
                                   aria-label="Freelancer Search"
                                   placeholder="Search"
                                 />
+
                               </form>
                             </div>
                           </div>
@@ -221,16 +234,35 @@ class Search extends React.Component {
                   </div>
                   <div className="col-lg-4 d-none d-lg-block p-xs-left">
                     <div className="tools">
-                      <div className="filters-button">
-                        <div className="btn-group">
-                          <div className="btn btn-default m-0 p-sm-left-right filters-toggle-button">
-                            <span className="glyphicon air-icon-color-settings m-0-left" />
-Filters
+                      <div className="">
+                        <div className="">
+                          <div className="m-0 p-sm-left-right filters-toggle-button">
+                            <Button>Search</Button>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
+                </div>
+              </div>
+            </div>
+            <div className="row freelancer-search-form">
+              <div className="col-lg-4">
+                <div className="row">
+                  <Form.Label className="col">Kỹ năng: </Form.Label>
+                  <Form.Control as="select" className="col"></Form.Control>
+                </div>
+              </div>
+              <div className="col-lg-4">
+                <div className="row">
+                  <Form.Label className="col">Thành phố: </Form.Label>
+                  <Form.Control as="select" className="col"></Form.Control>
+                </div>
+              </div>
+              <div className="col-lg-4">
+                <div className="row">
+                  <Form.Label className="col">Giá tiền: </Form.Label>
+                  <Form.Control className="col"></Form.Control>
                 </div>
               </div>
             </div>
@@ -284,7 +316,7 @@ Filters
               <div className="oSearchHeader row m-lg-top ">
                 <div className="col-xs-12 col-sm-12 col-md-9 ">
                   <h1 className="ellipsis m-0-top-bottom search-header-title" title="Tìm kiếm người dạy">
-                                        Tìm kiếm người dạy
+                    Tìm kiếm người dạy
                   </h1>
                 </div>
               </div>

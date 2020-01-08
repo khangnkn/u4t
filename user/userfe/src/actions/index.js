@@ -1,5 +1,5 @@
 /* eslint-disable no-sequences */
-import { dispatch } from 'rxjs/internal/observable/pairs';
+// import { dispatch } from 'rxjs/internal/observable/pairs';
 import * as types from '../constants/ActionTypes';
 
 import userService from './UserService';
@@ -21,7 +21,7 @@ export const login = (username, password) => {
       (data) => {
         if (data.code === 1) {
           dispatch(success(data.data));
-          history.push('/profile');
+          history.push('/');
         } else {
           dispatch(failure(data.message));
           dispatch(alertActions.error(data.message));
@@ -76,7 +76,7 @@ export const update = (user) => {
         },
       );
     } catch (ex) {
-      console.log('looix ne');
+      console.log(ex);
     }
   };
 

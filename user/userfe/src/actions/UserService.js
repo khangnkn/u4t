@@ -1,9 +1,10 @@
+import history from '../helpers/HistoryHelper';
 const host = 'http://localhost:8080';
 function handleLogOut(resp) {
   if (resp.code !== 1) {
     if (resp.code === 401) {
       logOut();
-      window.location.reload(true);
+      // window.location.reload(true);
     }
   }
   return resp;
@@ -11,7 +12,8 @@ function handleLogOut(resp) {
 
 function logOut() {
   localStorage.removeItem('user');
-  window.location.reload(true);
+  // window.location.reload(true);
+  history.push('/');
 }
 function login(username, password) {
   const requestOptions = {
@@ -37,37 +39,39 @@ function register(user) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ username: user.username, password: user.password, role: user.role }),
   };
+  console.log(requestOptions.body);
   return fetch(`${host}/api/auth/register`, requestOptions)
     .then(handleLogOut).then((resp) => resp.json()).then((data) => data);
 }
 
 function update(user) {
-  const header = new Headers();
+  var header = new Headers();
   const userCookie = JSON.parse(localStorage.getItem('user'));
   header.append('Content-Type', 'application/json');
-  header.append('Authorization', userCookie ? `Bearer${userCookie.token}` : '');
-  const fd = new FormData();
+  header.append('Authorization', userCookie ? `Bearer ${userCookie.token}` : ``);
+
+  var fd =new FormData();
+
   const {
     id, infor, avatar, data,
   } = user;
 
   fd.append('id', JSON.stringify(id));
   fd.append('infor', JSON.stringify(infor));
-
+  
   if (avatar != null) fd.append('avatar', avatar);
   if (infor.role === 0) {
-    fd.append('data', JSON.stringify({}));
+    // fd.append('data', JSON.stringify({}));
   } else {
     fd.append('data', JSON.stringify(data));
   }
-
-  const req = new Request('/update', {
+  const req = new Request(`${host}/api/p/users/info`, {
     method: 'POST',
     headers: header,
-    mode: 'no-cors',
+    // mode: 'no-cors',
     body: fd,
   });
-
+  console.log(req.headers);
   return fetch(req).then(handleLogOut).then((resp) => resp.json()).then((data) => {
     if (data.ok) {
       const { user } = data;

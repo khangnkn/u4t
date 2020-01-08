@@ -9,7 +9,7 @@ function loadSkills() {
     headers: { 'Content-Type': 'application/json' },
   };
 
-  return fetch('/api/skills', requestOptions).then((resp) => resp.json()).then((data) => data.data);
+  return fetch(`${host}/api/skills`, requestOptions).then((resp) => {return resp.json();}).then((data) => {return data.data});
 }
 
 function loadCities() {
@@ -18,7 +18,7 @@ function loadCities() {
     headers: { 'Content-Type': 'application/json' },
   };
 
-  return fetch('/api/cities', requestOptions).then((resp) => resp.json()).then((data) => data.data);
+  return fetch(`${host}/api/cities`, requestOptions).then((resp) => resp.json()).then((data) => data.data);
 }
 
 function loadLevels() {
@@ -27,7 +27,7 @@ function loadLevels() {
     headers: { 'Content-Type': 'application/json' },
   };
 
-  return fetch('/api/levels', requestOptions).then((resp) => resp.json()).then((data) => data.data);
+  return fetch(`${host}/api/levels`, requestOptions).then((resp) => resp.json()).then((data) => data.data);
 }
 
 const search = (data) => {
@@ -42,7 +42,7 @@ function loadContract(id) {
       method: 'GET',
       headers: { 'Content-Type': 'application/json'}
   }
-  return fetch(`/api/contracts/${id}`,requestOptions).then(resp => resp.json()).then(data => {
+  return fetch(`${host}/api/contracts/${id}`,requestOptions).then(resp => resp.json()).then(data => {
       return data;
   });
 }
@@ -52,7 +52,7 @@ function loadUserInfor(id){
     method: 'GET',
     headers: { 'Content-Type': 'application/json'}
 }
-return fetch(`/api/users/${id}`,requestOptions).then(resp => resp.json()).then(data => {
+return fetch(`${host}/api/users/${id}`,requestOptions).then(resp => resp.json()).then(data => {
     return data;
 });
 }
