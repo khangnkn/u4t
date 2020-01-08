@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const addUserValidationRules = () => {
     return [
         body('username')
+            .isLength({min: 1}).withMessage('Username is require')
             .exists().withMessage('Username is require'),
         body('email')
             .isEmail().withMessage('Invalid email')

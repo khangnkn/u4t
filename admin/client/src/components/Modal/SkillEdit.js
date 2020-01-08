@@ -1,7 +1,19 @@
 import React from 'react';
 import {connect} from "react-redux";
 
-import {Button, Col, Form, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap';
+import {
+    Button,
+    Col,
+    Form, FormFeedback,
+    FormGroup,
+    Input,
+    Label,
+    Modal,
+    ModalBody,
+    ModalFooter,
+    ModalHeader,
+    Spinner
+} from 'reactstrap';
 import {editSkill} from "../../actions/skill.actions";
 
 class SkillEdit extends React.Component {
@@ -11,6 +23,7 @@ class SkillEdit extends React.Component {
             name: null,
             isLoading: false,
             errors: {},
+            errorMessage: '',
             succeess: ''
         };
         this.onChange = this.onChange.bind(this);
@@ -41,6 +54,7 @@ class SkillEdit extends React.Component {
     }
 
     onSubmit = async () => {
+        console.log('edit')
         try {
             if (this.isValid()) {
                 this.setState({
@@ -50,24 +64,13 @@ class SkillEdit extends React.Component {
                     id: this.props.skill.id,
                     name: this.state.name
                 });
-                this.setState({
-                    succeess: 'successfully',
-                    errors: {}
-                })
+                this.setState(res)
+                if (res.res) {
+                    this.onCancle();
+                }
             }
         } catch (e) {
             console.log(e);
-            let connect = '';
-            if (e.response) {
-                connect = e.response.data.msg
-            } else {
-                connect = e.message
-            }
-            this.setState({
-                errors: {
-                    connect: connect
-                }
-            })
         } finally {
             this.setState({
                 isLoading: false
@@ -76,13 +79,15 @@ class SkillEdit extends React.Component {
     };
 
     render() {
-        const {errors} = this.state;
+        const {errors, errorMessage, isLoading} = this.state;
         const name = this.state.name !== null ? this.state.name : this.props.skill.name;
         return (
             <Modal returnFocusAfterClose isOpen={this.props.open}>
                 <ModalHeader>
-                    {errors.connect && <h4>Error message: {errors.connect}</h4>}
-                    Edit skill {this.state.succeess}
+                    {errorMessage ?
+                        (<h4>Error message: {errorMessage}</h4>) :
+                        'Edit skill'
+                    }
                 </ModalHeader>
                 <ModalBody>
                     <Form>
@@ -93,15 +98,29 @@ class SkillEdit extends React.Component {
                                     value={name}
                                     onChange={this.onChange}
                                     name="name"
-                                    placeholder="Skill name"/>
+                                    placeholder="Skill name"
+                                    invalid={errors.name}/>
+                                <FormFeedback>{errors.name}</FormFeedback>
                             </Col>
                         </FormGroup>
                     </Form>
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="primary"
-                            onClick={this.onSubmit}
-                    >Save</Button>
+                    <Button
+                        color="primary"
+                        onClick={this.onSubmit}
+                        disabled={!this.isValid()}
+                    >
+                        {isLoading ?
+                            <Spinner
+                                as="span"
+                                animation="border"
+                                size="sm"
+                                role="status"
+                                aria-hidden="true"
+                            /> :
+                            'Save'}
+                    </Button>
                     <Button color="secondary"
                             onClick={this.onCancle}
                     >Cancel</Button>

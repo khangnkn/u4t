@@ -5,7 +5,10 @@ const ADD_ADMIN_SUCCESS = {
 
 const USERNAME_EXISTED = {
     code: 'U01',
-    message: 'Username existed.'
+    message: 'Username existed.',
+    data: {
+        username: 'Username existed.'
+    }
 };
 
 const USERNAME_NOT_EXIST = {

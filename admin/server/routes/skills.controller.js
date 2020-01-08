@@ -35,7 +35,7 @@ router.get('/:page/:limit',
 );
 
 router.put('/update/:id',
-    ObjectIdValidator.objectIDValidationRules(),
+    SkillValidator.updateSkillValidationRules(),
     SkillValidator.validate,
     async (req, res) => {
         try {
