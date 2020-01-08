@@ -3,7 +3,7 @@ const config = require('./config');
 
 const connection = mongoose.connect(
   config.database_uri,
-  { useNewUrlParser: true, useUnifiedTopology: true },
+  { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true },
   (error) => {
     if (error) {
       console.log(`Error ${error}`);

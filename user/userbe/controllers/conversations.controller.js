@@ -1,6 +1,6 @@
 const SC = require('http-status-codes');
-const { Conversation } = require('../models');
 const Error = require('../utils/error');
+const { Conversation } = require('../models');
 const { EnsureGetConversation, EnsureCreateConversation } = require('../utils/validation/conversation');
 
 const GetConversation = (req, res, next) => {

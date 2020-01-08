@@ -26,14 +26,14 @@ const ContractSchema = new Schema({
     default: 0,
   },
   issuing_time: {
-    type: Date,
-    default: new Date(),
+    type: Number,
+    default: +new Date(),
   },
   start_date: {
-    type: Date,
+    type: Number,
   },
   end_date: {
-    type: Date,
+    type: Number,
   },
   rating: {
     type: Number,
