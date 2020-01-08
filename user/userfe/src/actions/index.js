@@ -200,27 +200,24 @@ export const handleSearchData = (name, value) => ({
 export const handleSearch = (name, skill, city, price) => {
   const success = (list) => ({ type: types.HANDLE_SEARCH_RESULT, list });
   return (dispatch) => {
-    var data={};
-    if (name) data.name=name;
+    const data = {};
+    if (name) data.name = name;
     if (skill) data.skill = skill;
     if (city) data.city = city;
     if (price) data.price = price;
     console.log(data);
     helperService.search(data).then((data) => {
       if (data.code === 1) {
-        
         dispatch(success(data.data));
       }
     });
   };
 };
 
-export const handlePageChange = (page)=>{
-  return {
-    type: types.HANDLE_CHANGE_PAGE_SEARCH,
-    page
-  }
-}
+export const handlePageChange = (page) => ({
+  type: types.HANDLE_CHANGE_PAGE_SEARCH,
+  page,
+});
 export const handleComplainDataChange = (name, value) => ({
   type: types.HANDLE_COMPLAIN_DATA_CHANGE,
   name,

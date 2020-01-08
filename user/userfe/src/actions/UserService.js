@@ -48,7 +48,6 @@ function register(user) {
 function update(user) {
   const header = new Headers();
   const userCookie = JSON.parse(localStorage.getItem('user'));
-  // header.append('Content-Type', 'application/json');
   header.append('Authorization', userCookie ? `Bearer ${userCookie.token}` : '');
   console.log(userCookie.token);
   const fd = new FormData();

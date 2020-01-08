@@ -25,12 +25,18 @@ class CreateContract extends React.Component {
     this.handleDateEndChange = this.handleDateEndChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.checkStartEndDate = this.checkStartEndDate.bind(this);
-    var {tutor} = queryString.parse(this.props.location.search);
+    const { tutor } = queryString.parse(this.props.location.search);
 
-    let userCookie = JSON.parse(localStorage.getItem('user'));
+    const userCookie = JSON.parse(localStorage.getItem('user'));
     helperService.loadUserInfor(tutor).then((data) => {
-      this.props.setId(userCookie.user._id,tutor,data.data);
+      this.props.setId(userCookie.user._id, tutor, data.data);
     });
+
+    this.state = {
+      inforTutor: {
+        city: {},
+      },
+    };
     this.validator = new SimpleReactValidator();
   }
 
@@ -38,12 +44,17 @@ class CreateContract extends React.Component {
     this.validator.showMessages();
   }
 
-  componentDidMount(){
-    var {tutor} = queryString.parse(this.props.location.search);
-
-    let userCookie = JSON.parse(localStorage.getItem('user'));
-    helperService.loadUserInfor(tutor).then((data) => {
-      this.props.setId(userCookie.user._id,tutor,data.data);
+  componentDidMount() {
+    const userCookie = JSON.parse(localStorage.getItem('user'));
+    const { tutor } = queryString.parse(this.props.location.search);
+    helperService.loadUserInfor(tutor).then((res) => {
+      this.setState({
+        inforTutor: {
+          ...this.state.inforTutor,
+          ...res.data.user,
+        },
+      });
+      // this.props.setId(userCookie.id, data.id);
     });
   }
 
@@ -75,21 +86,15 @@ class CreateContract extends React.Component {
   }
 
   checkStartEndDate(start, end) {
-    // const moment = require('moment');
-    // const s = Date.parse(moment(start).format('DD/MM/YYYY'));
-    // console.log(s);
-    // const e = Date.parse(moment(end).format('DD/MM/YYYY'));
-    // const d = Math.floor((Date.UTC(start.getYear(), start.getMonth(), start.getDate()) - Date.UTC(end.getYear(), end.getMonth(), end.getDate())) / (1000 * 60 * 60 * 24));
-    // if (d >= 0) {
-    //   return true;
-    // }
-    // return false;
-    return true;
+    if (end > start) {
+      return true;
+    }
+    return false;
   }
 
   renderContractDetails() {
-    const { contract,tutorInfor } = this.props.createContract;
-    const {user} = this.props.createContract.tutorInfor;
+    const { contract, tutorInfor } = this.props.createContract;
+    const { user } = this.props.createContract.tutorInfor;
     const dateMess = (<div>The start date less or equal the end date.</div>);
     return (
       <div className="form ng-valid ng-valid-format ng-valid-min ng-valid-max ng-valid-date ng-valid-date-range ng-valid-hr-constraintinteger ng-valid-hr-constraintmin ng-valid-hr-constraintmax ng-dirty ng-valid-number ng-valid-hr-constraintrequired ng-valid-hr-constraintfloat">
@@ -102,7 +107,7 @@ class CreateContract extends React.Component {
                 src="./Contract_files/c1PoXrydUGYA9LO6ofPHVhDT-C1Jbbt7cP0neDqE2SWOYzmrC4knZuD69ImVgyUNfu"
               />
               <span className="vertical-align-middle">
-                {user ? user.fullname + ',' + user.address  + "-" + user.city.name : '' }
+                {user ? `${user.fullname}, ${user.address} - ${user.city.name}` : '' }
               </span>
             </h2>
           </header>
@@ -264,64 +269,64 @@ class CreateContract extends React.Component {
     );
   }
 
-  // renderSkill() {
-  //   return (
-  //     <div>
-  //       <div role="form" className="ng-pristine ng-valid ng-valid-uploading-file">
-  //         <div className="air-card m-0-top m-0-right-md m-0-right-xl p-0-top-bottom">
-  //           <header>
-  //             <h2 className="m-0-bottom">
-  //               Kỹ năng giảng dạy liên quan
-  //             </h2>
-  //           </header>
-  //           <section>
-  //             <div
-  //               data-ng-show="flagIndex.hourly"
-  //               id="rowHourlyInstruction"
-  //               className=""
-  //             >
-  //               <div className="row">
-  //                 <div className="checkbox col-md-6">
-  //                   <Form.Label>
-  //                     <Form.Control type="checkbox" onChange={this.handleSkillsChange} name="kyNang" value="1" />
-  //                     <span className="checkbox-replacement-helper">
-  //                       <span aria-hidden="true" className="glyphicon ">
-  //                         <i className="fas fa-check" />
-  //                       </span>
-  //                     </span>
-  //                     A/B Testing
-  //                   </Form.Label>
-  //                 </div>
-  //                 <div className="checkbox col-md-6">
-  //                   <Form.Label>
-  //                     <Form.Control type="checkbox" onChange={this.handleSkillsChange} name="kyNang" value="3" />
-  //                     <span className="checkbox-replacement-helper">
-  //                       <span aria-hidden="true" className="glyphicon">
-  //                         <i className="fas fa-check" />
-  //                       </span>
-  //                     </span>
-  //                     A/B Testing
-  //                   </Form.Label>
-  //                 </div>
-  //                 <div className="checkbox col-md-6">
-  //                   <Form.Label>
-  //                     <Form.Control type="checkbox" onChange={this.handleSkillsChange} name="kyNang" value="4" />
-  //                     <span className="checkbox-replacement-helper">
-  //                       <span aria-hidden="true" className="glyphicon">
-  //                         <i className="fas fa-check" />
-  //                       </span>
-  //                     </span>
-  //                     A/B Testing
-  //                   </Form.Label>
-  //                 </div>
-  //               </div>
-  //             </div>
-  //           </section>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   );
-  // }
+  renderSkill() {
+    return (
+      <div>
+        <div role="form" className="ng-pristine ng-valid ng-valid-uploading-file">
+          <div className="air-card m-0-top m-0-right-md m-0-right-xl p-0-top-bottom">
+            <header>
+              <h2 className="m-0-bottom">
+                Kỹ năng giảng dạy liên quan
+              </h2>
+            </header>
+            <section>
+              <div
+                data-ng-show="flagIndex.hourly"
+                id="rowHourlyInstruction"
+                className=""
+              >
+                <div className="row">
+                  <div className="checkbox col-md-6">
+                    <Form.Label>
+                      <Form.Control type="checkbox" onChange={this.handleSkillsChange} name="kyNang" value="1" />
+                      <span className="checkbox-replacement-helper">
+                        <span aria-hidden="true" className="glyphicon ">
+                          <i className="fas fa-check" />
+                        </span>
+                      </span>
+                      A/B Testing
+                    </Form.Label>
+                  </div>
+                  <div className="checkbox col-md-6">
+                    <Form.Label>
+                      <Form.Control type="checkbox" onChange={this.handleSkillsChange} name="kyNang" value="3" />
+                      <span className="checkbox-replacement-helper">
+                        <span aria-hidden="true" className="glyphicon">
+                          <i className="fas fa-check" />
+                        </span>
+                      </span>
+                      A/B Testing
+                    </Form.Label>
+                  </div>
+                  <div className="checkbox col-md-6">
+                    <Form.Label>
+                      <Form.Control type="checkbox" onChange={this.handleSkillsChange} name="kyNang" value="4" />
+                      <span className="checkbox-replacement-helper">
+                        <span aria-hidden="true" className="glyphicon">
+                          <i className="fas fa-check" />
+                        </span>
+                      </span>
+                      A/B Testing
+                    </Form.Label>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   renderContractFooter() {
     return (
@@ -362,7 +367,7 @@ class CreateContract extends React.Component {
   }
 
   render() {
-    let {alert} = this.props;
+    const { alert } = this.props;
     return (
       <div id="layout" className="layout">
         <div className="layout-page-content">
@@ -413,8 +418,8 @@ const mapDispatchToProps = (dispatch, props) => ({
   handleCreateContractDateEndChange: (date) => {
     dispatch(actions.handleCreateContractDateEndChange(date));
   },
-  setId: (idSt, idTutor,data) => {
-    dispatch(actions.handleCreateContractSetIdUser(idSt, idTutor,data));
+  setId: (idSt, idTutor, data) => {
+    dispatch(actions.handleCreateContractSetIdUser(idSt, idTutor, data));
   },
   handleCreateContractSubmit: (contract) => {
     dispatch(actions.handleCreateContractSubmit(contract));

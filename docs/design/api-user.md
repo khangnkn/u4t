@@ -173,3 +173,74 @@
     }
 }
 ```
+
+## Conversation
+## Get all conversation by user id
+- path: `/api/p/m/conversation`
+- method: ` GET`
+- authen: true
+- response:
+```json
+{
+    "code": 1,
+    "message": "success",
+    "data": [
+        {
+            "created_at": "2020-01-08T09:26:45.473Z",
+            "messages": [],
+            "_id": "5e15a31c73b4dd2b44456b57",
+            "tutor": "5dfb406db41c611d1ecfb490",
+            "learner": "5df5e3ca116830329cd03d6c",
+            "__v": 0
+        }
+    ]
+}
+```
+
+## get a conversation
+- path: `/api/p/m/conversation/:id`
+- method: `get`
+- params: `id`
+- response:
+```json
+{
+    "code": 1,
+    "message": "success",
+    "data": {
+        "created_at": "2020-01-08T09:26:45.473Z",
+        "messages": [],
+        "_id": "5e15a31c73b4dd2b44456b57",
+        "tutor": "5dfb406db41c611d1ecfb490",
+        "learner": "5df5e3ca116830329cd03d6c",
+        "__v": 0
+    }
+}
+```
+
+## create conversation
+- path: `/api/p/m/conversation`
+- method: `POST`
+- body:
+```json
+{
+	"tutor": "5dfb406db41c611d1ecfb490",
+	"learner": "5df5e3ca116830329cd03d6c"
+}
+```
+- response:
+```json
+{
+    "code": 1,
+    "message": "success",
+    "data": {
+        "created_at": "2020-01-08T09:26:45.473Z",
+        "messages": [],
+        "_id": "5e15a31c73b4dd2b44456b57",
+        "tutor": "5dfb406db41c611d1ecfb490",
+        "learner": "5df5e3ca116830329cd03d6c",
+        "__v": 0
+    }
+}
+```
+
+## create message

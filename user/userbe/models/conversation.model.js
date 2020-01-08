@@ -5,8 +5,12 @@ const { Schema } = mongoose;
 // Create Schema User
 const ConversationSchema = new Schema({
   created_at: {
-    type: Date,
-    default: new Date(),
+    type: Number,
+    default: +new Date(),
+  },
+  updated_at: {
+    type: Number,
+    default: +new Date(),
   },
   tutor: {
     type: Schema.Types.ObjectId,

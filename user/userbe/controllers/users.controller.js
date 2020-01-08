@@ -1,5 +1,6 @@
 const cloudinary = require('cloudinary').v2;
 const SC = require('http-status-codes');
+const Mongoose = require('mongoose');
 const { User } = require('../models');
 const Error = require('../utils/error');
 const UserRepository = require('../repository/user.repository');
@@ -28,12 +29,14 @@ const parseUser = (data, extra) => {
 
   return result;
 };
-
 const UpdateUserInfo = async (req, res, next) => {
-  const { body } = req;
-  const info = JSON.parse(body.infor);
-  const metadata = JSON.parse(body.data);
-  console.log('Body ', body);
+  const { infor, data } = req.body;
+  let metadata = {};
+  console.log(`infor ${infor} data ${data}`);
+  const info = JSON.parse(infor);
+  if (data) {
+    metadata = JSON.parse(data);
+  }
   const user = parseUser(info, metadata);
   if (req.file) {
     const avatar = req.file.path;
@@ -121,6 +124,12 @@ const SearchHandler = async (req, res, next) => {
   Object.keys(query).forEach((k) => (!query[k] && query[k] !== undefined) && delete query[k]);
   try {
     console.log(query);
+    if (query.city) {
+      query.city = Mongoose.Types.ObjectId(query.city);
+    }
+    if (query.skill) {
+      query.skill = Mongoose.Types.ObjectId(query.skill);
+    }
     const users = await UserRepository.SearchByQuery(query);
     return next({
       status: SC.OK,
