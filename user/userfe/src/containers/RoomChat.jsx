@@ -1,5 +1,6 @@
 import React from 'react';
 import '../public/stylesheets/app_odesk_air2.css';
+import { connect } from 'react-redux';
 
 import * as actions from '../actions/index';
 
@@ -9,28 +10,39 @@ class RoomChat extends React.Component {
   constructor(props) {
     super(props);
     this.reloadChatRoom = this.reloadChatRoom.bind(this);
+    this.reloadStory = this.reloadStory.bind(this);
+    this.handleSendMessage = this.handleSendMessage.bind(this);
+    this.loadNewStory = this.loadNewStory.bind(this);
+
+    this.renderListChat = this.renderListChat.bind(this);
+    this.renderRoomName = this.renderRoomName.bind(this);
+    this.renderMessageItem = this.renderMessageItem.bind(this);
+    this.renderListMessage = this.renderListMessage.bind(this);
+    this.renderSendForm = this.renderSendForm.bind(this);
+    this.renderRoom = this.renderRoom.bind(this);
   }
 
   componentDidMount() {
+    this.reloadChatRoom();
     setInterval(this.reloadChatRoom, 10000);
     setInterval(this.reloadStory, 5000);
   }
 
-  reloadRoomUserList() {
-    userService.reloadChatRoom(this.props.chat.mess.by._id).then((data) => {
+  reloadChatRoom() {
+    userService.getAllConverSation().then((data) => {
       this.props.reloadChatRoom(data);
     });
   }
 
   loadNewStory(room) {
-    userService.loadStory(room).then((data) => {
+    userService.getConverSation(room).then((data) => {
       this.props.loadStory(data);
     });
   }
 
   reloadStory() {
     if (this.props.chat.story) {
-      userService.loadStory(this.props.chat.story._id).then((data) => {
+      userService.getConverSation(this.props.chat.story._id).then((data) => {
         this.props.loadStory(data);
       });
     }
@@ -42,28 +54,35 @@ class RoomChat extends React.Component {
   }
 
   renderListChat() {
-    this.listChat = (
+    return (
       <div className="room-nav-body">
         <div className="fill room-nav-body-scrollable">
           <div className="room-list-container">
             <ul className="room-list proper" ng-if="!loading">
-              <li className="room-list-item room-list-item-expanded selected">
-                <div>
-                  <div className="room-list-item-div">
-                    <eo-room-icon className="room-list-icon-span">
-                      <div>
-                          <div className="room-icon avatar-new avatar avatar-sm-42 user-presence-icon-photo sm-42 none">
-                            <span className="glyphicon air-icon-users glyphicon-md" />
+              {this.props.chat.roomList.map((e, i) => {
+                var lastMessage = e.messages[e.messages.length - 1];
+                const event = new Date(lastMessage.timestamp*1000);
+                var datetime = event.toLocaleString('vi', { timeZone: 'UTC' })
+                return (
+                  <li className="room-list-item room-list-item-expanded selected" key={i}>
+                    <div>
+                      <div className="room-list-item-div">
+                        <eo-room-icon className="room-list-icon-span">
+                          <div>
+                            <div className="room-icon avatar-new avatar avatar-sm-42 user-presence-icon-photo sm-42 none">
+                              <span className="glyphicon air-icon-users glyphicon-md" />
+                            </div>
                           </div>
-                        </div>
-                    </eo-room-icon>
-                    <span className="room-list-name-span">
-                      <span className="date">3:39 PM</span>
-                      <span>aa</span>
-                    </span>
-                  </div>
-                </div>
-              </li>
+                        </eo-room-icon>
+                        <span className="room-list-name-span">
+                          <span className="date">{datetime}</span>
+                          <span>{lastMessage.content}</span>
+                        </span>
+                      </div>
+                    </div>
+                  </li>
+                );
+              })}
             </ul>
           </div>
           <div className="col-xs-12 room-loading ng-hide">
@@ -72,15 +91,17 @@ class RoomChat extends React.Component {
         </div>
       </div>
     );
-    return this.listChat;
   }
 
   renderRoomName() {
+    var roomName = 'Phòng chat';
+    if (this.props.chat.me.role === 0) roomName = this.props.chat.story.teacher.name ?  this.props.chat.story.teacher.name : 'Phòng chat';
+    if (this.props.chat.me.role === 1) roomName = this.props.chat.story.learner.name ?  this.props.chat.story.learner.name : 'Phòng chat';
     return (
       <header style={{ display: 'flex', margin: '0', alignItems: 'center' }} className="room-nav-header">
         <div className="room-header-name">
           <div className="room-name">
-            <h2 className="room-title-wrapper editable editable-click">GiaoVien</h2>
+            <h2 className="room-title-wrapper editable editable-click">{roomName}</h2>
           </div>
         </div>
       </header>
@@ -121,7 +142,7 @@ class RoomChat extends React.Component {
                 </span>
               </div>
               <div className="story-message">
-                                Muốn nói cái gì thì nói đi
+                Muốn nói cái gì thì nói đi
               </div>
             </div>
           </div>
@@ -229,26 +250,26 @@ class RoomChat extends React.Component {
                             {this.renderRoomName()}
                             <div className="col-xs-12 room-chat-area">
                               <div className="room-chat-area-content">
-                                    <div className="story-box" style={{ width: 'calc(100% - 300px)' }}>
-                                        <div className="story-panel">
-                                            <div className="room-story-list">
-                                                <div className="eo-scroll-continuum-container">
-                                                    <div className="viewport" tabIndex="0">
-                                                        <div className="content minimal-content">
-                                                            {this.renderListMessage()}
-                                                          </div>
-                                                      </div>
-                                                    <div className="loading-indicator" />
-                                                  </div>
-                                              </div>
+                                <div className="story-box" style={{ width: 'calc(100% - 300px)' }}>
+                                  <div className="story-panel">
+                                    <div className="room-story-list">
+                                      <div className="eo-scroll-continuum-container">
+                                        <div className="viewport" tabIndex="0">
+                                          <div className="content minimal-content">
+                                            {this.renderListMessage()}
                                           </div>
-                                        <div className="composer-panel" style={{ height: '79px' }}>
-                                            <div autoFocus="">
-                                                {this.renderSendForm()}
-                                              </div>
-                                          </div>
+                                        </div>
+                                        <div className="loading-indicator" />
                                       </div>
+                                    </div>
                                   </div>
+                                  <div className="composer-panel" style={{ height: '79px' }}>
+                                    <div autoFocus="">
+                                      {this.renderSendForm()}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -276,4 +297,4 @@ const mapDispatchToProps = (dispatch, props) => ({
     dispatch(actions.handleMessageChatRoom(mess));
   },
 });
-export default RoomChat;
+export default connect(mapStateToProps, mapDispatchToProps)(RoomChat);
