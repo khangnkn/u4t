@@ -1,6 +1,8 @@
 import {ADD_SKILL, BASE_URL, DELETE_SKILL, EDIT_SKILL, GET_SKILL_LIST} from "../constants/apis";
 import * as types from "../constants/actionTypes";
 
+const {errorResponse, successResponse} = require('../utils/responseFormat');
+
 const axios = require('axios').default.create({
     baseURL: BASE_URL,
     timeout: 10000,
@@ -42,37 +44,39 @@ export function setDeleteSkill(_payload) {
 }
 
 export function getSkillList(_payload) {
-    return dispatch => {
-        return axios.get(`${GET_SKILL_LIST}/${_payload.page}/${_payload.limit}`)
-            .then(res => {
-                const _resData = res.data.dt;
-
-                let payload = {
-                    ...{},
-                    ...{
-                        datas: _resData.docs,
-                        pagination: {
-                            page: _payload.page,
-                            limit: _payload.limit,
-                            totalPages: _resData.totalPages
-                        }
+    return async dispatch => {
+        try {
+            const res = await axios.get(`${GET_SKILL_LIST}/${_payload.page}/${_payload.limit}`);
+            const _resData = res.data.dt;
+            let payload = {
+                ...{},
+                ...{
+                    datas: _resData.docs,
+                    pagination: {
+                        page: _payload.page,
+                        limit: _payload.limit,
+                        totalPages: _resData.totalPages
                     }
-                };
-                dispatch(setSkillList(payload));
-            })
+                }
+            };
+            dispatch(setSkillList(payload));
+            return successResponse(res);
+        }
+        catch (e) {
+            return errorResponse(e)
+        }
     };
 }
 
 export function addSkill(payload) {
     const url = ADD_SKILL;
-
     const data = {
         ...{},
         ...payload.data
     };
     return async dispatch => {
         try {
-            const res = await axios.post(`${url}`, data)
+            const res = await axios.post(`${url}`, data);
             const _resData = {
                 ...{},
                 ...{
@@ -80,27 +84,9 @@ export function addSkill(payload) {
                 }
             };
             dispatch(setNewSkill(_resData));
-            return {
-                res: true,
-                errors: {},
-                errorMessage: ''
-            }
+            return successResponse(res)
         } catch (e) {
-            console.log(e.response);
-            if (e.response.data.dt.code === 11000) {
-                return {
-                    res: false,
-                    errors: {
-                        name: e.response.data.dt.codeName
-                    },
-                    errorMessage: e.response.data.dt.name
-                }
-            }
-            return {
-                res: false,
-                errors: e.response.data.dt,
-                errorMessage: e.response.data.msg
-            }
+            return errorResponse(e)
         }
     }
 }
@@ -111,11 +97,9 @@ export function editSkill(payload) {
         ...{},
         ...{name: payload.name}
     };
-    console.log(data);
     return async dispatch => {
         try {
-            const res = await axios.put(url, data)
-            console.log(res);
+            const res = await axios.put(url, data);
             const _resData = {
                 ...{},
                 ...{
@@ -123,27 +107,9 @@ export function editSkill(payload) {
                 }
             };
             dispatch(setEditSkill(_resData));
-            return {
-                res: true,
-                errors: {},
-                errorMessage: ''
-            }
+            return successResponse(res)
         } catch (e) {
-            console.log(e.response);
-            if (e.response.data.dt.code === 11000) {
-                return {
-                    res: false,
-                    errors: {
-                        name: e.response.data.dt.codeName
-                    },
-                    errorMessage: e.response.data.dt.name
-                }
-            }
-            return {
-                res: false,
-                errors: e.response.data.dt,
-                errorMessage: e.response.data.msg
-            }
+            return errorResponse(e)
         }
     }
 }
@@ -156,8 +122,7 @@ export function deleteSkill(payload) {
     };
     return dispatch => {
         try {
-            const res = axios.put(url, data)
-            console.log(res.data)
+            const res = axios.put(url, data);
             const _resData = {
                 ...{},
                 ...{
@@ -165,27 +130,9 @@ export function deleteSkill(payload) {
                 }
             };
             dispatch(setDeleteSkill(_resData));
-            return {
-                res: true,
-                errors: {},
-                errorMessage: ''
-            }
+            return successResponse(res);
         } catch (e) {
-            console.log(e.response);
-            if (e.response.data.dt.code === 11000) {
-                return {
-                    res: false,
-                    errors: {
-                        name: e.response.data.dt.codeName
-                    },
-                    errorMessage: e.response.data.dt.name
-                }
-            }
-            return {
-                res: false,
-                errors: e.response.data.dt,
-                errorMessage: e.response.data.msg
-            }
+            return errorResponse(e)
         }
     }
 }

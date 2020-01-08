@@ -5,14 +5,20 @@ import {
     DELETE_ADMIN,
     DELETE_USER,
     EDIT_ADMIN,
-    EDIT_USER, GET_ADMIN_DETAIL,
+    EDIT_USER,
+    GET_ADMIN_DETAIL,
     GET_ADMIN_LIST,
     GET_USER_DETAIL,
-    GET_USER_LIST, LOCK_ADMIN,
-    LOCK_USER, UNLOCK_ADMIN,
+    GET_USER_LIST,
+    LOCK_ADMIN,
+    LOCK_USER,
+    UNLOCK_ADMIN,
     UNLOCK_USER
 } from "../constants/apis";
 import * as types from "../constants/actionTypes";
+
+const {errorResponse, successResponse} = require('../utils/responseFormat');
+
 
 const axios = require('axios').default.create({
     baseURL: BASE_URL,
@@ -70,75 +76,76 @@ export function setDeleteUser(_payload) {
 export function getUserList(payload) {
     const url = payload.admin ? GET_ADMIN_LIST : GET_USER_LIST;
 
-    return dispatch => {
-        return axios.get(`${url}/${payload.role}/${payload.page}/${payload.limit}`)
-            .then(res => {
-                const _resData = res.data.dt;
-
-                let _payload = {
-                    datas: _resData.docs,
-                    details: {},
-                    role: payload.role
-                };
-                switch (payload.role) {
-                    case '0':
-                        _payload = {
-                            ..._payload,
-                            ...{
-                                paginationStudent: {
-                                    page: _resData.page,
-                                    totalPages: _resData.totalPages,
-                                    limit: _resData.limit,
-                                },
-                                type: types.SET_STUDENT_LIST
-                            }
-                        };
-                        break;
-                    case '1':
-                        _payload = {
-                            ..._payload,
-                            ...{
-                                paginationTeacher: {
-                                    page: _resData.page,
-                                    totalPages: _resData.totalPages,
-                                    limit: _resData.limit,
-                                },
-                                type: types.SET_TEACHER_LIST
-                            }
-                        };
-                        break;
-                    case '2':
-                        _payload = {
-                            ..._payload,
-                            ...{
-                                paginationAdmin: {
-                                    page: _resData.page,
-                                    totalPages: _resData.totalPages,
-                                    limit: _resData.limit,
-                                },
-                                type: types.SET_ADMIN_LIST
-                            }
-                        };
-                        break;
-                    case '3':
-                        _payload = {
-                            ..._payload,
-                            ...{
-                                paginationRoot: {
-                                    page: _resData.page,
-                                    totalPages: _resData.totalPages,
-                                    limit: _resData.limit,
-                                },
-                                type: types.SET_ROOT_LIST
-                            }
-                        };
-                        break;
-                    default:
-                        return;
-                }
-
-                dispatch(setUserList(_payload));
-            })
+    return async dispatch => {
+        try {
+            const res = await axios.get(`${url}/${payload.role}/${payload.page}/${payload.limit}`)
+            const _resData = res.data.dt;
+            let _payload = {
+                datas: _resData.docs,
+                details: {},
+                role: payload.role
+            };
+            switch (payload.role) {
+                case '0':
+                    _payload = {
+                        ..._payload,
+                        ...{
+                            paginationStudent: {
+                                page: _resData.page,
+                                totalPages: _resData.totalPages,
+                                limit: _resData.limit,
+                            },
+                            type: types.SET_STUDENT_LIST
+                        }
+                    };
+                    break;
+                case '1':
+                    _payload = {
+                        ..._payload,
+                        ...{
+                            paginationTeacher: {
+                                page: _resData.page,
+                                totalPages: _resData.totalPages,
+                                limit: _resData.limit,
+                            },
+                            type: types.SET_TEACHER_LIST
+                        }
+                    };
+                    break;
+                case '2':
+                    _payload = {
+                        ..._payload,
+                        ...{
+                            paginationAdmin: {
+                                page: _resData.page,
+                                totalPages: _resData.totalPages,
+                                limit: _resData.limit,
+                            },
+                            type: types.SET_ADMIN_LIST
+                        }
+                    };
+                    break;
+                case '3':
+                    _payload = {
+                        ..._payload,
+                        ...{
+                            paginationRoot: {
+                                page: _resData.page,
+                                totalPages: _resData.totalPages,
+                                limit: _resData.limit,
+                            },
+                            type: types.SET_ROOT_LIST
+                        }
+                    };
+                    break;
+                default:
+                    return;
+            }
+            dispatch(setUserList(_payload));
+            return successResponse(res)
+        } catch (e) {
+            return errorResponse(e)
+        }
     };
 }
 
@@ -146,11 +153,14 @@ export function getDetailUser(payload) {
     const url = payload.admin ? GET_ADMIN_DETAIL : GET_USER_DETAIL;
 
     return dispatch => {
-        return axios.get(`${url}/${payload.username}`)
-            .then(res => {
-                const _resData = res.data.dt;
-                dispatch(setUserDetail(_resData));
-            })
+        try {
+            const res = axios.get(`${url}/${payload.username}`);
+            const _resData = res.data.dt;
+            dispatch(setUserDetail(_resData));
+            return successResponse(res)
+        } catch (e) {
+            return errorResponse(e)
+        }
     }
 }
 
@@ -162,7 +172,7 @@ export function addUser(payload) {
         ...payload.data
     };
     return async dispatch => {
-        try{
+        try {
             const res = await axios.post(`${url}`, data);
             console.log(res);
             const _resData = {
@@ -172,28 +182,9 @@ export function addUser(payload) {
                 }
             };
             dispatch(setNewUser(_resData));
-            return {
-                res: true,
-                errors: {},
-                errorMessage: ''
-            }
-        }catch (e) {
-            console.log(e);
-            console.log(e.response);
-            if (e.response.data.dt.code === 11000) {
-                return {
-                    res: false,
-                    errors: {
-                        email: 'Email existed.'
-                    },
-                    errorMessage: e.response.data.dt.name
-                }
-            }
-            return {
-                res: false,
-                errors: e.response.data.dt,
-                errorMessage: e.response.data.msg
-            }
+            return successResponse(res);
+        } catch (e) {
+            return errorResponse(e)
         }
     }
 }
@@ -204,17 +195,20 @@ export function editUser(payload) {
         ...{},
         ...payload.data
     };
-    return dispatch => {
-        axios.put(url, data)
-            .then(res => {
-                const _resData = {
-                    ...{},
-                    ...{
-                        data: res.data.dt
-                    }
-                };
-                dispatch(setEditUser(_resData));
-            })
+    return async dispatch => {
+        try {
+            const res = await axios.put(url, data)
+            const _resData = {
+                ...{},
+                ...{
+                    data: res.data.dt
+                }
+            };
+            dispatch(setEditUser(_resData));
+            return successResponse(res)
+        } catch (e) {
+            return errorResponse(e)
+        }
     }
 }
 
@@ -224,42 +218,49 @@ export function deleteUser(payload) {
         ...{},
         ...payload.data
     };
-    return dispatch => {
-        axios.delete(url, data)
-            .then(res => {
-                const _resData = {
-                    ...{},
-                    ...{
-                        data: res.data.dt
-                    }
-                };
-                dispatch(setDeleteUser(_resData));
-            })
+    return async dispatch => {
+        try {
+            const res = await axios.delete(url, data)
+            const _resData = {
+                ...{},
+                ...{
+                    data: res.data.dt
+                }
+            };
+            dispatch(setDeleteUser(_resData));
+            return successResponse(res);
+        } catch (e) {
+            return errorResponse(e)
+        }
     }
 }
 
 export function lockAccount(payload) {
     const url = payload.admin ? LOCK_ADMIN : LOCK_USER;
-
-    console.log(payload);
-    return dispatch => {
-        return axios.put(`${url}/${payload.username}`).then(res => {
-                const _resData = res.data.dt;
-                dispatch(setLockAccount(_resData));
-            }
-        )
-    };
+    return async dispatch => {
+        try {
+            const res = await axios.put(`${url}/${payload.id}`)
+            const _resData = res.data.dt;
+            dispatch(setLockAccount(_resData));
+            return successResponse(res)
+        } catch (e) {
+            return errorResponse(e)
+        }
+    }
 }
 
 export function unlockAccount(payload) {
     const url = payload.admin ? UNLOCK_ADMIN : UNLOCK_USER;
 
-    return dispatch => {
-        return axios.put(`${url}/${payload.username}`).then(res => {
-                const _resData = res.data.dt;
-                dispatch(setLockAccount(_resData));
-            }
-        )
-    };
+    return async dispatch => {
+        try {
+            const res = await axios.put(`${url}/${payload.username}`)
+            const _resData = res.data.dt;
+            dispatch(setLockAccount(_resData));
+            return successResponse(res)
+        } catch (e) {
+            return errorResponse(e)
+        }
+    }
 }
 

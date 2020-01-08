@@ -1,18 +1,24 @@
-import {DELETE_CONTRACT, EDIT_CONTRACT, GET_CONTRACT_LIST} from "../constants/apis";
+import {ADD_CONTRACT, DELETE_CONTRACT, EDIT_CONTRACT, GET_CONTRACT_LIST} from "../constants/apis";
 import * as types from "../constants/actionTypes";
+
+const {errorResponse, successResponse} = require('../utils/responseFormat');
 
 const axios = require('axios').default.create({
     baseURL: BASE_URL,
     timeout: 10000,
 });
 
+export function setNewContract(_payload) {
+    return {
+        type: types.ADD_CONTRACT,
+        payload: _payload
+    }
+}
+
 export function setContractList(_payload) {
     return {
         type: types.SET_CONTRACT_LIST,
-        payload: {
-            datas: _payload.datas,
-            pagination: _payload.pagination
-        }
+        payload: _payload
     }
 }
 
@@ -26,70 +32,96 @@ export function setEditContract(_payload) {
 export function setDeleteContract(_payload) {
     return {
         type: types.DELETE_CONTRACT,
-        payload: {
-            datas: _payload.datas
+        payload: _payload
+    }
+}
+
+export function addContract(payload) {
+    const url = ADD_CONTRACT;
+    const data = {
+        ...{},
+        ...payload.data
+    };
+    return async dispatch => {
+        try {
+            const res = await axios.post(`${url}`, data);
+            const _resData = {
+                ...{},
+                ...{
+                    data: res.data.dt
+                }
+            };
+            dispatch(setNewContract(_resData));
+            return successResponse(res)
+        } catch (e) {
+            return errorResponse(e)
         }
     }
 }
 
-export function getContractList(_payload) {
-    return dispatch => {
-        return axios.get(`${GET_CONTRACT_LIST}/${_payload.page}/${_payload.limit}`)
-            .then(res => {
-                const _resData = res.data.dt;
-
-                let _payload = {
-                    ...{},
-                    ...{
-                        datas: _resData.docs,
-                        pagination: {
-                            page: _payload.page,
-                            limit: _payload.limit,
-                            totalPages: _resData.totalDocs
-                        }
+export function getContractList(payload) {
+    let url = `${GET_CONTRACT_LIST}/${payload.page}/${payload.limit}`;
+    return async dispatch => {
+        try {
+            const res = await axios.get(url);
+            const _resData = res.data.dt;
+            let payloadState = {
+                ...{},
+                ...{
+                    datas: _resData.docs,
+                    pagination: {
+                        page: payload.page,
+                        limit: payload.limit,
+                        totalPages: _resData.totalDocs
                     }
-                };
-                dispatch(setContractList(_payload));
-            })
+                }
+            };
+            dispatch(setContractList(payloadState));
+            return successResponse(res);
+        } catch (e) {
+            return errorResponse(e)
+        }
     };
 }
 
 export function editContract(payload) {
-    const url = EDIT_CONTRACT;
+    const url = `${EDIT_CONTRACT}/${payload.id}`;
     const data = {
         ...{},
         ...payload.data
     };
-    return dispatch => {
-        axios.put(url, data)
-            .then(res => {
-                const _resData = {
-                    ...{},
-                    ...{
-                        data: res.data.dt
-                    }
-                };
-                dispatch(setEditContract(_resData));
-            })
+    return async dispatch => {
+        try {
+            const res = await axios.put(url, data)
+            const _resData = {
+                ...{},
+                ...{
+                    data: res.data.dt
+                }
+            };
+            dispatch(setEditContract(_resData));
+            return successResponse(res)
+        } catch (e) {
+            return errorResponse(e)
+        }
     }
 }
 
 export function deleteContract(payload) {
-    const url = DELETE_CONTRACT;
-    const data = {
-        ...{},
-        ...payload.data
-    };
-    return dispatch => {
-        axios.delete(url, data)
-            .then(res => {
-                const _resData = {
-                    ...{},
-                    ...{
-                        data: res.data.dt
-                    }
-                };
-                dispatch(setDeleteContract(_resData));
-            })
+    const url = `${DELETE_CONTRACT}/${payload.id}`;
+    return async dispatch => {
+        try {
+            const res = await axios.delete(url)
+            const _resData = {
+                ...{},
+                ...{
+                    data: res.data.dt
+                }
+            };
+            dispatch(setDeleteContract(_resData));
+            return successResponse(res);
+        } catch (e) {
+            return errorResponse(e)
+        }
     }
 }
