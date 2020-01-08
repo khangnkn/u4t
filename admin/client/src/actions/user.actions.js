@@ -39,6 +39,8 @@ export function setUserDetail(payload) {
 }
 
 export function setNewUser(_payload) {
+    console.log('setNewUser');
+    console.log(_payload);
     return {
         type: types.ADD_USER,
         payload: {
@@ -159,17 +161,40 @@ export function addUser(payload) {
         ...{},
         ...payload.data
     };
-    return dispatch => {
-        return axios.post(`${url}`, data)
-            .then(res => {
-                const _resData = {
-                    ...{},
-                    ...{
-                        datas: res.data.dt.docs
-                    }
-                };
-                dispatch(setNewUser(_resData));
-            })
+    return async dispatch => {
+        try{
+            const res = await axios.post(`${url}`, data);
+            console.log(res);
+            const _resData = {
+                ...{},
+                ...{
+                    datas: res.data.dt
+                }
+            };
+            dispatch(setNewUser(_resData));
+            return {
+                res: true,
+                errors: {},
+                errorMessage: ''
+            }
+        }catch (e) {
+            console.log(e);
+            console.log(e.response);
+            if (e.response.data.dt.code === 11000) {
+                return {
+                    res: false,
+                    errors: {
+                        email: 'Email existed.'
+                    },
+                    errorMessage: e.response.data.dt.name
+                }
+            }
+            return {
+                res: false,
+                errors: e.response.data.dt,
+                errorMessage: e.response.data.msg
+            }
+        }
     }
 }
 

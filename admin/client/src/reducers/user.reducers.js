@@ -86,12 +86,32 @@ export default (state = initialState, action = {}) => {
                 ...{datas: datas}
             };
         case types.ADD_USER:
-            return {
-                ...state,
-                ...{
-                    datas: action.datas
+            if (state.datas.length < state.pagination.limit) {
+                return {
+                    ...state,
+                    ...{
+                        datas: [
+                            ...state.datas,
+                            action.payload.data
+                        ]
+                    }
+                };
+            } else {
+                if (state.pagination.page === state.pagination.totalPages) {
+                    return {
+                        ...state,
+                        ...{
+                            pagination: {
+                                ...state.pagination,
+                                ...{
+                                    totalPages: state.pagination.totalPages + 1
+                                }
+                            }
+                        }
+                    }
                 }
-            };
+                return state
+            }
         case types.EDIT_USER:
             return {
                 ...state,

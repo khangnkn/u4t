@@ -12,7 +12,7 @@ import {
     Modal,
     ModalBody,
     ModalFooter,
-    ModalHeader
+    ModalHeader, Spinner
 } from "reactstrap";
 
 import {addUser} from "../../actions/user.actions";
@@ -38,12 +38,12 @@ class UserAddNew extends React.Component {
             role: null,
             datas: [],
             errors: {},
+            errorMessage: '',
             isLoading: false
         };
         this.onChange = this.onChange.bind(this);
         this.onChangeAvatar = this.onChangeAvatar.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-        this.isValid = this.isValid.bind(this);
     }
 
     onChange(event) {
@@ -59,51 +59,38 @@ class UserAddNew extends React.Component {
         })
     }
 
-    isValid() {
-        const {errors, isValid} = validateInput(this.state);
-        this.setState({
-            errors: errors,
-        });
-        return isValid;
-    }
-
     onSubmit = async () => {
         this.setState({
             isLoading: true
         });
         try {
-            if (this.isValid()) {
-                const _payload = {
-                    ...{},
-                    ...{
-                        admin: this.state.role === '2' || this.state.role === '3',
-                        data: {
-                            avatar: null,
-                            username: this.state.username,
-                            password: this.state.password,
-                            passwordConfirmation: this.state.passwordConfirmation,
-                            email: this.state.email,
-                            fullname: this.state.fullname,
-                            city: this.state.city,
-                            is_active: this.state.is_active,
-                            sex: this.state.sex,
-                            role: this.state.role,
-                            datas: [],
-                        }
+            const _payload = {
+                ...{},
+                ...{
+                    admin: this.state.role === '2' || this.state.role === '3',
+                    data: {
+                        avatar: null,
+                        username: this.state.username,
+                        password: this.state.password,
+                        passwordConfirmation: this.state.passwordConfirmation,
+                        email: this.state.email,
+                        fullname: this.state.fullname,
+                        city: this.state.city,
+                        is_active: this.state.is_active,
+                        sex: this.state.sex,
+                        role: this.state.role,
+                        datas: [],
                     }
-                };
-                console.log(_payload);
-                console.log('submmit....');
-                await this.props.addUser(_payload);
+                }
+            };
+            console.log(_payload);
+            console.log('submmit....');
+            const res = await this.props.addUser(_payload);
+            this.setState(res);
+            if (res.res) {
                 this.props.toggle();
             }
         } catch (e) {
-            console.log(e);
-            this.setState({
-                errors: {
-                    connect: e.message
-                }
-            })
         } finally {
             this.setState({
                 isLoading: false,
@@ -114,7 +101,7 @@ class UserAddNew extends React.Component {
 
     render() {
 
-        const {errors} = this.state;
+        const {errors, errorMessage, isLoading} = this.state;
 
         let itemsCity = cities.map((item) => {
             return (
@@ -125,8 +112,10 @@ class UserAddNew extends React.Component {
         return (
             <Modal returnFocusAfterClose isOpen={this.props.open} size="lg">
                 <ModalHeader>
-                    <h3>{errors.connect}</h3>
-                    Add new user
+                    {errorMessage ?
+                        <h3>{errors.connect}</h3> :
+                        'Add new user'
+                    }
                 </ModalHeader>
                 <ModalBody>
                     <Form>
@@ -236,11 +225,21 @@ class UserAddNew extends React.Component {
                 <ModalFooter>
                     <Button color="primary"
                             onClick={this.onSubmit}
-                            disabled={this.state.isLoading}
-                    >Submit</Button>{' '}
+                            disabled={isLoading}
+                    >
+                        {isLoading ?
+                            <Spinner
+                                as="span"
+                                animation="border"
+                                size="sm"
+                                role="status"
+                                aria-hidden="true"
+                            /> :
+                            'Submit'
+                        }
+                    </Button>{' '}
                     <Button color="secondary"
                             onClick={this.props.toggle}
-                            disabled={this.state.isLoading}
                     >Cancel</Button>
                 </ModalFooter>
             </Modal>

@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const addSkillValidationRules = () => {
     return [
         body('name')
+            .isLength({min: 1}).withMessage("Invalid skill name.")
             .exists().withMessage('Skill name is require'),
     ]
 };
@@ -15,6 +16,7 @@ const updateSkillValidationRules = () => {
             .custom((value) => mongoose.Types.ObjectId.isValid(value)).withMessage('Invalid Object ID')
             .exists().withMessage('Id is require'),
         body('name')
+            .isLength({min: 1}).withMessage("Invalid skill name.")
             .exists().withMessage('Skill name is require'),
     ]
 };

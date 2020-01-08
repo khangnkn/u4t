@@ -70,38 +70,81 @@ export function addSkill(payload) {
         ...{},
         ...payload.data
     };
-    console.log(data);
-    return dispatch => {
-        return axios.post(`${url}`, data)
-            .then(res => {
-                const _resData = {
-                    ...{},
-                    ...{
-                        data: res.data.dt
-                    }
-                };
-                dispatch(setNewSkill(_resData));
-            })
+    return async dispatch => {
+        try {
+            const res = await axios.post(`${url}`, data)
+            const _resData = {
+                ...{},
+                ...{
+                    data: res.data.dt
+                }
+            };
+            dispatch(setNewSkill(_resData));
+            return {
+                res: true,
+                errors: {},
+                errorMessage: ''
+            }
+        } catch (e) {
+            console.log(e.response);
+            if (e.response.data.dt.code === 11000) {
+                return {
+                    res: false,
+                    errors: {
+                        name: e.response.data.dt.codeName
+                    },
+                    errorMessage: e.response.data.dt.name
+                }
+            }
+            return {
+                res: false,
+                errors: e.response.data.dt,
+                errorMessage: e.response.data.msg
+            }
+        }
     }
 }
 
 export function editSkill(payload) {
-    const url = EDIT_SKILL;
+    const url = `${EDIT_SKILL}/${payload.id}`;
     const data = {
         ...{},
-        ...payload
+        ...{name: payload.name}
     };
-    return dispatch => {
-        axios.put(url, data)
-            .then(res => {
-                const _resData = {
-                    ...{},
-                    ...{
-                        data: res.data.dt
-                    }
-                };
-                dispatch(setEditSkill(_resData));
-            })
+    console.log(data);
+    return async dispatch => {
+        try {
+            const res = await axios.put(url, data)
+            console.log(res);
+            const _resData = {
+                ...{},
+                ...{
+                    data: res.data.dt
+                }
+            };
+            dispatch(setEditSkill(_resData));
+            return {
+                res: true,
+                errors: {},
+                errorMessage: ''
+            }
+        } catch (e) {
+            console.log(e.response);
+            if (e.response.data.dt.code === 11000) {
+                return {
+                    res: false,
+                    errors: {
+                        name: e.response.data.dt.codeName
+                    },
+                    errorMessage: e.response.data.dt.name
+                }
+            }
+            return {
+                res: false,
+                errors: e.response.data.dt,
+                errorMessage: e.response.data.msg
+            }
+        }
     }
 }
 
@@ -112,16 +155,37 @@ export function deleteSkill(payload) {
         ...payload
     };
     return dispatch => {
-        axios.put(url, data)
-            .then(res => {
-                console.log(res.data)
-                const _resData = {
-                    ...{},
-                    ...{
-                        data: res.data.dt
-                    }
-                };
-                dispatch(setDeleteSkill(_resData));
-            })
+        try {
+            const res = axios.put(url, data)
+            console.log(res.data)
+            const _resData = {
+                ...{},
+                ...{
+                    data: res.data.dt
+                }
+            };
+            dispatch(setDeleteSkill(_resData));
+            return {
+                res: true,
+                errors: {},
+                errorMessage: ''
+            }
+        } catch (e) {
+            console.log(e.response);
+            if (e.response.data.dt.code === 11000) {
+                return {
+                    res: false,
+                    errors: {
+                        name: e.response.data.dt.codeName
+                    },
+                    errorMessage: e.response.data.dt.name
+                }
+            }
+            return {
+                res: false,
+                errors: e.response.data.dt,
+                errorMessage: e.response.data.msg
+            }
+        }
     }
 }

@@ -12,7 +12,7 @@ import {
     Modal,
     ModalBody,
     ModalFooter,
-    ModalHeader
+    ModalHeader, Spinner
 } from 'reactstrap';
 import validateInput from "../../utils/validations/addNewSkill";
 import {addSkill} from "../../actions/skill.actions";
@@ -27,7 +27,7 @@ class SkillAddNew extends React.Component {
             success: ''
         };
         this.onSubmit = this.onSubmit.bind(this);
-        this.onChange = this.onChange.bind(this)
+        this.onChange = this.onChange.bind(this);
     }
 
     onChange(event) {
@@ -36,15 +36,15 @@ class SkillAddNew extends React.Component {
         })
     }
 
-    isValid() {
-        const {errors, isValid} = validateInput(this.state);
-        console.log(errors);
-        console.log(isValid);
-        this.setState({
-            errors: errors
-        });
-        return isValid;
-    }
+    // isValid() {
+    //     const {errors, isValid} = validateInput(this.state);
+    //     console.log(errors);
+    //     console.log(isValid);
+    //     this.setState({
+    //         errors: errors
+    //     });
+    //     return isValid;
+    // }
 
     onSubmit = async () => {
         this.setState({
@@ -52,29 +52,17 @@ class SkillAddNew extends React.Component {
             success: ''
         });
         try {
-            if (this.isValid()) {
-                await this.props.addSkill({
-                    data: {
-                        name: this.state.name
-                    }
-                });
-                this.setState({
-                    success: 'successfuly',
-                    errors: {}
-                });
+            const res = await this.props.addSkill({
+                data: {
+                    name: this.state.name
+                }
+            });
+            this.setState(res);
+            if (res.res) {
+                this.props.toggle();
             }
         } catch (e) {
-            let connect = '';
-            if (e.response) {
-                connect = e.response.data.msg
-            } else {
-                connect = e.message
-            }
-            this.setState({
-                errors: {
-                    connect
-                }
-            })
+            console.log(e)
         } finally {
             console.log('done.');
             this.setState({
@@ -84,19 +72,22 @@ class SkillAddNew extends React.Component {
     };
 
     render() {
-        const {errors} = this.state;
+        const {errors, errorMessage, isLoading} = this.state;
         return (
             <Modal returnFocusAfterClose isOpen={this.props.open}>
                 <ModalHeader>
-                    {errors.connect && <h4>Error message: {errors.connect}</h4>}
-                    Add new skill {this.state.success}
+                    {errorMessage ?
+                        (<h4>Error message: {errorMessage}</h4>) :
+                        'Add new skill'
+                    }
                 </ModalHeader>
                 <ModalBody>
                     <Form>
                         <FormGroup row>
                             <Label sm={3}>Skill name</Label>
                             <Col sm={9}>
-                                <Input name="name" placeholder="Skill name"
+                                <Input name="name"
+                                       placeholder="Skill name"
                                        onChange={this.onChange}
                                        invalid={errors.name}
                                 />
@@ -106,7 +97,21 @@ class SkillAddNew extends React.Component {
                     </Form>
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="primary" onClick={this.onSubmit}>Submit</Button>{' '}
+                    <Button
+                        color="primary"
+                        onClick={this.onSubmit}
+                    >
+                        {isLoading ?
+                            <Spinner
+                                as="span"
+                                animation="border"
+                                size="sm"
+                                role="status"
+                                aria-hidden="true"
+                            /> :
+                            'Submit'
+                        }
+                    </Button>{' '}
                     <Button color="secondary" onClick={this.props.toggle}>Cancel</Button>
                 </ModalFooter>
             </Modal>

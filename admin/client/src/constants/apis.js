@@ -31,7 +31,6 @@ export const GET_COMPLAIN_LIST = '/complains';
 export const DELETE_COMPLAIN = '/complains';
 export const UPDATE_COMPLAIN = '/complains';
 
-
 export const GET_REVENUE = '/revenues';
 export const GET_REVENUE_TOTAL = '/revenues/total';
 export const GET_TOP_SALE_USERS = '/revenues/top-users';

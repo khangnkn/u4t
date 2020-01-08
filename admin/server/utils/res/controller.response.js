@@ -2,11 +2,12 @@ const ResponseFormat = require('../../core/response-format');
 
 const postResponse = async (res, result) => {
     if (result.err) {
+        console.log(result.err);
         return await res
             .status(400)
             .json(
                 ResponseFormat
-                    .error(result.err.code, result.err.message, result.data)
+                    .error(result.err.code, result.err.message, result.err.data)
             )
     } else if (result.res) {
         return await res
