@@ -1,23 +1,21 @@
+const cloudinary = require('cloudinary').v2;
 const SC = require('http-status-codes');
 const { User } = require('../models');
 const Error = require('../utils/error');
 const UserRepository = require('../repository/user.repository');
 
 
-const parseUser = (infor, data) => {
+const parseUser = (data) => {
   const result = {
-    email: infor.email,
-    fullname: infor.fullname,
-    address: infor.address,
-    gender: infor.gender,
-    phone: infor.phone,
-    city: infor.city,
-    role: infor.role,
+    email: data.email,
+    fullname: data.fullname,
+    address: data.address,
+    gender: data.sex,
+    phone: data.phone,
+    city: data.city,
+    role: data.role,
   };
-  if (!data) {
-    return result;
-  }
-  if (infor.role === 1) {
+  if (data.role === 1) {
     const metadata = {
       level: data.level,
       skills: data.skills,
@@ -30,14 +28,17 @@ const parseUser = (infor, data) => {
   return result;
 };
 
-const UpdateUserInfo = (req, res, next) => {
+const UpdateUserInfo = async (req, res, next) => {
   const { body } = req;
   const info = JSON.parse(body.infor);
-  const user = parseUser(info, null);
-  console.log('user: ', user);
-  const avatar = req.file.path;
+  console.log('Body ', body);
+  const user = parseUser(info);
+  if (req.file) {
+    const avatar = req.file.path;
+    const ret = await cloudinary.uploader.upload(avatar, { use_filename: false });
+    user.avatar = ret.url;
+  }
   const id = res.locals.user._id;
-  user.avatar = avatar;
   console.log(user);
   User.findByIdAndUpdate(id, user).populate(['city', 'data.level', 'data.skills']).exec((err, foundUser) => {
     if (err) {

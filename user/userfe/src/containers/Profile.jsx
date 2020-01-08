@@ -245,7 +245,7 @@ of
           <div className="col-sm-6 m-lg-bottom">
                 <div className="form-group">
                     <Form.Label className="">Địa chỉ</Form.Label>
-                    <Form.Control type="text" onChange={handleInforChange} value={user.infor.address} name="address" className="form-control sessioncamexclude" />
+                    <Form.Control type="text" onChange={handleInforChange} value={user. .address} name="address" className="form-control sessioncamexclude" />
                   </div>
               </div>
           <div className="col-sm-6 m-lg-bottom">
