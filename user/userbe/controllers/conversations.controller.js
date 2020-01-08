@@ -16,7 +16,11 @@ const GetConversation = (req, res, next) => {
   }
   return Conversation
     .findById(params.id)
-    .populate('messages')
+    .populate(['messages', 'tutor', 'learner'])
+    .populate({
+      path: 'messages',
+      populate: { path: 'sender' },
+    })
     .exec((error, conversation) => {
       if (error) {
         return next({
