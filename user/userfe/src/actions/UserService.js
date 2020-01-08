@@ -1,4 +1,5 @@
 import history from '../helpers/HistoryHelper';
+
 const host = 'http://localhost:8080';
 function handleLogOut(resp) {
   if (resp.code !== 1) {
@@ -45,12 +46,12 @@ function register(user) {
 }
 
 function update(user) {
-  var header = new Headers();
+  const header = new Headers();
   const userCookie = JSON.parse(localStorage.getItem('user'));
-  header.append('Content-Type', 'application/json');
-  header.append('Authorization', userCookie ? `Bearer ${userCookie.token}` : ``);
+  // header.append('Content-Type', 'application/json');
+  header.append('Authorization', userCookie ? `Bearer ${userCookie.token}` : '');
   console.log(userCookie.token);
-  var fd =new FormData();
+  const fd = new FormData();
 
   const {
     id, infor, avatar, data,
@@ -58,8 +59,8 @@ function update(user) {
 
   fd.append('id', JSON.stringify(id));
   fd.append('infor', JSON.stringify(infor));
-  
-  
+
+
   if (infor.role === 0) {
     // fd.append('data', JSON.stringify({}));
   } else {
@@ -73,11 +74,16 @@ function update(user) {
     // mode: 'no-cors',
     body: fd,
   });
-  console.log(req.headers);
   return fetch(req).then(handleLogOut).then((resp) => resp.json()).then((data) => {
-    if (data.ok) {
-      const { user } = data;
-      localStorage.setItem('user', JSON.stringify(user));
+    console.log(data);
+
+    if (data.code === 1) {
+      const { user } = data.data;
+      const lss = localStorage.getItem('user');
+      const ls = JSON.parse(lss);
+      console.log(ls);
+      ls.user = user;
+      localStorage.setItem('user', JSON.stringify(ls));
       return data;
     }
     return data;
