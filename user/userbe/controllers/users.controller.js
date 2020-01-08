@@ -5,7 +5,7 @@ const Error = require('../utils/error');
 const UserRepository = require('../repository/user.repository');
 
 
-const parseUser = (data) => {
+const parseUser = (data, extra) => {
   const result = {
     email: data.email,
     fullname: data.fullname,
@@ -17,10 +17,11 @@ const parseUser = (data) => {
   };
   if (data.role === 1) {
     const metadata = {
-      level: data.level,
-      skills: data.skills,
-      intro: data.intro,
-      price: data.price,
+      level: extra.levels,
+      skills: extra.skills,
+      intro: extra.intro,
+      price: extra.price,
+      title: extra.title,
     };
     result.data = metadata;
   }
@@ -31,8 +32,9 @@ const parseUser = (data) => {
 const UpdateUserInfo = async (req, res, next) => {
   const { body } = req;
   const info = JSON.parse(body.infor);
+  const metadata = JSON.parse(body.data);
   console.log('Body ', body);
-  const user = parseUser(info);
+  const user = parseUser(info, metadata);
   if (req.file) {
     const avatar = req.file.path;
     const ret = await cloudinary.uploader.upload(avatar, { use_filename: false });

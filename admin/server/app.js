@@ -21,10 +21,10 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'build')));
 
 app.use('/auth', auth);
 app.use('/user', passport.authenticate('jwt', {session: false}), user);
-
 
 mongoose.connect(uri, {userNewUrlParser: true, userCreateIndex: true})
 

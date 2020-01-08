@@ -33,7 +33,7 @@ const GetTopTutors = async () => {
 
 const GetTutorDetail = async (id) => {
   try {
-    const tutor = await User.findOne({ _id: id, role: 1 }).populate(['city', 'data.skills', 'data.level']).exec();
+    const tutor = await User.findOne({ _id: id, role: 1 }).populate(['city', 'skills', 'data.level']).exec();
     if (!tutor) {
       return {
         error: 'tutor not found',

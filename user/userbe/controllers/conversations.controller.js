@@ -1,6 +1,7 @@
 const SC = require('http-status-codes');
 const Error = require('../utils/error');
 const { Conversation } = require('../models');
+const { GetAll } = require('../repository/conversation.repository');
 const { EnsureGetConversation, EnsureCreateConversation } = require('../utils/validation/conversation');
 
 const GetConversation = (req, res, next) => {
@@ -45,7 +46,7 @@ const CreateConversation = (req, res, next) => {
     });
   }
   const Conv = new Conversation({
-    totur: body.tutor,
+    tutor: body.tutor,
     learner: body.learner,
   });
   return Conv.save((error, conversation) => {
@@ -66,4 +67,24 @@ const CreateConversation = (req, res, next) => {
   });
 };
 
-module.exports = { GetConversation, CreateConversation };
+const GetAllConversation = async (req, res, next) => {
+  try {
+    const id = res.locals.user._id;
+    const conversations = await GetAll(id);
+    return next({
+      status: SC.OK,
+      code: Error.Success,
+      message: 'success',
+      data: conversations,
+    });
+  } catch (ex) {
+    return next({
+      status: SC.INTERNAL_SERVER_ERROR,
+      code: Error.ErrorInDatabase,
+      message: 'cannot get conversation',
+      extra: `${ex}`,
+    });
+  }
+};
+
+module.exports = { GetConversation, CreateConversation, GetAllConversation };
