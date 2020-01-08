@@ -10,15 +10,29 @@ import Footer from './Footer';
 import * as actions from '../actions/index';
 import { Dropdown, Form } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
-import {helperService} from '../actions/HelperService';
+import { helperService } from '../actions/HelperService';
+import configHelper from '../helpers/ConfigHelper';
 
 class Search extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-
+    this.handleSearchData = this.handleSearchData.bind(this);
+    this.handeSearchSubmit = this.handeSearchSubmit.bind(this);
+    this.renderResultItem = this.renderResultItem.bind(this);
+    this.renderSearchHeader = this.renderSearchHeader.bind(this);
+    this.renderResult = this.renderResult.bind(this);
+    this.renderResultFooter = this.renderResultFooter.bind(this);
+    this.handlePageChange = this.handlePageChange.bind(this);
+    this.state = {
+      skills:[],
+      levels: [],
+      cities: []
+    }
   }
   componentDidMount() {
-    const search = queryString.parse(window.location.search);
+    // const search = queryString.parse(window.location.search);
+    // console.log(this.props.search);
+    // this.props.handleSearchData('keyword',search);
     helperService.loadSkills().then((_skills) => {
       this.setState({skills: _skills});
       // state.skills = _skills;
@@ -27,27 +41,36 @@ class Search extends React.Component {
       // state.levels = _levels;
       this.setState({levels: _levels});
     });
-    const {
-      name, city, skills, price
-    } = search;
-    this.props.handleSearch(name, city, skills, price);
+    helperService.loadCities().then((_cities) => {
+      // state.levels = _levels;
+      this.setState({cities : _cities});
+    });
+  }
+
+  handlePageChange(event){
+    event.preventDefault();
+    var {name,value} = event.target;
+    console.log(value);
+    this.props.handlePageChange(parseInt(value)-1);
   }
 
   handleSearchData(event) {
-    const { name, value } = event;
+    event.preventDefault()
+    const { name, value } = event.target;
     this.props.handleSearchData(name, value);
   }
 
-  handeSearchSubmit() {
+  handeSearchSubmit(event) {
+    event.preventDefault();
     const {
       keyword, city, skill, price,
     } = this.props.search;
-    this.props.handleSearch(keyword, city._id, skill._id, price);
+    this.props.handleSearch(keyword, city, skill, price);
   }
 
-  renderResultItem() {
-    this.ResultItem = (
-      <section className="air-card-hover air-card-hover-escape air-card-hover_tile ng-scope">
+  renderResultItem(item,_i) {
+    return (
+      <section className="air-card-hover air-card-hover-escape air-card-hover_tile ng-scope" key={_i}>
         <div className="ng-scope ng-isolate-scope">
           <div className="ng-scope">
             <article className="row ng-scope">
@@ -57,7 +80,7 @@ class Search extends React.Component {
                     <div style={{ position: 'relative' }} className="ng-isolate-scope">
                       <div>
                         <a href="/o/profiles/users/_~011e44ef04ca098710?s=1110580755107926016">
-                          <img alt="avatar" className="avatar vertical-align-middle m-0 avatar-lg" src="https://www.upwork.com/profile-portraits/c1CSMIPS6fYhw9kHpJ-x-Ay3e1MQG7CtSsGlkETdMXBpTFO6iHTMe7WaBwH8QAi5ut" />
+                          <img alt="avatar" className="avatar vertical-align-middle m-0 avatar-lg" src={item.avatar ? configHelper.baseUrl + '/' + item.avatar : '../public/images/user.png'} />
                         </a>
                       </div>
                     </div>
@@ -68,15 +91,15 @@ class Search extends React.Component {
                 <div className="d-flex flex-grow-1">
                   <div className="flex-grow-1 overflow-hidden">
                     <h4 className="m-0-top-bottom display-inline-block ng-isolate-scope">
-                      <a className="freelancer-tile-name" title="Jamie R." href="/">
-                        <span className="ng-binding ng-scope">Jamie R.</span>
+                      <a className="freelancer-tile-name" title={item.fullname ? item.fullname : ''} href="#">
+                        <span className="ng-binding ng-scope">{item.fullname ? item.fullname : ''}</span>
                       </a>
                     </h4>
                     <div className="m-0-top-bottom ng-isolate-scope">
                       <div>
                         <div className="ng-scope">
                           <h4 className="m-0 freelancer-tile-title ellipsis ng-binding ng-scope">
-                            Senior Full Stack Software Developer (Java, C and C++)
+                            {item.data.title ? item.data.title : ''}
                           </h4>
                         </div>
                       </div>
@@ -89,7 +112,7 @@ class Search extends React.Component {
                       <span style={{ marginRight: '6px' }}>
                         <i className="fas fa-dollar-sign" />
                       </span>
-                      <strong className="ng-binding">50.00</strong>
+                      <strong className="ng-binding">{item.data.price ? item.data.price : ''}</strong>
                       <span className="ext-muted ng-scope">
                         <span className="d-none d-lg-inline-block ng-binding">/giờ</span>
                       </span>
@@ -104,7 +127,6 @@ class Search extends React.Component {
                         <strong className="ng-binding">$300k+</strong>
                         <span className="text-muted m-xs-left"> earned</span>
                       </span>
-
                     </div>
                   </div>
                   <div className="col-md-3">
@@ -142,7 +164,7 @@ class Search extends React.Component {
                         <span style={{ marginRight: '6px' }}>
                           <i className="fas fa-map-marker-alt" />
                         </span>
-                        <strong className="ng-binding">Ho Chi Minh</strong>
+                        <strong className="ng-binding">{item.city ? item.city.name : ''}</strong>
                       </div>
                     </div>
                   </div>
@@ -154,7 +176,7 @@ class Search extends React.Component {
                         <span aria-hidden="true" className="glyphicon m-0-left m-xs-right">
                           <i className="fas fa-graduation-cap" />
                         </span>
-                        Trình độ: Thạc sĩ
+                        Trình độ: {item.data.level ? item.data.level.name : ''}
                       </div>
                     </div>
                   </div>
@@ -163,9 +185,7 @@ class Search extends React.Component {
                   <div className="col-md-12">
                     <div className="ng-isolate-scope">
                       <p className="p-0-left m-0 freelancer-tile-description ng-binding ng-scope">
-                        I gained a degree a in Computer Science B.Sc from the
-                        university of Manchester and was one of the top of my class
-                        in all of the programming courses (Java, C, C+ ...
+                        {item.data.intro ? item.data.intro : ''}
                       </p>
                     </div>
                   </div>
@@ -176,20 +196,17 @@ class Search extends React.Component {
                       Kỹ năng:
                     </strong>
                     <ul style={{ listStyleType: 'none', marginTop: '10px' }} className="d-flex">
-                      <li className="ng-scope">
-                        <span className="m-0-top m-sm-bottom ng-scope o-tag-skill">
-                          <span className="ng-isolate-scope">
-                            <span className="ng-binding ng-scope">MySQL Administration</span>
-                          </span>
-                        </span>
-                      </li>
-                      <li className="ng-scope">
-                        <span className="m-0-top m-sm-bottom ng-scope o-tag-skill">
-                          <span className="ng-isolate-scope">
-                            <span className="ng-binding ng-scope">MySQL Administration</span>
-                          </span>
-                        </span>
-                      </li>
+                      {item.data.skills ? item.data.skills.map((e, i) => {
+                        return (
+                          <li className="ng-scope" key={i}>
+                            <span className="m-0-top m-sm-bottom ng-scope o-tag-skill">
+                              <span className="ng-isolate-scope">
+                                <span className="ng-binding ng-scope">{e.name}</span>
+                              </span>
+                            </span>
+                          </li>
+                        );
+                      }) : null}
                     </ul>
                   </div>
                   <a className="btn btn-link m-0-bottom m-0-left-right p-0 ng-binding ng-scope" href="/o/profiles/users/_~011e44ef04ca098710?s=1110580755107926016">Thông tin chi tiết</a>
@@ -200,7 +217,22 @@ class Search extends React.Component {
         </div>
       </section>
     );
-    return this.ResultItem;
+  }
+
+  renderResult(){
+    var result = this.props.search.result;
+    var size = this.props.search.size,page = this.props.search.page;
+    return (
+      <div>
+        {result.map((e,i)=> {
+          
+          if (i >= size*page && i <= size*(page+1)- 1)
+          {
+            return this.renderResultItem(e,i); 
+          }   
+        })}
+      </div>
+    );
   }
 
   renderSearchHeader() {
@@ -222,6 +254,9 @@ class Search extends React.Component {
                                 className="form facet-input-search-component ng-pristine ng-valid ng-valid-maxlength"
                               >
                                 <Form.Control
+                                  onChange={this.handleSearchData}
+                                  name="keyword"
+                                  value = {this.props.search.keyword}
                                   className="form-control  ng-not-empty enabled"
                                   aria-label="Freelancer Search"
                                   placeholder="Search"
@@ -239,7 +274,7 @@ class Search extends React.Component {
                       <div className="">
                         <div className="">
                           <div className="m-0 p-sm-left-right filters-toggle-button">
-                            <Button>Search</Button>
+                            <Button type="submit" onClick={this.handeSearchSubmit}>Search</Button>
                           </div>
                         </div>
                       </div>
@@ -252,19 +287,23 @@ class Search extends React.Component {
               <div className="col-lg-4">
                 <div className="row">
                   <Form.Label className="col">Kỹ năng: </Form.Label>
-                  <Form.Control as="select" className="col"></Form.Control>
+                  <Form.Control as="select" name="skill" className="col" value={this.props.search.skill} onChange={this.handleSearchData} style={{height: '40px'}}>
+                   {this.state.skills.map((e, i) => (<option value={e._id} key={i}>{e.name}</option>))}
+                  </Form.Control>
                 </div>
               </div>
               <div className="col-lg-4">
                 <div className="row">
                   <Form.Label className="col">Thành phố: </Form.Label>
-                  <Form.Control as="select" className="col"></Form.Control>
+                  <Form.Control as="select" className="col" name='city' value={this.props.search.city} onChange={this.handleSearchData} style={{height: '40px'}}>
+                    {this.state.cities.map((e, i) => (<option value={e._id} key={i}>{e.name}</option>))}
+                  </Form.Control>
                 </div>
               </div>
               <div className="col-lg-4">
                 <div className="row">
                   <Form.Label className="col">Giá tiền: </Form.Label>
-                  <Form.Control className="col"></Form.Control>
+                  <Form.Control className="col" value={this.props.search.price} onChange={this.handleSearchData} type="text" name="price" style={{height: '40px'}}/>
                 </div>
               </div>
             </div>
@@ -275,6 +314,9 @@ class Search extends React.Component {
   }
 
   renderResultFooter() {
+    var totalPage = Math.floor(this.props.search.result.length/this.props.search.size);
+    var pages = new Array(totalPage);
+    for (var i=0;i<totalPage;i++) pages.push(i);
     return (
       <footer className="ng-scope">
         <div className="row">
@@ -282,21 +324,17 @@ class Search extends React.Component {
             <div>
               <section className="freelancer-search-pagination p-0-top-bottom clearfix">
                 <div data-ng-if="paging.originTotal" className="ng-scope">
-                  <ul className="m-0-top m-xs-bottom pagination ng-pristine ng-untouched ng-valid ng-isolate-scope ng-not-empty pagination">
-                    <li className="pagination-prev ng-scope disabled">
-                      <a href="">
-                        <span aria-hidden="true" className="glyphicon air-icon-arrow-prev m-0-left" />
-                        <span className="d-none d-sm-inline ng-binding">Previous</span>
-                      </a>
-                    </li>
-                    <li className="pagination-page d-none d-sm-inline ng-scope active">
-                      <a href="" className="ng-binding">1</a>
-
-                    </li>
-                    <li className="pagination-page d-none d-sm-inline ng-scope">
-                      <a href="" className="ng-binding">2</a>
-
-                    </li>
+                  <ul className="d-flex m-0-top m-xs-bottom pagina tion ng-pristine ng-untouched ng-valid ng-isolate-scope ng-not-empty pagination">
+                    {pages.map((e,i)=>{
+                      if (e === this.props.search.page - 1 || e === this.props.search.page + 1 || e === this.props.search.page)
+                        return(
+                          <li className="pagination-page d-none d-sm-inline ng-scope" key={i}>
+                            <Form.Control className="ng-binding" type="button" value={e+1} onClick={this.handlePageChange} name="page"></Form.Control>
+                            {/* <a href="#" value={e} className="ng-binding" onClick={this.handlePageChange}>{e+1}</a> */}
+                          </li>
+                        );
+                    })}
+                    
                   </ul>
                 </div>
               </section>
@@ -327,11 +365,9 @@ class Search extends React.Component {
                 <section id="oContractorResults" className="p-0-top-bottom ng-scope">
                   <div className="row ng-scope">
                     <div className="col-xs-12 ng-isolate-scope">
-                      <SearchItem />
-                      {this.renderResultItem()}
-                      {this.renderResultItem()}
-                      {this.renderResultItem()}
-                      {this.renderResultFooter()}
+                      {/* <SearchItem /> */}
+                      {this.props.search.result ? this.renderResult() : ""}
+                      {this.props.search.result.length > 0 ? this.renderResultFooter():null}
                     </div>
                   </div>
                 </section>
@@ -347,7 +383,7 @@ class Search extends React.Component {
 
 const MapStatetoProps = (state) => {
   const { search } = state;
-  return search;
+  return {search};
 };
 
 const MapDispatchToProps = (dispatch, props) => ({
@@ -357,6 +393,9 @@ const MapDispatchToProps = (dispatch, props) => ({
   handleSearch: (keyword, skill, city, price) => {
     dispatch(actions.handleSearch(keyword, skill, city, price));
   },
+  handlePageChange: (page) => {
+    dispatch(actions.handlePageChange(page))
+  }
 });
 
 export default connect(MapStatetoProps, MapDispatchToProps)(Search);

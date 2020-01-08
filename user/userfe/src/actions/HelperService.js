@@ -31,8 +31,9 @@ function loadLevels() {
 }
 
 const search = (data) => {
-  console.log(data);
+  // console.log(data);  
   const qs = queryString.stringify(data);
+  console.log(`${host}/api/search?${qs}`);
   return fetch(`${host}/api/search?${qs}`).then((data) => data.json()).then((ret) => ret);
 };
 
