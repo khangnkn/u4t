@@ -178,11 +178,14 @@ export const handleReloadChatRoom = (room) => ({
   type: types.HANDLE_RELOAD_CHAT_ROOM,
   room,
 });
-export const handleMessageChatRoom = (mess) => ({
-  type: types.HANDLE_MESSAGE_CHAT_ROOM,
-  mess,
+export const handleReloadStory = (story) => ({
+  type: types.HANDLE_RELOAD_STORY,
+  story,
 });
-
+export const handleMessageContent = (mess) => ({
+  type: types.HANDLE_MESSAGE_CONTENT,
+  mess
+})
 export const handleControllerSelectContractManagement = (value) => ({
   type: types.HANDLE_CONTROLLER_SELECT_CONTRACT_MANAGEMENT,
   value,

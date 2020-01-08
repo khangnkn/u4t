@@ -1,4 +1,5 @@
 import history from '../helpers/HistoryHelper';
+import { stringify } from 'query-string';
 
 const host = 'http://localhost:8080';
 function handleLogOut(resp) {
@@ -49,13 +50,13 @@ function update(user) {
   const header = new Headers();
   const userCookie = JSON.parse(localStorage.getItem('user'));
   header.append('Authorization', userCookie ? `Bearer ${userCookie.token}` : '');
-  console.log(userCookie.token);
   const fd = new FormData();
 
   const {
     id, infor, avatar, data,
   } = user;
-
+  if (infor.sex === 1) infor.sex = true;
+  else infor.sex = false;
   fd.append('id', JSON.stringify(id));
   fd.append('infor', JSON.stringify(infor));
 
@@ -212,6 +213,79 @@ function submitCompleteContract(_id) {
   return fetch(req).then(handleLogOut).then((resp) => resp.json()).then((data) => data);
 }
 
+function getAllConverSation() {
+  const headers = new Headers();
+  const userCookie = JSON.parse(localStorage.getItem('user'));
+
+  headers.append('Content-Type', 'application/json');
+  headers.append('Authorization', userCookie ? `Bearer ${userCookie.token}` : 'Bearer');
+
+  const req = new Request(`${host}/api/p/m/conversation`, {
+    method: 'GET',
+    headers,
+    // mode: 'no-cors',
+  });
+
+  return fetch(req).then(handleLogOut).then((resp) => resp.json()).then((data) => {console.log(data);return data});
+}
+
+function getConverSation(id) {
+  const headers = new Headers();
+  const userCookie = JSON.parse(localStorage.getItem('user'));
+
+  headers.append('Content-Type', 'application/json');
+  headers.append('Authorization', userCookie ? `Bearer ${userCookie.token}` : 'Bearer');
+
+  const req = new Request(`${host}/api/p/m/conversation/${id}`, {
+    method: 'GET',
+    headers,
+    // mode: 'no-cors',
+  });
+
+  return fetch(req).then(handleLogOut).then((resp) => resp.json()).then((data) => {return data});
+}
+
+function sendMessage(conversation,sender,content) {
+  const headers = new Headers();
+  const userCookie = JSON.parse(localStorage.getItem('user'));
+
+  headers.append('Content-Type', 'application/json');
+  headers.append('Authorization', userCookie ? `Bearer ${userCookie.token}` : 'Bearer');
+
+  const req = new Request(`${host}/api/p/m/message`, {
+    method: 'POST',
+    headers,
+    // mode: 'no-cors',
+    body: JSON.stringify({conversation,sender,content})
+  });
+
+  return fetch(req).then(handleLogOut).then((resp) => resp.json()).then((data) => {return data});
+}
+
+
+function createConversation(id){
+  const headers = new Headers();
+  const userCookie = JSON.parse(localStorage.getItem('user'));
+
+  headers.append('Content-Type', 'application/json');
+  headers.append('Authorization', userCookie ? `Bearer${userCookie.token}` : 'Bearer');
+  var tutor,learner;
+  if (userCookie.user.role === 0){
+    tutor = id;
+    learner = userCookie.user._id;
+  } else {
+    tutor = userCookie.user._id;
+    learner = id;
+  }
+  const req = new Request(`${host}/api/p/m/conversation`, {
+    method: 'POST',
+    headers,
+    // mode: 'no-cors',
+    body: JSON.stringify({tutor,learner})
+  });
+
+  return fetch(req).then(handleLogOut).then((resp) => resp.json()).then((data) => {return data});
+}
 export default {
   login,
   register,
@@ -224,4 +298,8 @@ export default {
   submitReviewContract,
   submitComplainContract,
   submitCompleteContract,
+  getAllConverSation,
+  getConverSation,
+  sendMessage,
+  createConversation
 };

@@ -12817,21 +12817,21 @@ eo-resizer {
     display: block
 }
 
-.eo-scroll-continuum-container .viewport {
+.eo-scroll-continuum-container .room-viewport {
     outline: 0;
-    height: 100%;
+    height: 690px;
     position: relative;
-    overflow-y: auto;
-    overflow-x: hidden;
+    /* overflow-y: auto;
+    overflow-x: hidden; */
     -webkit-backface-visibility: hidden
 }
 
-.eo-scroll-continuum-container .viewport .content>* {
+.eo-scroll-continuum-container .room-viewport .content>* {
     -webkit-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0)
 }
 
-.eo-scroll-continuum-container .viewport .content {
+.eo-scroll-continuum-container .room-viewport .content {
     width: 100%;
     position: static;
     bottom: auto;
@@ -12843,7 +12843,7 @@ eo-resizer {
     transform: translate3d(0, 0, 0)
 }
 
-.eo-scroll-continuum-container .viewport .content.minimal-content {
+.eo-scroll-continuum-container .room-viewport .content.minimal-content {
     overflow: visible;
     position: absolute;
     bottom: 0
@@ -13826,14 +13826,14 @@ a.room-list-all:hover {
 }
 
 .room-timestamp+.new-messages-divider {
-    margin-top: -16px!important;
-    margin-bottom: 15px
+    /* margin-top: -16px!important; */
+    /* margin-bottom: 15px */
 }
 
 @media (max-width:767px) {
     .room-timestamp+.new-messages-divider {
-        margin-top: -1px!important;
-        margin-bottom: 0
+        /* margin-top: -1px!important;
+        margin-bottom: 0 */
     }
 }
 
@@ -15438,7 +15438,7 @@ eo-spotlight:not(.active) .dropdown-menu {
     background-color: #f9f9f9
 }
 
-.side-panel-closed .story-box {
+.room-side-panel-closed .story-box {
     width: 100%!important
 }
 
@@ -15620,7 +15620,7 @@ body.is-mobile-app .btn-float {
     border-top: 1px solid #e0e0e0;
     border-bottom: 1px solid #e0e0e0;
     font-size: 12px;
-    margin: 15px 0 15px
+    margin: 15px 0 0px
 }
 
 @media (max-width:767px) {
@@ -17311,7 +17311,7 @@ textarea.msg-composer-input.msg-composer-input-large {
     border-left: solid 1px #e0e0e0
 }
 
-.side-panel-closed .rooms-side-panel {
+.room-side-panel-closed .rooms-side-panel {
     display: none
 }
 
@@ -17352,7 +17352,6 @@ textarea.msg-composer-input.msg-composer-input-large {
 
 @media (max-width:991px) {
     .rooms-chat-container.reject .file-drop-container .file-drop-target .file-warning {
-        padding: 0 30px;
         height: auto;
         top: 50%;
         transform: translateY(-50%)
