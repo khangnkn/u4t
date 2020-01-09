@@ -5,9 +5,9 @@ const { Schema } = mongoose;
 // Create Schema User
 const MessageSchema = new Schema({
   timestamp: {
-    type: Date,
+    type: Number,
     required: true,
-    default: Date.now,
+    default: Math.floor(+Date.now() / 1000),
   },
   content: {
     type: String,

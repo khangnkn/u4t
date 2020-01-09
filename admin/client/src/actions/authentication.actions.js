@@ -2,7 +2,7 @@ import axios from 'axios'
 import jwtDecode from 'jwt-decode'
 
 import setAuthorizationToken from "../utils/setAuthorizationToken";
-import {LOG_IN} from "../constants/apis";
+import {BASE_URL, LOG_IN} from "../constants/apis";
 import * as types from "../constants/actionTypes";
 
 const {errorResponse, successResponse} = require('../utils/responseFormat');
@@ -21,14 +21,16 @@ export function login(data) {
             password: data.password
         }
     };
+    let url = `${BASE_URL}${LOG_IN}`;
     return async dispatch => {
         try {
-            const res = await axios.post(LOG_IN, _data)
-            const token = res.data.token;
+            const res = await axios.post(url, _data);
+            const token = res.data.dt.jwt;
+            console.log(token)
             localStorage.setItem('jwtToken', token);
             setAuthorizationToken(token);
             dispatch(setCurrentUser(jwtDecode(token)));
-            return successResponse(successResponse())
+            return successResponse({})
         } catch (e) {
             return errorResponse(e)
         }

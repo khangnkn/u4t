@@ -1,41 +1,51 @@
 const express = require("express");
 
 const router = express.Router();
-const sign = require("jsonwebtoken");
-const authenticate = require("passport");
+const jwt = require('jsonwebtoken');
+const passport = require("passport");
 const AdminService = require("../services/admin.service");
 const ControllerResponse = require('../utils/res/controller.response');
 
 const AdminValidator = require("../utils/validator/admins.validator");
 const ObjectIdValidator = require("../utils/validator/objectID.validator");
 
-// router.post('/login', function (req, res) {
-//     authenticate('local', { session: false },
-//         (err, admin, info) => {
-//             if (err || !admin) {
-//                 return res.status(401).json(
-//                     ResponseFormat.error(info.code, info.message, null)
-//                 );
-//             }
-//             req.login(admin, { session: false }, (err) => {
-//                 if (err) {
-//                     return res.status(401).json(
-//                         ResponseFormat.error('UK0', err.message, err)
-//                     );
-//                 }
-//                 const _admin = {
-//                     username: admin.username
-//                 };
-//
-//                 const token = sign(_admin, process.env.JWT_SECRET);
-//                 return res.status(200).json(
-//                     ResponseFormat.login_success({
-//                         jwt: token
-//                     })
-//                 );
-//             });
-//         })(req, res);
-// });
+router.post('/login', function (req, res) {
+    passport.authenticate('local', {session: false},
+        (err, admin, info) => {
+            console.log('Authenticate');
+            if (err || !admin) {
+                const result = {
+                    err: true,
+                    res: null,
+                    data: info
+                };
+                return ControllerResponse.authenticateResponse(res, result);
+            }
+            req.login(admin, {session: false}, (err) => {
+                if (err) {
+                    const result = {
+                        err: false,
+                        res: null,
+                        data: err
+                    };
+                    return ControllerResponse.authenticateResponse(res, result);
+                }
+                const _admin = {
+                    username: admin.username
+                };
+
+                const token = jwt.sign(_admin, process.env.JWT_SECRET);
+                const result = {
+                    err: null,
+                    res: true,
+                    data: {
+                        jwt: token
+                    }
+                };
+                return ControllerResponse.authenticateResponse(res, result);
+            });
+        })(req, res);
+});
 
 router.post('/',
     AdminValidator.addAdminValidationRules(),

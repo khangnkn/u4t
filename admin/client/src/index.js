@@ -8,7 +8,7 @@ import App from "./App";
 import * as serviceWorker from './serviceWorker';
 import configureStore from "./store/configureStore"
 import setAuthorizationToken from "./utils/setAuthorizationToken";
-import {setCurrentUser} from "./actions/authentication";
+import {setCurrentUser} from "./actions/authentication.actions";
 
 const store = configureStore();
 
