@@ -243,4 +243,217 @@
 }
 ```
 
-## create message
+## get all contracts
+- path: `/api/p/contracts `
+- method: `get`
+- response:
+```json
+{
+    "code": 1,
+    "message": "success",
+    "data": [
+        {
+            "price": 250000,
+            "hpw": 0,
+            "total": 4500000,
+            "issuing_time": 1578527800225,
+            "rating": 0,
+            "reviews": [],
+            "_id": "5e166c6aa217740f5862fc4e",
+            "tutor": {
+                "data": {
+                    "skills": [
+                        "5e12177ecd9af428d8fa7472",
+                        "5e14dedd564a6b4e50c86a30"
+                    ],
+                    "level": "5dfdaa512bc57e11b630c55e",
+                    "intro": "XXXAAA",
+                    "price": 4440,
+                    "title": "SA"
+                },
+                "avatar": "http://res.cloudinary.com/ddll58gxr/image/upload/v1578473187/ukqlfgp2zavrbznqvbmy.png",
+                "is_active": true,
+                "role": 1,
+                "deleted_at": null,
+                "_id": "5e15941cb8817f20f2724d91",
+                "username": "khangnkn",
+                "created_at": "2020-01-08T08:34:36.911Z",
+                "updated_at": "2020-01-08T08:34:36.911Z",
+                "__v": 0,
+                "address": "414 Duong Ba Trac",
+                "city": "5df0e3394576d02450b15e9f",
+                "email": "khangnkn@vng.com.vn",
+                "fullname": "Nguyen Khac Nguyen Khang",
+                "gender": false,
+                "phone": "0907152450"
+            },
+            "learner": {
+                "data": {
+                    "skills": []
+                },
+                "avatar": "http://res.cloudinary.com/ddll58gxr/image/upload/v1578463062/wybbzpxwcjnriofnhe2k.png",
+                "is_active": true,
+                "role": 0,
+                "deleted_at": null,
+                "_id": "5dfb406db41c611d1ecfb490",
+                "username": "khang",
+                "city": "5df0e3394576d02450b15e9f",
+                "created_at": "2019-12-19T09:18:37.116Z",
+                "updated_at": "2020-01-08T16:17:00.691Z",
+                "__v": 0,
+                "address": "414 Duong Ba Trac",
+                "email": "nguyenkhacnguyenkhang@gmail.com",
+                "fullname": "Nguyen Khang",
+                "gender": false,
+                "phone": "0907152450"
+            },
+            "title": "Hop dong thu 2",
+            "description": "Day JavaScript",
+            "start_date": 1578527826,
+            "end_date": 1580947027,
+            "__v": 0
+        },
+        {
+            "price": 250000,
+            "hpw": 4,
+            "total": 450000,
+            "issuing_time": 1578528008568,
+            "rating": 0,
+            "reviews": [],
+            "_id": "5e166d504316290ff1c49558",
+            "tutor": {
+                "data": {
+                    "skills": [
+                        "5e12177ecd9af428d8fa7472",
+                        "5e14dedd564a6b4e50c86a30"
+                    ],
+                    "level": "5dfdaa512bc57e11b630c55e",
+                    "intro": "XXXAAA",
+                    "price": 4440,
+                    "title": "SA"
+                },
+                "avatar": "http://res.cloudinary.com/ddll58gxr/image/upload/v1578473187/ukqlfgp2zavrbznqvbmy.png",
+                "is_active": true,
+                "role": 1,
+                "deleted_at": null,
+                "_id": "5e15941cb8817f20f2724d91",
+                "username": "khangnkn",
+                "created_at": "2020-01-08T08:34:36.911Z",
+                "updated_at": "2020-01-08T08:34:36.911Z",
+                "__v": 0,
+                "address": "414 Duong Ba Trac",
+                "city": "5df0e3394576d02450b15e9f",
+                "email": "khangnkn@vng.com.vn",
+                "fullname": "Nguyen Khac Nguyen Khang",
+                "gender": false,
+                "phone": "0907152450"
+            },
+            "learner": {
+                "data": {
+                    "skills": []
+                },
+                "avatar": "http://res.cloudinary.com/ddll58gxr/image/upload/v1578463062/wybbzpxwcjnriofnhe2k.png",
+                "is_active": true,
+                "role": 0,
+                "deleted_at": null,
+                "_id": "5dfb406db41c611d1ecfb490",
+                "username": "khang",
+                "city": "5df0e3394576d02450b15e9f",
+                "created_at": "2019-12-19T09:18:37.116Z",
+                "updated_at": "2020-01-08T16:17:00.691Z",
+                "__v": 0,
+                "address": "414 Duong Ba Trac",
+                "email": "nguyenkhacnguyenkhang@gmail.com",
+                "fullname": "Nguyen Khang",
+                "gender": false,
+                "phone": "0907152450"
+            },
+            "title": "Hop dong thu 3",
+            "description": "Day nhieu thu",
+            "start_date": 1578528061,
+            "end_date": 1579737662,
+            "__v": 0
+        }
+    ]
+}
+```
+
+### change contract status
+- path: `/api/p/contracts/status/:id`
+- method: `post`
+- params: id of contract
+- body:
+```json
+{
+    "status": 1,
+}
+```
+- response:
+```json
+{
+    "code": 1,
+    "message": "success",
+    "data": {
+        "price": 120,
+        "hpw": 0,
+        "status": 1,
+        "total": 12,
+        "issuing_time": 1578508285641,
+        "rating": 0,
+        "reviews": [],
+        "_id": "5e16271ec093294844baf2f5",
+        "tutor": {
+            "data": {
+                "skills": [
+                    "5e12177ecd9af428d8fa7472",
+                    "5e14dedd564a6b4e50c86a30"
+                ],
+                "level": "5dfdaa512bc57e11b630c55e",
+                "intro": "XXXAAA",
+                "price": 4440,
+                "title": "SA"
+            },
+            "avatar": "http://res.cloudinary.com/ddll58gxr/image/upload/v1578473187/ukqlfgp2zavrbznqvbmy.png",
+            "is_active": true,
+            "role": 1,
+            "deleted_at": null,
+            "_id": "5e15941cb8817f20f2724d91",
+            "username": "khangnkn",
+            "created_at": "2020-01-08T08:34:36.911Z",
+            "updated_at": "2020-01-08T08:34:36.911Z",
+            "__v": 0,
+            "address": "414 Duong Ba Trac",
+            "city": "5df0e3394576d02450b15e9f",
+            "email": "khangnkn@vng.com.vn",
+            "fullname": "Nguyen Khac Nguyen Khang",
+            "gender": false,
+            "phone": "0907152450"
+        },
+        "learner": {
+            "data": {
+                "skills": []
+            },
+            "avatar": "http://res.cloudinary.com/ddll58gxr/image/upload/v1578463062/wybbzpxwcjnriofnhe2k.png",
+            "is_active": true,
+            "role": 0,
+            "deleted_at": null,
+            "_id": "5dfb406db41c611d1ecfb490",
+            "username": "khang",
+            "city": "5df0e3394576d02450b15e9f",
+            "created_at": "2019-12-19T09:18:37.116Z",
+            "updated_at": "2020-01-08T16:17:00.691Z",
+            "__v": 0,
+            "address": "414 Duong Ba Trac",
+            "email": "nguyenkhacnguyenkhang@gmail.com",
+            "fullname": "Nguyen Khang",
+            "gender": false,
+            "phone": "0907152450"
+        },
+        "title": "12",
+        "description": "",
+        "start_date": 1578502800,
+        "end_date": 1579712400,
+        "__v": 0
+    }
+}
+```

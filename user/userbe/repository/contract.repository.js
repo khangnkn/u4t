@@ -1,14 +1,14 @@
 const { Contract } = require('../models');
 
-const GetByTutor = async (id) => {
+const GetAll = async (id) => {
   try {
-    const contracts = await Contract.find({ tutor: id }).populate('tutor').exec();
-    return contracts;
+    const l1 = await Contract.find({ tutor: id }).populate(['tutor', 'learner']).exec();
+    const l2 = await Contract.find({ learner: id }).populate(['tutor', 'learner']).exec();
+    return [...l1, ...l2];
   } catch (err) {
     return err;
   }
 };
-
 const Create = async (data) => {
   const contract = new Contract();
   contract.tutor = data.tutor;
@@ -29,7 +29,18 @@ const Create = async (data) => {
   }
 };
 
+const ChangeStatus = async (id, status) => {
+  try {
+    await Contract.findByIdAndUpdate(id, { status }, { useFindAndModify: false });
+    const res = await Contract.findById(id).populate(['learner', 'tutor']);
+    return res;
+  } catch (ex) {
+    return ex;
+  }
+};
+
 module.exports = {
-  GetByTutor,
+  GetAll,
   Create,
+  ChangeStatus,
 };
