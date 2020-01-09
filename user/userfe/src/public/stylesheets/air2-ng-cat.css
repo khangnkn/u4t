@@ -21,7 +21,9 @@ pre {
     font-family: monospace, monospace;
     font-size: 1em
 }
-
+.contract-layout{
+    height: 680px !important;
+}
 a {
     background-color: transparent;
     -webkit-text-decoration-skip: objects

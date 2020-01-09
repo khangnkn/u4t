@@ -122,16 +122,17 @@ function createContract(contract) {
   return fetch(req).then(handleLogOut).then((resp) => resp.json()).then((data) => data);
 }
 
-function loadAllContract(id) {
+function loadAllContract() {
+  const userCookie = JSON.parse(localStorage.getItem('user'));
+  var header = new Headers();
+  header.append('Content-Type', 'application/json');
+  header.append('Authorization', userCookie ? `Bearer ${userCookie.token}` : 'Bearer');
   const requestOptions = {
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      id,
-    },
+    headers:header
   };
 
-  return fetch('/api/all-contract', requestOptions).then((resp) => resp.json()).then((data) => data.data);
+  return fetch(`${host}/api/p/contracts`, requestOptions).then((resp) => resp.json()).then((data) => {return data;});
 }
 
 function desicionContractAccept(id, value) {

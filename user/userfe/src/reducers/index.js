@@ -7,6 +7,7 @@ import profile from './profile';
 import createContract from './createContract';
 import chat from './chat';
 import search from './search';
+import contractManagement from './contractManagement';
 
 const myReducer = combineReducers({
   login,
@@ -16,6 +17,7 @@ const myReducer = combineReducers({
   createContract,
   chat,
   search,
+  contractManagement
 });
 
 export default myReducer;

@@ -13,6 +13,7 @@ import CreateContract from './CreateContract';
 import RoomChat from './RoomChat';
 
 import history from '../helpers/HistoryHelper';
+import ContractManagement from './ContractManagement';
 
 const App = () => {
   const userCookie = localStorage.getItem('user');
@@ -31,6 +32,7 @@ const App = () => {
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/search" component={Search} />
+        <Route path="/contract" component={ContractManagement}/>
         {userCookie ? <Route path="/profile" component={Profile} /> : <Redirect to="/home" />}
 
       </Switch>

@@ -17,7 +17,9 @@
 .layout-learner{
     height: 680px !important;
 }
-
+.contract-layout{
+    height: 680px !important;
+}
 .popover.show[data-v-1e6776cd] {
     visibility: visible
 }
