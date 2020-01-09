@@ -4,6 +4,7 @@ const { Create } = require('../repository/contract.repository');
 
 const CreateContract = async (req, res, next) => {
   const data = req.body;
+  console.log(data);
   try {
     const ret = await Create(data);
     return next({

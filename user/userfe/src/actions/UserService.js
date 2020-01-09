@@ -61,9 +61,7 @@ function update(user) {
   fd.append('infor', JSON.stringify(infor));
 
 
-  if (infor.role === 0) {
-    // fd.append('data', JSON.stringify({}));
-  } else {
+  if (infor.role === 1) {
     fd.append('data', JSON.stringify(data));
   }
 
@@ -100,18 +98,25 @@ function loadTop4() {
 
 function createContract(contract) {
   const header = new Headers();
+  const c = contract;
 
   const userCookie = JSON.parse(localStorage.getItem('user'));
 
   header.append('Content-Type', 'application/json');
-  header.append('Authorization', userCookie ? `Bearer${userCookie.token}` : 'Bearer');
+  header.append('Authorization', userCookie ? `Bearer ${userCookie.token}` : 'Bearer');
+
+  const fd = new FormData();
+  c.start_date = Math.floor(c.start_date.getTime() / 1000);
+  c.end_date = Math.floor(c.end_date.getTime() / 1000);
+  c.hpw = parseInt(c.hpw, 10);
+
+  fd.append('contract', JSON.stringify(c));
 
 
-  const req = new Request('/api/contract/create', {
+  const req = new Request(`${host}/api/p/contracts`, {
     method: 'POST',
     headers: header,
-    // mode: 'no-cors',
-    body: JSON.stringify(contract),
+    body: JSON.stringify(c),
   });
 
   return fetch(req).then(handleLogOut).then((resp) => resp.json()).then((data) => data);
@@ -140,7 +145,7 @@ function desicionContractAccept(id, value) {
   const fd = new FormData();
 
   fd.append('id', JSON.stringify(id));
-  fd.append('choice', JSON.stringify(value));
+  fd.append('choice', JSON.stringify());
   const req = new Request('/api/contract/accept', {
     method: 'POST',
     headers: header,

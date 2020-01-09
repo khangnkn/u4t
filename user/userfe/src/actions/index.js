@@ -143,11 +143,11 @@ export const handleCreateContractDateEndChange = (date) => ({
   date,
 });
 
-export const handleCreateContractSetIdUser = (idSt, idTutor,data) => ({
+export const handleCreateContractSetIdUser = (learner, tutor, data) => ({
   type: types.HANDLE_CREATE_CONTRACT_SET_ID_USER,
-  idSt,
-  idTutor,
-  data
+  learner,
+  tutor,
+  data,
 });
 export const handleCreateContractSubmit = (contract) => {
   return (dispatch) => {
