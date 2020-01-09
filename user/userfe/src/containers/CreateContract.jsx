@@ -89,7 +89,8 @@ class CreateContract extends React.Component {
   }
 
   renderContractDetails() {
-    const { contract, tutorInfor } = this.props.createContract;
+    const { tutorInfor } = this.props.createContract;
+    const contract = this.props.createContract.contract;
     const { user } = this.props.createContract.tutorInfor;
     const dateMess = (<div>The start date less or equal the end date.</div>);
     return (
@@ -103,7 +104,7 @@ class CreateContract extends React.Component {
                 src={user.avatar}
               />
               <span className="vertical-align-middle">
-                {user ? `${user.fullname}, ${user.address} - ${user.city.name}` : '' }
+                {user ? `${user.fullname}, ${user.address} - ${user.city.name}` : ''}
               </span>
             </h2>
           </header>
@@ -154,11 +155,27 @@ class CreateContract extends React.Component {
                   <span className="m-sm-left">/giờ</span>
                   {this.validator.message('contract title', contract.price, 'required|numeric')}
                 </div>
-                <div className="clearfix">
-                  <div className="text-muted p-sm-top">
-                    {`Mức lương đề xuất của người dạy là $ ${user ? user.data.price : 0}/giờ`}
+                <div className="col">
+                  <div className="form-group" id="rowHourlyRate">
+                    <Form.Label className="control-label">Kỹ năng liên quan</Form.Label>
+                    <div className="d-xs-block d-sm-inline-block ng-hide" />
+                    <div className="d-flex align-items-center">
+                      <div className="has-feedback">
+                        <Form.Control
+                          onChange={this.handleDataChange}
+                          className="form-control "
+                          as="select"
+                          name="skill"
+                          placeholder="0.00"
+                          value={this.props.createContract.contract.skill ? this.props.createContract.constract.skill : ''}
+                          style={{height: '40px',width: '50px'}}
+                        >
+                          {user.data.skills.length > 0 ? user.data.skills.map((e, i) => (<option value={e._id} key={i}>{e.name}</option>)) : null}
+                        </Form.Control>
+                      </div>
+                    </div>
+                    </div>
                   </div>
-                </div>
               </div>
               <div className="form-group">
                 <Form.Label htmlFor="hourlyWeeklyLimit">Giới hạn giờ/tuần</Form.Label>

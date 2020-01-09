@@ -2,8 +2,10 @@ import React from 'react';
 import { Button, ProgressBar } from 'react-bootstrap';
 import NavBar from './NavBar';
 import Footer from './Footer';
-// import userService from '../actions/UserService';
+import userService from '../actions/UserService';
 import { helperService } from '../actions/HelperService';
+import history from '../helpers/HistoryHelper';
+// import { userService } from '../actions/UserService';
 
 class TeacherProfile extends React.Component {
   constructor(props) {
@@ -12,6 +14,9 @@ class TeacherProfile extends React.Component {
     this.renderSkills = this.renderSkills.bind(this);
     this.renderHistory = this.renderHistory.bind(this);
     this.renderContact = this.renderContact.bind(this);
+    this.renderUserDetail = this.renderUserDetail.bind(this);
+    this.renderChatToLearner = this.renderChatToLearner.bind(this);
+    this.handleCreateConversation = this.handleCreateConversation.bind(this);
     this.state = {
       tutor: {
         avatar: '',
@@ -32,7 +37,7 @@ class TeacherProfile extends React.Component {
     const { tutor } = this.state;
     const idTutor = this.props.match.params.id;
     helperService.loadUserInfor(idTutor).then((resp) => {
-      console.log('resp:', resp);
+      console.log(resp);
       this.setState(
         {
           tutor: {
@@ -45,8 +50,25 @@ class TeacherProfile extends React.Component {
     });
   }
 
+  handleCreateConversation(event) {
+    event.preventDefault();
+    const userCookie = JSON.parse(localStorage.getItem('user'));
+    if ((userCookie.user.role === 1 && this.state.tutor.role === 1) || (userCookie.user.role === 0 && this.state.tutor.role === 0)) {
+      window.alert("Chỉ có người học và người dạy được nhắn tin với nhau.");
+    } else if (userCookie.user.role === 0 && this.state.tutor.role === 1) {
+      userService.createConversation(userCookie.user._id, this.props.match.params.id).then(data => {
+        history.push('/message');
+      });
+    } else {
+      userService.createConversation(this.props.match.params.id, userCookie.user._id).then(data => {
+        history.push('/message');
+      });
+    }
+
+  }
+
   renderDetail(tutor) {
-    this.detailPage = (
+    var detailPage = (
       <div className="ng-scope ng-isolate-scope">
         <div className="m-0 p-0">
           <div className="fe-profile-header ng-scope">
@@ -113,9 +135,7 @@ class TeacherProfile extends React.Component {
                     </div>
                   </div>
                 </div>
-                <div
-                  className="col-xs-12 col-sm-4 col-md-3 col-lg-2 p-0-left d-none d-sm-block"
-                >
+                <div className="col-xs-12 col-sm-4 col-md-3 col-lg-2 p-0-left d-none d-sm-block">
                   <p>
                     Tỷ lệ rating:
                     {' '}
@@ -201,7 +221,97 @@ class TeacherProfile extends React.Component {
         </div>
       </div>
     );
-    return this.detailPage;
+    return detailPage;
+  }
+
+  renderUserDetail(tutor) {
+    var detailPage = (
+      <div className="ng-scope ng-isolate-scope">
+        <div className="m-0 p-0">
+          <div className="fe-profile-header ng-scope">
+            <div
+              className="air-card m-0-left-right-md m-0-left-right-xl m-0-top-bottom m-0-right ng-scope"
+            >
+              <div className="row m-lg-bottom">
+                <div className="col-xs-12 col-sm-8 col-md-9 col-lg-10">
+                  <div className="media">
+                    <div className="m-sm-right">
+                      <div className="ng-isolate-scope">
+                        <div className="ng-isolate-scope">
+                          <div
+                            className="up-active-container ng-isolate-scope"
+                          >
+                            <img
+                              className="avatar avatar-md cfe-avatar m-0 ng-scope"
+                              alt="avatar"
+                              src={tutor.avatar}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="media-body">
+                      <h2 className="m-xs-bottom">
+                        <span itemProp="name" className="ng-binding">
+                          {tutor.fullname}
+                        </span>
+                        <span
+                          className="idv-verified badge badge-verified ng-scope"
+                        >
+                          <span
+                            aria-hidden="true"
+                            className="glyphicon air-icon-verified"
+                          />
+                        </span>
+                      </h2>
+                      <div className="div-local-time">
+                        <div className="ng-isolate-scope">
+                          <span className="fe-map-trigger">
+                            <div>
+                              <div
+                                className="ng-scope ng-isolate-scope"
+                              >
+                                <span
+                                  aria-hidden="true"
+                                  className="glyphicon air-icon-location m-0-left vertical-align-middle m-xs-right"
+                                />
+                                <span
+                                  className="w-700"
+                                >
+                                  <span
+                                    className="ng-binding ng-scope"
+                                  >
+                                    {tutor.address + ' - ' + tutor.city.name}
+                                  </span>
+                                </span>
+                              </div>
+                            </div>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="overlay-container">
+                <div className="up-active-container">
+                  <h3 className="m-0-top m-sm-bottom ng-scope">
+                    <span className="up-active-context up-active-context-title fe-job-title inline-block m-lg-right">
+                      <span className="ng-binding">{'Thông tin liên lạc'}</span>
+                    </span>
+                  </h3>
+                </div>
+                <span className="ng-binding">{tutor.phone ? 'Số điện thọai: ' + tutor.phone : ''}</span>
+                <br></br>
+                <span className="ng-binding">{tutor.email ? 'Hộp thư điện tử: ' + tutor.email : ''}</span>
+              </div>
+              <hr className="m-0-bottom d-block d-lg-none" />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+    return detailPage;
   }
 
   renderHistoryItem(contract, i) {
@@ -451,7 +561,13 @@ class TeacherProfile extends React.Component {
                       <a className="btn btn-primary m-0-top-bottom m-0-left-right" href={`/contract/create?tutor=${_id}`}>Tạo hợp đồng</a>
                     </div>
                   </div>
+                  <div className="ng-scope" style={{ marginTop: '20px' }}>
+                    <div className="d-flex justify-content-center">
+                      <Button className="btn btn-primary m-0-top-bottom m-0-left-right" type="submmit" onClick={this.handleCreateConversation}>Nhắn tin</Button>
+                    </div>
+                  </div>
                 </div>
+
               </div>
             </section>
           </div>
@@ -461,13 +577,46 @@ class TeacherProfile extends React.Component {
     return this.contact;
   }
 
+  renderChatToLearner(_id) {
+    var contact = (
+      <section className="m-lg-bottom ng-scope">
+        <div className="ng-scope">
+          <div className="d-none d-md-block ng-scope">
+            <section className="std-init-reg-form ">
+              <div className="ng-scope">
+                <div className="text-center">
+                  <h3 className="title ">
+                    Bạn muốn trò chuyện người này?
+                  </h3>
+                  <p className="subtitle ">
+                    Hãy bấm vào nút dưới đây để bắt đầu trò chuyện với người học
+                  </p>
+                </div>
+                <div className="ng-pristine ng-valid ng-valid-email">
+                  <div className="ng-scope" style={{ marginTop: '20px' }}>
+                    <div className="d-flex justify-content-center">
+                      <Button className="btn btn-primary m-0-top-bottom m-0-left-right" type="submmit" onClick={this.handleCreateConversation}>Nhắn tin</Button>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+    );
+    return contact;
+  }
+
   render() {
     const { tutor } = this.state;
+    var height = tutor.role === 0 ? '680px' : null;
     return (
       <div>
         <NavBar />
-        <div className="off-canvas-content navbar-fixed-subnav">
-          <div id="layout">
+        <div className="off-canvas-content navbar-fixed-subnav" style={{ overflow: 'auto' }}>
+          <div id="layout" className={tutor.role === 0 ? "layout-learner" : null}>
             <div className="container-visitor">
               <div lass="ng-scope">
                 <div className="ng-scope ng-isolate-scope">
@@ -475,12 +624,12 @@ class TeacherProfile extends React.Component {
                     <div className="fe-ui-application cfe-ui-application">
                       <div className="row eo-block-none o-profile">
                         <div className="cfe-main p-0-left-right-xs col-xs-12 col-lg-9">
-                          {this.renderDetail(tutor)}
-                          {this.renderSkills(tutor.data.skills)}
-                          {this.renderHistory(tutor.contract)}
+                          {tutor.role === 1 ? this.renderDetail(tutor) : this.renderUserDetail(tutor)}
+                          {tutor.role === 1 ? this.renderSkills(tutor.data.skills) : null}
+                          {tutor.role === 1 ? this.renderHistory(tutor.contract) : null}
                         </div>
                         <div className="col-lg-3 cfe-sidebar d-none d-lg-block ng-scope">
-                          {this.renderContact(tutor._id)}
+                          {tutor.role === 1 ? this.renderContact(tutor._id) : this.renderChatToLearner(tutor._id)}
                         </div>
                       </div>
                     </div>
