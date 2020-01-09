@@ -30,14 +30,13 @@ class App extends React.Component {
                         )}
                     />
                     <MainLayout breakpoint={this.props.breakpoint}>
-                        {/*<Route path="/" exact component={requireAuth(DashboardPage)}/>*/}
-                        <Route exact path="/" component={DashboardPage} />
-                        <Route exact path="/management-user" component={UsersManagementPage} />
-                        <Route exact path="/management-skill" component={SkillsManagementPage} />
-                        <Route exact path="/management-contract" component={ContractManagementPage} />
-                        <Route exact path="/management-complain" component={ComplainManagementPage} />
-                        <Route exact path="/management-revenue" component={RevenueManagementPage} />
-                        
+                        <Route exact path="/" component={requireAuth(DashboardPage)}/>
+                        <Route exact path="/dashboard" component={requireAuth(DashboardPage)} />
+                        <Route exact path="/management-user" component={requireAuth(UsersManagementPage)} />
+                        <Route exact path="/management-skill" component={requireAuth(SkillsManagementPage)} />
+                        <Route exact path="/management-contract" component={requireAuth(ContractManagementPage)} />
+                        <Route exact path="/management-complain" component={requireAuth(ComplainManagementPage)} />
+                        <Route exact path="/management-revenue" component={requireAuth(RevenueManagementPage)} />
                     </MainLayout>
                 </Switch>
             </Router>
@@ -45,23 +44,6 @@ class App extends React.Component {
     }
 }
 
-
-// function PrivateRoute({children, ...rest}) {
-//     console.log({children, ...rest});
-//     return (
-//         <Route
-//             {...rest}
-//             render={({location}) =>
-//                 checkCookie() ? (children) :
-//                     (<Redirect
-//                         to={{
-//                             pathname: "/login",
-//                             state: {from: location}
-//                         }}/>)
-//             }
-//         />
-//     );
-// }
 
 const query = ({width}) => {
     if (width < 575) {

@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux'
 
-import authentication from "./authentication";
+import authentication from "./authentication.reducer";
 import user from './user.reducers'
 import skill from './skill.reducers'
 import contract from './contract.reducers'

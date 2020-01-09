@@ -3,7 +3,7 @@ import React from 'react';
 import {Button, Form, FormFeedback, FormGroup, Input, Label} from 'reactstrap';
 import {connect} from "react-redux";
 import isEmpty from 'lodash/isEmpty'
-import {login} from '../../actions/authentication'
+import {login} from '../../actions/authentication.actions'
 
 import logo200Image from '../../assets/img/logo/logo_200.png';
 import validateInput from "../../utils/validations/login";
