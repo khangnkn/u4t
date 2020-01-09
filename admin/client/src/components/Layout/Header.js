@@ -29,6 +29,8 @@ import {
   PopoverBody,
 } from 'reactstrap';
 import bn from 'utils/bemnames';
+import {connect} from "react-redux";
+import {login, logout} from "../../actions/authentication.actions";
 
 const bem = bn.create('header');
 
@@ -50,6 +52,11 @@ class Header extends React.Component {
     isOpenNotificationPopover: false,
     isNotificationConfirmed: false,
     isOpenUserCardPopover: false,
+  };
+
+  onSignOut = () => {
+    console.log('logout');
+    this.props.logout();
   };
 
   toggleNotificationPopover = () => {
@@ -157,7 +164,7 @@ class Header extends React.Component {
                       <MdHelp /> Help
                     </ListGroupItem>
                     <ListGroupItem tag="button" action className="border-light">
-                      <MdExitToApp /> Signout
+                      <Button onClick={this.onSignOut}><MdExitToApp/> Signout</Button>
                     </ListGroupItem>
                   </ListGroup>
                 </UserCard>
@@ -170,4 +177,6 @@ class Header extends React.Component {
   }
 }
 
-export default Header;
+
+
+export default connect(null, {logout})(Header);

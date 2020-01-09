@@ -73,8 +73,22 @@ const deleteResponse = async (res, result) => {
     }
 };
 
-const authenticateResponse = async (res, result) => {
-
+const authenticateResponse = (res, result) => {
+    if (result.err) {
+        return res
+            .status(400)
+            .json(
+                ResponseFormat
+                    .error('AU0', 'Unauthentication', result.data)
+            )
+    } else if (result.res) {
+        return res
+            .status(200)
+            .json(
+                ResponseFormat
+                    .success('AU1', 'Authen success', result.data)
+            );
+    }
 };
 
 const validatorResponse = async (res, errors) => {
