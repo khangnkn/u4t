@@ -2,8 +2,10 @@ import React from 'react';
 import { Button, ProgressBar } from 'react-bootstrap';
 import NavBar from './NavBar';
 import Footer from './Footer';
-// import userService from '../actions/UserService';
+import userService from '../actions/UserService';
 import { helperService } from '../actions/HelperService';
+import history from '../helpers/HistoryHelper';
+// import { userService } from '../actions/UserService';
 
 class TeacherProfile extends React.Component {
   constructor(props) {
@@ -12,6 +14,8 @@ class TeacherProfile extends React.Component {
     this.renderSkills = this.renderSkills.bind(this);
     this.renderHistory = this.renderHistory.bind(this);
     this.renderContact = this.renderContact.bind(this);
+
+    this.handleCreateConversation = this.handleCreateConversation.bind(this);
     this.state = {
       tutor: {
         avatar: '',
@@ -32,7 +36,6 @@ class TeacherProfile extends React.Component {
     const { tutor } = this.state;
     const idTutor = this.props.match.params.id;
     helperService.loadUserInfor(idTutor).then((resp) => {
-      console.log('resp:', resp);
       this.setState(
         {
           tutor: {
@@ -43,6 +46,19 @@ class TeacherProfile extends React.Component {
         },
       );
     });
+  }
+
+  handleCreateConversation(event){
+    event.preventDefault();
+    const userCookie = JSON.parse(localStorage.getItem('user'));
+    if (userCookie.user.role === 1) {
+      window.alert("Chỉ có người học được nhắn tin với người dạy");
+    } else {
+      userService.createConversation(this.props.match.params.id).then(data => {
+        history.push('/message');
+      });
+    }
+    
   }
 
   renderDetail(tutor) {
@@ -447,7 +463,13 @@ class TeacherProfile extends React.Component {
                       <a className="btn btn-primary m-0-top-bottom m-0-left-right" href={`/contract/create?tutor=${_id}`}>Tạo hợp đồng</a>
                     </div>
                   </div>
+                  <div className="ng-scope" style={{marginTop: '20px'}}>
+                    <div className="d-flex justify-content-center">
+                      <Button className="btn btn-primary m-0-top-bottom m-0-left-right" type="submmit" onClick={this.handleCreateConversation}>Nhắn tin</Button>
+                    </div>
+                  </div>
                 </div>
+
               </div>
             </section>
           </div>

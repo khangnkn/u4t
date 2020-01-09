@@ -33,6 +33,7 @@ var initialState = {
         ngayBatDau: '',
         ngayKetThuc: '',
         // kyNang: []
+        skills: ''
     },
     requestCreate: false
 }

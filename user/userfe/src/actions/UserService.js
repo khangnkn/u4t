@@ -268,7 +268,7 @@ function createConversation(id){
   const userCookie = JSON.parse(localStorage.getItem('user'));
 
   headers.append('Content-Type', 'application/json');
-  headers.append('Authorization', userCookie ? `Bearer${userCookie.token}` : 'Bearer');
+  headers.append('Authorization', userCookie ? `Bearer ${userCookie.token}` : 'Bearer');
   var tutor,learner;
   if (userCookie.user.role === 0){
     tutor = id;
@@ -284,7 +284,12 @@ function createConversation(id){
     body: JSON.stringify({tutor,learner})
   });
 
-  return fetch(req).then(handleLogOut).then((resp) => resp.json()).then((data) => {return data});
+  return fetch(req).then(handleLogOut).then((resp) => resp.json()).then((data) => {
+    if (data.code === 1) {
+      console.log(data);
+      // history.push('/message');
+    }
+    return data});
 }
 export default {
   login,

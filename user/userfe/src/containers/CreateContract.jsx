@@ -107,7 +107,7 @@ class CreateContract extends React.Component {
                 src="./Contract_files/c1PoXrydUGYA9LO6ofPHVhDT-C1Jbbt7cP0neDqE2SWOYzmrC4knZuD69ImVgyUNfu"
               />
               <span className="vertical-align-middle">
-                {user ? `${user.fullname}, ${user.address} - ${user.city.name}` : '' }
+                {user ? `${user.fullname}, ${user.address} - ${user.city.name}` : ''}
               </span>
             </h2>
           </header>
@@ -137,32 +137,57 @@ class CreateContract extends React.Component {
 
           <section>
             <div>
-              <div className="form-group" id="rowHourlyRate">
-                <Form.Label className="control-label">Mức tiền lương</Form.Label>
-                <div className="d-xs-block d-sm-inline-block ng-hide" />
-                <div className="d-flex align-items-center">
-                  <div className="has-feedback">
-                    <Form.Control
-                      onChange={this.handleDataChange}
-                      className="form-control text-right p-sm-right width-xs ng-valid ng-not-empty ng-dirty ng-valid-number ng-valid-hr-constraintrequired ng-valid-hr-constraintfloat ng-valid-hr-constraintmin ng-valid-hr-constraintmax ng-touched"
-                      type="number"
-                      name="giaTien"
-                      placeholder="0.00"
-                      value={contract.giaTien}
-                    />
-                    <span
-                      className="glyphicon glyphicon-md air-icon-payment text-primary form-control-feedback"
-                      aria-hidden="true"
-                    />
+              <div className="row">
+                <div className="col">
+                  <div className="form-group" id="rowHourlyRate">
+                    <Form.Label className="control-label">Mức tiền lương</Form.Label>
+                    <div className="d-xs-block d-sm-inline-block ng-hide" />
+                    <div className="d-flex align-items-center">
+                      <div className="has-feedback">
+                        <Form.Control
+                          onChange={this.handleDataChange}
+                          className="form-control text-right p-sm-right width-xs ng-valid ng-not-empty ng-dirty ng-valid-number ng-valid-hr-constraintrequired ng-valid-hr-constraintfloat ng-valid-hr-constraintmin ng-valid-hr-constraintmax ng-touched"
+                          type="number"
+                          name="giaTien"
+                          placeholder="0.00"
+                          value={contract.giaTien}
+                        />
+                        <span
+                          className="glyphicon glyphicon-md air-icon-payment text-primary form-control-feedback"
+                          aria-hidden="true"
+                        />
+                      </div>
+                      <span className="m-sm-left">/giờ</span>
+                      {this.validator.message('contract title', contract.giaTien, 'required|numeric')}
+                    </div>
+                    <div className="clearfix">
+                      <div className="text-muted p-sm-top">
+                        {`Mức lương đề xuất của người dạy là $ ${user ? user.data.price : 0}/giờ`}
+                      </div>
+                    </div>
                   </div>
-                  <span className="m-sm-left">/giờ</span>
-                  {this.validator.message('contract title', contract.giaTien, 'required|numeric')}
                 </div>
-                <div className="clearfix">
-                  <div className="text-muted p-sm-top">
-                    {`Mức lương đề xuất của người dạy là $ ${user ? user.data.price : 0}/giờ`}
+                <div className="col">
+                  <div className="form-group" id="rowHourlyRate">
+                    <Form.Label className="control-label">Kỹ năng liên quan</Form.Label>
+                    <div className="d-xs-block d-sm-inline-block ng-hide" />
+                    <div className="d-flex align-items-center">
+                      <div className="has-feedback">
+                        <Form.Control
+                          onChange={this.handleDataChange}
+                          className="form-control "
+                          as="select"
+                          name="skills"
+                          placeholder="0.00"
+                          // value={contract.skills}
+                          style={{height: '40px',width: '50px'}}
+                        >
+                          {user.data.skills.length > 0 ? user.data.skills.map((e, i) => (<option value={e._id} key={i}>{e.name}</option>)) : null}
+                        </Form.Control>
+                      </div>
+                    </div>
+                    </div>
                   </div>
-                </div>
               </div>
               <div className="form-group">
                 <Form.Label htmlFor="hourlyWeeklyLimit">Giới hạn giờ/tuần</Form.Label>
