@@ -25,7 +25,7 @@ const App = () => {
           <Redirect to="/home" />
         </Route>
         <Route path="/home" component={Home} />
-        <Route path="/tutor/detail/:id" component={TeacherProfile} />
+        <Route path="/user/detail/:id" component={TeacherProfile} />
         <Route path="/contract/create" component={CreateContract} />
         <Route path="/message" component={RoomChat} />
         <Route path="/login" component={Login} />

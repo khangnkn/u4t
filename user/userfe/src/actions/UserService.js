@@ -268,20 +268,20 @@ function sendMessage(conversation,sender,content) {
 }
 
 
-function createConversation(id){
+function createConversation(learner,tutor){
   const headers = new Headers();
   const userCookie = JSON.parse(localStorage.getItem('user'));
 
   headers.append('Content-Type', 'application/json');
   headers.append('Authorization', userCookie ? `Bearer ${userCookie.token}` : 'Bearer');
-  var tutor,learner;
-  if (userCookie.user.role === 0){
-    tutor = id;
-    learner = userCookie.user._id;
-  } else {
-    tutor = userCookie.user._id;
-    learner = id;
-  }
+  // var tutor,learner;
+  // if (userCookie.user.role === 0){
+  //   tutor = id;
+  //   learner = userCookie.user._id;
+  // } else {
+  //   tutor = userCookie.user._id;
+  //   learner = id;
+  // }
   const req = new Request(`${host}/api/p/m/conversation`, {
     method: 'POST',
     headers,

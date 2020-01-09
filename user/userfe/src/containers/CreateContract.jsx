@@ -89,7 +89,8 @@ class CreateContract extends React.Component {
   }
 
   renderContractDetails() {
-    const { contract, tutorInfor } = this.props.createContract;
+    const { tutorInfor } = this.props.createContract;
+    const contract = this.props.createContract.contract;
     const { user } = this.props.createContract.tutorInfor;
     const dateMess = (<div>The start date less or equal the end date.</div>);
     return (
@@ -166,7 +167,7 @@ class CreateContract extends React.Component {
                           as="select"
                           name="skill"
                           placeholder="0.00"
-                          value={contract.skill ? constract.skill : ''}
+                          value={this.props.createContract.contract.skill ? this.props.createContract.constract.skill : ''}
                           style={{height: '40px',width: '50px'}}
                         >
                           {user.data.skills.length > 0 ? user.data.skills.map((e, i) => (<option value={e._id} key={i}>{e.name}</option>)) : null}
