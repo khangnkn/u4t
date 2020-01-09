@@ -11,6 +11,10 @@ const ContractSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
   },
+  skill: {
+    type: Schema.Types.ObjectId,
+    ref: 'Skill',
+  },
   title: {
     type: String,
   },
@@ -18,6 +22,10 @@ const ContractSchema = new Schema({
     type: String,
   },
   price: {
+    type: Number,
+    default: 0,
+  },
+  hpw: {
     type: Number,
     default: 0,
   },

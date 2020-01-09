@@ -4,10 +4,9 @@ const path = require('path');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
-const passport = require('passport')
+const passport = require('passport');
 
-const auth = require('./routes/auth');
-const user = require('./routes/users');
+const router = require('./routes');
 
 require('dotenv').config();
 require('./passport');
@@ -21,12 +20,14 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'build')));
+app.use(router);
 
-app.use('/auth', auth);
-app.use('/user', passport.authenticate('jwt', {session: false}), user);
 
-mongoose.connect(uri, {userNewUrlParser: true, userCreateIndex: true})
+mongoose.connect(uri, {
+    userNewUrlParser: true,
+    userCreateIndex: true,
+    useFindAndModify: false
+});
 
 const connection = mongoose.connection;
 connection.once('open',
@@ -34,5 +35,7 @@ connection.once('open',
         console.log("Connect to MongoDB successfully");
     }
 );
+
+require('./shared/models');
 
 module.exports = app;

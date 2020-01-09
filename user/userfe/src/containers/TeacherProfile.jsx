@@ -221,6 +221,9 @@ class TeacherProfile extends React.Component {
   }
 
   renderHistoryItem(contract, i) {
+    console.log(contract.start_date * 1000);
+    const start_date = new Date(contract.start_date * 1000);
+    const end_date = new Date(contract.end_date * 1000);
     this.historyItem = (
       <div key={i}>
         <div className="m-sm-bottom ng-scope">
@@ -272,7 +275,10 @@ class TeacherProfile extends React.Component {
                                   <strong
                                     className="ng-binding"
                                   >
-                                    5.00
+                                    Rating:
+
+                                    {contract.rating === 0 ? 'not rated' : contract.rating}
+                                    {' '}
 
                                   </strong>
                                 </li>
@@ -282,11 +288,7 @@ class TeacherProfile extends React.Component {
                                   <small
                                     className="text-muted ng-binding"
                                   >
-                                    Oct
-                                                                                                          2019
-                                                                                                          -
-                                                                                                          Nov
-                                                                                              2019
+                                    {`${start_date.toDateString()} - ${end_date.toDateString()}`}
 
                                   </small>
                                 </li>
@@ -308,7 +310,7 @@ class TeacherProfile extends React.Component {
                                     <strong
                                       className="ng-binding"
                                     >
-                                      $54.67
+                                      {contract.total}
 
                                     </strong>
                                   </div>
@@ -332,7 +334,9 @@ class TeacherProfile extends React.Component {
                                   <strong
                                     className="ng-binding"
                                   >
-                                    $54.67
+                                    Total:
+                                    {' '}
+                                    {contract.total}
                                   </strong>
                                 </div>
                                 <div
@@ -341,7 +345,7 @@ class TeacherProfile extends React.Component {
                                   <small
                                     className="text-muted ng-binding"
                                   >
-                                    $4.00/hr
+                                    {`Price ${contract.price}`}
                                   </small>
                                 </div>
                                 <div
@@ -350,7 +354,7 @@ class TeacherProfile extends React.Component {
                                   <div
                                     className="ng-binding ng-scope"
                                   >
-                                    14 hours
+                                    {`${contract.hpw} hours/week`}
                                   </div>
                                 </div>
                               </div>

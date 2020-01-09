@@ -4,83 +4,79 @@ const mongoosePaginate = require('mongoose-paginate-v2');
 const {Schema} = mongoose;
 
 // Create Schema User
-const UserSchema = new Schema({
-    username: {
-        type: String,
-        required: true,
-    },
-    password: {
-        type: String,
-        required: true,
-    },
-    email: {
-        type: String,
-        required: false,
-    },
-    fullname: {
-        type: String,
-        required: false,
-    },
-    avatar: {
-        type: String,
-        required: false,
-    },
-    address: {
-        type: String,
-        required: false,
-    },
-    city: {
-        type: Schema.Types.ObjectId,
-        ref: 'City',
-        required: false,
-    },
-    is_active: {
-        type: Boolean,
-        required: true,
-        default: true,
-    },
-    role: {
-        type: Number,
-        required: false,
-        default: 0,
-    },
-    data: {
-        level: {
+const UserSchema = new Schema(
+    {
+        username: {
+            type: String,
+            required: true,
+        },
+        password: {
+            type: String,
+            required: true,
+        },
+        email: {
             type: String,
             required: false,
         },
-        skills: [{
+        fullname: {
+            type: String,
+            required: false,
+        },
+        avatar: {
+            type: String,
+            required: false,
+        },
+        address: {
+            type: String,
+            required: false,
+        },
+        city: {
             type: Schema.Types.ObjectId,
-            ref: 'Skill',
-            required: false,
-            default: [],
-        }],
-        title: {
-            type: String,
+            ref: 'City',
             required: false,
         },
-        intro: {
-            type: String,
-            required: false,
+        is_active: {
+            type: Boolean,
+            required: true,
+            default: true,
         },
-        price: {
+        role: {
             type: Number,
             required: false,
+            default: 0,
         },
-    },
-    created_at: {
-        type: Date,
-        default: Date.now,
-    },
-    updated_at: {
-        type: Date,
-        default: Date.now,
-    },
-    deleted_at: {
-        type: Date,
-        default: null,
-    },
-});
+        data: {
+            level: {
+                type: String,
+                required: false,
+            },
+            skills: [{
+                type: Schema.Types.ObjectId,
+                ref: 'Skill',
+                required: false,
+                default: [],
+            }],
+            title: {
+                type: String,
+                required: false,
+            },
+            intro: {
+                type: String,
+                required: false,
+            },
+            price: {
+                type: Number,
+                required: false,
+            },
+        },
+        created_at: {
+            type: Date,
+            default: Date.now,
+        }
+    }, {
+        timestamps: {createdAt: 'created_at', updatedAt: 'updated_at'}
+    }
+);
 
 UserSchema.set('toJSON', {
     transform(doc, ret) {
@@ -101,4 +97,3 @@ User.filter = (user) => ({
 });
 
 module.exports = User;
-

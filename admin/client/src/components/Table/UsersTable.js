@@ -1,92 +1,131 @@
 import React from 'react';
-import {Button, Modal, ModalBody, ModalFooter, ModalHeader, Table} from 'reactstrap';
+import {connect} from "react-redux";
+import {Button, Table} from 'reactstrap';
 import Avatar from "../Avatar";
 
-class UsersTable extends React.Component{
+import UserDetail from '../Modal/UserDetail'
+import UserLock from '../Modal/UserLock';
+import {getDetailUser} from "../../actions/user.actions";
+
+class UsersTable extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            modal: false,
-            modal_backdrop: false,
-            modal_nested_parent: false,
-            modal_nested: false,
-            backdrop: true,
+            modal_active: false,
+            modal_detail: false,
+            userChoosed: {}
         }
     }
 
-    toggle = modalType => () => {
-        if (!modalType) {
-            return this.setState({
-                modal: !this.state.modal,
-            });
+    toggle = (modalType, payload) => async () => {
+        switch (modalType) {
+            case 'active':
+                this.setState({
+                    modal_active: !this.state.modal_active,
+                    userChoosed: payload
+                });
+                break;
+            case 'detail':
+                this.setState({
+                    modal_detail: !this.state.modal_detail,
+                    userChoosed: payload
+                });
+                if (!this.state.modal_detail) {
+                    const isAdmin = this.props.admin
+                    let newPayload = {
+                        ...payload,
+                        ...{
+                            admin: isAdmin
+                        }
+                    };
+                    await this.props.getDetailUser(newPayload)
+                }
+                break;
+            default:
+                break;
         }
-
-        this.setState({
-            [`modal_${modalType}`]: !this.state[`modal_${modalType}`],
-        });
     };
 
     render() {
+        let header = <tr>
+            <th>Avatar</th>
+            <th>Full name</th>
+            <th>Username</th>
+            <th>Created at</th>
+            <th>Updated at</th>
+            <th>Status</th>
+            <th>Operation</th>
+        </tr>;
+
+        let items = this.props.datas.map((data, index) => {
+            return (
+                <tr>
+                    <th scope="row">
+                        <Avatar className="mb-2" src={data.avatar}/>
+                    </th>
+                    <td>{data.fullname}</td>
+                    <td>{data.username}</td>
+                    <td>{data.created_at}</td>
+                    <td>{data.updated_at}</td>
+                    <td>{data.is_active ? <h5>Active</h5> : <h5>Locked</h5>}</td>
+                    <td className="pr-0 pl-0">
+                        <Button
+                            onClick={this.toggle('active', {
+                                id: data._id,
+                                active: data.is_active
+                            })}
+                        >
+                            {data.is_active ? 'Lock' : 'Unlock'}
+                        </Button>
+                    </td>
+                    <td className="pr-0 pl-0">
+                        <Button
+                            onClick={this.toggle('detail', {id: data._id})}
+                        >
+                            Detail
+                        </Button>
+                    </td>
+                </tr>
+            )
+        });
+
+        if (items.length === 0) {
+            items = (<h3>No data!!</h3>)
+        }
+
         return (
             <div>
                 <Table hover>
                     <thead>
-                    <tr>
-                        <th>Avatar</th>
-                        <th>Full name</th>
-                        <th>Phone</th>
-                        <th>Birthday</th>
-                        <th>Email</th>
-                        <th>Operation</th>
-                    </tr>
+                    {header}
                     </thead>
                     <tbody>
-                    <tr>
-                        <th scope="row">
-                            <Avatar className="mb-2"/>
-                        </th>
-                        <td>Mark</td>
-                        <td>+84 123456789</td>
-                        <td>01-01-1990</td>
-                        <td>abc@gmail.com</td>
-                        <td>
-                            <Button onClick={this.toggle('backdrop')}>Detail</Button>
-                            <Button onClick={this.toggle('backdrop')}>Edit</Button>
-                            <Button onClick={this.toggle('backdrop')}>Delete</Button>
-
-                        </td>
-                    </tr>
+                    {items}
                     </tbody>
                 </Table>
-                <Modal
-                    isOpen={this.state.modal_backdrop}
-                    toggle={this.toggle('backdrop')}
-                    backdrop={this.state.backdrop}>
-                    <ModalHeader toggle={this.toggle('backdrop')}>
-                        Modal title
-                    </ModalHeader>
-                    <ModalBody>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore magna
-                        aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                        ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                        Duis aute irure dolor in reprehenderit in voluptate velit
-                        esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                        occaecat cupidatat non proident, sunt in culpa qui officia
-                        deserunt mollit anim id est laborum.
-                    </ModalBody>
-                    <ModalFooter>
-                        <Button color="primary" onClick={this.toggle('backdrop')}>
-                            Do Something
-                        </Button>{' '}
-                        <Button color="secondary" onClick={this.toggle('backdrop')}>
-                            Cancel
-                        </Button>
-                    </ModalFooter>
-                </Modal>
+                <UserLock open={this.state.modal_active} toggle={this.toggle('active', {})}
+                          user={this.state.userChoosed}
+                />
+                <UserDetail open={this.state.modal_detail} toggle={this.toggle('detail', {})}
+                            user={this.state.userChoosed}
+                />
             </div>
         );
     }
+}
+
+const mapDispatchToProps = {
+    getDetailUser
 };
 
-export default UsersTable;
+function mapStateToProps(state) {
+    const {user} = state;
+    return {
+        datas: user.datas,
+        type: user.type,
+        detail: user.detail,
+        admin: user.admin
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UsersTable);

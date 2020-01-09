@@ -8,36 +8,24 @@ const LocalStrategy = require('passport-local').Strategy;
 const JWTStrategy = passportJWT.Strategy;
 
 const mongoose = require('mongoose');
-const UserModel = require('./models/Admin');
+const AdminModel = require('./shared/models/admin.model');
 const bcrypt = require('bcryptjs');
 
-passport.use(new LocalStrategy({
-        usernameField: 'email',
-        passwordField: 'password'
-    },
-    function (email, password, cb) {
-        //this one is typically a DB call. Assume that the returned user object is pre-formatted and ready for storing in JWT
-        return UserModel.findOne({email})
-            .then(user => {
-                console.log(user)
-                if (!user) {
-                    return cb(null, false, {message: 'Incorrect email'});
-                }
-                bcrypt.compare(password, user.password)
-                    .then(isMath => {
-                            if (isMath) {
-                                const payload = {
-                                    id: user._id,
-                                    email: user.email
-                                };
-                                return cb(null, payload, {message: 'Logged In Successfully'});
-                            }else {
-                                return cb(null, false, {message: 'Incorrect password.'});
-                            }
-                        }
-                    );
-            })
-            .catch(err => cb(err));
+const RES_CONSTANT = require('./shared/constant/response_code');
+
+passport.use(new LocalStrategy((username, password, done) => {
+        AdminModel.findOne({username: username}, (err, admin) => {
+            if (err) {
+                return done(err, false, RES_CONSTANT.DB_ERROR);
+            }
+            if (!admin) {
+                return done(null, false, RES_CONSTANT.USERNAME_NOT_EXIST);
+            }
+            if (!admin.password === password) {
+                return done(null, false, RES_CONSTANT.PASSWORD_INCORRECT);
+            }
+            return done(null, admin, RES_CONSTANT.LOG_IN_SUCCESS)
+        })
     }
 ));
 
@@ -48,7 +36,7 @@ passport.use(new JWTStrategy({
     function (jwtPayload, cb) {
 
         //find the user in db if needed. This functionality may be omitted if you store everything you'll need in JWT payload.
-        return UserModel.findById(jwtPayload.id)
+        return AdminModel.findById(jwtPayload.id)
             .then(user => {
                 return cb(null, user);
             })

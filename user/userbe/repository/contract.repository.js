@@ -19,6 +19,7 @@ const Create = async (data) => {
   contract.total = data.total;
   contract.start_date = data.start_date;
   contract.end_date = data.end_date;
+  contract.hpw = data.hpw;
   try {
     const res = await contract.save();
     console.log('contract', contract);

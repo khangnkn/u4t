@@ -74,19 +74,15 @@ class CreateContract extends React.Component {
   }
 
   handleDateStartChange(date) {
-    // const moment = require('moment');
-    // const d = moment(date).format('MM/DD/YYYY');
     this.props.handleCreateContractDateStartChange(date);
   }
 
   handleDateEndChange(date) {
-    // const moment = require('moment');
-    // const d = moment(date).format('MM/DD/YYYY');
     this.props.handleCreateContractDateEndChange(date);
   }
 
   checkStartEndDate(start, end) {
-    if (end > start) {
+    if (end < start) {
       return true;
     }
     return false;
@@ -104,7 +100,7 @@ class CreateContract extends React.Component {
               <img
                 alt="avatar"
                 className="avatar avatar-60 m-0-top-bottom m-0-left m-sm-right d-none d-block d-lg-inline"
-                src="./Contract_files/c1PoXrydUGYA9LO6ofPHVhDT-C1Jbbt7cP0neDqE2SWOYzmrC4knZuD69ImVgyUNfu"
+                src={user.avatar}
               />
               <span className="vertical-align-middle">
                 {user ? `${user.fullname}, ${user.address} - ${user.city.name}` : ''}
@@ -118,12 +114,12 @@ class CreateContract extends React.Component {
                 <Form.Control
                   type="text"
                   id="title"
-                  name="tieuDe"
-                  value={contract.tieuDe}
+                  name="title"
+                  value={contract.title}
                   onChange={this.handleDataChange}
                   className="form-control ng-pristine ng-valid ng-not-empty ng-touched"
                 />
-                {this.validator.message('contract title', contract.tieuDe, 'required')}
+                {this.validator.message('contract title', contract.title, 'required')}
               </div>
             </div>
           </section>
@@ -137,35 +133,26 @@ class CreateContract extends React.Component {
 
           <section>
             <div>
-              <div className="row">
-                <div className="col">
-                  <div className="form-group" id="rowHourlyRate">
-                    <Form.Label className="control-label">Mức tiền lương</Form.Label>
-                    <div className="d-xs-block d-sm-inline-block ng-hide" />
-                    <div className="d-flex align-items-center">
-                      <div className="has-feedback">
-                        <Form.Control
-                          onChange={this.handleDataChange}
-                          className="form-control text-right p-sm-right width-xs ng-valid ng-not-empty ng-dirty ng-valid-number ng-valid-hr-constraintrequired ng-valid-hr-constraintfloat ng-valid-hr-constraintmin ng-valid-hr-constraintmax ng-touched"
-                          type="number"
-                          name="giaTien"
-                          placeholder="0.00"
-                          value={contract.giaTien}
-                        />
-                        <span
-                          className="glyphicon glyphicon-md air-icon-payment text-primary form-control-feedback"
-                          aria-hidden="true"
-                        />
-                      </div>
-                      <span className="m-sm-left">/giờ</span>
-                      {this.validator.message('contract title', contract.giaTien, 'required|numeric')}
-                    </div>
-                    <div className="clearfix">
-                      <div className="text-muted p-sm-top">
-                        {`Mức lương đề xuất của người dạy là $ ${user ? user.data.price : 0}/giờ`}
-                      </div>
-                    </div>
+              <div className="form-group" id="rowHourlyRate">
+                <Form.Label className="control-label">Mức tiền lương</Form.Label>
+                <div className="d-xs-block d-sm-inline-block ng-hide" />
+                <div className="d-flex align-items-center">
+                  <div className="has-feedback">
+                    <Form.Control
+                      onChange={this.handleDataChange}
+                      className="form-control text-right p-sm-right width-xs ng-valid ng-not-empty ng-dirty ng-valid-number ng-valid-hr-constraintrequired ng-valid-hr-constraintfloat ng-valid-hr-constraintmin ng-valid-hr-constraintmax ng-touched"
+                      type="number"
+                      name="price"
+                      placeholder="0.00"
+                      value={contract.price}
+                    />
+                    <span
+                      className="glyphicon glyphicon-md air-icon-payment text-primary form-control-feedback"
+                      aria-hidden="true"
+                    />
                   </div>
+                  <span className="m-sm-left">/giờ</span>
+                  {this.validator.message('contract title', contract.price, 'required|numeric')}
                 </div>
                 <div className="col">
                   <div className="form-group" id="rowHourlyRate">
@@ -177,9 +164,9 @@ class CreateContract extends React.Component {
                           onChange={this.handleDataChange}
                           className="form-control "
                           as="select"
-                          name="skills"
+                          name="skill"
                           placeholder="0.00"
-                          // value={contract.skills}
+                          value={contract.skill ? constract.skill : ''}
                           style={{height: '40px',width: '50px'}}
                         >
                           {user.data.skills.length > 0 ? user.data.skills.map((e, i) => (<option value={e._id} key={i}>{e.name}</option>)) : null}
@@ -197,11 +184,11 @@ class CreateContract extends React.Component {
                     className="ng-pristine ng-untouched ng-valid col-lg-4 col-md-5 col-sm-5 col-xs-12 py-0 ng-not-empty ng-valid-hr-constraintinteger ng-valid-hr-constraintmin ng-valid-hr-constraintmax"
                   >
                     <Form.Control
-                      name="ghGio"
+                      name="hpw"
                       onChange={this.handleDataChange}
                       className="qa-wm-contract-proposal-form-limit-custom ng-pristine ng-untouched ng-valid width-sm form-control ng-empty ng-hide"
                       placeholder="Nhập giới hạn"
-                      value={contract.ghGio}
+                      value={contract.hpw}
                     />
                     {/* {this.validator.message('limit hours/week', parseInt(contract.ghGio), 'required|numberic')} */}
                   </div>
@@ -214,7 +201,7 @@ class CreateContract extends React.Component {
                       <span className="nowrap">Ngày bắt đầu</span>
                     </Form.Label>
                     <div className="ng-pristine ng-untouched ng-valid ng-empty col-lg-4 col-md-5 col-sm-5 col-xs-12 p-0 ng-valid-date-range">
-                      <DatePicker onChange={this.handleDateStartChange} selected={contract.ngayBatDau} name=" ngayBatDau" />
+                      <DatePicker onChange={this.handleDateStartChange} selected={contract.start_date} name=" start_date" />
 
                     </div>
                   </div>
@@ -225,27 +212,20 @@ class CreateContract extends React.Component {
                       <span className="nowrap">Ngày kết thúc</span>
                     </Form.Label>
                     <div className="ng-pristine ng-untouched ng-valid ng-empty col-lg-4 col-md-5 col-sm-5 col-xs-12 p-0 ng-valid-date-range">
-                      <DatePicker onChange={this.handleDateEndChange} name="ngayKetThuc" selected={contract.ngayKetThuc} />
+                      <DatePicker onChange={this.handleDateEndChange} name="end_date" selected={contract.end_date} />
                     </div>
                     {this.checkStartEndDate(contract.ngayBatDau, contract.ngayKetThuc) ? dateMess : null}
                   </div>
                 </div>
               </div>
-              {/* <div className="form-group row full-width m-0-left">
-                <Form.Label className="control-label border-0-bottom">
-                  <span className="nowrap">Tổng dự kiến</span>
-                </Form.Label>
-                <div className="ng-pristine ng-untouched ng-valid ng-empty col-lg-4 col-md-5 col-sm-5 col-xs-12 p-0 ng-valid-date-range">
-                  <span>2 000 000</span>
-                </div>
-              </div> */}
+
               <div className="form-group row full-width m-0-left">
                 <Form.Label className="control-label border-0-bottom">
                   <span className="nowrap">Tổng tiền muốn trả</span>
                 </Form.Label>
                 <div className="ng-pristine ng-untouched ng-valid ng-empty col-lg-4 col-md-5 col-sm-5 col-xs-12 p-0 ng-valid-date-range">
-                  <Form.Control name="tongTien" onChange={this.handleDataChange} className="qa-wm-contract-proposal-form-limit-custom ng-pristine ng-untouched ng-valid width-sm form-control ng-empty ng-hide" />
-                  {/* {this.validator.message('total', contract.tongTien, 'required|numberic')} */}
+                  <Form.Control name="total" onChange={this.handleDataChange} className="qa-wm-contract-proposal-form-limit-custom ng-pristine ng-untouched ng-valid width-sm form-control ng-empty ng-hide" />
+                  {/* {this.validator.message('total', contract.total, 'required|numberic')} */}
                 </div>
               </div>
             </div>
@@ -273,18 +253,15 @@ class CreateContract extends React.Component {
               >
                 <div>
                   <textarea
-                    name="moTa"
+                    name="description"
                     onChange={this.handleDataChange}
-                    value={contract.moTa}
+                    value={contract.description}
                     className="form-control ng-pristine ng-untouched ng-valid ng-not-empty"
                     autoComplete="off"
                     placeholder="Hãy mô tả về công việc để người dạy có thể hiểu rõ hơn."
                     rows="8"
                   />
-                  {this.validator.message('contract description', contract.moTa, 'required')}
-                  {/* <span className="form-message form-error form-error-bottom">
-                                            <span>Báo lỗi</span>
-                                        </span> */}
+                  {this.validator.message('contract description', contract.description, 'required')}
                 </div>
               </div>
             </section>
@@ -313,7 +290,7 @@ class CreateContract extends React.Component {
                 <div className="row">
                   <div className="checkbox col-md-6">
                     <Form.Label>
-                      <Form.Control type="checkbox" onChange={this.handleSkillsChange} name="kyNang" value="1" />
+                      <Form.Control type="checkbox" onChange={this.handleSkillsChange} name="skill" value="1" />
                       <span className="checkbox-replacement-helper">
                         <span aria-hidden="true" className="glyphicon ">
                           <i className="fas fa-check" />
@@ -324,7 +301,7 @@ class CreateContract extends React.Component {
                   </div>
                   <div className="checkbox col-md-6">
                     <Form.Label>
-                      <Form.Control type="checkbox" onChange={this.handleSkillsChange} name="kyNang" value="3" />
+                      <Form.Control type="checkbox" onChange={this.handleSkillsChange} name="skill" value="3" />
                       <span className="checkbox-replacement-helper">
                         <span aria-hidden="true" className="glyphicon">
                           <i className="fas fa-check" />
@@ -335,7 +312,7 @@ class CreateContract extends React.Component {
                   </div>
                   <div className="checkbox col-md-6">
                     <Form.Label>
-                      <Form.Control type="checkbox" onChange={this.handleSkillsChange} name="kyNang" value="4" />
+                      <Form.Control type="checkbox" onChange={this.handleSkillsChange} name="skill" value="4" />
                       <span className="checkbox-replacement-helper">
                         <span aria-hidden="true" className="glyphicon">
                           <i className="fas fa-check" />
@@ -443,8 +420,8 @@ const mapDispatchToProps = (dispatch, props) => ({
   handleCreateContractDateEndChange: (date) => {
     dispatch(actions.handleCreateContractDateEndChange(date));
   },
-  setId: (idSt, idTutor, data) => {
-    dispatch(actions.handleCreateContractSetIdUser(idSt, idTutor, data));
+  setId: (learner, tutor, data) => {
+    dispatch(actions.handleCreateContractSetIdUser(learner, tutor, data));
   },
   handleCreateContractSubmit: (contract) => {
     dispatch(actions.handleCreateContractSubmit(contract));
